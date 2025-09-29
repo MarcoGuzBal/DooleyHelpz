@@ -8,8 +8,7 @@ import pprint
 def ensure_indexes(col):
   col.create_index([("code", 1), ("section", 1)], unique=True)
 
-
-def upsert_courses(col, courses): # ensure indexes and upsert
+def upsert_courses(col, courses): # upsert then update indexes. lowkey make sure indexes are updated first
   existing_keys = set(
     (doc["code"], doc.get("section"))
     for doc in col.find({}, {"_id": 0, "code": 1, "section": 1})
@@ -41,6 +40,11 @@ def upsert_courses(col, courses): # ensure indexes and upsert
   return record
 
 # --- helper functions end ---
+
+
+
+
+
 
 
 
@@ -148,13 +152,10 @@ if __name__ == "__main__":
 
   # print(profs)
 
-
   '''
   find(filter, projection)
   distinct(field, filter)
-
   '''
-
 
   # 6. upsert
     # result = col.update_one(
