@@ -1,8 +1,6 @@
 Thoughts on Prerequisite Structure
-	•	Outer list = AND → every group must be satisfied
-	•	Inner list = OR → at least one course in the group must be taken
-
-⸻
+•	Outer list = AND → every group must be satisfied
+•	Inner list = OR → at least one course in the group must be taken
 
 Example:
 ```
