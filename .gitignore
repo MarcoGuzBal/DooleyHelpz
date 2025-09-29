@@ -1,4 +1,5 @@
 .DS_Store
 dooleyhelpz/
 .env
-scripts/dump.py
+dump.py
+cluster0/
