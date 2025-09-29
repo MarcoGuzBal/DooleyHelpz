@@ -5,7 +5,7 @@ Thoughts on Prerequisite Structure
 ⸻
 
 Example:
-'''
+```
 {
   "prerequisites": [
     ["CS 170", "CS_OX 170"],
@@ -14,7 +14,7 @@ Example:
     ["CS 253"]
   ]
 }
-'''
+```
 
 Meaning:
 A student must complete (CS 170 or CS_OX 170) AND (CS 171 or CS_OX 171) AND (CS 224 or CS_OX 224) AND CS 253.
