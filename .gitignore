@@ -1,5 +1,5 @@
 .DS_Store
 dooleyhelpz/
 .env
-dump.py
+test_db/
 cluster0/
