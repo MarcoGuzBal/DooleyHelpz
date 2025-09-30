@@ -1,3 +1,4 @@
 pymongo
 python-dotenv
 datetime
+pandas
