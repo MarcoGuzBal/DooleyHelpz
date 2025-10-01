@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import datetime
 import pprint
 
+
 # --- helper functions start ---
 def ensure_indexes(col):
   col.create_index([("code", 1), ("section", 1)], unique=True)
