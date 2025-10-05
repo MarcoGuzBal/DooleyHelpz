@@ -1,11 +1,18 @@
 import { useState } from 'react'
-import './App.css'
+import './index.css'
+import HomePage from "./pages/HomePage";
+import { Routes, Route, Link } from "react-router-dom";
+
 
 function App() {
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-900 text-white">
-      <h1 className="text-4xl font-bold">Hello, we are DooleyHelpz!</h1>
+    <div>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          {/* wildcard for 404s */}
+          <Route path="*" element={<h1>Not found</h1>} />
+        </Routes>
     </div>
   )
 }
