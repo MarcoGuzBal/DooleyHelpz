@@ -1,22 +1,16 @@
-# fast_visual.py — headed, exact 4×3 tiling on a 2560×1600 canvas, search uses LETTERS-ONLY dept code
-# Sets OUTER window bounds via CDP. Atomic output write. Temp backup off-repo.
-
 from playwright.sync_api import sync_playwright
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 import json, re, threading, math, argparse, os, tempfile, time, shutil
 
-# ---------- fixed canvas ----------
 CANVAS_W = 2560
 CANVAS_H = 1600
 ORIGIN_X = 0
 ORIGIN_Y = 0
 
-# small safety shrink so borders never cross tile edges
 SHRINK_W = 4
 SHRINK_H = 4
 
-# ---------- helpers ----------
 def dept_key(code):
     m = re.match(r"\s*([A-Za-z]+)", str(code) if code is not None else "")
     return (m.group(1).upper() if m else "")
@@ -48,7 +42,6 @@ def detect_restrictions(code, has_permission_text):
                 restrictions["level"] = "advanced"
     return restrictions
 
-# ---------- probe ----------
 def check_permission_for_course_fast(page, course_code):
     try:
         q = dept_key(course_code)
@@ -56,7 +49,7 @@ def check_permission_for_course_fast(page, course_code):
             return False
 
         page.goto("https://atlas.emory.edu/", timeout=20000)
-        page.get_by_label("Keyword").fill(q)  # LETTERS-ONLY prefix (dept), numbers stripped
+        page.get_by_label("Keyword").fill(q) 
         page.select_option("select#crit-srcdb", "Spring 2026")
         page.select_option("select#crit-camp", "Atlanta Campus")
         page.get_by_role("button", name="SEARCH").click()
@@ -122,7 +115,6 @@ def check_permission_for_course_fast(page, course_code):
     except Exception:
         return False
 
-# ---------- exact tiling ----------
 def exact_grid_for_k(k):
     if k == 12:
         return 4, 3
@@ -163,7 +155,6 @@ def compute_tiles_exact(k, cols=None, rows=None):
         tiles.append(((int(x), int(y)), (int(w), int(h))))
     return tiles
 
-# ---------- window placement (CDP, outer bounds) ----------
 def set_window_bounds_outer(context, page, x, y, w, h):
     session = context.new_cdp_session(page)
     info = session.send("Browser.getWindowForTarget")
@@ -175,7 +166,6 @@ def set_window_bounds_outer(context, page, x, y, w, h):
         "bounds": {"left": int(x), "top": int(y), "width": int(w), "height": int(h), "windowState": "normal"}
     })
 
-# ---------- worker ----------
 def process_batch_visual(courses_batch, tile, slow_mo_ms, total, stats, stats_lock, record_dir=None):
     permission_items = []
     with sync_playwright() as p:
@@ -221,7 +211,6 @@ def process_batch_visual(courses_batch, tile, slow_mo_ms, total, stats, stats_lo
         browser.close()
     return permission_items
 
-# ---------- driver ----------
 def run(input_file, output_file, workers, slow_mo, record_video):
     print("=" * 60)
     print("FAST VISUAL ENRICH (exact tiling, dept-only query, atomic write)")
