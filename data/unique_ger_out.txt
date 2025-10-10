@@ -1,0 +1,1176 @@
+1     AAS100      [ETHN, HSC]          <-- hsc w/race & ethnicity req.
+2     MATH315     [MQR]                <-- mathematics and quantitative reasoning
+3     MATH315     [MQR]                <-- mathematics and quantitative reasoning
+4     ECON212     [SS]                 <-- social sciences(*)
+5     ECON212     [SS]                 <-- social sciences(*)
+6     ECON212     [SS]                 <-- social sciences(*)
+7     PHYS115     [NS]                 <-- natural sciences(*)
+8     MESAS370    [HSC]                <-- history society cultures
+9     AAS190      [FS]                 <-- first year seminar
+10    MATH321     [MQR]                <-- mathematics and quantitative reasoning
+11    JPN102      [IC]                 <-- intercultural communication(*)
+12    JPN102      [IC]                 <-- intercultural communication(*)
+13    JPN102      [IC]                 <-- intercultural communication(*)
+14    JPN102      [IC]                 <-- intercultural communication(*)
+15    JPN102      [IC]                 <-- intercultural communication(*)
+16    JPN102      [IC]                 <-- intercultural communication(*)
+17    MESAS378W   [CW, ETHN]           <-- continuing comm.& writing with race & ethnicity(*)
+18    ECON215     [SS]                 <-- social sciences(*)
+19    ECON215     [SS]                 <-- social sciences(*)
+20    AAS190      [FS]                 <-- first year seminar
+21    MATH330     [MQR]                <-- mathematics and quantitative reasoning
+22    PHYS116     [NS]                 <-- natural sciences(*)
+23    JPN202      [IC]                 <-- intercultural communication(*)
+24    JPN202      [IC]                 <-- intercultural communication(*)
+25    AAS190      [FS]                 <-- first year seminar
+26    MATH344     [MQR]                <-- mathematics and quantitative reasoning
+27    PHYS117     [SNT]                <-- science nature technology
+28    BIOL285     [SNT]                <-- science nature technology
+29    AAS239      [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+30    JPN302      [IC]                 <-- intercultural communication(*)
+31    MATH346     [MQR]                <-- mathematics and quantitative reasoning
+32    PHYS125     [NS]                 <-- natural sciences(*)
+33    BIOL285W    [CW]                 <-- continuing communication and writing(*)
+34    ECON220     [QR]                 <-- quantitative reasoning(*)
+35    ECON220     [QR]                 <-- quantitative reasoning(*)
+36    ECON220     [QR]                 <-- quantitative reasoning(*)
+37    ECON220     [QR]                 <-- quantitative reasoning(*)
+38    ECON220     [QR]                 <-- quantitative reasoning(*)
+39    ECON220     [QR]                 <-- quantitative reasoning(*)
+40    ECON220     [QR]                 <-- quantitative reasoning(*)
+41    ECON220     [QR]                 <-- quantitative reasoning(*)
+42    AAS247      [ETHN, SS]           <-- social sciences with race & ethnicity(*)
+43    AAS247      [ETHN, SS]           <-- social sciences with race & ethnicity(*)
+44    JPN351      [IC]                 <-- intercultural communication(*)
+45    ECON231     [SS]                 <-- social sciences(*)
+46    BIOL301     [SNT]                <-- science nature technology
+47    BIOL301     [SNT]                <-- science nature technology
+48    CPLT101     [FW]                 <-- first-year writing(*)
+49    CPLT101     [FW]                 <-- first-year writing(*)
+50    CPLT101     [FW]                 <-- first-year writing(*)
+51    CPLT101     [FW]                 <-- first-year writing(*)
+52    CPLT101     [FW]                 <-- first-year writing(*)
+53    AAS259      [ETHN, SS]           <-- social sciences with race & ethnicity(*)
+54    MATH351     [MQR]                <-- mathematics and quantitative reasoning
+55    JPN372W     [HAP, WRT]           <-- humanities arts performance with writing
+56    CPLT201W    [CW, HA]             <-- humanities and arts with cont.communication(*)
+57    ECON309W    [HSC, WRT]           <-- history society cultures with writing
+58    HIST190     [FS]                 <-- first year seminar
+59    AAS262      [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+60    CPLT202     [HA]                 <-- humanities and arts(*)
+61    JPN402      [IC]                 <-- intercultural communication(*)
+62    MATH362     [MQR]                <-- mathematics and quantitative reasoning
+63    MATH362     [MQR]                <-- mathematics and quantitative reasoning
+64    CPLT202W    [CW, HA]             <-- humanities and arts with cont.communication(*)
+65    AAS267W     [ETHN, HA]           <-- humanities & arts with c.comm/race & ethnicity(*)
+66    JS180       [HA]                 <-- humanities and arts(*)
+67    HIST190     [FS]                 <-- first year seminar
+68    MATH412     [MQR]                <-- mathematics and quantitative reasoning
+69    CPLT301W    [HAP, WRT]           <-- humanities arts performance with writing
+70    JS190       [FS]                 <-- first year seminar
+71    HIST190     [FS]                 <-- first year seminar
+72    CPLT389     [HAP]                <-- humanities arts performance
+73    AAS285      [HSC]                <-- history society cultures
+74    MATH422     [MQR]                <-- mathematics and quantitative reasoning
+75    CPLT389W    [HAP, WRT]           <-- humanities arts performance with writing
+76    HIST190     [FS]                 <-- first year seminar
+77    PHYS142     [NS]                 <-- natural sciences(*)
+78    PHYS142     [NS]                 <-- natural sciences(*)
+79    AAS285W     [HSC, WRT]           <-- history society cultures with writing
+80    BIOL360     [SNT]                <-- science nature technology
+81    JS268       [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+82    MATH425     [MQR]                <-- mathematics and quantitative reasoning
+83    HIST190     [FS]                 <-- first year seminar
+84    BIOL360L    [SNTL]               <-- science nature and technology with lab
+85    AAS303      [ETHN, HAP]          <-- hap w/race & ethnicity req.
+86    JS270       [ETHN, SS]           <-- social sciences with race & ethnicity(*)
+87    ECON320     [MQR]                <-- mathematics and quantitative reasoning
+88    ECON320     [MQR]                <-- mathematics and quantitative reasoning
+89    ECON320     [MQR]                <-- mathematics and quantitative reasoning
+90    ECON320     [MQR]                <-- mathematics and quantitative reasoning
+91    ECON320     [MQR]                <-- mathematics and quantitative reasoning
+92    ECON320     [MQR]                <-- mathematics and quantitative reasoning
+93    ECON320     [MQR]                <-- mathematics and quantitative reasoning
+94    ECON320     [MQR]                <-- mathematics and quantitative reasoning
+95    HIST190     [FS]                 <-- first year seminar
+96    JS271       [HSC]                <-- history society cultures
+97    AAS307      [HAP]                <-- humanities arts performance
+98    ECON350     [ETHN]               <-- race and ethnicity(*)
+99    CS110       [QR]                 <-- quantitative reasoning(*)
+100   CS110       [QR]                 <-- quantitative reasoning(*)
+101   JS280       [HSC]                <-- history society cultures
+102   HIST200     [HA]                 <-- humanities and arts(*)
+103   PHYS152     [NS]                 <-- natural sciences(*)
+104   AAS320R     [HSC]                <-- history society cultures
+105   PHYS190     [FS]                 <-- first year seminar
+106   JS280W      [HAP, WRT]           <-- humanities arts performance with writing
+107   AAS346      [ETHN, HSC]          <-- hsc w/race & ethnicity req.
+108   HIST206     [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+109   CS170       [QR]                 <-- quantitative reasoning(*)
+110   CS170       [QR]                 <-- quantitative reasoning(*)
+111   CS170       [QR]                 <-- quantitative reasoning(*)
+112   CS170       [QR]                 <-- quantitative reasoning(*)
+113   JS280W      [HSC, WRT]           <-- history society cultures with writing
+114   PHYS190     [FS]                 <-- first year seminar
+115   AAS347      [ETHN]               <-- race and ethnicity(*)
+116   CS171       [QR]                 <-- quantitative reasoning(*)
+117   CS171       [QR]                 <-- quantitative reasoning(*)
+118   JS329       [ETHN, HSC]          <-- hsc w/race & ethnicity req.
+119   HIST221     [ETHN, SS]           <-- social sciences with race & ethnicity(*)
+120   AAS359      [ETHN, HAP]          <-- hap w/race & ethnicity req.
+121   JS338       [ETHN, HSC]          <-- hsc w/race & ethnicity req.
+122   PHYS212     [NS]                 <-- natural sciences(*)
+123   AAS373      [ETHN]               <-- race and ethnicity(*)
+124   ECON410W    [CW]                 <-- continuing communication and writing(*)
+125   CS224       [QR]                 <-- quantitative reasoning(*)
+126   HIST232     [HA]                 <-- humanities and arts(*)
+127   JS348       [ETHN, HAP]          <-- hap w/race & ethnicity req.
+128   RUSS102     [IC]                 <-- intercultural communication(*)
+129   RUSS102     [IC]                 <-- intercultural communication(*)
+130   PHYS222     [NS]                 <-- natural sciences(*)
+131   AAS378      [ETHN, HAP]          <-- hap w/race & ethnicity req.
+132   HIST239     [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+133   CS253       [QR]                 <-- quantitative reasoning(*)
+134   CS253       [QR]                 <-- quantitative reasoning(*)
+135   ECON411W    [CW]                 <-- continuing communication and writing(*)
+136   JS370       [HSC]                <-- history society cultures
+137   RUSS190     [FS]                 <-- first year seminar
+138   AAS384      [ETHN, HSC]          <-- hsc w/race & ethnicity req.
+139   CS255       [QR]                 <-- quantitative reasoning(*)
+140   HIST241     [HAP]                <-- humanities arts performance
+141   ECON412W    [CW]                 <-- continuing communication and writing(*)
+142   JS370       [HSC]                <-- history society cultures
+143   PHYS311     [SNTL]               <-- science nature and technology with lab
+144   RUSS202     [IC]                 <-- intercultural communication(*)
+145   AAS385      [HSC]                <-- history society cultures
+146   HIST241W    [HAP, WRT]           <-- humanities arts performance with writing
+147   JS371       [HSC]                <-- history society cultures
+148   ECON425     [MQR]                <-- mathematics and quantitative reasoning
+149   PHYS365     [SNT]                <-- science nature technology
+150   RUSS273W    [CW, HA]             <-- humanities and arts with cont.communication(*)
+151   AAS385      [HAP]                <-- humanities arts performance
+152   JS371       [HSC]                <-- history society cultures
+153   RUSS313     [IC]                 <-- intercultural communication(*)
+154   HIST249W    [ETHN, HA]           <-- humanities & arts with c.comm/race & ethnicity(*)
+155   CS325       [MQR]                <-- mathematics and quantitative reasoning
+156   JS380       [HSC]                <-- history society cultures
+157   RUSS374W    [HAP, WRT]           <-- humanities arts performance with writing
+158   AAS385      [HSC]                <-- history society cultures
+159   PHYS422     [SNT]                <-- science nature technology
+160   HIST254     [SS]                 <-- social sciences(*)
+161   CS326       [MQR]                <-- mathematics and quantitative reasoning
+162   CS326       [MQR]                <-- mathematics and quantitative reasoning
+163   JS471W      [HSC, WRT]           <-- history society cultures with writing
+164   AAS385W     [HAP, WRT]           <-- humanities arts performance with writing
+165   HIST267W    [ETHN, HA]           <-- humanities & arts with c.comm/race & ethnicity(*)
+166   CS329       [MQR]                <-- mathematics and quantitative reasoning
+167   RUSS375W    [CW]                 <-- continuing communication and writing(*)
+168   JS490RW     [CW]                 <-- continuing communication and writing(*)
+169   AAS490R     [HSC]                <-- history society cultures
+170   ECON451     [ETHN]               <-- race and ethnicity(*)
+171   HIST268     [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+172   CS334       [MQR]                <-- mathematics and quantitative reasoning
+173   CS334       [MQR]                <-- mathematics and quantitative reasoning
+174   KRN101      [IC]                 <-- intercultural communication(*)
+175   KRN101      [IC]                 <-- intercultural communication(*)
+176   SOC101      [SS]                 <-- social sciences(*)
+177   SOC101      [SS]                 <-- social sciences(*)
+178   SOC101      [SS]                 <-- social sciences(*)
+179   AAS495BW    [CW]                 <-- continuing communication and writing(*)
+180   PHYS444W    [CW, XA]             <-- experience and application with cont.comm(*)
+181   HIST270     [ETHN, SS]           <-- social sciences with race & ethnicity(*)
+182   CS350       [MQR]                <-- mathematics and quantitative reasoning
+183   CS350       [MQR]                <-- mathematics and quantitative reasoning
+184   SOC190      [FS]                 <-- first year seminar
+185   PHYS445W    [CW, XA]             <-- experience and application with cont.comm(*)
+186   HIST278     [SS]                 <-- social sciences(*)
+187   SOC214      [SS]                 <-- social sciences(*)
+188   BIOL495A    [XA]                 <-- experience and application(*)
+189   SOC221      [SS]                 <-- social sciences(*)
+190   HIST285     [HSC]                <-- history society cultures
+191   KRN102      [IC]                 <-- intercultural communication(*)
+192   KRN102      [IC]                 <-- intercultural communication(*)
+193   KRN102      [IC]                 <-- intercultural communication(*)
+194   KRN102      [IC]                 <-- intercultural communication(*)
+195   KRN102      [IC]                 <-- intercultural communication(*)
+196   KRN102      [IC]                 <-- intercultural communication(*)
+197   KRN102      [IC]                 <-- intercultural communication(*)
+198   PHYS461     [SNT]                <-- science nature technology
+199   CS377       [MQR]                <-- mathematics and quantitative reasoning
+200   CS377       [MQR]                <-- mathematics and quantitative reasoning
+201   BIOL495BW   [CW]                 <-- continuing communication and writing(*)
+202   SOC230      [SS]                 <-- social sciences(*)
+203   KRN201      [IC]                 <-- intercultural communication(*)
+204   HIST285     [HSC]                <-- history society cultures
+205   PHYS463     [SNT]                <-- science nature technology
+206   CS424       [MQR]                <-- mathematics and quantitative reasoning
+207   SOC247      [ETHN, SS]           <-- social sciences with race & ethnicity(*)
+208   SOC247      [ETHN, SS]           <-- social sciences with race & ethnicity(*)
+209   HIST285     [HSC]                <-- history society cultures
+210   KRN202      [IC]                 <-- intercultural communication(*)
+211   KRN202      [IC]                 <-- intercultural communication(*)
+212   PHYS495A    [XA]                 <-- experience and application(*)
+213   SOC249      [SS]                 <-- social sciences(*)
+214   KRN274      [SS]                 <-- social sciences(*)
+215   SOC250      [SS]                 <-- social sciences(*)
+216   PHYS495BW   [CW]                 <-- continuing communication and writing(*)
+217   HIST296     [HSC]                <-- history society cultures
+218   KRN302      [IC]                 <-- intercultural communication(*)
+219   SOC275      [QR]                 <-- quantitative reasoning(*)
+220   CS452       [MQR]                <-- mathematics and quantitative reasoning
+221   HIST296     [HSC]                <-- history society cultures
+222   SOC289      [HSC]                <-- history society cultures
+223   KRN402      [IC]                 <-- intercultural communication(*)
+224   CS463       [SNT]                <-- science nature technology
+225   HIST296     [HSC]                <-- history society cultures
+226   SOC289      [HSC]                <-- history society cultures
+227   KRN404      [IC]                 <-- intercultural communication(*)
+228   CS470       [MQR]                <-- mathematics and quantitative reasoning
+229   SOC289      [HSC]                <-- history society cultures
+230   HIST296     [HSC]                <-- history society cultures
+231   SOC307      [HSC]                <-- history society cultures
+232   HIST307     [ETHN]               <-- race and ethnicity(*)
+233   SOC337      [HSC]                <-- history society cultures
+234   HIST325W    [HSC, WRT]           <-- history society cultures with writing
+235   SOC370B     [XA]                 <-- experience and application(*)
+236   FILM101     [HA]                 <-- humanities and arts(*)
+237   FILM101     [HA]                 <-- humanities and arts(*)
+238   FILM101     [HA]                 <-- humanities and arts(*)
+239   FILM101     [HA]                 <-- humanities and arts(*)
+240   LACS102     [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+241   LACS102     [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+242   HIST329     [ETHN, HSC]          <-- hsc w/race & ethnicity req.
+243   LACS265W    [ETHN, HSC, WRT]     <-- hscw w/race & ethnicity req.
+244   HIST338     [ETHN, HSC]          <-- hsc w/race & ethnicity req.
+245   LACS270     [HSC]                <-- history society cultures
+246   FILM102     [HA]                 <-- humanities and arts(*)
+247   FILM102     [HA]                 <-- humanities and arts(*)
+248   FILM102     [HA]                 <-- humanities and arts(*)
+249   HIST341     [HSC]                <-- history society cultures
+250   PHYS499R    [XA]                 <-- experience and application(*)
+251   PHYS499R    [XA]                 <-- experience and application(*)
+252   PHYS499R    [XA]                 <-- experience and application(*)
+253   PHYS499R    [XA]                 <-- experience and application(*)
+254   PHYS499R    [XA]                 <-- experience and application(*)
+255   PHYS499R    [XA]                 <-- experience and application(*)
+256   PHYS499R    [XA]                 <-- experience and application(*)
+257   PHYS499R    [XA]                 <-- experience and application(*)
+258   PHYS499R    [XA]                 <-- experience and application(*)
+259   PHYS499R    [XA]                 <-- experience and application(*)
+260   PHYS499R    [XA]                 <-- experience and application(*)
+261   PHYS499R    [XA]                 <-- experience and application(*)
+262   PHYS499R    [XA]                 <-- experience and application(*)
+263   PHYS499R    [XA]                 <-- experience and application(*)
+264   PHYS499R    [XA]                 <-- experience and application(*)
+265   PHYS499R    [XA]                 <-- experience and application(*)
+266   PHYS499R    [XA]                 <-- experience and application(*)
+267   PHYS499R    [XA]                 <-- experience and application(*)
+268   PHYS499R    [XA]                 <-- experience and application(*)
+269   PHYS499R    [XA]                 <-- experience and application(*)
+270   PHYS499R    [XA]                 <-- experience and application(*)
+271   PHYS499R    [XA]                 <-- experience and application(*)
+272   PHYS499R    [XA]                 <-- experience and application(*)
+273   PHYS499R    [XA]                 <-- experience and application(*)
+274   PHYS499R    [XA]                 <-- experience and application(*)
+275   LACS270     [HSC]                <-- history society cultures
+276   HIST349     [HSC]                <-- history society cultures
+277   FILM107     [HA]                 <-- humanities and arts(*)
+278   FILM107     [HA]                 <-- humanities and arts(*)
+279   LACS363W    [ETHN, HSC, WRT]     <-- hscw w/race & ethnicity req.
+280   BIOL499R    [XA]                 <-- experience and application(*)
+281   HIST359     [ETHN, HAP]          <-- hap w/race & ethnicity req.
+282   FILM202     [HA]                 <-- humanities and arts(*)
+283   HIST361     [ETHN, HSC]          <-- hsc w/race & ethnicity req.
+284   LACS490RW   [CW]                 <-- continuing communication and writing(*)
+285   FILM203     [HA]                 <-- humanities and arts(*)
+286   HIST363W    [ETHN, HSC, WRT]     <-- hscw w/race & ethnicity req.
+287   HIST377     [HAP]                <-- humanities arts performance
+288   FILM204     [HA]                 <-- humanities and arts(*)
+289   LAT102      [IC]                 <-- intercultural communication(*)
+290   LAT102      [IC]                 <-- intercultural communication(*)
+291   LAT102      [IC]                 <-- intercultural communication(*)
+292   SOC446W     [HSC, WRT]           <-- history society cultures with writing
+293   HIST384     [ETHN, HSC]          <-- hsc w/race & ethnicity req.
+294   LAT202      [IC]                 <-- intercultural communication(*)
+295   ECS190      [FS]                 <-- first year seminar
+296   ECS190      [FS]                 <-- first year seminar
+297   ECS190      [FS]                 <-- first year seminar
+298   ECS190      [FS]                 <-- first year seminar
+299   SOC457W     [CW]                 <-- continuing communication and writing(*)
+300   LAT370      [IC]                 <-- intercultural communication(*)
+301   HIST385     [HSC]                <-- history society cultures
+302   FILM265     [HA]                 <-- humanities and arts(*)
+303   SOC461      [HSC]                <-- history society cultures
+304   HIST385     [HSC]                <-- history society cultures
+305   FILM273W    [CW, HA]             <-- humanities and arts with cont.communication(*)
+306   LAT495BW    [CW]                 <-- continuing communication and writing(*)
+307   HIST385W    [HSC, WRT]           <-- history society cultures with writing
+308   ECS491      [HAP]                <-- humanities arts performance
+309   SOC494R     [XA]                 <-- experience and application(*)
+310   FILM278W    [CW, HA]             <-- humanities and arts with cont.communication(*)
+311   FILM278W    [CW, HA]             <-- humanities and arts with cont.communication(*)
+312   SOC495BW    [CW]                 <-- continuing communication and writing(*)
+313   HIST396     [HSC]                <-- history society cultures
+314   FILM280     [HAP]                <-- humanities arts performance
+315   SOC497R     [XA]                 <-- experience and application(*)
+316   HIST396W    [HSC, WRT]           <-- history society cultures with writing
+317   FILM285     [HAP]                <-- humanities arts performance
+318   HIST398R    [XA]                 <-- experience and application(*)
+319   HIST398RW   [CW, XA]             <-- experience and application with cont.comm(*)
+320   FILM285     [HAP]                <-- humanities arts performance
+321   FILM285     [HAP]                <-- humanities arts performance
+322   HIST423W    [CW]                 <-- continuing communication and writing(*)
+323   HIST438W    [CW]                 <-- continuing communication and writing(*)
+324   FILM285     [HAP]                <-- humanities arts performance
+325   HIST487RW   [CW]                 <-- continuing communication and writing(*)
+326   FILM285     [HAP]                <-- humanities arts performance
+327   DANC121R    [PE]                 <-- physical education(*)
+328   DANC121R    [PE]                 <-- physical education(*)
+329   OAM236      [XA]                 <-- experience and application(*)
+330   HIST488RW   [CW]                 <-- continuing communication and writing(*)
+331   FILM285     [HAP]                <-- humanities arts performance
+332   DANC123R    [PE]                 <-- physical education(*)
+333   HIST488RW   [CW]                 <-- continuing communication and writing(*)
+334   DANC124R    [PE]                 <-- physical education(*)
+335   HIST488RW   [CW]                 <-- continuing communication and writing(*)
+336   DANC150R    [PE]                 <-- physical education(*)
+337   FILM295     [XA]                 <-- experience and application(*)
+338   HIST494R    [XA]                 <-- experience and application(*)
+339   FILM301     [HAP]                <-- humanities arts performance
+340   DANC207R    [XA]                 <-- experience and application(*)
+341   HIST495A    [XA]                 <-- experience and application(*)
+342   FILM307     [HAP]                <-- humanities arts performance
+343   HIST495BW   [CW]                 <-- continuing communication and writing(*)
+344   DANC213R    [PE]                 <-- physical education(*)
+345   OAM419      [ETHN]               <-- race and ethnicity(*)
+346   OAM419      [ETHN]               <-- race and ethnicity(*)
+347   DANC220     [HA]                 <-- humanities and arts(*)
+348   SPAN102     [IC]                 <-- intercultural communication(*)
+349   SPAN102     [IC]                 <-- intercultural communication(*)
+350   SPAN102     [IC]                 <-- intercultural communication(*)
+351   SPAN102     [IC]                 <-- intercultural communication(*)
+352   HIST496W    [HSC, WRT]           <-- history society cultures with writing
+353   FILM378RW   [HAP, WRT]           <-- humanities arts performance with writing
+354   FILM378RW   [HAP, WRT]           <-- humanities arts performance with writing
+355   FILM378RW   [HAP, WRT]           <-- humanities arts performance with writing
+356   DANC221R    [PE]                 <-- physical education(*)
+357   SPAN111     [IC]                 <-- intercultural communication(*)
+358   HIST497     [XA]                 <-- experience and application(*)
+359   FILM379RW   [HAP, WRT]           <-- humanities arts performance with writing
+360   DANC222R    [PE]                 <-- physical education(*)
+361   POLS110     [SS]                 <-- social sciences(*)
+362   SPAN190     [FS]                 <-- first year seminar
+363   HIST497W    [CW, XA]             <-- experience and application with cont.comm(*)
+364   AFS190      [FS]                 <-- first year seminar
+365   DANC223R    [PE]                 <-- physical education(*)
+366   FILM385     [HAP]                <-- humanities arts performance
+367   POLS111     [SS]                 <-- social sciences(*)
+368   DANC224R    [PE]                 <-- physical education(*)
+369   AFS221      [ETHN, SS]           <-- social sciences with race & ethnicity(*)
+370   POLS120     [SS]                 <-- social sciences(*)
+371   FILM385     [HAP]                <-- humanities arts performance
+372   DANC226     [PE]                 <-- physical education(*)
+373   AFS263      [HA]                 <-- humanities and arts(*)
+374   POLS150     [SS]                 <-- social sciences(*)
+375   FILM385W    [HAP, WRT]           <-- humanities arts performance with writing
+376   SPAN202     [IC]                 <-- intercultural communication(*)
+377   SPAN202     [IC]                 <-- intercultural communication(*)
+378   SPAN202     [IC]                 <-- intercultural communication(*)
+379   SPAN202     [IC]                 <-- intercultural communication(*)
+380   SPAN202     [IC]                 <-- intercultural communication(*)
+381   SPAN202     [IC]                 <-- intercultural communication(*)
+382   SPAN202     [IC]                 <-- intercultural communication(*)
+383   SPAN202     [IC]                 <-- intercultural communication(*)
+384   SPAN202     [IC]                 <-- intercultural communication(*)
+385   DANC321R    [PE]                 <-- physical education(*)
+386   AFS270      [HAP]                <-- humanities arts performance
+387   POLS190     [FS]                 <-- first year seminar
+388   FILM404     [HAP]                <-- humanities arts performance
+389   SPAN212     [IC]                 <-- intercultural communication(*)
+390   SPAN212     [IC]                 <-- intercultural communication(*)
+391   DANC323R    [PE]                 <-- physical education(*)
+392   POLS190     [FS]                 <-- first year seminar
+393   AFS334      [ETHN, HSC]          <-- hsc w/race & ethnicity req.
+394   SPAN217R    [IC]                 <-- intercultural communication(*)
+395   SPAN217R    [IC]                 <-- intercultural communication(*)
+396   FILM407     [HAP]                <-- humanities arts performance
+397   DANC336     [HAP]                <-- humanities arts performance
+398   POLS202     [HA]                 <-- humanities and arts(*)
+399   AFS389      [HSC]                <-- history society cultures
+400   SPAN300     [IC]                 <-- intercultural communication(*)
+401   FILM485     [HAP]                <-- humanities arts performance
+402   SPAN302W    [CW, IC]             <-- intercultural communication w.cont.comm(*)
+403   DANC350     [HAP]                <-- humanities arts performance
+404   AFS389      [HAP]                <-- humanities arts performance
+405   MUS114      [HA]                 <-- humanities and arts(*)
+406   FILM499R    [HAP]                <-- humanities arts performance
+407   POLS208     [SS]                 <-- social sciences(*)
+408   POLS208     [SS]                 <-- social sciences(*)
+409   POLS208     [SS]                 <-- social sciences(*)
+410   POLS208     [SS]                 <-- social sciences(*)
+411   SPAN303     [IC]                 <-- intercultural communication(*)
+412   POLS238     [SS]                 <-- social sciences(*)
+413   DANC421R    [PE]                 <-- physical education(*)
+414   SPAN304     [IC]                 <-- intercultural communication(*)
+415   MUS122      [HA]                 <-- humanities and arts(*)
+416   MUS122      [HA]                 <-- humanities and arts(*)
+417   MUS122      [HA]                 <-- humanities and arts(*)
+418   POLS268     [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+419   DANC424R    [PE]                 <-- physical education(*)
+420   SPAN318     [IC]                 <-- intercultural communication(*)
+421   SPAN318     [IC]                 <-- intercultural communication(*)
+422   MUS190      [FS]                 <-- first year seminar
+423   AMST201W    [CW, HA]             <-- humanities and arts with cont.communication(*)
+424   POLS285     [ETHN, SS]           <-- social sciences with race & ethnicity(*)
+425   SPAN330     [IC]                 <-- intercultural communication(*)
+426   DANC454W    [CW]                 <-- continuing communication and writing(*)
+427   MUS190      [FS]                 <-- first year seminar
+428   AMST285     [HA]                 <-- humanities and arts(*)
+429   POLS310W    [MQR, WRT]           <-- mathematics & quantitative reasoning with writing
+430   MUS200      [HA]                 <-- humanities and arts(*)
+431   MUS200      [HA]                 <-- humanities and arts(*)
+432   AMST285     [HSC]                <-- history society cultures
+433   POLS325     [HSC]                <-- history society cultures
+434   SPAN413W    [CW]                 <-- continuing communication and writing(*)
+435   MUS204      [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+436   HLTH250     [SS]                 <-- social sciences(*)
+437   AMST321     [ETHN, HAP]          <-- hap w/race & ethnicity req.
+438   SPAN421W    [CW]                 <-- continuing communication and writing(*)
+439   POLS326     [HSC]                <-- history society cultures
+440   MUS212      [HA]                 <-- humanities and arts(*)
+441   AMST385     [HSC]                <-- history society cultures
+442   POLS331     [HSC]                <-- history society cultures
+443   MUS220      [NS]                 <-- natural sciences(*)
+444   AMST385W    [HAP, WRT]           <-- humanities arts performance with writing
+445   POLS334     [ETHN, HSC]          <-- hsc w/race & ethnicity req.
+446   MUS222      [HA]                 <-- humanities and arts(*)
+447   SPAN485W    [CW]                 <-- continuing communication and writing(*)
+448   AMST385W    [HSC, WRT]           <-- history society cultures with writing
+449   HLTH285     [HSC]                <-- history society cultures
+450   POLS346     [ETHN, HSC]          <-- hsc w/race & ethnicity req.
+451   SPAN485W    [CW]                 <-- continuing communication and writing(*)
+452   MUS252W     [ETHN, HA]           <-- humanities & arts with c.comm/race & ethnicity(*)
+453   AMST385W    [CW]                 <-- continuing communication and writing(*)
+454   POLS350     [HSC]                <-- history society cultures
+455   AMST489W    [CW]                 <-- continuing communication and writing(*)
+456   ENG190      [FS]                 <-- first year seminar
+457   POLS353     [HSC]                <-- history society cultures
+458   AMST495BW   [CW]                 <-- continuing communication and writing(*)
+459   ENG190      [FS]                 <-- first year seminar
+460   POLS364     [HSC]                <-- history society cultures
+461   AMST499R    [XA]                 <-- experience and application(*)
+462   HLTH350R    [HSC]                <-- history society cultures
+463   POLS368     [HSC]                <-- history society cultures
+464   MUS283      [HA]                 <-- humanities and arts(*)
+465   ANCMED101   [HA]                 <-- humanities and arts(*)
+466   MUS300R     [XA]                 <-- experience and application(*)
+467   POLS370B    [XA]                 <-- experience and application(*)
+468   HLTH369     [HAP]                <-- humanities arts performance
+469   ENG205      [HA]                 <-- humanities and arts(*)
+470   ENG205      [HA]                 <-- humanities and arts(*)
+471   ENG205      [HA]                 <-- humanities and arts(*)
+472   ENG205      [HA]                 <-- humanities and arts(*)
+473   ENG205      [HA]                 <-- humanities and arts(*)
+474   ANCMED495BW [CW]                 <-- continuing communication and writing(*)
+475   ENG210W     [CW, HA]             <-- humanities and arts with cont.communication(*)
+476   MUS300R     [XA]                 <-- experience and application(*)
+477   POLS374W    [HSC, WRT]           <-- history society cultures with writing
+478   ENG210W     [CW, HA]             <-- humanities and arts with cont.communication(*)
+479   MUS300R     [XA]                 <-- experience and application(*)
+480   ENG211W     [CW, HA]             <-- humanities and arts with cont.communication(*)
+481   MUS300R     [XA]                 <-- experience and application(*)
+482   ENG216      [HA]                 <-- humanities and arts(*)
+483   MUS300R     [XA]                 <-- experience and application(*)
+484   ENG262      [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+485   MUS300R     [XA]                 <-- experience and application(*)
+486   SUST125     [NS]                 <-- natural sciences(*)
+487   ENG271W     [ETHN, HA]           <-- humanities & arts with c.comm/race & ethnicity(*)
+488   MUS300R     [XA]                 <-- experience and application(*)
+489   ENG275W     [ETHN, HA]           <-- humanities & arts with c.comm/race & ethnicity(*)
+490   MUS300R     [XA]                 <-- experience and application(*)
+491   POLS387R    [XA]                 <-- experience and application(*)
+492   ENG290W     [CW, HA]             <-- humanities and arts with cont.communication(*)
+493   MUS300R     [XA]                 <-- experience and application(*)
+494   DATASCI100  [QR]                 <-- quantitative reasoning(*)
+495   DATASCI100  [QR]                 <-- quantitative reasoning(*)
+496   DATASCI100  [QR]                 <-- quantitative reasoning(*)
+497   DATASCI100  [QR]                 <-- quantitative reasoning(*)
+498   DATASCI100  [QR]                 <-- quantitative reasoning(*)
+499   DATASCI100  [QR]                 <-- quantitative reasoning(*)
+500   DATASCI100  [QR]                 <-- quantitative reasoning(*)
+501   DATASCI100  [QR]                 <-- quantitative reasoning(*)
+502   DATASCI100  [QR]                 <-- quantitative reasoning(*)
+503   ENG300W     [HAP, WRT]           <-- humanities arts performance with writing
+504   MUS300R     [XA]                 <-- experience and application(*)
+505   DATASCI110  [QR]                 <-- quantitative reasoning(*)
+506   ANT190      [FS]                 <-- first year seminar
+507   MUS300R     [XA]                 <-- experience and application(*)
+508   MUS300R     [XA]                 <-- experience and application(*)
+509   ENG304W     [HAP, WRT]           <-- humanities arts performance with writing
+510   MUS300R     [XA]                 <-- experience and application(*)
+511   ENG311RW    [HAP, WRT]           <-- humanities arts performance with writing
+512   ANT201      [NS]                 <-- natural sciences(*)
+513   MUS300R     [XA]                 <-- experience and application(*)
+514   HLTH385     [HSC]                <-- history society cultures
+515   ENG312W     [HAP, WRT]           <-- humanities arts performance with writing
+516   MUS303      [ETHN, HAP]          <-- hap w/race & ethnicity req.
+517   HLTH385     [HAP]                <-- humanities arts performance
+518   POLS494     [HSC]                <-- history society cultures
+519   ENG315W     [HAP, WRT]           <-- humanities arts performance with writing
+520   DATASCI200  [QR]                 <-- quantitative reasoning(*)
+521   POLS494W    [HSC, WRT]           <-- history society cultures with writing
+522   MUS305      [HAP]                <-- humanities arts performance
+523   ENG317W     [HAP, WRT]           <-- humanities arts performance with writing
+524   ANT202      [SS]                 <-- social sciences(*)
+525   ANT202      [SS]                 <-- social sciences(*)
+526   ANT202      [SS]                 <-- social sciences(*)
+527   ANT202      [SS]                 <-- social sciences(*)
+528   ANT202      [SS]                 <-- social sciences(*)
+529   ANT202      [SS]                 <-- social sciences(*)
+530   DATASCI210  [QR]                 <-- quantitative reasoning(*)
+531   POLS495BW   [CW]                 <-- continuing communication and writing(*)
+532   MUS307      [HAP]                <-- humanities arts performance
+533   ENG325W     [HAP, WRT]           <-- humanities arts performance with writing
+534   HLTH399R    [XA]                 <-- experience and application(*)
+535   ANT203      [SS]                 <-- social sciences(*)
+536   MUS310R     [XA]                 <-- experience and application(*)
+537   POLS496RW   [CW, XA]             <-- experience and application with cont.comm(*)
+538   ENG342RW    [HAP, WRT]           <-- humanities arts performance with writing
+539   DATASCI220  [QR]                 <-- quantitative reasoning(*)
+540   DATASCI220  [QR]                 <-- quantitative reasoning(*)
+541   DATASCI220  [QR]                 <-- quantitative reasoning(*)
+542   DATASCI220  [QR]                 <-- quantitative reasoning(*)
+543   MUS310R     [XA]                 <-- experience and application(*)
+544   ANT205      [SS]                 <-- social sciences(*)
+545   ENG345W     [HAP, WRT]           <-- humanities arts performance with writing
+546   DATASCI302W [CW]                 <-- continuing communication and writing(*)
+547   ANT230      [SS]                 <-- social sciences(*)
+548   MUS310R     [XA]                 <-- experience and application(*)
+549   ENG348W     [HAP, WRT]           <-- humanities arts performance with writing
+550   DATASCI315  [HSC]                <-- history society cultures
+551   DATASCI315  [HSC]                <-- history society cultures
+552   MUS310R     [XA]                 <-- experience and application(*)
+553   MUS310R     [XA]                 <-- experience and application(*)
+554   ENG354      [HAP]                <-- humanities arts performance
+555   DATASCI329  [MQR]                <-- mathematics and quantitative reasoning
+556   ANT280R     [HSC]                <-- history society cultures
+557   ENG359      [ETHN, HAP]          <-- hap w/race & ethnicity req.
+558   MUS310R     [XA]                 <-- experience and application(*)
+559   MUS310R     [XA]                 <-- experience and application(*)
+560   ENG359W     [ETHN, HAP, WRT]     <-- hapw w/race & ethnicity req.
+561   ANT285      [HSC]                <-- history society cultures
+562   MUS310R     [XA]                 <-- experience and application(*)
+563   ENG368W     [HAP, WRT]           <-- humanities arts performance with writing
+564   ANT307      [SNT]                <-- science nature technology
+565   MUS310R     [XA]                 <-- experience and application(*)
+566   ENG368W     [HAP, WRT]           <-- humanities arts performance with writing
+567   ANT311      [HSC]                <-- history society cultures
+568   MUS310R     [XA]                 <-- experience and application(*)
+569   HLTH495BW   [CW]                 <-- continuing communication and writing(*)
+570   ENG370W     [HSC, WRT]           <-- history society cultures with writing
+571   MUS315      [XA]                 <-- experience and application(*)
+572   ANT312      [SNT]                <-- science nature technology
+573   ENG375W     [CW, ETHN]           <-- continuing comm.& writing with race & ethnicity(*)
+574   MUS320R     [XA]                 <-- experience and application(*)
+575   ENG383RW    [HAP, WRT]           <-- humanities arts performance with writing
+576   ENG385      [HSC]                <-- history society cultures
+577   MUS320R     [XA]                 <-- experience and application(*)
+578   HLTH499R    [XA]                 <-- experience and application(*)
+579   ANT332      [ETHN, HSC]          <-- hsc w/race & ethnicity req.
+580   TBT102      [IC]                 <-- intercultural communication(*)
+581   ENG385W     [HSC, WRT]           <-- history society cultures with writing
+582   MUS320R     [XA]                 <-- experience and application(*)
+583   ANT337      [HSC]                <-- history society cultures
+584   HNDI102     [IC]                 <-- intercultural communication(*)
+585   HNDI102     [IC]                 <-- intercultural communication(*)
+586   ENG385W     [HSC, WRT]           <-- history society cultures with writing
+587   MUS320R     [XA]                 <-- experience and application(*)
+588   MUS320R     [XA]                 <-- experience and application(*)
+589   HNDI202     [IC]                 <-- intercultural communication(*)
+590   THEA100     [HA]                 <-- humanities and arts(*)
+591   THEA100     [HA]                 <-- humanities and arts(*)
+592   PORT102     [IC]                 <-- intercultural communication(*)
+593   ANT347      [ETHN]               <-- race and ethnicity(*)
+594   DATASCI495A [XA]                 <-- experience and application(*)
+595   MUS320R     [XA]                 <-- experience and application(*)
+596   MUS320R     [XA]                 <-- experience and application(*)
+597   HNDI302     [IC]                 <-- intercultural communication(*)
+598   ENG388W     [HAP, WRT]           <-- humanities arts performance with writing
+599   DATASCI495BW[CW]                 <-- continuing communication and writing(*)
+600   ANT369      [HSC]                <-- history society cultures
+601   THEA130     [HA]                 <-- humanities and arts(*)
+602   PORT110     [IC]                 <-- intercultural communication(*)
+603   PORT110     [IC]                 <-- intercultural communication(*)
+604   MUS320R     [XA]                 <-- experience and application(*)
+605   ENG388W     [HAP, WRT]           <-- humanities arts performance with writing
+606   ANT376W     [ETHN, HAP, WRT]     <-- hapw w/race & ethnicity req.
+607   PORT201     [IC]                 <-- intercultural communication(*)
+608   PORT201     [IC]                 <-- intercultural communication(*)
+609   DATASCI496R [XA]                 <-- experience and application(*)
+610   ENG389      [ETHN, HAP]          <-- hap w/race & ethnicity req.
+611   ANT385      [HSC]                <-- history society cultures
+612   PORT212     [IC]                 <-- intercultural communication(*)
+613   THEA190     [FS]                 <-- first year seminar
+614   MUS320R     [XA]                 <-- experience and application(*)
+615   ENG389W     [HAP, WRT]           <-- humanities arts performance with writing
+616   DATASCI496RW[CW, XA]             <-- experience and application with cont.comm(*)
+617   ANT385      [HSC]                <-- history society cultures
+618   PE112       [PE]                 <-- physical education(*)
+619   MUS320R     [XA]                 <-- experience and application(*)
+620   PE114       [PE]                 <-- physical education(*)
+621   ENG389W     [HAP, WRT]           <-- humanities arts performance with writing
+622   MUS340      [XA]                 <-- experience and application(*)
+623   ANT385      [HSC]                <-- history society cultures
+624   THEA210W    [CW, HA]             <-- humanities and arts with cont.communication(*)
+625   THEA210W    [CW, HA]             <-- humanities and arts with cont.communication(*)
+626   THEA210W    [CW, HA]             <-- humanities and arts with cont.communication(*)
+627   PE116       [PE]                 <-- physical education(*)
+628   DATASCI498RW[CW, XA]             <-- experience and application with cont.comm(*)
+629   DATASCI498RW[CW, XA]             <-- experience and application with cont.comm(*)
+630   DATASCI498RW[CW, XA]             <-- experience and application with cont.comm(*)
+631   DATASCI498RW[CW, XA]             <-- experience and application with cont.comm(*)
+632   DATASCI498RW[CW, XA]             <-- experience and application with cont.comm(*)
+633   ENG482RW    [HAP, WRT]           <-- humanities arts performance with writing
+634   MUS349R     [XA]                 <-- experience and application(*)
+635   ANT385      [HSC]                <-- history society cultures
+636   PE130       [PE]                 <-- physical education(*)
+637   THEA216     [HA]                 <-- humanities and arts(*)
+638   ENG485W     [CW, XA]             <-- experience and application with cont.comm(*)
+639   PE134       [PE]                 <-- physical education(*)
+640   ANT385      [HSC]                <-- history society cultures
+641   THEA223     [HA]                 <-- humanities and arts(*)
+642   MUS374      [HAP]                <-- humanities arts performance
+643   PE161       [PE]                 <-- physical education(*)
+644   THEA250     [HA]                 <-- humanities and arts(*)
+645   ANT385      [HSC]                <-- history society cultures
+646   MUS376W     [ETHN, HAP, WRT]     <-- hapw w/race & ethnicity req.
+647   THEA262W    [ETHN, HA]           <-- humanities & arts with c.comm/race & ethnicity(*)
+648   PE162       [PE]                 <-- physical education(*)
+649   NBB220      [NS]                 <-- natural sciences(*)
+650   ANT385      [HSC]                <-- history society cultures
+651   PE164       [PE]                 <-- physical education(*)
+652   THEA321     [HAP]                <-- humanities arts performance
+653   NBB270      [SNT]                <-- science nature technology
+654   ANT385W     [HSC, WRT]           <-- history society cultures with writing
+655   THEA334     [XA]                 <-- experience and application(*)
+656   PE167       [PE]                 <-- physical education(*)
+657   PE167       [PE]                 <-- physical education(*)
+658   PE167       [PE]                 <-- physical education(*)
+659   PE167       [PE]                 <-- physical education(*)
+660   PE167       [PE]                 <-- physical education(*)
+661   PSYC110     [NS]                 <-- natural sciences(*)
+662   PSYC110     [NS]                 <-- natural sciences(*)
+663   PSYC110     [NS]                 <-- natural sciences(*)
+664   ANT385W     [HSC, WRT]           <-- history society cultures with writing
+665   THEA335     [HAP]                <-- humanities arts performance
+666   NBB270      [SNT]                <-- science nature technology
+667   THEA360R    [XA]                 <-- experience and application(*)
+668   ENGCW190    [FS]                 <-- first year seminar
+669   PE173       [PE]                 <-- physical education(*)
+670   PE173       [PE]                 <-- physical education(*)
+671   PSYC111     [SS]                 <-- social sciences(*)
+672   PSYC111     [SS]                 <-- social sciences(*)
+673   THEA363     [IC]                 <-- intercultural communication(*)
+674   PE184R      [PE]                 <-- physical education(*)
+675   ANT495BW    [CW, XA]             <-- experience and application with cont.comm(*)
+676   NBB301      [SNT]                <-- science nature technology
+677   DATASCI499R [XA]                 <-- experience and application(*)
+678   PSYC190     [FS]                 <-- first year seminar
+679   ENGCW271W   [HAP, WRT]           <-- humanities arts performance with writing
+680   ENGCW271W   [HAP, WRT]           <-- humanities arts performance with writing
+681   PE189       [PE]                 <-- physical education(*)
+682   NBB301L     [SNTL]               <-- science nature and technology with lab
+683   THEA375R    [HAP]                <-- humanities arts performance
+684   PSYC190     [FS]                 <-- first year seminar
+685   PE191       [PE]                 <-- physical education(*)
+686   THEA389     [HAP]                <-- humanities arts performance
+687   ENGCW272W   [HAP, WRT]           <-- humanities arts performance with writing
+688   ENGCW272W   [HAP, WRT]           <-- humanities arts performance with writing
+689   NBB302      [SNT]                <-- science nature technology
+690   PE192       [PE]                 <-- physical education(*)
+691   PSYC190     [FS]                 <-- first year seminar
+692   NBB318      [ETHN]               <-- race and ethnicity(*)
+693   ENGCW370RW  [HAP, WRT]           <-- humanities arts performance with writing
+694   ENGCW370RW  [HAP, WRT]           <-- humanities arts performance with writing
+695   PE194       [PE]                 <-- physical education(*)
+696   PE194       [PE]                 <-- physical education(*)
+697   PSYC200W    [CW, SS]             <-- social sciences with continuing communication(*)
+698   CBSC370B    [XA]                 <-- experience and application(*)
+699   PE198       [PE]                 <-- physical education(*)
+700   ENGCW371RW  [HAP, WRT]           <-- humanities arts performance with writing
+701   ENGCW371RW  [HAP, WRT]           <-- humanities arts performance with writing
+702   PSYC205     [SS]                 <-- social sciences(*)
+703   PE199       [PE]                 <-- physical education(*)
+704   PE199       [PE]                 <-- physical education(*)
+705   NBB361W     [SNTL, WRT]          <-- science nature & technology lab with writing
+706   ENGCW373R   [HAP]                <-- humanities arts performance
+707   PE212       [PE]                 <-- physical education(*)
+708   PSYC207     [NS]                 <-- natural sciences(*)
+709   PE296       [PE]                 <-- physical education(*)
+710   ENGCW374R   [HAP]                <-- humanities arts performance
+711   PSYC210     [NS]                 <-- natural sciences(*)
+712   PERS102     [IC]                 <-- intercultural communication(*)
+713   ENGCW375R   [HAP]                <-- humanities arts performance
+714   PSYC211     [SS]                 <-- social sciences(*)
+715   PERS302W    [CW, IC]             <-- intercultural communication w.cont.comm(*)
+716   NBB370      [HSC]                <-- history society cultures
+717   PSYC215     [NS]                 <-- natural sciences(*)
+718   WGS190      [FS]                 <-- first year seminar
+719   ENGCW376RW  [HAP, WRT]           <-- humanities arts performance with writing
+720   ENGCW376RW  [HAP, WRT]           <-- humanities arts performance with writing
+721   NBB370      [SNT]                <-- science nature technology
+722   PSYC223     [NS]                 <-- natural sciences(*)
+723   WGS190      [FS]                 <-- first year seminar
+724   ARAB102     [IC]                 <-- intercultural communication(*)
+725   ARAB102     [IC]                 <-- intercultural communication(*)
+726   ENGCW378RW  [HAP, WRT]           <-- humanities arts performance with writing
+727   ENGCW378RW  [HAP, WRT]           <-- humanities arts performance with writing
+728   ENGCW378RW  [HAP, WRT]           <-- humanities arts performance with writing
+729   NBB370W     [CW]                 <-- continuing communication and writing(*)
+730   PHIL100     [HA]                 <-- humanities and arts(*)
+731   PHIL100     [HA]                 <-- humanities and arts(*)
+732   PSYC302     [HSC]                <-- history society cultures
+733   ARAB202     [IC]                 <-- intercultural communication(*)
+734   ENGCW379RW  [HAP, WRT]           <-- humanities arts performance with writing
+735   PHIL110     [QR]                 <-- quantitative reasoning(*)
+736   PHIL110     [QR]                 <-- quantitative reasoning(*)
+737   WGS200      [HA]                 <-- humanities and arts(*)
+738   WGS200      [HA]                 <-- humanities and arts(*)
+739   WGS200      [HA]                 <-- humanities and arts(*)
+740   WGS200      [HA]                 <-- humanities and arts(*)
+741   WGS200      [HA]                 <-- humanities and arts(*)
+742   ENGCW389    [HAP]                <-- humanities arts performance
+743   PHIL111     [HA]                 <-- humanities and arts(*)
+744   ARAB302     [IC]                 <-- intercultural communication(*)
+745   PHIL114     [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+746   ENGCW389W   [HAP, WRT]           <-- humanities arts performance with writing
+747   PSYC322     [SNT]                <-- science nature technology
+748   WGS205W     [HSC, WRT]           <-- history society cultures with writing
+749   NBB424      [SNT]                <-- science nature technology
+750   ARAB402     [IC]                 <-- intercultural communication(*)
+751   FREN101     [IC]                 <-- intercultural communication(*)
+752   FREN101     [IC]                 <-- intercultural communication(*)
+753   ENGCW389W   [HAP, WRT]           <-- humanities arts performance with writing
+754   NBB426      [SNT]                <-- science nature technology
+755   PHIL115     [HA]                 <-- humanities and arts(*)
+756   PHIL115     [HA]                 <-- humanities and arts(*)
+757   WGS275      [HA]                 <-- humanities and arts(*)
+758   PSYC330     [HSC]                <-- history society cultures
+759   PHIL116     [HA]                 <-- humanities and arts(*)
+760   PSYC333     [ETHN]               <-- race and ethnicity(*)
+761   WGS358      [HSC]                <-- history society cultures
+762   PHIL120     [HA]                 <-- humanities and arts(*)
+763   FREN102     [IC]                 <-- intercultural communication(*)
+764   FREN102     [IC]                 <-- intercultural communication(*)
+765   FREN102     [IC]                 <-- intercultural communication(*)
+766   FREN102     [IC]                 <-- intercultural communication(*)
+767   PHIL123     [HA]                 <-- humanities and arts(*)
+768   ENGCW495BW  [CW]                 <-- continuing communication and writing(*)
+769   ENGCW495BW  [CW]                 <-- continuing communication and writing(*)
+770   ENGCW495BW  [CW]                 <-- continuing communication and writing(*)
+771   ENGCW495BW  [CW]                 <-- continuing communication and writing(*)
+772   ENGCW495BW  [CW]                 <-- continuing communication and writing(*)
+773   ENGCW495BW  [CW]                 <-- continuing communication and writing(*)
+774   ENGCW495BW  [CW]                 <-- continuing communication and writing(*)
+775   WGS378W     [CW, ETHN]           <-- continuing comm.& writing with race & ethnicity(*)
+776   PSYC352     [SNT]                <-- science nature technology
+777   PHIL124     [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+778   ARTHIST102  [HA]                 <-- humanities and arts(*)
+779   PSYC353     [SNT]                <-- science nature technology
+780   WGS385      [HSC]                <-- history society cultures
+781   NBB495A     [XA]                 <-- experience and application(*)
+782   NBB495A     [XA]                 <-- experience and application(*)
+783   PHIL130     [HA]                 <-- humanities and arts(*)
+784   WGS385      [HSC]                <-- history society cultures
+785   FREN201     [IC]                 <-- intercultural communication(*)
+786   FREN201     [IC]                 <-- intercultural communication(*)
+787   FREN201     [IC]                 <-- intercultural communication(*)
+788   ARTHIST104  [HA]                 <-- humanities and arts(*)
+789   NBB495BW    [CW]                 <-- continuing communication and writing(*)
+790   NBB495BW    [CW]                 <-- continuing communication and writing(*)
+791   WGS385W     [HSC, WRT]           <-- history society cultures with writing
+792   PHIL133     [HA]                 <-- humanities and arts(*)
+793   WGS385W     [HSC, WRT]           <-- history society cultures with writing
+794   ARTHIST190  [FS]                 <-- first year seminar
+795   NBB497W     [CW]                 <-- continuing communication and writing(*)
+796   PHIL185     [HAP]                <-- humanities arts performance
+797   WGS385W     [HSC, WRT]           <-- history society cultures with writing
+798   PSYC424     [SNT]                <-- science nature technology
+799   FREN203     [IC]                 <-- intercultural communication(*)
+800   FREN203     [IC]                 <-- intercultural communication(*)
+801   FREN203     [IC]                 <-- intercultural communication(*)
+802   ENGRD101    [FW]                 <-- first-year writing(*)
+803   ENGRD101    [FW]                 <-- first-year writing(*)
+804   ENGRD101    [FW]                 <-- first-year writing(*)
+805   ENGRD101    [FW]                 <-- first-year writing(*)
+806   ENGRD101    [FW]                 <-- first-year writing(*)
+807   ENGRD101    [FW]                 <-- first-year writing(*)
+808   ENGRD101    [FW]                 <-- first-year writing(*)
+809   ENGRD101    [FW]                 <-- first-year writing(*)
+810   ENGRD101    [FW]                 <-- first-year writing(*)
+811   ENGRD101    [FW]                 <-- first-year writing(*)
+812   ENGRD101    [FW]                 <-- first-year writing(*)
+813   ENGRD101    [FW]                 <-- first-year writing(*)
+814   ENGRD101    [FW]                 <-- first-year writing(*)
+815   ARTHIST190  [FS]                 <-- first year seminar
+816   PHIL190     [FS]                 <-- first year seminar
+817   PHIL190     [FS]                 <-- first year seminar
+818   WGS385W     [HAP, WRT]           <-- humanities arts performance with writing
+819   PHIL190     [FS]                 <-- first year seminar
+820   ENGRD201W   [CW]                 <-- continuing communication and writing(*)
+821   ENGRD201W   [CW]                 <-- continuing communication and writing(*)
+822   NBB499R     [XA]                 <-- experience and application(*)
+823   NBB499R     [XA]                 <-- experience and application(*)
+824   ARTHIST203  [XA]                 <-- experience and application(*)
+825   WGS454W     [CW]                 <-- continuing communication and writing(*)
+826   FREN310W    [CW, IC]             <-- intercultural communication w.cont.comm(*)
+827   FREN310W    [CW, IC]             <-- intercultural communication w.cont.comm(*)
+828   CHEM150     [NS]                 <-- natural sciences(*)
+829   WGS495A     [XA]                 <-- experience and application(*)
+830   PHIL200W    [CW, HA]             <-- humanities and arts with cont.communication(*)
+831   FREN314     [IC]                 <-- intercultural communication(*)
+832   CHEM202     [NS]                 <-- natural sciences(*)
+833   PHIL202W    [CW, HA]             <-- humanities and arts with cont.communication(*)
+834   WGS495BW    [CW]                 <-- continuing communication and writing(*)
+835   ENGRD220W   [CW]                 <-- continuing communication and writing(*)
+836   ENGRD220W   [CW]                 <-- continuing communication and writing(*)
+837   ARTHIST222  [HA]                 <-- humanities and arts(*)
+838   PHIL204W    [CW, HA]             <-- humanities and arts with cont.communication(*)
+839   IDS190      [FS]                 <-- first year seminar
+840   FREN341     [HAP]                <-- humanities arts performance
+841   ARTHIST241  [HA]                 <-- humanities and arts(*)
+842   PHIL220W    [CW, HA]             <-- humanities and arts with cont.communication(*)
+843   PHIL220W    [CW, HA]             <-- humanities and arts with cont.communication(*)
+844   ENGRD221RW  [CW, HA]             <-- humanities and arts with cont.communication(*)
+845   IDS205W     [CW, NS]             <-- natural sciences with continuing communication(*)
+846   FREN351     [IC]                 <-- intercultural communication(*)
+847   ARTHIST266  [HA]                 <-- humanities and arts(*)
+848   PHIL300     [HAP]                <-- humanities arts performance
+849   PSYC495BW   [CW]                 <-- continuing communication and writing(*)
+850   CHEM203     [NS]                 <-- natural sciences(*)
+851   IDS216W     [CW, HA]             <-- humanities and arts with cont.communication(*)
+852   FREN391R    [ETHN, IC]           <-- intercultural communication w. race & ethnicity(*)
+853   ARTHIST289W [HAP, WRT]           <-- humanities arts performance with writing
+854   ENGRD226W   [CW]                 <-- continuing communication and writing(*)
+855   PHIL321     [HAP]                <-- humanities arts performance
+856   CHEM203Z    [NS]                 <-- natural sciences(*)
+857   IDS220RW    [CW]                 <-- continuing communication and writing(*)
+858   FREN488W    [CW, IC]             <-- intercultural communication w.cont.comm(*)
+859   PHIL385     [HAP]                <-- humanities arts performance
+860   ARTHIST292  [HA]                 <-- humanities and arts(*)
+861   ENGRD249W   [CW]                 <-- continuing communication and writing(*)
+862   PHIL385     [HSC]                <-- history society cultures
+863   ARTHIST319R [HAP]                <-- humanities arts performance
+864   ENGRD302W   [CW]                 <-- continuing communication and writing(*)
+865   PHIL385W    [HAP, WRT]           <-- humanities arts performance with writing
+866   IDS385W     [CW]                 <-- continuing communication and writing(*)
+867   ARTHIST329  [HAP]                <-- humanities arts performance
+868   ENGRD316W   [CW]                 <-- continuing communication and writing(*)
+869   LING101     [SS]                 <-- social sciences(*)
+870   PHIL405W    [HAP, WRT]           <-- humanities arts performance with writing
+871   CHEM204     [SNT]                <-- science nature technology
+872   CHEM204     [SNT]                <-- science nature technology
+873   CHEM204     [SNT]                <-- science nature technology
+874   CHEM204     [SNT]                <-- science nature technology
+875   CHEM204     [SNT]                <-- science nature technology
+876   LING190     [FS]                 <-- first year seminar
+877   IDS385W     [CW]                 <-- continuing communication and writing(*)
+878   ENGRD328W   [CW, ETHN]           <-- continuing comm.& writing with race & ethnicity(*)
+879   ENGRD328W   [CW, ETHN]           <-- continuing comm.& writing with race & ethnicity(*)
+880   PHIL412W    [HSC, WRT]           <-- history society cultures with writing
+881   LING190     [FS]                 <-- first year seminar
+882   ARTHIST385W [CW]                 <-- continuing communication and writing(*)
+883   IDS385W     [CW]                 <-- continuing communication and writing(*)
+884   PHIL482W    [HAP, WRT]           <-- humanities arts performance with writing
+885   ENGRD380W   [HAP, WRT]           <-- humanities arts performance with writing
+886   ENGRD380W   [HAP, WRT]           <-- humanities arts performance with writing
+887   LING201     [SS]                 <-- social sciences(*)
+888   CHEM204L    [SNTL]               <-- science nature and technology with lab
+889   CHEM204L    [SNTL]               <-- science nature and technology with lab
+890   CHEM204L    [SNTL]               <-- science nature and technology with lab
+891   CHEM204L    [SNTL]               <-- science nature and technology with lab
+892   CHEM204L    [SNTL]               <-- science nature and technology with lab
+893   CHEM204L    [SNTL]               <-- science nature and technology with lab
+894   ARTHIST393R [HAP]                <-- humanities arts performance
+895   IDS385W     [CW]                 <-- continuing communication and writing(*)
+896   ENGRD388W   [HAP, WRT]           <-- humanities arts performance with writing
+897   ARTHIST393R [HAP]                <-- humanities arts performance
+898   CHEM205     [SNT]                <-- science nature technology
+899   IDS385W     [CW]                 <-- continuing communication and writing(*)
+900   LING245W    [CW, HA]             <-- humanities and arts with cont.communication(*)
+901   IDS385W     [HAP, WRT]           <-- humanities arts performance with writing
+902   ARTHIST393R [HAP]                <-- humanities arts performance
+903   GER102      [IC]                 <-- intercultural communication(*)
+904   GER102      [IC]                 <-- intercultural communication(*)
+905   GER102      [IC]                 <-- intercultural communication(*)
+906   GER102      [IC]                 <-- intercultural communication(*)
+907   GER102      [IC]                 <-- intercultural communication(*)
+908   ARTHIST470RW[ETHN, HAP, WRT]     <-- hapw w/race & ethnicity req.
+909   CHEM205L    [SNTL]               <-- science nature and technology with lab
+910   CHEM205L    [SNTL]               <-- science nature and technology with lab
+911   CHEM205L    [SNTL]               <-- science nature and technology with lab
+912   CHEM205L    [SNTL]               <-- science nature and technology with lab
+913   CHEM205L    [SNTL]               <-- science nature and technology with lab
+914   CHEM205L    [SNTL]               <-- science nature and technology with lab
+915   ENVS140     [NS]                 <-- natural sciences(*)
+916   GER190      [FS]                 <-- first year seminar
+917   LING303     [IC]                 <-- intercultural communication(*)
+918   PSYC499R    [XA]                 <-- experience and application(*)
+919   PSYC499R    [XA]                 <-- experience and application(*)
+920   PSYC499R    [XA]                 <-- experience and application(*)
+921   PSYC499R    [XA]                 <-- experience and application(*)
+922   PSYC499R    [XA]                 <-- experience and application(*)
+923   PSYC499R    [XA]                 <-- experience and application(*)
+924   PSYC499R    [XA]                 <-- experience and application(*)
+925   PSYC499R    [XA]                 <-- experience and application(*)
+926   PSYC499R    [XA]                 <-- experience and application(*)
+927   PSYC499R    [XA]                 <-- experience and application(*)
+928   PSYC499R    [XA]                 <-- experience and application(*)
+929   PSYC499R    [XA]                 <-- experience and application(*)
+930   PSYC499R    [XA]                 <-- experience and application(*)
+931   PSYC499R    [XA]                 <-- experience and application(*)
+932   PSYC499R    [XA]                 <-- experience and application(*)
+933   PSYC499R    [XA]                 <-- experience and application(*)
+934   PSYC499R    [XA]                 <-- experience and application(*)
+935   PSYC499R    [XA]                 <-- experience and application(*)
+936   PSYC499R    [XA]                 <-- experience and application(*)
+937   PSYC499R    [XA]                 <-- experience and application(*)
+938   PSYC499R    [XA]                 <-- experience and application(*)
+939   PSYC499R    [XA]                 <-- experience and application(*)
+940   PSYC499R    [XA]                 <-- experience and application(*)
+941   PSYC499R    [XA]                 <-- experience and application(*)
+942   PSYC499R    [XA]                 <-- experience and application(*)
+943   PSYC499R    [XA]                 <-- experience and application(*)
+944   PSYC499R    [XA]                 <-- experience and application(*)
+945   PSYC499R    [XA]                 <-- experience and application(*)
+946   PSYC499R    [XA]                 <-- experience and application(*)
+947   PSYC499R    [XA]                 <-- experience and application(*)
+948   PSYC499R    [XA]                 <-- experience and application(*)
+949   PSYC499R    [XA]                 <-- experience and application(*)
+950   PSYC499R    [XA]                 <-- experience and application(*)
+951   PSYC499R    [XA]                 <-- experience and application(*)
+952   ARTHIST475RW[HAP, WRT]           <-- humanities arts performance with writing
+953   IDS485R     [XA]                 <-- experience and application(*)
+954   LING304     [IC]                 <-- intercultural communication(*)
+955   ENVS190     [FS]                 <-- first year seminar
+956   IDS495BW    [CW]                 <-- continuing communication and writing(*)
+957   ARTHIST480RW[HAP, WRT]           <-- humanities arts performance with writing
+958   CHEM322     [SNT]                <-- science nature technology
+959   IDS499R     [XA]                 <-- experience and application(*)
+960   GER202      [IC]                 <-- intercultural communication(*)
+961   LING329     [MQR]                <-- mathematics and quantitative reasoning
+962   ENVS225     [HSC]                <-- history society cultures
+963   GER320      [IC]                 <-- intercultural communication(*)
+964   LING340     [HSC]                <-- history society cultures
+965   ENVS235     [NS]                 <-- natural sciences(*)
+966   GER375      [HSC]                <-- history society cultures
+967   CHEM330LW   [CW]                 <-- continuing communication and writing(*)
+968   CHEM330LW   [CW]                 <-- continuing communication and writing(*)
+969   CHEM330LW   [CW]                 <-- continuing communication and writing(*)
+970   LING347     [ETHN]               <-- race and ethnicity(*)
+971   ENVS240     [NS]                 <-- natural sciences(*)
+972   GER375      [HSC]                <-- history society cultures
+973   LING363W    [HAP, WRT]           <-- humanities arts performance with writing
+974   CHEM340     [SNT]                <-- science nature technology
+975   LING385     [HSC]                <-- history society cultures
+976   GER375      [HSC]                <-- history society cultures
+977   ARTVIS103   [HA]                 <-- humanities and arts(*)
+978   CHEM343     [SNT]                <-- science nature technology
+979   LING401W    [HAP, WRT]           <-- humanities arts performance with writing
+980   LING401W    [HAP, WRT]           <-- humanities arts performance with writing
+981   CHEM350     [SNT]                <-- science nature technology
+982   LING413W    [CW]                 <-- continuing communication and writing(*)
+983   GER470      [HSC]                <-- history society cultures
+984   ARTVIS105   [HA]                 <-- humanities and arts(*)
+985   ARTVIS105   [HA]                 <-- humanities and arts(*)
+986   ARTVIS105   [HA]                 <-- humanities and arts(*)
+987   ARTVIS105   [HA]                 <-- humanities and arts(*)
+988   ARTVIS105   [HA]                 <-- humanities and arts(*)
+989   ARTVIS106   [HA]                 <-- humanities and arts(*)
+990   CHEM380LW   [CW]                 <-- continuing communication and writing(*)
+991   LING495A    [XA]                 <-- experience and application(*)
+992   ARTVIS109   [HA]                 <-- humanities and arts(*)
+993   LING495BW   [CW]                 <-- continuing communication and writing(*)
+994   ARTVIS111   [HA]                 <-- humanities and arts(*)
+995   ARTVIS111   [HA]                 <-- humanities and arts(*)
+996   ENVS285W    [CW]                 <-- continuing communication and writing(*)
+997   ENVS310     [ETHN]               <-- race and ethnicity(*)
+998   ARTVIS120   [HA]                 <-- humanities and arts(*)
+999   ARTVIS203   [XA]                 <-- experience and application(*)
+1000  ENVS331W    [CW]                 <-- continuing communication and writing(*)
+1001  ARTVIS205   [XA]                 <-- experience and application(*)
+1002  ENVS352W    [CW]                 <-- continuing communication and writing(*)
+1003  ARTVIS206R  [XA]                 <-- experience and application(*)
+1004  MATH111     [QR]                 <-- quantitative reasoning(*)
+1005  MATH111     [QR]                 <-- quantitative reasoning(*)
+1006  MATH111     [QR]                 <-- quantitative reasoning(*)
+1007  MATH111     [QR]                 <-- quantitative reasoning(*)
+1008  MATH111     [QR]                 <-- quantitative reasoning(*)
+1009  MATH111     [QR]                 <-- quantitative reasoning(*)
+1010  MATH111     [QR]                 <-- quantitative reasoning(*)
+1011  MATH111     [QR]                 <-- quantitative reasoning(*)
+1012  MATH111     [QR]                 <-- quantitative reasoning(*)
+1013  MATH111     [QR]                 <-- quantitative reasoning(*)
+1014  ARTVIS220   [XA]                 <-- experience and application(*)
+1015  EAS212      [HA]                 <-- humanities and arts(*)
+1016  ENVS370B    [XA]                 <-- experience and application(*)
+1017  CHEM495A    [XA]                 <-- experience and application(*)
+1018  ARTVIS230   [XA]                 <-- experience and application(*)
+1019  CHEM495BW   [CW]                 <-- continuing communication and writing(*)
+1020  EAS337      [HSC]                <-- history society cultures
+1021  ARTVIS306R  [XA]                 <-- experience and application(*)
+1022  MATH112     [QR]                 <-- quantitative reasoning(*)
+1023  MATH112     [QR]                 <-- quantitative reasoning(*)
+1024  MATH112     [QR]                 <-- quantitative reasoning(*)
+1025  MATH112     [QR]                 <-- quantitative reasoning(*)
+1026  MATH112     [QR]                 <-- quantitative reasoning(*)
+1027  MATH112     [QR]                 <-- quantitative reasoning(*)
+1028  EAS385W     [HSC, WRT]           <-- history society cultures with writing
+1029  CHEM496R    [XA]                 <-- experience and application(*)
+1030  ARTVIS335   [XA]                 <-- experience and application(*)
+1031  CHEM499R    [XA]                 <-- experience and application(*)
+1032  EAS450W     [CW]                 <-- continuing communication and writing(*)
+1033  ARTVIS490   [XA]                 <-- experience and application(*)
+1034  EAS495BW    [CW]                 <-- continuing communication and writing(*)
+1035  MATH116     [QR]                 <-- quantitative reasoning(*)
+1036  MATH116     [QR]                 <-- quantitative reasoning(*)
+1037  MATH116     [QR]                 <-- quantitative reasoning(*)
+1038  MATH116     [QR]                 <-- quantitative reasoning(*)
+1039  MATH116     [QR]                 <-- quantitative reasoning(*)
+1040  MATH116     [QR]                 <-- quantitative reasoning(*)
+1041  MATH170     [NS]                 <-- natural sciences(*)
+1042  ECON101     [SS]                 <-- social sciences(*)
+1043  ECON101     [SS]                 <-- social sciences(*)
+1044  ECON101     [SS]                 <-- social sciences(*)
+1045  ECON101     [SS]                 <-- social sciences(*)
+1046  MATH190     [FS]                 <-- first year seminar
+1047  MATH210     [QR]                 <-- quantitative reasoning(*)
+1048  ENVS491     [XA]                 <-- experience and application(*)
+1049  ECON112     [SS]                 <-- social sciences(*)
+1050  ECON112     [SS]                 <-- social sciences(*)
+1051  ECON112     [SS]                 <-- social sciences(*)
+1052  ECON112     [SS]                 <-- social sciences(*)
+1053  MATH211     [QR]                 <-- quantitative reasoning(*)
+1054  MATH211     [QR]                 <-- quantitative reasoning(*)
+1055  MATH211     [QR]                 <-- quantitative reasoning(*)
+1056  ECON190     [FS]                 <-- first year seminar
+1057  ECON190     [FS]                 <-- first year seminar
+1058  MATH212     [QR]                 <-- quantitative reasoning(*)
+1059  MATH212     [QR]                 <-- quantitative reasoning(*)
+1060  ECON190     [FS]                 <-- first year seminar
+1061  ECON201     [SS]                 <-- social sciences(*)
+1062  ECON201     [SS]                 <-- social sciences(*)
+1063  ECON201     [SS]                 <-- social sciences(*)
+1064  MATH221     [QR]                 <-- quantitative reasoning(*)
+1065  MATH221     [QR]                 <-- quantitative reasoning(*)
+1066  MATH221     [QR]                 <-- quantitative reasoning(*)
+1067  MATH221     [QR]                 <-- quantitative reasoning(*)
+1068  MATH221     [QR]                 <-- quantitative reasoning(*)
+1069  MATH221     [QR]                 <-- quantitative reasoning(*)
+1070  BIOL120     [NS]                 <-- natural sciences(*)
+1071  BIOL120L    [SNTL]               <-- science nature and technology with lab
+1072  BIOL120L    [SNTL]               <-- science nature and technology with lab
+1073  MATH250     [QR]                 <-- quantitative reasoning(*)
+1074  MATH250     [QR]                 <-- quantitative reasoning(*)
+1075  MATH250     [QR]                 <-- quantitative reasoning(*)
+1076  MATH270     [MQR]                <-- mathematics and quantitative reasoning
+1077  MATH276     [QR]                 <-- quantitative reasoning(*)
+1078  BIOL142     [NS]                 <-- natural sciences(*)
+1079  BIOL142     [NS]                 <-- natural sciences(*)
+1080  BIOL142     [NS]                 <-- natural sciences(*)
+1081  BIOL142     [NS]                 <-- natural sciences(*)
+1082  BIOL142     [NS]                 <-- natural sciences(*)
+1083  BIOL142     [NS]                 <-- natural sciences(*)
+1084  BIOL142     [NS]                 <-- natural sciences(*)
+1085  BIOL142L    [SNTL]               <-- science nature and technology with lab
+1086  CHN102      [IC]                 <-- intercultural communication(*)
+1087  CHN102      [IC]                 <-- intercultural communication(*)
+1088  CHN102      [IC]                 <-- intercultural communication(*)
+1089  CHN102      [IC]                 <-- intercultural communication(*)
+1090  BIOL190     [FS]                 <-- first year seminar
+1091  CHN202      [IC]                 <-- intercultural communication(*)
+1092  CHN202      [IC]                 <-- intercultural communication(*)
+1093  BIOL190     [FS]                 <-- first year seminar
+1094  CHN203      [IC]                 <-- intercultural communication(*)
+1095  CHN203      [IC]                 <-- intercultural communication(*)
+1096  CHN275      [HA]                 <-- humanities and arts(*)
+1097  ITAL102     [IC]                 <-- intercultural communication(*)
+1098  ITAL102     [IC]                 <-- intercultural communication(*)
+1099  ITAL102     [IC]                 <-- intercultural communication(*)
+1100  ITAL102     [IC]                 <-- intercultural communication(*)
+1101  ITAL102     [IC]                 <-- intercultural communication(*)
+1102  ITAL102     [IC]                 <-- intercultural communication(*)
+1103  CHN278      [SS]                 <-- social sciences(*)
+1104  CHN302      [IC]                 <-- intercultural communication(*)
+1105  CHN374      [HAP]                <-- humanities arts performance
+1106  CHN402W     [CW, IC]             <-- intercultural communication w.cont.comm(*)
+1107  CHN403W     [CW, IC]             <-- intercultural communication w.cont.comm(*)
+1108  REES375     [HSC]                <-- history society cultures
+1109  REES423W    [CW]                 <-- continuing communication and writing(*)
+1110  MESAS170    [HSC]                <-- history society cultures
+1111  CL109       [HA]                 <-- humanities and arts(*)
+1112  MESAS190    [FS]                 <-- first year seminar
+1113  CL190       [FS]                 <-- first year seminar
+1114  REL100R     [HA]                 <-- humanities and arts(*)
+1115  MESAS190    [FS]                 <-- first year seminar
+1116  GRK102      [IC]                 <-- intercultural communication(*)
+1117  GRK102      [IC]                 <-- intercultural communication(*)
+1118  CL201       [HA]                 <-- humanities and arts(*)
+1119  REL110      [HA]                 <-- humanities and arts(*)
+1120  MESAS200    [HA]                 <-- humanities and arts(*)
+1121  CL222       [HA]                 <-- humanities and arts(*)
+1122  REL170      [HSC]                <-- history society cultures
+1123  MESAS202    [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+1124  CL317       [HAP]                <-- humanities arts performance
+1125  REL190      [FS]                 <-- first year seminar
+1126  MESAS225    [HA]                 <-- humanities and arts(*)
+1127  CL325W      [HSC, WRT]           <-- history society cultures with writing
+1128  REL190      [FS]                 <-- first year seminar
+1129  MESAS232    [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+1130  CL329R      [HAP]                <-- humanities arts performance
+1131  REL190      [FS]                 <-- first year seminar
+1132  MESAS238    [SS]                 <-- social sciences(*)
+1133  CL329R      [HAP]                <-- humanities arts performance
+1134  REL200R     [HA]                 <-- humanities and arts(*)
+1135  REL212      [HA]                 <-- humanities and arts(*)
+1136  GRK202      [IC]                 <-- intercultural communication(*)
+1137  MESAS245W   [CW, HA]             <-- humanities and arts with cont.communication(*)
+1138  REL232      [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+1139  MESAS254    [SS]                 <-- social sciences(*)
+1140  CL487W      [ETHN, HAP, WRT]     <-- hapw w/race & ethnicity req.
+1141  CL495BW     [CW]                 <-- continuing communication and writing(*)
+1142  MESAS265    [HA]                 <-- humanities and arts(*)
+1143  REL270      [HSC]                <-- history society cultures
+1144  REL270      [HSC]                <-- history society cultures
+1145  GRK495BW    [CW]                 <-- continuing communication and writing(*)
+1146  MESAS268    [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+1147  MESAS270    [HSC]                <-- history society cultures
+1148  REL270      [HSC]                <-- history society cultures
+1149  MESAS270    [HSC]                <-- history society cultures
+1150  REL270      [HSC]                <-- history society cultures
+1151  MESAS270W   [HSC, WRT]           <-- history society cultures with writing
+1152  REL270      [HSC]                <-- history society cultures
+1153  MESAS275    [ETHN, SS]           <-- social sciences with race & ethnicity(*)
+1154  REL300W     [CW]                 <-- continuing communication and writing(*)
+1155  ITAL110     [IC]                 <-- intercultural communication(*)
+1156  REL305      [HSC]                <-- history society cultures
+1157  MESAS313    [ETHN]               <-- race and ethnicity(*)
+1158  ITAL202     [IC]                 <-- intercultural communication(*)
+1159  MESAS338    [HSC]                <-- history society cultures
+1160  REL320R     [HSC]                <-- history society cultures
+1161  ITAL302W    [CW, IC]             <-- intercultural communication w.cont.comm(*)
+1162  MESAS348    [ETHN, HAP]          <-- hap w/race & ethnicity req.
+1163  REL338      [HSC]                <-- history society cultures
+1164  ITAL320     [IC]                 <-- intercultural communication(*)
+1165  HEBR102     [IC]                 <-- intercultural communication(*)
+1166  HEBR102     [IC]                 <-- intercultural communication(*)
+1167  HEBR102     [IC]                 <-- intercultural communication(*)
+1168  HEBR102     [IC]                 <-- intercultural communication(*)
+1169  REL354RW    [HAP, WRT]           <-- humanities arts performance with writing
+1170  ITAL375W    [HAP, WRT]           <-- humanities arts performance with writing
+1171  HEBR202     [IC]                 <-- intercultural communication(*)
+1172  REL358R     [HSC]                <-- history society cultures
+1173  ITAL470     [IC]                 <-- intercultural communication(*)
+1174  HEBR302     [IC]                 <-- intercultural communication(*)
+1175  REL490W     [CW]                 <-- continuing communication and writing(*)
+1176  HEBR435     [ETHN, IC]           <-- intercultural communication w. race & ethnicity(*)
