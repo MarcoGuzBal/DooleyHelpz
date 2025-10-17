@@ -173,7 +173,7 @@ def get_req(sen):
 
 if __name__ == "__main__":
     try:
-        start = 209
+        start = 209 # in case exception occurs we can resume
         with open(existing_req_path, "r") as f:
             existing_req = json.load(f)
 
@@ -208,13 +208,4 @@ if __name__ == "__main__":
             json.dump(existing_req, f, indent=4)
     
 
-    # test case 2
-    # tests = ["(BIOL 142 and BIOL 142L) or BIOL_OX 142WE", 
-    #          "(BIOL 142 or BIOL_OX 142) and BIOL 142Ls.", "(CS 170 or CS_OX 170) and (MATH 111 or MATH_OX 111)s.",
-    #          " MATH_OX 117 or MATH 207 or MATH_OX 207 or MATH 362 or ECON 220 or ECON_OX 220 or QTM 100 or QTM_OX 100 or QTM 110 or QTM_OX 110 or SOC 275 or QTM 999XFR or QTM_OX ELEC as prereq. SPECSTUBUS stud.can enroll. Students enrolled or who took ISOM 350 can't take BUS 350.This section is reserved for students in the Emory College Liberal Arts and Sciences program.",
-    #          "MKT 340 or SPECSTUBUS studentsThis section is reserved for students in the BBA program."]
-    # for t in tests:
-    #     print(t)
-    #     pprint(get_req(t))
-    #     print()
     

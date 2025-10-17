@@ -1,8 +1,9 @@
 import json
 import re
+from pprint import pprint
 
 input_path = "data/course_detailed_correct_prereq.jsonl"
-dict_path = "data/prereq_dict.json"
+existing_req_path = "data/req_dict.json"
 output_path = "data/tidy_course_detail.json"
 
 
@@ -104,25 +105,31 @@ def match_ger_labels(code, raw):
 
     return labels
 
-
+def store_json():
+    with open(output_path, "w") as f:
+        json.dump(items, f, indent=2)
 
 if __name__ == "__main__":
     items = []
-    prereq_dict = {}
 
-    with open(dict_path, "r") as f:
-        prereq_dict = json.load(f)
+    with open(existing_req_path, "r") as f:
+        existing_req = json.load(f)
 
-    with open(input_path, 'r') as file:
-        for i, line in enumerate(file):
-            if i >= 10:
-                break
-            obj = json.loads(line)
+    with open(input_path, 'r') as f:
+        data = [json.loads(line) for line in f]
+    
+    start = 0
+    for i in range(start, len(data)):
+        try:
+            obj = data[i]
+            
             code = obj.get("code")
             num = (int)(re.search(r"(\d{3})", code).group(1))
             if num >= 500: # filter grad school courses
+                print("skipped", i, code)
                 continue
             
+            print(i, code)
             prereq = [[]]
             labels = []
 
@@ -134,8 +141,14 @@ if __name__ == "__main__":
                 labels = match_ger_labels(code, raw)
 
             sen = obj.get("prerequisites_sentence")
-            if sen and sen in prereq_dict:
-                prereq = prereq_dict[sen]
+            print("sen: ", sen)
+            req = {}
+            if sen:
+                if sen in existing_req:
+                    req = existing_req[sen]
+                else:
+                    k = input("unmatched req. Enter key: ")
+                    req = existing_req[k]
                 
             item = {
                 "code": code,                        
@@ -143,7 +156,7 @@ if __name__ == "__main__":
                 "section": obj.get("section"),                         
                 "credits": obj.get("credits"),                         
                 "typically_offered": obj.get("typically_offered"),
-                "prerequisites": prereq,         
+                "requirements": req,         
                 "ger": labels,                    
                 "instruction_method": obj.get("instruction_method"),      
                 "time": obj.get("time"),             
@@ -151,9 +164,15 @@ if __name__ == "__main__":
                 "location": obj.get("location")    
             }
 
+            pprint(item)
             items.append(item)
+        
+        except Exception as e:
+            print("Error:", e, "Storing json...")
+            store_json()
     
-    with open(output_path, "w") as f:
-        json.dump(items, f, indent=2)
+    print("SUCCESS!!!")
+    store_json()
+    
 
             

@@ -8,7 +8,7 @@ import json
 if __name__ == "__main__":
 
 # 1. csv to json
-    csv_path = "rmp.csv"
+    csv_path = "data/rmp.csv"
     df = pd.read_csv(csv_path)
     df = df.drop(columns=[
         "cardfeedback__cardfeedbackitemlq6nix1", 
@@ -82,13 +82,13 @@ if __name__ == "__main__":
   
 # 2. connect to Ratings collection and insert
     load_dotenv()
-    uri = os.getenv("RMP_URI")
+    uri = os.getenv("DB_URI")
     client = MongoClient(uri) #cluster
-    db = client["RMP_DB"] # database
+    db = client["RateMyProfessors"] # database
     col = db["Professors"] #collection
     print("connected the Professors collection")
 
-    # col.insert_many(data)
+    col.insert_many(data)
 
 # 3. create indexes
     col.create_index("url", unique=True)
