@@ -1,0 +1,3012 @@
+{
+    "(BIOL 142 and BIOL 142L) or BIOL_OX 142WE": {
+        "prereq": [
+            [
+                "BIOL142",
+                "BIOL_OX142WE"
+            ],
+            [
+                "BIOL142L",
+                "BIOL_OX142WE"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(MATH 221 or MATH_OX 221 or MATH 275 or MATH 321) and (CS 170 or CS_OX 170 or MATH 170)": {
+        "prereq": [
+            [
+                "MATH221",
+                "MATH_OX221",
+                "MATH275",
+                "MATH321"
+            ],
+            [
+                "CS170",
+                "CS_OX170",
+                "MATH170"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(ECON 101 or ECON_OX 101 or FIN 201) and (ECON 112 or ECON_OX 112) and (MATH 111 or MATH_OX 111 or MATH 116)s.": {
+        "prereq": [
+            [
+                "ECON101",
+                "ECON_OX101",
+                "FIN201"
+            ],
+            [
+                "ECON112",
+                "ECON_OX112"
+            ],
+            [
+                "MATH111",
+                "MATH_OX111",
+                "MATH116"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "MATH 250 or MATH_OX 250 or MATH_OX 250Q or MATH 276": {
+        "prereq": [
+            [
+                "MATH250",
+                "MATH_OX250",
+                "MATH_OX250Q",
+                "MATH276"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "JPN 101": {
+        "prereq": [
+            [
+                "JPN101"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ECON 101 or ECON_OX 101 or FIN 201": {
+        "prereq": [
+            [
+                "ECON101",
+                "ECON_OX101",
+                "FIN201"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(MATH 221 or MATH_OX 221 or MATH 275 or MATH 321) and (MATH 250 or MATH_OX 250 or MATH 276)": {
+        "prereq": [
+            [
+                "MATH221",
+                "MATH_OX221",
+                "MATH275",
+                "MATH321"
+            ],
+            [
+                "MATH250",
+                "MATH_OX250",
+                "MATH276"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "JPN 201": {
+        "prereq": [
+            [
+                "JPN201"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(MATH 211 or PHYS 211 or MATH_OX 211 or MATH 276) and (MATH 221 or MATH_OX 221 or MATH 321) and (MATH 250 or MATH_OX 250 or MATH 276)": {
+        "prereq": [
+            [
+                "MATH211",
+                "PHYS211",
+                "MATH_OX211",
+                "MATH276"
+            ],
+            [
+                "MATH221",
+                "MATH_OX221",
+                "MATH321"
+            ],
+            [
+                "MATH250",
+                "MATH_OX250",
+                "MATH276"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "PHYS 115 or PHYS 116 or ASTR_OX 116": {
+        "prereq": [
+            [
+                "PHYS115",
+                "PHYS116",
+                "ASTR_OX116"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "JPN 301": {
+        "prereq": [
+            [
+                "JPN301"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(ECON 101 or ECON_OX 101 or FIN 201) and (MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 or MATH 112Z or MATH_OX 112Z or MATH 116)": {
+        "prereq": [
+            [
+                "ECON101",
+                "ECON_OX101",
+                "FIN201"
+            ],
+            [
+                "MATH111",
+                "MATH_OX111",
+                "MATH112",
+                "MATH_OX112",
+                "MATH112Z",
+                "MATH_OX112Z",
+                "MATH116"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "JPN 202": {
+        "prereq": [
+            [
+                "JPN202"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(BIOL 142 and BIOL 142L) or (BIOL_OX 142)] and (CHEM 203 or CHEM 203Z or CHEM_OX 203 or CHEM 221 or CHEM_OX 221 or CHEM 221Z)": {
+        "prereq": [
+            [
+                "BIOL142",
+                "BIOL_OX142"
+            ],
+            [
+                "BIOL142L",
+                "BIOL_OX142"
+            ],
+            [
+                "CHEM203",
+                "CHEM203Z",
+                "CHEM_OX203",
+                "CHEM221",
+                "CHEM_OX221",
+                "CHEM221Z"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(MATH 211 or MATH_OX 211 or MATH 276) and (MATH 212 or MATH_OX 212) and (MATH 221 or MATH_OX 221 or MATH 275 or MATH 321)": {
+        "prereq": [
+            [
+                "MATH211",
+                "MATH_OX211",
+                "MATH276"
+            ],
+            [
+                "MATH212",
+                "MATH_OX212"
+            ],
+            [
+                "MATH221",
+                "MATH_OX221",
+                "MATH275",
+                "MATH321"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "JPN 401 or JPN 401W": {
+        "prereq": [
+            [
+                "JPN401",
+                "JPN401W"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires MATH 361": {
+        "prereq": [
+            [
+                "MATH361"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(ECON 101 or ECON_OX 101 or FIN 201) and (ECON 112 or ECON_OX 112)": {
+        "prereq": [
+            [
+                "ECON101",
+                "ECON_OX101",
+                "FIN201"
+            ],
+            [
+                "ECON112",
+                "ECON_OX112"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires ECON _OX 100 or ECON 101 or ECON_OX 101 or FIN 201 AND ECON 112 or ECON_OX112": {
+        "prereq": [
+            [
+                "ECON_OX100",
+                "ECON101",
+                "ECON_OX101",
+                "FIN201",
+                "ECON_OX112"
+            ],
+            [
+                "ECON_OX100",
+                "ECON101",
+                "ECON_OX101",
+                "ECON112",
+                "ECON_OX112"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires MATH 411": {
+        "prereq": [
+            [
+                "MATH411"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(BIOL 142 or BIOL_OX 142) and BIOL 264": {
+        "prereq": [
+            [
+                "BIOL142",
+                "BIOL_OX142"
+            ],
+            [
+                "BIOL264"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires MATH 421": {
+        "prereq": [
+            [
+                "MATH421"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires PHYS 141 OR PHYS_OX 141 OR PHYS 151 OR PHYS_OX 151": {
+        "prereq": [
+            [
+                "PHYS141",
+                "PHYS_OX141",
+                "PHYS151",
+                "PHYS_OX151"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(BIOL 142 and BIOL 142L) or BIOL_OX 142] and (CHEM 142 or CHEM_OX 142 or CHEM 202 or CHEM_OX 202 or CHEM 202Z)": {
+        "prereq": [
+            [
+                "BIOL142",
+                "BIOL_OX142"
+            ],
+            [
+                "BIOL142L",
+                "BIOL_OX142"
+            ],
+            [
+                "CHEM142",
+                "CHEM_OX142",
+                "CHEM202",
+                "CHEM_OX202",
+                "CHEM202Z"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(MATH 211 or MATH_OX 211 or MATH 276) and (ECON 201 or ECON_OX 201)": {
+        "prereq": [
+            [
+                "MATH211",
+                "MATH_OX211",
+                "MATH276"
+            ],
+            [
+                "ECON201",
+                "ECON_OX201"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(BIOL 142 and BIOl 142L) or BIOL_OX142] and (BIOL 360 or NBB 301)": {
+        "prereq": [
+            [
+                "BIOL142",
+                "BIOL_OX142"
+            ],
+            [
+                "BIOL142L",
+                "BIOL_OX142"
+            ],
+            [
+                "BIOL360",
+                "NBB301"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(ECON 101 or ECON_OX 101 or BUS 201) and (ECON 112 or ECON_OX 112) and (ECON 220 or ECON_OX 220 or MATH 207 or MATH_OX 207 or MATH 361 or MATH 362)": {
+        "prereq": [
+            [
+                "ECON101",
+                "ECON_OX101",
+                "BUS201"
+            ],
+            [
+                "ECON112",
+                "ECON_OX112"
+            ],
+            [
+                "ECON220",
+                "ECON_OX220",
+                "MATH207",
+                "MATH_OX207",
+                "MATH361",
+                "MATH362"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "BIOL 264 or BIOL_OX 264": {
+        "prereq": [
+            [
+                "BIOL264",
+                "BIOL_OX264"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(PHYS 141 or PHYS_OX 141 or PHYS 151 or PHYS_OX 151) and (MATH 112 or MATH_OX 112 or MATH 116 or MATH 210)": {
+        "prereq": [
+            [
+                "PHYS141",
+                "PHYS_OX141",
+                "PHYS151",
+                "PHYS_OX151"
+            ],
+            [
+                "MATH112",
+                "MATH_OX112",
+                "MATH116",
+                "MATH210"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(BIOL 142 or BIOL_OX 142) and BIOL 142Ls.": {
+        "prereq": [
+            [
+                "BIOL142",
+                "BIOL_OX142"
+            ],
+            [
+                "BIOL142L"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires CS 170 OR CS_OX 170": {
+        "prereq": [
+            [
+                "CS170",
+                "CS_OX170"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(MATH 111 or MATH_OX 111 or QTM 100 or QTM_OX 100) and (CS 110 or CS 170 or CS_OX 170)s.": {
+        "prereq": [
+            [
+                "MATH111",
+                "MATH_OX111",
+                "QTM100",
+                "QTM_OX100"
+            ],
+            [
+                "CS110",
+                "CS170",
+                "CS_OX170"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(PHYS 151 or PHYS_OX 151) or [(PHYS 141 or PHYS_OX 141) and (MATH 112 or MATH 112Z or MATH_OX 112 or MATH_OX 112Z0] or [(PHYS 141 or PHYS_OX 141) and MATH 116)": {
+        "prereq": [
+            [
+                "PHYS151",
+                "PHYS_OX151",
+                "PHYS141",
+                "PHYS_OX141"
+            ],
+            [
+                "PHYS151",
+                "PHYS_OX151",
+                "PHYS141",
+                "PHYS_OX141",
+                "MATH116"
+            ],
+            [
+                "PHYS151",
+                "PHYS_OX151",
+                "MATH112",
+                "MATH112Z",
+                "MATH_OX112",
+                "MATH_OX112Z0",
+                "PHYS141",
+                "PHYS_OX141"
+            ],
+            [
+                "PHYS151",
+                "PHYS_OX151",
+                "MATH112",
+                "MATH112Z",
+                "MATH_OX112",
+                "MATH_OX112Z0",
+                "MATH116"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(BIOL 142 and BIOL 142L) or BIOL_OX142 or BIOL 152] and BIOL 370": {
+        "prereq": [
+            [
+                "BIOL142",
+                "BIOL_OX142",
+                "BIOL152"
+            ],
+            [
+                "BIOL142L",
+                "BIOL_OX142",
+                "BIOL152"
+            ],
+            [
+                "BIOL370"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(ECON 201 or ECON_OX 201) and (ECON 212 or ECON_OX 212)": {
+        "prereq": [
+            [
+                "ECON201",
+                "ECON_OX201"
+            ],
+            [
+                "ECON212",
+                "ECON_OX212"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(CS 170 or CS_OX 170) and (MATH 111 or MATH_OX 111)s.": {
+        "prereq": [
+            [
+                "CS170",
+                "CS_OX170"
+            ],
+            [
+                "MATH111",
+                "MATH_OX111"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(PHYS 142 or PHYS_OX 142 or PHYS 152 or PHYS_OX 152) and (MATH 112 or MATH_OX 112 or MATH 112Z or MATH 116) and (CHEM 205 or CHEM_OX 205 or CHEM 331 or PHYS 253 or PHYS_OX 253)": {
+        "prereq": [
+            [
+                "PHYS142",
+                "PHYS_OX142",
+                "PHYS152",
+                "PHYS_OX152"
+            ],
+            [
+                "MATH112",
+                "MATH_OX112",
+                "MATH112Z",
+                "MATH116"
+            ],
+            [
+                "CHEM205",
+                "CHEM_OX205",
+                "CHEM331",
+                "PHYS253",
+                "PHYS_OX253"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140 or (BIOL 142 and BIOL 142L) or BIOL_OX 142": {
+        "prereq": [
+            [
+                "ENVS120",
+                "ENVS130",
+                "ENVS131",
+                "ENVS_OX131",
+                "ENVS140",
+                "BIOL142",
+                "BIOL_OX142"
+            ],
+            [
+                "ENVS120",
+                "ENVS130",
+                "ENVS131",
+                "ENVS_OX131",
+                "ENVS140",
+                "BIOL142L",
+                "BIOL_OX142"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CS 171 or 171Z or CS_OX 171": {
+        "prereq": [
+            [
+                "CS171",
+                "CS171Z",
+                "CS_OX171"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires CS 171 or CS 171Z or CS_OX 171": {
+        "prereq": [
+            [
+                "CS171",
+                "CS171Z",
+                "CS_OX171"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires ENVS 371 or BIOL 371 as a prerequisite OR permission of instructor.": {
+        "prereq": [
+            [
+                "ENVS371",
+                "BIOL371"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "ENVS 371 or BIOL 371 as a prerequisite OR permission of instructor."
+    },
+    "(ECON 201 or ECON_OX 201) and (ECON 212 or ECON_OX 212)s.": {
+        "prereq": [
+            [
+                "ECON201",
+                "ECON_OX201"
+            ],
+            [
+                "ECON212",
+                "ECON_OX212"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires PHYS 253": {
+        "prereq": [
+            [
+                "PHYS253"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CS 211 or CS 323 or CS 325 or CS 334 or CS 470": {
+        "prereq": [
+            [
+                "CS211",
+                "CS323",
+                "CS325",
+                "CS334",
+                "CS470"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "PHYS 220": {
+        "prereq": [
+            [
+                "PHYS220"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(ECON 112 or ECON_OX 112) and (ECON 201 or ECON_OX 201) and (ECON 220 or ECON_OX 220 or MATH 361)": {
+        "prereq": [
+            [
+                "ECON112",
+                "ECON_OX112"
+            ],
+            [
+                "ECON201",
+                "ECON_OX201"
+            ],
+            [
+                "ECON220",
+                "ECON_OX220",
+                "MATH361"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(CS 224 or CS_OX 224) and CS 253": {
+        "prereq": [
+            [
+                "CS224",
+                "CS_OX224"
+            ],
+            [
+                "CS253"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(ECON 201 or ECON_OX 201) and ECON 215s.": {
+        "prereq": [
+            [
+                "ECON201",
+                "ECON_OX201"
+            ],
+            [
+                "ECON215"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "PHYS 253 or PHYS_OX 253 or (CHEM 205 and CHEM 205L) or (CHEM 331 and CHEM 331L) or (CHEM 331 and CHEM 331LW)": {
+        "prereq": [
+            [
+                "PHYS253",
+                "PHYS_OX253",
+                "CHEM205",
+                "CHEM331"
+            ],
+            [
+                "PHYS253",
+                "PHYS_OX253",
+                "CHEM205",
+                "CHEM331",
+                "CHEM331LW"
+            ],
+            [
+                "PHYS253",
+                "PHYS_OX253",
+                "CHEM205",
+                "CHEM331L",
+                "CHEM331"
+            ],
+            [
+                "PHYS253",
+                "PHYS_OX253",
+                "CHEM205",
+                "CHEM331L",
+                "CHEM331LW"
+            ],
+            [
+                "PHYS253",
+                "PHYS_OX253",
+                "CHEM205L",
+                "CHEM331"
+            ],
+            [
+                "PHYS253",
+                "PHYS_OX253",
+                "CHEM205L",
+                "CHEM331",
+                "CHEM331LW"
+            ],
+            [
+                "PHYS253",
+                "PHYS_OX253",
+                "CHEM205L",
+                "CHEM331L",
+                "CHEM331"
+            ],
+            [
+                "PHYS253",
+                "PHYS_OX253",
+                "CHEM205L",
+                "CHEM331L",
+                "CHEM331LW"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(CS 170 or CS_OX 170) and (CS 171 or CS_OX 171) and (CS 224 or CS_OX 224) and CS 253,": {
+        "prereq": [
+            [
+                "CS170",
+                "CS_OX170"
+            ],
+            [
+                "CS171",
+                "CS_OX171"
+            ],
+            [
+                "CS224",
+                "CS_OX224"
+            ],
+            [
+                "CS253"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires BIOL 360 or NBB 301 or IBS 514": {
+        "prereq": [
+            [
+                "BIOL360",
+                "NBB301",
+                "IBS514"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires ECON 201 OR ECON_OX201": {
+        "prereq": [
+            [
+                "ECON201",
+                "ECON_OX201"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ECON 220 or ECON_OX 220 or MATH 361": {
+        "prereq": [
+            [
+                "ECON220",
+                "ECON_OX220",
+                "MATH361"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(PHYS 212 or PHYS_OX 212) and (PHYS 220 or PHYS_OX 220) and PHYS 421,s.": {
+        "prereq": [
+            [
+                "PHYS212",
+                "PHYS_OX212"
+            ],
+            [
+                "PHYS220",
+                "PHYS_OX220"
+            ],
+            [
+                "PHYS421"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(CS224 or CS_OX 224) and (CS 253 or CS_OX 253) and (MATH 221 or MATH_OX 221 or MATH 275 or MATH 321)": {
+        "prereq": [
+            [
+                "CS224",
+                "CS_OX224"
+            ],
+            [
+                "CS253",
+                "CS_OX253"
+            ],
+            [
+                "MATH221",
+                "MATH_OX221",
+                "MATH275",
+                "MATH321"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ECON 320 and (ECON 371 or ECON 372 or ECON 372W or HLTH 370)": {
+        "prereq": [
+            [
+                "ECON320"
+            ],
+            [
+                "ECON371",
+                "ECON372",
+                "ECON372W",
+                "HLTH370"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CS 253 and CS 255s.": {
+        "prereq": [
+            [
+                "CS253"
+            ],
+            [
+                "CS255"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ECON 320 & CS 334s.": {
+        "prereq": [
+            [
+                "ECON320"
+            ],
+            [
+                "CS334"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "PHYS 253 or PHYS_OX 253": {
+        "prereq": [
+            [
+                "PHYS253",
+                "PHYS_OX253"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CS 253": {
+        "prereq": [
+            [
+                "CS253"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "PHYS 220 and (PHYS 253 or PHYS_OX 253) and (MATH 212 or MATH_OX 212)": {
+        "prereq": [
+            [
+                "PHYS220"
+            ],
+            [
+                "PHYS253",
+                "PHYS_OX253"
+            ],
+            [
+                "MATH212",
+                "MATH_OX212"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires BIOL 142 and BIOL 142L or BIOL_OX142 or BIOL 152 AND BIOL 495A": {
+        "prereq": [
+            [
+                "BIOL142",
+                "BIOL_OX142",
+                "BIOL152"
+            ],
+            [
+                "BIOL142",
+                "BIOL_OX142",
+                "BIOL495A"
+            ],
+            [
+                "BIOL142L",
+                "BIOL_OX142",
+                "BIOL152"
+            ],
+            [
+                "BIOL142L",
+                "BIOL_OX142",
+                "BIOL495A"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "PHYS 220 or MATH 221 or MATH_OX 221": {
+        "prereq": [
+            [
+                "PHYS220",
+                "MATH221",
+                "MATH_OX221"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CS 326": {
+        "prereq": [
+            [
+                "CS326"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CS 253 or CS_OX 253": {
+        "prereq": [
+            [
+                "CS253",
+                "CS_OX253"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CS 325": {
+        "prereq": [
+            [
+                "CS325"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CS 350": {
+        "prereq": [
+            [
+                "CS350"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires KRN 401": {
+        "prereq": [
+            [
+                "KRN401"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "KRN 402 as prerequisite": {
+        "prereq": [
+            [
+                "KRN402"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CS 224 and CS 253s.": {
+        "prereq": [
+            [
+                "CS224"
+            ],
+            [
+                "CS253"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "BBA or SPECSTUBUS studentsThis section is reserved for students in the BBA program.": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "BBA or SPECSTUBUS studentsThis section is reserved for students in the BBA program."
+    },
+    "Program restrictions applyThis section is reserved for students in the BBA program.": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "Program restrictions applyThis section is reserved for students in the BBA program."
+    },
+    "MKT 340 or SPECSTUBUS studentsThis section is reserved for students in the BBA program.": {
+        "prereq": [
+            [
+                "MKT340"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "MKT 340 or SPECSTUBUS studentsThis section is reserved for students in the BBA program."
+    },
+    "Students enrolled or who took ACT 210 or ACT_OX 210 or ACT 211 or ACT_OX 211 cannot enroll in ACT 200.SPECSTUBUS students can enroll.": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": [
+            [
+                "ACT210",
+                "ACT_OX210",
+                "ACT211",
+                "ACT_OX211"
+            ]
+        ],
+        "notes": "Students enrolled or who took ACT 210 or ACT_OX 210 or ACT 211 or ACT_OX 211 cannot enroll in ACT 200.SPECSTUBUS students can enroll."
+    },
+    "ACT 200 or ACT_OX 200 or ACT 210 or ACT_OX 210 or SPECSTUBUS studentss.": {
+        "prereq": [
+            [
+                "ACT200",
+                "ACT_OX200",
+                "ACT210",
+                "ACT_OX210"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "ACT 200 or ACT_OX 200 or ACT 210 or ACT_OX 210 or SPECSTUBUS studentss."
+    },
+    "ACT 200 or ACT_OX 200 or ACT 210 or ACT_OX 210This section is reserved for students in the BBA program.": {
+        "prereq": [
+            [
+                "ACT200",
+                "ACT_OX200",
+                "ACT210",
+                "ACT_OX210"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "ACT 200 or ACT_OX 200 or ACT 210 or ACT_OX 210This section is reserved for students in the BBA program."
+    },
+    "FILM 101 or FILM_OX 101": {
+        "prereq": [
+            [
+                "FILM101",
+                "FILM_OX101"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ACT 200 or ACT_OX 200This section is reserved for students in the BBA program.": {
+        "prereq": [
+            [
+                "ACT200",
+                "ACT_OX200"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "ACT 200 or ACT_OX 200This section is reserved for students in the BBA program."
+    },
+    "MKT 340 SPECSTUBUS students are allowed to enroll.This section is reserved for students in the BBA program.": {
+        "prereq": [
+            [
+                "MKT340"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "MKT 340 SPECSTUBUS students are allowed to enroll.This section is reserved for students in the BBA program."
+    },
+    "This section is reserved for students in the BBA program.": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "This section is reserved for students in the BBA program."
+    },
+    "FILM 101 or FILM 102 or FILM_OX 270": {
+        "prereq": [
+            [
+                "FILM101",
+                "FILM102",
+                "FILM_OX270"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "FILM 107 or ARTVIS 107 or FILM_OX 107 or FILM_OX 107E": {
+        "prereq": [
+            [
+                "FILM107",
+                "ARTVIS107",
+                "FILM_OX107",
+                "FILM_OX107E"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "Any SOC or SOC_OX": {
+        "prereq": [
+            [
+                "SOC.*",
+                "SOC_OX.*"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(ACT 200 or ACT_OX 200) and (FIN 320 or FIN_OX 320)s. Familiarity with a programing language (ideally Python, but other languages will also be sufficient).This section is reserved for students in the BBA program.": {
+        "prereq": [
+            [
+                "ACT200",
+                "ACT_OX200"
+            ],
+            [
+                "FIN320",
+                "FIN_OX320"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "(ACT 200 or ACT_OX 200) and (FIN 320 or FIN_OX 320)s. Familiarity with a programing language (ideally Python, but other languages will also be sufficient).This section is reserved for students in the BBA program."
+    },
+    "Any one SOC course as prerequisite": {
+        "prereq": [
+            [
+                "SOC.*"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course is for students enrolled in UCOL or UNURS.This class is for UCOL and UNUR students only.": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": " This course is for students enrolled in UCOL or UNURS.This class is for UCOL and UNUR students only."
+    },
+    "(FILM 101 or FILM_OX 101) and (FILM 102 or FILM_OX 102)s.": {
+        "prereq": [
+            [
+                "FILM101",
+                "FILM_OX101"
+            ],
+            [
+                "FILM102",
+                "FILM_OX102"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "One HIST course 200 level or above": {
+        "prereq": [
+            [
+                "HIST200+"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "FILM 102 and (FILM 201 or FILM 202 or FILM 203 or FILM 204 or FILM_OX 204 or FILM 205)s.": {
+        "prereq": [
+            [
+                "FILM102"
+            ],
+            [
+                "FILM201",
+                "FILM202",
+                "FILM203",
+                "FILM204",
+                "FILM_OX204",
+                "FILM205"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "SPECSTUBUS students can enroll.This section is reserved for students in the BBA program.": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "SPECSTUBUS students can enroll.This section is reserved for students in the BBA program."
+    },
+    "FILM 207": {
+        "prereq": [
+            [
+                "FILM207"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "Program restrictions apply": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "Program restrictions apply"
+    },
+    "SPAN 101 or SPAN_OX 101": {
+        "prereq": [
+            [
+                "SPAN101",
+                "SPAN_OX101"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ENGCW 270/270W or ENGCW_OX 270 or ENGCW 271/271W or ENGCW_OX 271 or ENGCW 272/272W or FILM 101 or FILM_OX 101": {
+        "prereq": [
+            [
+                "ENGCW270",
+                "ENGCW270W",
+                "ENGCW_OX270",
+                "ENGCW271",
+                "ENGCW271W",
+                "ENGCW_OX271",
+                "ENGCW272",
+                "ENGCW272W",
+                "FILM101",
+                "FILM_OX101"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "OAM 330 or OAM 331 or SPECSTUBUS studentsThis section is reserved for students in the BBA program.": {
+        "prereq": [
+            [
+                "OAM330",
+                "OAM331"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "OAM 330 or OAM 331 or SPECSTUBUS studentsThis section is reserved for students in the BBA program."
+    },
+    "FILM 378R or ENGCW 378R or FILM 378RW or ENGCW 378RW or FILM_OX 378RW or ENG_OX 378RW": {
+        "prereq": [
+            [
+                "FILM378R",
+                "ENGCW378R",
+                "FILM378RW",
+                "ENGCW378RW",
+                "FILM_OX378RW",
+                "ENG_OX378RW"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "BBA & SPECSTUBUS students allowed to enroll.This section is reserved for students in the BBA program.": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "BBA and SPECSTUBUS students allowed to enroll.This section is reserved for students in the BBA program."
+    },
+    "SPAN 201 or SPAN_OX 201": {
+        "prereq": [
+            [
+                "SPAN201",
+                "SPAN_OX201"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "FILM 301 or FILM 301W or FILM 302": {
+        "prereq": [
+            [
+                "FILM301",
+                "FILM301W",
+                "FILM302"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires DANC 250 AND DANC 150": {
+        "prereq": [
+            [
+                "DANC250"
+            ],
+            [
+                "DANC150"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "QTM 100 or QTM_OX 100 or MATH_OX 117 or MATH_OX 117Q or QTM 220 or ECON 220 or ECON_OX 220 or POLS 310 or POLS 310W or ISOM 350 or BUS 350 or BUS_OX 350": {
+        "prereq": [
+            [
+                "QTM100",
+                "QTM_OX100",
+                "MATH_OX117",
+                "MATH_OX117Q",
+                "QTM220",
+                "ECON220",
+                "ECON_OX220",
+                "POLS310",
+                "POLS310W",
+                "ISOM350",
+                "BUS350",
+                "BUS_OX350"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires DANC 350 AND DANC 250 AND DANC 150": {
+        "prereq": [
+            [
+                "DANC350"
+            ],
+            [
+                "DANC250"
+            ],
+            [
+                "DANC150"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "BBA or SPECSTUBUS studentsThis section is reserved for students in the Emory College Liberal Arts and Sciences program.": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "BBA or SPECSTUBUS studentsThis section is reserved for students in the Emory College Liberal Arts and Sciences program."
+    },
+    "MUS 121 as prerequisite": {
+        "prereq": [
+            [
+                "MUS121"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "FIN 201 or [(ECON 101 or ECON_OX 101) and (ECON 112 or ECON_OX 112)] or SPECSTUBUS studentsor equivalent transfer credit as prerequisite.This section is reserved for students in the BBA program.": {
+        "prereq": [
+            [
+                "FIN201",
+                "ECON101",
+                "ECON_OX101"
+            ],
+            [
+                "FIN201",
+                "ECON112",
+                "ECON_OX112"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "FIN 201 or ((ECON 101 or ECON_OX 101) and (ECON 112 or ECON_OX 112)) or SPECSTUBUS studentsor equivalent transfer credit .This section is reserved for students in the BBA program."
+    },
+    "FIN 220 or FIN 320 or SPECSTUBUS studentsThis section is reserved for students in the BBA program.": {
+        "prereq": [
+            [
+                "FIN220",
+                "FIN320"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "FIN 220 or FIN 320 or SPECSTUBUS studentsThis section is reserved for students in the BBA program."
+    },
+    "This course requires MUS 221": {
+        "prereq": [
+            [
+                "MUS221"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ECON 220 or ECON_OX 220 or HLTH 207 or MATH_OX 117Q or QTM 100 or QTM_OX 100": {
+        "prereq": [
+            [
+                "ECON220",
+                "ECON_OX220",
+                "HLTH207",
+                "MATH_OX117Q",
+                "QTM100",
+                "QTM_OX100"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "HLTH 220 or HLTH 221": {
+        "prereq": [
+            [
+                "HLTH220",
+                "HLTH221"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "HLTH 220": {
+        "prereq": [
+            [
+                "HLTH220"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "HLTH 250 or HLTH_OX 250 or ANT 205 or ANTH_OX 205 or SOC 250": {
+        "prereq": [
+            [
+                "HLTH250",
+                "HLTH_OX250",
+                "ANT205",
+                "ANTH_OX205",
+                "SOC250"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "POLS 110 or POLS_OX 110": {
+        "prereq": [
+            [
+                "POLS110",
+                "POLS_OX110"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "POLS 208 or POLS_OX 208": {
+        "prereq": [
+            [
+                "POLS208",
+                "POLS_OX208"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "FIN 425 SPECSTUBUS students are allowed to enroll.This section is reserved for students in the BBA program.": {
+        "prereq": [
+            [
+                "FIN425"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "FIN 425 SPECSTUBUS students are allowed to enroll.This section is reserved for students in the BBA program."
+    },
+    "HLTH 210": {
+        "prereq": [
+            [
+                "HLTH210"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(MATH 210 or MATH_OX 210 or MATH 211 or MATH_OX 211) and (QTM 150 or QTM_OX 150)": {
+        "prereq": [
+            [
+                "MATH210",
+                "MATH_OX210",
+                "MATH211",
+                "MATH_OX211"
+            ],
+            [
+                "QTM150",
+                "QTM_OX150"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(QTM 110 or QTM_OX 110) and [QTM 210 or QTM_OX 210 or (MATH 361 and MATH 362)] and (MATH 221 or MATH_OX 221)s.": {
+        "prereq": [
+            [
+                "QTM110",
+                "QTM_OX110"
+            ],
+            [
+                "QTM210",
+                "QTM_OX210",
+                "MATH361"
+            ],
+            [
+                "QTM210",
+                "QTM_OX210",
+                "MATH362"
+            ],
+            [
+                "MATH221",
+                "MATH_OX221"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "HLTH 210 & HLTH 230 & HLTH 250": {
+        "prereq": [
+            [
+                "HLTH210"
+            ],
+            [
+                "HLTH230"
+            ],
+            [
+                "HLTH250"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "HLTH 220 and (BIOL 141 or BIOL_OX 141 or CHEM 141 or CHEM_OX 141 or CHEM 151 or CHEM_OX 151)": {
+        "prereq": [
+            [
+                "HLTH220"
+            ],
+            [
+                "BIOL141",
+                "BIOL_OX141",
+                "CHEM141",
+                "CHEM_OX141",
+                "CHEM151",
+                "CHEM_OX151"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "QTM 220": {
+        "prereq": [
+            [
+                "QTM220"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(QTM 150 and QTM 151) or CS 170": {
+        "prereq": [
+            [
+                "QTM150",
+                "CS170"
+            ],
+            [
+                "QTM151",
+                "CS170"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "HLTH 210 and HLTH 230 and HLTH 250": {
+        "prereq": [
+            [
+                "HLTH210"
+            ],
+            [
+                "HLTH230"
+            ],
+            [
+                "HLTH250"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "MATH_OX 117 or MATH 207/MATH_OX 207 or MATH 362 or ECON 220/ECON_OX 220 or QTM 100/QTM_OX 100 or QTM 110/QTM_OX 110 or SOC 275 or QTM 999XFR or QTM_OX ELEC as prereq. SPECSTUBUS stud.can enroll. Students enrolled or who took ISOM 350 can't take BUS 350.This section is reserved for students in the Emory College Liberal Arts and Sciences program.": {
+        "prereq": [
+            [
+                "MATH_OX117",
+                "MATH207",
+                "MATH_OX207",
+                "MATH362",
+                "ECON220",
+                "ECON_OX220",
+                "QTM100",
+                "QTM_OX100",
+                "QTM110",
+                "QTM_OX110",
+                "SOC275",
+                "QTM999XFR"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "MATH_OX 117 or MATH 207 or MATH_OX 207 or MATH 362 or ECON 220 or ECON_OX 220 or QTM 100 or QTM_OX 100 or QTM 110 or QTM_OX 110 or SOC 275 or QTM 999XFR or QTM_OX ELEC as prereq. SPECSTUBUS stud.can enroll. Students enrolled or who took ISOM 350 can't take BUS 350.This section is reserved for students in the Emory College Liberal Arts and Sciences program."
+    },
+    "MUS 122": {
+        "prereq": [
+            [
+                "MUS122"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "Students enrolled in the NDBU program not allowed to enroll in this course.This section is reserved for students in the BBA program.": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": [
+            [
+                "NDBU Program"
+            ]
+        ],
+        "notes": "Students enrolled in the NDBU program not allowed to enroll in this course.This section is reserved for students in the BBA program."
+    },
+    "Juniors or Seniors only or permission of instructor required for enrollment.": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "Juniors or Seniors only or permission of instructor required for enrollment."
+    },
+    "QTM 345": {
+        "prereq": [
+            [
+                "QTM345"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "QTM 347": {
+        "prereq": [
+            [
+                "QTM347"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(QTM 151 or QTM_OX 151) and QTM 220s.": {
+        "prereq": [
+            [
+                "QTM151",
+                "QTM_OX151"
+            ],
+            [
+                "QTM220"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "MUS 200 or ANT 202 or ANT 202W": {
+        "prereq": [
+            [
+                "MUS200",
+                "ANT202",
+                "ANT202W"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "All students who have fulfilled the PPF requirement of (1) PPF MAY NOT enroll into a second PPF course.": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "All students who have fulfilled the PPF requirement of (1) PPF MAY NOT enroll into a second PPF course."
+    },
+    "PORT 201": {
+        "prereq": [
+            [
+                "PORT201"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires MUS 240": {
+        "prereq": [
+            [
+                "MUS240"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "THEA 210 or THEA_OX 210": {
+        "prereq": [
+            [
+                "THEA210",
+                "THEA_OX210"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "THEA 223 or THEA 224": {
+        "prereq": [
+            [
+                "THEA223",
+                "THEA224"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "Students completing PE 273 or equivalent cannot enroll for PE 173. For concerns, please contact the Physical Education department.": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": [
+            [
+                "PE273"
+            ]
+        ],
+        "notes": null
+    },
+    "Students completing PSYC_OX 100 or equivalent cannot enroll in PSYC 111. For concerns, please contact the Psychology department.": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": [
+            [
+                "PSYC_OX100"
+            ]
+        ],
+        "notes": null
+    },
+    "Students completing PE 292 or equivalent cannot enroll for PE 192. For concerns, please contact the Physical Education department.": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": [
+            [
+                "PE292"
+            ]
+        ],
+        "notes": null
+    },
+    "ANT 202 or ANTH_OX 202": {
+        "prereq": [
+            [
+                "ANT202",
+                "ANTH_OX202"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "Any NBB or WGS course": {
+        "prereq": [
+            [
+                "NBB.*",
+                "WGS.*"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(PSYC 110 or PSYC_OX 110 or PSYC 111 or PSYC_OX 111) and (PSYC 230 or QTM 100 or QTM_OX 100)": {
+        "prereq": [
+            [
+                "PSYC110",
+                "PSYC_OX110",
+                "PSYC111",
+                "PSYC_OX111"
+            ],
+            [
+                "PSYC230",
+                "QTM100",
+                "QTM_OX100"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "BIOL 360/NBB301": {
+        "prereq": [
+            [
+                "BIOL360",
+                "NBB301"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ARAB_OX 201": {
+        "prereq": [
+            [
+                "ARAB_OX201"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "NBB 280": {
+        "prereq": [
+            [
+                "NBB280"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "PSYC 111 or PSYC_OX 111": {
+        "prereq": [
+            [
+                "PSYC111",
+                "PSYC_OX111"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "PSYC 110 or PSYC_OX 110 or BIOL 142 or BIOL_OX 142": {
+        "prereq": [
+            [
+                "PSYC110",
+                "PSYC_OX110",
+                "BIOL142",
+                "BIOL_OX142"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "PSYC 110 or PSYC_OX 110 or PSYC 111 or PSYC_OX 111": {
+        "prereq": [
+            [
+                "PSYC110",
+                "PSYC_OX110",
+                "PSYC111",
+                "PSYC_OX111"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "QTM 100 or QTM_OX 100 or ECON 220 or ECON_OX 220 or ISOM 350 or POLS 310 or POLS 310W or MATH_OX 117": {
+        "prereq": [
+            [
+                "QTM100",
+                "QTM_OX100",
+                "ECON220",
+                "ECON_OX220",
+                "ISOM350",
+                "POLS310",
+                "POLS310W",
+                "MATH_OX117"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "QTM 100 or QTM_OX 100": {
+        "prereq": [
+            [
+                "QTM100",
+                "QTM_OX100"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ARTHIST 103 and (ARTHIST 104 or ART_OX 104)": {
+        "prereq": [
+            [
+                "ARTHIST103"
+            ],
+            [
+                "ARTHIST104",
+                "ART_OX104"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "One PHIL course": {
+        "prereq": [
+            [
+                "PHIL.*"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "FREN 310": {
+        "prereq": [
+            [
+                "FREN310"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM 141 or CHEM_OX 141 or CHEM 150 or CHEM_OX 150": {
+        "prereq": [
+            [
+                "CHEM141",
+                "CHEM_OX141",
+                "CHEM150",
+                "CHEM_OX150"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "FREN 310 or FREN_OX 310 and FREN 314 or FREN_OX 314": {
+        "prereq": [
+            [
+                "FREN310",
+                "FREN_OX310",
+                "FREN_OX314"
+            ],
+            [
+                "FREN310",
+                "FREN314",
+                "FREN_OX314"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM 141 or CHEM_OX 141 or CHEM 150L or CHEM_OX 150L as a prerequisite and CHEM 202 or CHEM_OX 202 as a corequisite.": {
+        "prereq": [
+            [
+                "CHEM141",
+                "CHEM_OX141",
+                "CHEM150L",
+                "CHEM_OX150L"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM202",
+                "CHEM_OX202"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM 202 or CHEM_OX 202 or CHEM 202Z or CHEM 221 or CHEM_OX 221": {
+        "prereq": [
+            [
+                "CHEM202",
+                "CHEM_OX202",
+                "CHEM202Z",
+                "CHEM221",
+                "CHEM_OX221"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM 202Z": {
+        "prereq": [
+            [
+                "CHEM202Z"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "FREN 310, FREN 314 and two 300 level FREN courses,": {
+        "prereq": [
+            [
+                "FREN310"
+            ],
+            [
+                "FREN314"
+            ],
+            [
+                "FREN300-"
+            ],
+            [
+                "FREN300-"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM 202ZL as prerequisite and CHEM 203Z as co-requisite": {
+        "prereq": null,
+        "coreq": [
+            [
+                "CHEM202ZL"
+            ],
+            [
+                "CHEM203Z"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "Two PHIL courses": {
+        "prereq": [
+            [
+                "PHIL.*"
+            ],
+            [
+                "PHIL.*"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM 203 or CHEM_OX 203 or CHEM 222 or CHEM_OX 222 or CHEM 222Z or CHEM 203Z": {
+        "prereq": [
+            [
+                "CHEM203",
+                "CHEM_OX203",
+                "CHEM222",
+                "CHEM_OX222",
+                "CHEM222Z",
+                "CHEM203Z"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM 203L or CHEM_OX 203L or CHEM 203ZL or CHEM 222L or CHEM_OX 222L as prerequisite and CHEM 204 or CHEM_OX 204 as co-requisite": {
+        "prereq": null,
+        "coreq": [
+            [
+                "CHEM203L",
+                "CHEM_OX203L",
+                "CHEM203ZL",
+                "CHEM222L",
+                "CHEM_OX222L",
+                "CHEM_OX204"
+            ],
+            [
+                "CHEM203L",
+                "CHEM_OX203L",
+                "CHEM203ZL",
+                "CHEM222L",
+                "CHEM204",
+                "CHEM_OX204"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "(CHEM 203 or CHEM_OX 203 or CHEM 222 or CHEM_OX 222 or CHEM 222Z or CHEM 203Z) and (MATH 111 or MATH_OX 111 or MATH 112 or MATH 112Z or MATH_OX 112)": {
+        "prereq": [
+            [
+                "CHEM203",
+                "CHEM_OX203",
+                "CHEM222",
+                "CHEM_OX222",
+                "CHEM222Z",
+                "CHEM203Z"
+            ],
+            [
+                "MATH111",
+                "MATH_OX111",
+                "MATH112",
+                "MATH112Z",
+                "MATH_OX112"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ENVS 120 or ENVS 130 or ENVS 140 as prerequisite or co-requisite,": {
+        "prereq": [
+            [
+                "ENVS120",
+                "ENVS130",
+                "ENVS140"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "ENVS 120 or ENVS 130 or ENVS 140  or co-requisite,"
+    },
+    "NRSG 331": {
+        "prereq": [
+            [
+                "NRSG331"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM 203L or CHEM_OX 203L or CHEM 203ZL as prerequisites and CHEM 205 or CHEM_OX 205 as co-requisite": {
+        "prereq": [
+            [
+                "CHEM203L",
+                "CHEM_OX203L",
+                "CHEM203ZL"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM205",
+                "CHEM_OX205"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "(CHEM 204L or CHEM_OX 204L) and (CHEM 205L or CHEM_OX 205L) or co-requisite.": {
+        "prereq": [
+            [
+                "CHEM204L",
+                "CHEM_OX204L"
+            ],
+            [
+                "CHEM205L",
+                "CHEM_OX205L"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "(CHEM 204L or CHEM_OX 204L) and (CHEM 205L or CHEM_OX 205L) or co-requisite."
+    },
+    "(CHEM 204 or CHEM_X 204) and (CHEM 204L or CHEM_OX 204L)": {
+        "prereq": [
+            [
+                "CHEM204",
+                "CHEM_OX204"
+            ],
+            [
+                "CHEM204L",
+                "CHEM_OX204L"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140": {
+        "prereq": [
+            [
+                "ENVS120",
+                "ENVS130",
+                "ENVS131",
+                "ENVS_OX131",
+                "ENVS140"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(CHEM 203 or CHEM 203Z or CHEM_OX 203) and (CHEM 203L or CHEM 203ZL or CHEM_OX 203L)": {
+        "prereq": [
+            [
+                "CHEM203",
+                "CHEM203Z",
+                "CHEM_OX203"
+            ],
+            [
+                "CHEM203L",
+                "CHEM203ZL",
+                "CHEM_OX203L"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(CHEM 205 or CHEM_OX 205) and (PHYS 142 or PHYS_OX 142 or PHYS 152 or PHYS_OX 152) and (MATH 112 or MATH_OX 112 or MATH 210 or MATH_OX 210 or CHEM 270)": {
+        "prereq": [
+            [
+                "CHEM205",
+                "CHEM_OX205"
+            ],
+            [
+                "PHYS142",
+                "PHYS_OX142",
+                "PHYS152",
+                "PHYS_OX152"
+            ],
+            [
+                "MATH112",
+                "MATH_OX112",
+                "MATH210",
+                "MATH_OX210",
+                "CHEM270"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ENVS 240 as prerequisite or co-requisite,": {
+        "prereq": [
+            [
+                "ENVS240"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "ENVS 240  or co-requisite,"
+    },
+    "(CHEM 204 or CHEM_OX 204) and (CHEM 204L or CHEM_OX 204L) and (BIOL 141 or BIOL_OX 141)s. Students who took BIOL 301, or have transfer credit equivalent to BIOL 301, cannot take this course.": {
+        "prereq": [
+            [
+                "CHEM204",
+                "CHEM_OX204"
+            ],
+            [
+                "CHEM204L",
+                "CHEM_OX204L"
+            ],
+            [
+                "BIOL141",
+                "BIOL_OX141"
+            ]
+        ],
+        "coreq": null,
+        "antireq": [
+            [
+                "BIOL301"
+            ]
+        ],
+        "notes": null
+    },
+    "NRSG 419": {
+        "prereq": [
+            [
+                "NRSG419"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "BUS 350 or BUS_OX 350 or ISOM 350 or MATH_OX 117/117Q or QTM 100 or QTM_OX 100 or QTM 110 or QTM_OX 110 or ECON 220 or ECON_OX 220 or MATH 207 or MATH_OX 207/207Q or QTM 999XFR or QTM_OX ELEC or STAT COMPETENCY EXAM or SPECSTUBUS or transfer credit.This section is reserved for students in the BBA program.": {
+        "prereq": [
+            [
+                "BUS350",
+                "BUS_OX350",
+                "ISOM350",
+                "MATH_OX117",
+                "MATH_OX117Q",
+                "QTM100",
+                "QTM_OX100",
+                "QTM110",
+                "QTM_OX110",
+                "ECON220",
+                "ECON_OX220",
+                "MATH207",
+                "MATH_OX207",
+                "MATH_OX207Q",
+                "QTM999XFR"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "BUS 350 or BUS_OX 350 or ISOM 350 or MATH_OX 117 or MATH_OX 117Q or QTM 100 or QTM_OX 100 or QTM 110 or QTM_OX 110 or ECON 220 or ECON_OX 220 or MATH 207 or MATH_OX 207 or MATH_OX 207Q or QTM 999XFR or QTM_OX ELEC or STAT COMPETENCY EXAM or SPECSTUBUS or transfer credit.This section is reserved for students in the BBA program."
+    },
+    "(CHEM 204 or CHEM_OX 204) and (CHEM 204L or CHEM_OX 204L) and (CHEM 340 or BIOL 301)": {
+        "prereq": [
+            [
+                "CHEM204",
+                "CHEM_OX204"
+            ],
+            [
+                "CHEM204L",
+                "CHEM_OX204L"
+            ],
+            [
+                "CHEM340",
+                "BIOL301"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires ENVS 241 as a prerequisite OR permission of instructor.": {
+        "prereq": [
+            [
+                "ENVS241"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "ENVS 241 as a prerequisite OR permission of instructor."
+    },
+    "BUS 350 as co-requisite or ISOM 350 or MATH_OX 117/117Q or QTM XFR or QTM_OX ELEC as prerequisite or SPECSTUBUS students,This section is reserved for students in the BBA program.": {
+        "prereq": [
+            [
+                "ISOM350",
+                "MATH_OX117",
+                "MATH_OX117Q"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "BUS 350 as co-requisite or ISOM 350 or MATH_OX 117 or MATH_OX 117Q or QTM XFR or QTM_OX ELEC  or SPECSTUBUS students,This section is reserved for students in the BBA program."
+    },
+    "(CHEM 203 or CHEM 203Z or CHEM_OX 203) and (CHEM 203L or CHEM 203ZL or CHEM_OX 203L) and (CHEM 205 or CHEM_OX 205) and (CHEM 205L or CHEM_OX 205L)": {
+        "prereq": [
+            [
+                "CHEM203",
+                "CHEM203Z",
+                "CHEM_OX203"
+            ],
+            [
+                "CHEM203L",
+                "CHEM203ZL",
+                "CHEM_OX203L"
+            ],
+            [
+                "CHEM205",
+                "CHEM_OX205"
+            ],
+            [
+                "CHEM205L",
+                "CHEM_OX205L"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ISOM 351 or ISOM_OX 351 or SPESTUBUS studentsThis section is reserved for students in the BBA program.": {
+        "prereq": [
+            [
+                "ISOM351",
+                "ISOM_OX351"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "ISOM 351 or ISOM_OX 351 or SPESTUBUS studentsThis section is reserved for students in the BBA program."
+    },
+    "CHEM 204 or CHEM_OX 204 or CHEM 205 or CHEM_OX 205": {
+        "prereq": [
+            [
+                "CHEM204",
+                "CHEM_OX204",
+                "CHEM205",
+                "CHEM_OX205"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "NRSG 453": {
+        "prereq": [
+            [
+                "NRSG453"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "QTM 100 or QTM_OX 100 or BUS 350 or BUS_OX 350": {
+        "prereq": [
+            [
+                "QTM100",
+                "QTM_OX100",
+                "BUS350",
+                "BUS_OX350"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM 300L": {
+        "prereq": [
+            [
+                "CHEM300L"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "BBA & SPECSTUBUS students can enroll.This section is reserved for students in the BBA program.": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "BBA and SPECSTUBUS students can enroll.This section is reserved for students in the BBA program."
+    },
+    "(ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140) and (ENVS 221 or ENVS 224 or ENVS 225 or ENVS 226 or ENVS?POLS 227 or ENVS_OX 227)s.": {
+        "prereq": [
+            [
+                "ENVS120",
+                "ENVS130",
+                "ENVS131",
+                "ENVS_OX131",
+                "ENVS140"
+            ],
+            [
+                "ENVS221",
+                "ENVS224",
+                "ENVS225",
+                "ENVS226",
+                "ENVS227",
+                "POLS227",
+                "ENVS_OX227"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(CHEM 141 or CHEM_OX 141 or CHEM 150 or CHEM_OX 150) and (CHEM 142 or CHEM_OX 142 or CHEM 202 or CHEM_OX 202)": {
+        "prereq": [
+            [
+                "CHEM141",
+                "CHEM_OX141",
+                "CHEM150",
+                "CHEM_OX150"
+            ],
+            [
+                "CHEM142",
+                "CHEM_OX142",
+                "CHEM202",
+                "CHEM_OX202"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140) and (ENVS 250 or ENVS 260 or ENVS 270)": {
+        "prereq": [
+            [
+                "ENVS120",
+                "ENVS130",
+                "ENVS131",
+                "ENVS_OX131",
+                "ENVS140"
+            ],
+            [
+                "ENVS250",
+                "ENVS260",
+                "ENVS270"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ISOM 350 or BUS 350 or BUS_OX 350 or MATH_OX 117/117Q or QTM 999XFR or QTM_OX ELEC or SPECSTUBUS studentsThis section is reserved for students in the BBA program.": {
+        "prereq": [
+            [
+                "ISOM350",
+                "BUS350",
+                "BUS_OX350",
+                "MATH_OX117",
+                "MATH_OX117Q",
+                "QTM999XFR"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "ISOM 350 or BUS 350 or BUS_OX 350 or MATH_OX 117 or MATH_OX 117Q or QTM 999XFR or QTM_OX ELEC or SPECSTUBUS studentsThis section is reserved for students in the BBA program."
+    },
+    "ENVS 222 or ENVS_OX 222 or ENVS 229 or ENVS_OX 229 or ENVS 230 or ENVS_OX 230 or ENVS 233 or ENVS 235 or ENVS 239 or ENVS_OX 239 or ENVS 245": {
+        "prereq": [
+            [
+                "ENVS222",
+                "ENVS_OX222",
+                "ENVS229",
+                "ENVS_OX229",
+                "ENVS230",
+                "ENVS_OX230",
+                "ENVS233",
+                "ENVS235",
+                "ENVS239",
+                "ENVS_OX239",
+                "ENVS245"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ARTVIS 105": {
+        "prereq": [
+            [
+                "ARTVIS105"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140 or ENVS 225 or ENVS 227/POLS 227 or ENVS 227W/POLS 227W": {
+        "prereq": [
+            [
+                "ENVS120",
+                "ENVS130",
+                "ENVS131",
+                "ENVS_OX131",
+                "ENVS140",
+                "ENVS225",
+                "ENVS227",
+                "POLS227",
+                "ENVS227W",
+                "POLS227W"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ARTVIS 106": {
+        "prereq": [
+            [
+                "ARTVIS106"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "BUS 350 or BUS_OX 350 or ISOM 350 as prerequisite. STECSTUBUS student may enroll.This section is reserved for students in the BBA program.": {
+        "prereq": [
+            [
+                "BUS350",
+                "BUS_OX350",
+                "ISOM350"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "BUS 350 or BUS_OX 350 or ISOM 350 . STECSTUBUS student may enroll.This section is reserved for students in the BBA program."
+    },
+    "NRSG 464 as co-requisite (Students must enroll in NRSG 464 first)": {
+        "prereq": null,
+        "coreq": [
+            [
+                "NRSG464"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "Students completing MATH 119 or equivalent cannot enroll for MATH 111. For concerns, please contact the Mathematics department.": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": [
+            [
+                "MATH119"
+            ]
+        ],
+        "notes": null
+    },
+    "ARTVIS 120": {
+        "prereq": [
+            [
+                "ARTVIS120"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ARTVIS 206R": {
+        "prereq": [
+            [
+                "ARTVIS206R"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires MATH 111 OR MATH_OX111 OR MATH 115 OR MATH 119 OR MATH_OX119": {
+        "prereq": [
+            [
+                "MATH111",
+                "MATH_OX111",
+                "MATH115",
+                "MATH119",
+                "MATH_OX119"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "MATH 111 or MATH 111L": {
+        "prereq": [
+            [
+                "MATH111",
+                "MATH111L"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "MATH 111 or MATH 111L or MATH_OX 111": {
+        "prereq": [
+            [
+                "MATH111",
+                "MATH111L",
+                "MATH_OX111"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "MATH 112 or MATH 112Z or MATH_OX 112 or MATH_OX 112Z": {
+        "prereq": [
+            [
+                "MATH112",
+                "MATH112Z",
+                "MATH_OX112",
+                "MATH_OX112Z"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "MATH 112 or MATH 112S or MATH 112Z": {
+        "prereq": [
+            [
+                "MATH112",
+                "MATH112Z"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "MATH 112 or MATH_OX 112": {
+        "prereq": [
+            [
+                "MATH112",
+                "MATH_OX112"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "(ECON 101 or ECON_OX 101 or FIN 201) and (MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 or MATH 112Z or MATH_OX 112Z or MATH 116)s.": {
+        "prereq": [
+            [
+                "ECON101",
+                "ECON_OX101",
+                "FIN201"
+            ],
+            [
+                "MATH111",
+                "MATH_OX111",
+                "MATH112",
+                "MATH_OX112",
+                "MATH112Z",
+                "MATH_OX112Z",
+                "MATH116"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 or MATH 112Z": {
+        "prereq": [
+            [
+                "MATH111",
+                "MATH_OX111",
+                "MATH112",
+                "MATH_OX112",
+                "MATH112Z"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "BIOL 120 or BIOL_OX 120 as Corequisite": {
+        "prereq": null,
+        "coreq": [
+            [
+                "BIOL120",
+                "BIOL_OX120"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires MATH 111 as prerequisite AND MATH 112 or MATH_OX112 or MATH 112Z or MATH_OX112Z": {
+        "prereq": [
+            [
+                "MATH111",
+                "MATH_OX112",
+                "MATH112Z",
+                "MATH_OX112Z"
+            ],
+            [
+                "MATH112",
+                "MATH_OX112",
+                "MATH112Z",
+                "MATH_OX112Z"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "MATH 275": {
+        "prereq": [
+            [
+                "MATH275"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires BIOL 141 and BIOL 141L or BIOL 151or BIOL_OX141": {
+        "prereq": [
+            [
+                "BIOL141",
+                "BIOL151",
+                "BIOL_OX141"
+            ],
+            [
+                "BIOL141L",
+                "BIOL151",
+                "BIOL_OX141"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "BIOL 142 as a corequisite.": {
+        "prereq": null,
+        "coreq": [
+            [
+                "BIOL142"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "(BIOL 142 or BIOL_OX 142) and BIOL 142L and BIOL 236L or equivalent transfer credits as prerequisites.": {
+        "prereq": [
+            [
+                "BIOL142",
+                "BIOL_OX142"
+            ],
+            [
+                "BIOL142L"
+            ],
+            [
+                "BIOL236L"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This course requires BIOL 141, and BIOL 141L or BIOL 151or BIOL_OX141": {
+        "prereq": [
+            [
+                "BIOL141",
+                "BIOL151",
+                "BIOL_OX141"
+            ],
+            [
+                "BIOL141L",
+                "BIOL151",
+                "BIOL_OX141"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "BIOL 142 and BIOL 142L, or BIOL_OX 142 or BIOL_OX 142X,": {
+        "prereq": [
+            [
+                "BIOL142",
+                "BIOL_OX142",
+                "BIOL_OX142X"
+            ],
+            [
+                "BIOL142L",
+                "BIOL_OX142",
+                "BIOL_OX142X"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ITAL 202 or ITAL_OX 202": {
+        "prereq": [
+            [
+                "ITAL202",
+                "ITAL_OX202"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    }
+}
