@@ -1,55 +1,11 @@
-import re
 import json
+import re
 
-input_path = "data/course_detailed_correct_prereq.jsonl" 
-# just a copy of 
-# backEnd/Scraper/spring_2026_atlanta_complete.jsonl in the main branch
-# cuz I don't know github that well...
-output_path = "data/unique_ger_out.txt"
-
-# --- ger labels and their full names starts ---
-# Blue GER: FS, FW, CW, HA, NS, QR, SS, IC, ETHN, XA, ECS, HLTH, PE
-blue_ger_labels = {
-    "FS": "First Year Seminar",
-    "FW": "First Year Writing",
-    "CW": "Continuing Communication & Writing",
-    "HA": "Humanities & Arts",
-    "NS": "Natural Science",
-    "QR": "Quantitative Reasoning",
-    "SS": "Social Science",
-    "IC": "Intercultural Communication",
-    "ETHN": "Race and Ethnicity",
-    "XA": "Experience and Application",
-    "ECS": "ECS 101",
-    "HLTH": "HLTH 100",
-    "PE": "Physical Education",
-}
-
-# Gold GER: FS, FW, WRT, MQR, SNT, SNTL, HSC, HAP, HAL, HLTH, PED, PPF, ETHN
-gold_ger_labels = {
-    "FS": "First-Year Seminar",  # absorbed in blue ger      
-    "FW": "First-Year Writing",    # absorbed in blue ger   
-    "WRT": "Continuing Writing",   
-    "MQR": "Math & Quantitative Reasoning",   
-    "SNT": "Science, Nature, Technology", 
-    "SNTL": "Science, Nature, Technology with Lab",     
-    "HSC": "History, Society, Cultures",    
-    "HAP": "Humanities, Arts, Performance",  
-    "HAL": "Humanities, Arts, Language", 
-    "HLTH": "HLTH 100",    # absorbed in blue ger     
-    "PED": "Physical Education and Dance", 
-    "PPF": "Principles of Physical Fitness",
-    "ETHN": "Race and Ethnicity",
-}
-# --- ger labels and their full names ends ---
+input_path = "data/course_detailed_correct_prereq.jsonl"
+dict_path = "data/prereq_dict.json"
+output_path = "data/tidy_course_detail.json"
 
 
-
-
-
-
-# --- main cleaning function starts ---
-# input: line["code"], ger raw string obtained by combining line["ger"]
 def match_ger_labels(code, raw):   
     code = code.lower()
     raw = raw.replace("Requirement Designation:", "").strip().lower()
@@ -148,45 +104,56 @@ def match_ger_labels(code, raw):
 
     return labels
 
-# --- main cleaning function ends ---
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":
-    lines = []
-    out = ""
+    items = []
+    prereq_dict = {}
+
+    with open(dict_path, "r") as f:
+        prereq_dict = json.load(f)
 
     with open(input_path, 'r') as file:
-        lines = [json.loads(line) for line in file if json.loads(line).get("ger")]
+        for i, line in enumerate(file):
+            if i >= 10:
+                break
+            obj = json.loads(line)
+            code = obj.get("code")
+            num = (int)(re.search(r"(\d{3})", code).group(1))
+            if num >= 500: # filter grad school courses
+                continue
+            
+            prereq = [[]]
+            labels = []
 
-    print(f"GER lines: {len(lines)}")
+            if obj.get("ger"):
+                raw = ""
+                for word in obj["ger"]:
+                    raw += word + ' '
+                raw = raw.replace("Requirement Designation:", "").strip().lower()
+                labels = match_ger_labels(code, raw)
 
-    for i in range(0, len(lines)):
-        line = lines[i]
-        code = line["code"]
-        raw = ""
-        for word in line["ger"]:
-            raw += word + ' '
-        raw = raw.replace("Requirement Designation:", "").strip().lower()
-        labels = match_ger_labels(code, raw)
-        labels_str = "["
-        labels_str += ", ".join(labels)
-        labels_str += "]"
-        out += f"{i+1:<6}{line['code']:<12}{labels_str:<20} <-- {raw}\n"
+            sen = obj.get("prerequisites_sentence")
+            if sen and sen in prereq_dict:
+                prereq = prereq_dict[sen]
+                
+            item = {
+                "code": code,                        
+                "title": obj.get("title"),                 
+                "section": obj.get("section"),                         
+                "credits": obj.get("credits"),                         
+                "typically_offered": obj.get("typically_offered"),
+                "prerequisites": prereq,         
+                "ger": labels,                    
+                "instruction_method": obj.get("instruction_method"),      
+                "time": obj.get("time"),             
+                "professor": obj.get("professor"),          
+                "location": obj.get("location")    
+            }
+
+            items.append(item)
     
+    with open(output_path, "w") as f:
+        json.dump(items, f, indent=2)
 
-    with open(output_path, 'w') as f:
-        f.write(out)
-    
-
+            

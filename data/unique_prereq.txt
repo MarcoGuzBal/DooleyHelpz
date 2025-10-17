@@ -1,0 +1,215 @@
+(BIOL 142 and BIOL 142L) or BIOL_OX 142WE
+(MATH 221 or MATH_OX 221 or MATH 275 or MATH 321) and (CS 170 or CS_OX 170 or MATH 170)
+(ECON 101 or ECON_OX 101 or FIN 201) and (ECON 112 or ECON_OX 112) and (MATH 111 or MATH_OX 111 or MATH 116)s.
+MATH 250 or MATH_OX 250 or MATH_OX 250Q or MATH 276
+JPN 101
+ECON 101 or ECON_OX 101 or FIN 201
+(MATH 221 or MATH_OX 221 or MATH 275 or MATH 321) and (MATH 250 or MATH_OX 250 or MATH 276)
+JPN 201
+(MATH 211 or PHYS 211 or MATH_OX 211 or MATH 276) and (MATH 221 or MATH_OX 221 or MATH 321) and (MATH 250 or MATH_OX 250 or MATH 276)
+PHYS 115 or PHYS 116 or ASTR_OX 116
+JPN 301
+(ECON 101 or ECON_OX 101 or FIN 201) and (MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 or MATH 112Z or MATH_OX 112Z or MATH 116)
+JPN 202
+(BIOL 142 and BIOL 142L) or (BIOL_OX 142)] and (CHEM 203 or CHEM 203Z or CHEM_OX 203 or CHEM 221 or CHEM_OX 221 or CHEM 221Z)
+(MATH 211 or MATH_OX 211 or MATH 276) and (MATH 212 or MATH_OX 212) and (MATH 221 or MATH_OX 221 or MATH 275 or MATH 321)
+JPN 401 or JPN 401W
+This course requires MATH 361
+(ECON 101 or ECON_OX 101 or FIN 201) and (ECON 112 or ECON_OX 112)
+This course requires ECON _OX 100 or ECON 101 or ECON_OX 101 or FIN 201 AND ECON 112 or ECON_OX112
+This course requires MATH 411
+(BIOL 142 or BIOL_OX 142) and BIOL 264
+This course requires MATH 421
+This course requires PHYS 141 OR PHYS_OX 141 OR PHYS 151 OR PHYS_OX 151
+(BIOL 142 and BIOL 142L) or BIOL_OX 142] and (CHEM 142 or CHEM_OX 142 or CHEM 202 or CHEM_OX 202 or CHEM 202Z)
+(MATH 211 or MATH_OX 211 or MATH 276) and (ECON 201 or ECON_OX 201)
+(BIOL 142 and BIOl 142L) or BIOL_OX142] and (BIOL 360 or NBB 301)
+(ECON 101 or ECON_OX 101 or BUS 201) and (ECON 112 or ECON_OX 112) and (ECON 220 or ECON_OX 220 or MATH 207 or MATH_OX 207 or MATH 361 or MATH 362)
+BIOL 264 or BIOL_OX 264
+(PHYS 141 or PHYS_OX 141 or PHYS 151 or PHYS_OX 151) and (MATH 112 or MATH_OX 112 or MATH 116 or MATH 210)
+(BIOL 142 or BIOL_OX 142) and BIOL 142Ls.
+This course requires CS 170 OR CS_OX 170
+(MATH 111 or MATH_OX 111 or QTM 100 or QTM_OX 100) and (CS 110 or CS 170 or CS_OX 170)s.
+(PHYS 151 or PHYS_OX 151) or [(PHYS 141 or PHYS_OX 141) and (MATH 112 or MATH 112Z or MATH_OX 112 or MATH_OX 112Z0] or [(PHYS 141 or PHYS_OX 141) and MATH 116)
+(BIOL 142 and BIOL 142L) or BIOL_OX142 or BIOL 152] and BIOL 370
+(ECON 201 or ECON_OX 201) and (ECON 212 or ECON_OX 212)
+(CS 170 or CS_OX 170) and (MATH 111 or MATH_OX 111)s.
+(PHYS 142 or PHYS_OX 142 or PHYS 152 or PHYS_OX 152) and (MATH 112 or MATH_OX 112 or MATH 112Z or MATH 116) and (CHEM 205 or CHEM_OX 205 or CHEM 331 or PHYS 253 or PHYS_OX 253)
+ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140 or (BIOL 142 and BIOL 142L) or BIOL_OX 142
+CS 171 or 171Z or CS_OX 171
+This course requires CS 171 or CS 171Z or CS_OX 171
+This course requires ENVS 371 or BIOL 371 as a prerequisite OR permission of instructor.
+(ECON 201 or ECON_OX 201) and (ECON 212 or ECON_OX 212)s.
+This course requires PHYS 253
+CS 211 or CS 323 or CS 325 or CS 334 or CS 470
+PHYS 220
+(ECON 112 or ECON_OX 112) and (ECON 201 or ECON_OX 201) and (ECON 220 or ECON_OX 220 or MATH 361)
+(CS 224 or CS_OX 224) and CS 253
+(ECON 201 or ECON_OX 201) and ECON 215s.
+PHYS 253 or PHYS_OX 253 or (CHEM 205 and CHEM 205L) or (CHEM 331 and CHEM 331L) or (CHEM 331 and CHEM 331LW)
+(CS 170 or CS_OX 170) and (CS 171 or CS_OX 171) and (CS 224 or CS_OX 224) and CS 253,
+This course requires BIOL 360 or NBB 301 or IBS 514
+This course requires ECON 201 OR ECON_OX201
+ECON 220 or ECON_OX 220 or MATH 361
+(PHYS 212 or PHYS_OX 212) and (PHYS 220 or PHYS_OX 220) and PHYS 421,s.
+(CS224 or CS_OX 224) and (CS 253 or CS_OX 253) and (MATH 221 or MATH_OX 221 or MATH 275 or MATH 321)
+ECON 320 and (ECON 371 or ECON 372 or ECON 372W or HLTH 370)
+CS 253 and CS 255s.
+ECON 320 & CS 334s.
+PHYS 253 or PHYS_OX 253
+CS 253
+PHYS 220 and (PHYS 253 or PHYS_OX 253) and (MATH 212 or MATH_OX 212)
+This course requires BIOL 142 and BIOL 142L or BIOL_OX142 or BIOL 152 AND BIOL 495A
+PHYS 220 or MATH 221 or MATH_OX 221
+CS 326
+CS 253 or CS_OX 253
+CS 325
+CS 350
+This course requires KRN 401
+KRN 402 as prerequisite
+CS 224 and CS 253s.
+BBA or SPECSTUBUS studentsThis section is reserved for students in the BBA program.
+Program restrictions applyThis section is reserved for students in the BBA program.
+MKT 340 or SPECSTUBUS studentsThis section is reserved for students in the BBA program.
+Students enrolled or who took ACT 210 or ACT_OX 210 or ACT 211 or ACT_OX 211 cannot enroll in ACT 200.SPECSTUBUS students can enroll.
+ACT 200 or ACT_OX 200 or ACT 210 or ACT_OX 210 or SPECSTUBUS studentss.
+ACT 200 or ACT_OX 200 or ACT 210 or ACT_OX 210This section is reserved for students in the BBA program.
+FILM 101 or FILM_OX 101
+ACT 200 or ACT_OX 200This section is reserved for students in the BBA program.
+MKT 340 SPECSTUBUS students are allowed to enroll.This section is reserved for students in the BBA program.
+This section is reserved for students in the BBA program.
+FILM 101 or FILM 102 or FILM_OX 270
+FILM 107 or ARTVIS 107 or FILM_OX 107 or FILM_OX 107E
+Any SOC or SOC_OX
+(ACT 200 or ACT_OX 200) and (FIN 320 or FIN_OX 320)s. Familiarity with a programing language (ideally Python, but other languages will also be sufficient).This section is reserved for students in the BBA program.
+Any one SOC course as prerequisite
+This course is for students enrolled in UCOL or UNURS.This class is for UCOL and UNUR students only.
+(FILM 101 or FILM_OX 101) and (FILM 102 or FILM_OX 102)s.
+One HIST course 200 level or above
+FILM 102 and (FILM 201 or FILM 202 or FILM 203 or FILM 204 or FILM_OX 204 or FILM 205)s.
+SPECSTUBUS students can enroll.This section is reserved for students in the BBA program.
+FILM 207
+Program restrictions apply
+SPAN 101 or SPAN_OX 101
+ENGCW 270/270W or ENGCW_OX 270 or ENGCW 271/271W or ENGCW_OX 271 or ENGCW 272/272W or FILM 101 or FILM_OX 101
+OAM 330 or OAM 331 or SPECSTUBUS studentsThis section is reserved for students in the BBA program.
+FILM 378R or ENGCW 378R or FILM 378RW or ENGCW 378RW or FILM_OX 378RW or ENG_OX 378RW
+BBA & SPECSTUBUS students allowed to enroll.This section is reserved for students in the BBA program.
+SPAN 201 or SPAN_OX 201
+FILM 301 or FILM 301W or FILM 302
+This course requires DANC 250 AND DANC 150
+QTM 100 or QTM_OX 100 or MATH_OX 117 or MATH_OX 117Q or QTM 220 or ECON 220 or ECON_OX 220 or POLS 310 or POLS 310W or ISOM 350 or BUS 350 or BUS_OX 350
+This course requires DANC 350 AND DANC 250 AND DANC 150
+BBA or SPECSTUBUS studentsThis section is reserved for students in the Emory College Liberal Arts and Sciences program.
+MUS 121 as prerequisite
+FIN 201 or [(ECON 101 or ECON_OX 101) and (ECON 112 or ECON_OX 112)] or SPECSTUBUS studentsor equivalent transfer credit as prerequisite.This section is reserved for students in the BBA program.
+FIN 220 or FIN 320 or SPECSTUBUS studentsThis section is reserved for students in the BBA program.
+This course requires MUS 221
+ECON 220 or ECON_OX 220 or HLTH 207 or MATH_OX 117Q or QTM 100 or QTM_OX 100
+HLTH 220 or HLTH 221
+HLTH 220
+HLTH 250 or HLTH_OX 250 or ANT 205 or ANTH_OX 205 or SOC 250
+POLS 110 or POLS_OX 110
+POLS 208 or POLS_OX 208
+FIN 425 SPECSTUBUS students are allowed to enroll.This section is reserved for students in the BBA program.
+HLTH 210
+(MATH 210 or MATH_OX 210 or MATH 211 or MATH_OX 211) and (QTM 150 or QTM_OX 150)
+(QTM 110 or QTM_OX 110) and [QTM 210 or QTM_OX 210 or (MATH 361 and MATH 362)] and (MATH 221 or MATH_OX 221)s.
+HLTH 210 & HLTH 230 & HLTH 250
+HLTH 220 and (BIOL 141 or BIOL_OX 141 or CHEM 141 or CHEM_OX 141 or CHEM 151 or CHEM_OX 151)
+QTM 220
+(QTM 150 and QTM 151) or CS 170
+HLTH 210 and HLTH 230 and HLTH 250
+MATH_OX 117 or MATH 207/MATH_OX 207 or MATH 362 or ECON 220/ECON_OX 220 or QTM 100/QTM_OX 100 or QTM 110/QTM_OX 110 or SOC 275 or QTM 999XFR or QTM_OX ELEC as prereq. SPECSTUBUS stud.can enroll. Students enrolled or who took ISOM 350 can't take BUS 350.This section is reserved for students in the Emory College Liberal Arts and Sciences program.
+MUS 122
+Students enrolled in the NDBU program not allowed to enroll in this course.This section is reserved for students in the BBA program.
+Juniors or Seniors only or permission of instructor required for enrollment.
+QTM 345
+QTM 347
+(QTM 151 or QTM_OX 151) and QTM 220s.
+MUS 200 or ANT 202 or ANT 202W
+All students who have fulfilled the PPF requirement of (1) PPF MAY NOT enroll into a second PPF course.
+PORT 201
+This course requires MUS 240
+THEA 210 or THEA_OX 210
+THEA 223 or THEA 224
+Students completing PE 273 or equivalent cannot enroll for PE 173. For concerns, please contact the Physical Education department.
+Students completing PSYC_OX 100 or equivalent cannot enroll in PSYC 111. For concerns, please contact the Psychology department.
+Students completing PE 292 or equivalent cannot enroll for PE 192. For concerns, please contact the Physical Education department.
+ANT 202 or ANTH_OX 202
+Any NBB or WGS course
+(PSYC 110 or PSYC_OX 110 or PSYC 111 or PSYC_OX 111) and (PSYC 230 or QTM 100 or QTM_OX 100)
+BIOL 360/NBB301
+ARAB_OX 201
+NBB 280
+PSYC 111 or PSYC_OX 111
+PSYC 110 or PSYC_OX 110 or BIOL 142 or BIOL_OX 142
+PSYC 110 or PSYC_OX 110 or PSYC 111 or PSYC_OX 111
+QTM 100 or QTM_OX 100 or ECON 220 or ECON_OX 220 or ISOM 350 or POLS 310 or POLS 310W or MATH_OX 117
+QTM 100 or QTM_OX 100
+ARTHIST 103 and (ARTHIST 104 or ART_OX 104)
+One PHIL course
+FREN 310
+CHEM 141 or CHEM_OX 141 or CHEM 150 or CHEM_OX 150
+FREN 310 or FREN_OX 310 and FREN 314 or FREN_OX 314
+CHEM 141 or CHEM_OX 141 or CHEM 150L or CHEM_OX 150L as a prerequisite and CHEM 202 or CHEM_OX 202 as a corequisite.
+CHEM 202 or CHEM_OX 202 or CHEM 202Z or CHEM 221 or CHEM_OX 221
+CHEM 202Z
+FREN 310, FREN 314 and two 300 level FREN courses,
+CHEM 202ZL as prerequisite and CHEM 203Z as co-requisite
+Two PHIL courses
+CHEM 203 or CHEM_OX 203 or CHEM 222 or CHEM_OX 222 or CHEM 222Z or CHEM 203Z
+CHEM 203L or CHEM_OX 203L or CHEM 203ZL or CHEM 222L or CHEM_OX 222L as prerequisite and CHEM 204 or CHEM_OX 204 as co-requisite
+(CHEM 203 or CHEM_OX 203 or CHEM 222 or CHEM_OX 222 or CHEM 222Z or CHEM 203Z) and (MATH 111 or MATH_OX 111 or MATH 112 or MATH 112Z or MATH_OX 112)
+ENVS 120 or ENVS 130 or ENVS 140 as prerequisite or co-requisite,
+NRSG 331
+CHEM 203L or CHEM_OX 203L or CHEM 203ZL as prerequisites and CHEM 205 or CHEM_OX 205 as co-requisite
+(CHEM 204L or CHEM_OX 204L) and (CHEM 205L or CHEM_OX 205L) or co-requisite.
+(CHEM 204 or CHEM_X 204) and (CHEM 204L or CHEM_OX 204L)
+ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140
+(CHEM 203 or CHEM 203Z or CHEM_OX 203) and (CHEM 203L or CHEM 203ZL or CHEM_OX 203L)
+(CHEM 205 or CHEM_OX 205) and (PHYS 142 or PHYS_OX 142 or PHYS 152 or PHYS_OX 152) and (MATH 112 or MATH_OX 112 or MATH 210 or MATH_OX 210 or CHEM 270)
+ENVS 240 as prerequisite or co-requisite,
+(CHEM 204 or CHEM_OX 204) and (CHEM 204L or CHEM_OX 204L) and (BIOL 141 or BIOL_OX 141)s. Students who took BIOL 301, or have transfer credit equivalent to BIOL 301, cannot take this course.
+NRSG 419
+BUS 350 or BUS_OX 350 or ISOM 350 or MATH_OX 117/117Q or QTM 100 or QTM_OX 100 or QTM 110 or QTM_OX 110 or ECON 220 or ECON_OX 220 or MATH 207 or MATH_OX 207/207Q or QTM 999XFR or QTM_OX ELEC or STAT COMPETENCY EXAM or SPECSTUBUS or transfer credit.This section is reserved for students in the BBA program.
+(CHEM 204 or CHEM_OX 204) and (CHEM 204L or CHEM_OX 204L) and (CHEM 340 or BIOL 301)
+This course requires ENVS 241 as a prerequisite OR permission of instructor.
+BUS 350 as co-requisite or ISOM 350 or MATH_OX 117/117Q or QTM XFR or QTM_OX ELEC as prerequisite or SPECSTUBUS students,This section is reserved for students in the BBA program.
+(CHEM 203 or CHEM 203Z or CHEM_OX 203) and (CHEM 203L or CHEM 203ZL or CHEM_OX 203L) and (CHEM 205 or CHEM_OX 205) and (CHEM 205L or CHEM_OX 205L)
+ISOM 351 or ISOM_OX 351 or SPESTUBUS studentsThis section is reserved for students in the BBA program.
+CHEM 204 or CHEM_OX 204 or CHEM 205 or CHEM_OX 205
+NRSG 453
+QTM 100 or QTM_OX 100 or BUS 350 or BUS_OX 350
+CHEM 300L
+BBA & SPECSTUBUS students can enroll.This section is reserved for students in the BBA program.
+(ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140) and (ENVS 221 or ENVS 224 or ENVS 225 or ENVS 226 or ENVS?POLS 227 or ENVS_OX 227)s.
+(CHEM 141 or CHEM_OX 141 or CHEM 150 or CHEM_OX 150) and (CHEM 142 or CHEM_OX 142 or CHEM 202 or CHEM_OX 202)
+(ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140) and (ENVS 250 or ENVS 260 or ENVS 270)
+ISOM 350 or BUS 350 or BUS_OX 350 or MATH_OX 117/117Q or QTM 999XFR or QTM_OX ELEC or SPECSTUBUS studentsThis section is reserved for students in the BBA program.
+ENVS 222 or ENVS_OX 222 or ENVS 229 or ENVS_OX 229 or ENVS 230 or ENVS_OX 230 or ENVS 233 or ENVS 235 or ENVS 239 or ENVS_OX 239 or ENVS 245
+ARTVIS 105
+ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140 or ENVS 225 or ENVS 227/POLS 227 or ENVS 227W/POLS 227W
+ARTVIS 106
+BUS 350 or BUS_OX 350 or ISOM 350 as prerequisite. STECSTUBUS student may enroll.This section is reserved for students in the BBA program.
+NRSG 464 as co-requisite (Students must enroll in NRSG 464 first)
+Students completing MATH 119 or equivalent cannot enroll for MATH 111. For concerns, please contact the Mathematics department.
+ARTVIS 120
+ARTVIS 206R
+This course requires MATH 111 OR MATH_OX111 OR MATH 115 OR MATH 119 OR MATH_OX119
+MATH 111 or MATH 111L
+MATH 111 or MATH 111L or MATH_OX 111
+MATH 112 or MATH 112Z or MATH_OX 112 or MATH_OX 112Z
+MATH 112 or MATH 112S or MATH 112Z
+MATH 112 or MATH_OX 112
+(ECON 101 or ECON_OX 101 or FIN 201) and (MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 or MATH 112Z or MATH_OX 112Z or MATH 116)s.
+MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 or MATH 112Z
+BIOL 120 or BIOL_OX 120 as Corequisite
+This course requires MATH 111 as prerequisite AND MATH 112 or MATH_OX112 or MATH 112Z or MATH_OX112Z
+MATH 275
+This course requires BIOL 141 and BIOL 141L or BIOL 151or BIOL_OX141
+BIOL 142 as a corequisite.
+(BIOL 142 or BIOL_OX 142) and BIOL 142L and BIOL 236L or equivalent transfer credits as prerequisites.
+This course requires BIOL 141, and BIOL 141L or BIOL 151or BIOL_OX141
+BIOL 142 and BIOL 142L, or BIOL_OX 142 or BIOL_OX 142X,
+ITAL 202 or ITAL_OX 202
