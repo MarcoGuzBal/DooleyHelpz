@@ -11,6 +11,7 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import ProtectedRoute from "./components/ProtectedRoute";
+import DropTranscript from "./components/DropTranscript";
 
 
 
@@ -49,6 +50,7 @@ export default function App() {
             </ProtectedRoute>
             }
           />
+          <Route path="/droptranscript" element={<DropTranscript />} />
 
           {/* wildcard for 404s */}
           <Route path="*" element={<h1>Not found</h1>} />
