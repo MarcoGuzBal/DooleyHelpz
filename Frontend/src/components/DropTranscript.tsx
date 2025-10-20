@@ -1,88 +1,77 @@
+// src/DropTranscript.tsx
 import React, { useRef, useState } from "react";
-import { getDocument} from "pdfjs-dist";
 import * as pdfjsLib from "pdfjs-dist";
+import workerSrc from "pdfjs-dist/build/pdf.worker?url"; // Vite-friendly worker URL
 import type { TextItem } from "pdfjs-dist/types/src/display/api";
-import workerSrc from "pdfjs-dist/build/pdf.worker?url";
+import { parseTranscript, type ParsedCourse } from "../utils/parseTranscript";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
 
 export default function DropTranscript() {
-  const [text, setText] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const [text, setText] = useState("");
+  const [courses, setCourses] = useState<ParsedCourse[]>([]);
+  const [unparsed, setUnparsed] = useState<string[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [pagesWithText, setPagesWithText] = useState(0);
+  const [numPages, setNumPages] = useState(0);
 
   async function handleFile(file: File) {
     try {
-        setError(null);
-        setText("");
-        if (file.type !=="application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
-            setError("Please choose a PDF (.pdf).");
-            return;
-        }
-        const buf = await file.arrayBuffer();
-        const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(buf) }).promise;
+      setError(null);
+      setLoading(true);
+      setText("");
+      setCourses([]);
+      setUnparsed([]);
+      setPagesWithText(0);
+      setNumPages(0);
 
-        let all = ""
-        let pagesWithText = 0;
+      if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
+        setError("Please choose a PDF (.pdf).");
+        return;
+      }
 
-        for (let i = 1; i <= pdf.numPages; i++) {
-            const page = await pdf.getPage(i);
-            const content = await page.getTextContent();
-            const strings = content.items.map((it) => (it as TextItem).str).filter(Boolean);
-            if (strings.length) pagesWithText++;
-            all += strings.join(" ") + "\n";
-        }
+      const buf = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(buf) }).promise;
+      setNumPages(pdf.numPages);
 
-        if (pagesWithText / pdf.numPages < 0.3) {
-            setError("This looks like a scanned PDF (no text layer). Try a native registrar PDF or run OCR.");
-        }
-        
-        setText(all.trim());
+      let all = "";
+      let pages = 0;
+
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        const strings = (content.items as TextItem[]).map((it) => it.str).filter(Boolean);
+        if (strings.length) pages++;
+        all += strings.join(" ") + "\n";
+      }
+
+      setPagesWithText(pages);
+
+      if (pages / pdf.numPages < 0.3) {
+        setError("This looks like a scanned PDF (no text layer). Try a native registrar PDF or run OCR.");
+      }
+
+      const clean = all.trim();
+      setText(clean);
+
+      // ⬇️ use the new parser + types
+      const { courses, unparsed } = parseTranscript(clean);
+      setCourses(courses);
+      setUnparsed(unparsed);
+    } catch (e: any) {
+      setError(e?.message || "Failed to read PDF.");
+    } finally {
+      setLoading(false);
     }
-    catch(e: any) {
-        setError(e?.message || "Failed to read PDF.");
-    }
-
-    // assume `text` contains your raw extracted string (from PDF.js)
-    const raw = (text || "").replace(/\s+/g, " ").trim();
-
-    // 1) split into chunks on boundaries like "BUS 290", "CS 171", "SPAN 302W", etc.
-    const chunks = raw
-    .split(/(?=(?:[A-Z&]{2,6}\s+\d{3,4}[A-Z]?)(?:\s|$))/g) // lookahead split
-    .map(s => s.trim())
-    .filter(s => s.length > 0);
-
-    // 2) regex to capture: number, title, grade
-    // Layout seen in your sample:
-    // BUS   290   Tech Toolbox A: Excel   1.000   1.000   S   0.000
-    // dept + number + title + attempted + earned + grade + qualityPoints
-    const rx = new RegExp(
-    String.raw`^[A-Z&]{2,6}\s+(?<num>\d{3,4}[A-Z]?)\s+(?<title>.+?)\s+\d+(?:\.\d+)?\s+\d+(?:\.\d+)?\s+(?<grade>[A-F][+\-]?|P|S|U|I|W)\s+\d+(?:\.\d+)?$`
-    );
-
-    // 3) parse into minimal fields (privacy-safe)
-    type CourseMin = { number: string; name: string; grade: string };
-
-    const courses: CourseMin[] = [];
-    for (let i = 0; i < chunks.length; i++) {
-    const m = chunks[i].match(rx);
-    if (m && m.groups) {
-        const number = m.groups["num"];
-        const name = m.groups["title"].trim();
-        const grade = m.groups["grade"];
-        courses.push({ number, name, grade });
-    }
-    }
-
-    // `courses` now has only the fields you want
-    console.log(courses);
-
   }
 
   return (
     <div style={{ maxWidth: 900, margin: "2rem auto", padding: 16 }}>
-      <h1>Transcript text extractor</h1>
-      <p>Drop a PDF or click below.</p>
+      <h1>Drop Transcript (Dept • Number • Course • Grade)</h1>
+      <p>Parsed locally in-browser. Planned/no-grade rows are hidden by default.</p>
 
       <div
         onDragOver={(e) => e.preventDefault()}
@@ -98,7 +87,7 @@ export default function DropTranscript() {
           padding: 24,
           textAlign: "center",
           cursor: "pointer",
-          marginBottom: 16
+          marginBottom: 16,
         }}
       >
         Drop PDF here or click to choose
@@ -114,17 +103,74 @@ export default function DropTranscript() {
         />
       </div>
 
+      {loading && <div>Extracting text…</div>}
       {error && <div style={{ color: "#a00", marginBottom: 12 }}>{error}</div>}
 
-      {text && (
-        <div>
-          <h3>Raw text</h3>
-          <pre style={{ whiteSpace: "pre-wrap", background: "#f7f7f7", padding: 12, borderRadius: 8, maxHeight: 400, overflow: "auto" }}>
-            {text}
-          </pre>
+      {numPages > 0 && (
+        <div style={{ marginBottom: 12, color: "#555" }}>
+          Pages: {numPages} • Pages with text: {pagesWithText}
         </div>
       )}
+
+      {courses.length > 0 && (
+        <>
+          <h3>Parsed</h3>
+          <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: 12 }}>
+            <thead>
+              <tr>
+                <th style={{ textAlign: "left" }}>Dept</th>
+                <th style={{ textAlign: "left" }}>Number</th>
+                <th style={{ textAlign: "left" }}>Course</th>
+                <th style={{ textAlign: "left" }}>Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              {courses.map((c, i) => (
+                <tr key={i}>
+                  <td>{c.dept ?? ""}</td>
+                  <td>{c.number}</td>
+                  <td>{c.name}</td>
+                  <td>{c.grade}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
+
+      {unparsed.length > 0 && (
+        <>
+          <h4 style={{ marginTop: 16 }}>Unparsed course-like lines (for tweaking)</h4>
+          <ul>
+            {unparsed.slice(0, 20).map((l, i) => (
+              <li key={i}>
+                <code>{l}</code>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      {text && (
+        <>
+          <h3 style={{ marginTop: 16 }}>Raw extracted text (debug)</h3>
+          <pre
+            style={{
+              whiteSpace: "pre-wrap",
+              background: "#f7f7f7",
+              padding: 12,
+              borderRadius: 8,
+              maxHeight: 300,
+              overflow: "auto",
+            }}
+          >
+            {text}
+          </pre>
+        </>
+      )}
     </div>
-  )
+  );
 }
+
+
 
