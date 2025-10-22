@@ -4,8 +4,6 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
-# Option A: enable CORS in dev (if you don't use a Vite proxy)
-# Allow Vite port 5173 to hit /api/*
 CORS(app)
 
 @app.route("/")

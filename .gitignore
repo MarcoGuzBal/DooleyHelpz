@@ -20,3 +20,9 @@ venv/
 # OS / temp files
 *.log
 *.tmp
+
+
+# Zimo put:
+dooleyhelpz/
+test_db/
+cluster0/
