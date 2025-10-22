@@ -40,3 +40,49 @@
 .read-the-docs {
   color: #888;
 }
+/* Emory Colors*/
+
+.text-emoryBlue { 
+  color: #002878;
+}
+
+.bg-emoryBlue {
+  background-color: #002878;
+}
+
+.hover\:bg-emoryBlue\/90:hover {
+  background-color: rgba(0, 40, 120, 0.9);
+}
+
+.text-lighterBlue { 
+  color: #6384c6;
+}
+
+.bg-lighterBlue {
+  background-color: #6384c6;
+}
+
+
+.text-Gold { 
+  color: #d2b000;
+}
+
+.bg-Gold {
+  background-color: #d2b000;
+}
+
+.hover\:bg-Gold\/90:hover {
+  background-color: rgba(210,176,0, 1.0);
+}
+
+.text-paleGold { 
+  color: #e8d585;
+}
+
+.bg-paleGold {
+  background-color: #e8d585;
+}
+
+.hover\:bg-paleGold\/90:hover {
+  background-color: rgba(232,213,133, 1.0);
+}
