@@ -39,6 +39,21 @@ const Pill = ({ children }: { children: React.ReactNode }) => (
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-zinc-50 to-white">
+      <header className="sticky top-0 z-20 w-full bg-emoryBlue text-white shadow-md">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-Gold">
+              <img src={applogo} alt="DooleyHelpz applogo" className="h-6 w-6 object-contain" />
+            </div>
+            <span className="text-lg font-semibold">DooleyHelpz</span>
+          </div>
+
+          <div className="hidden items-center gap-6 text-sm text-white md:flex">
+            <a href="#features" className="hover:text-zinc-100 transition-colors">Features</a>
+            <a href="#preview" className="hover:text-zinc-100 transition-colors">Preview</a>
+            <a href="/get-started" className="rounded-xl bg-white text-lighterBlue px-3 py-1.5 font-medium hover:bg-zinc-100 transition-colors">
+              Get Started
+            </a>
       {/* Nav */}
       <header className="sticky top-0 z-20 border-b border-zinc-200 bg-white/70 backdrop-blur">
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
@@ -91,6 +106,15 @@ export default function HomePage() {
               <p className="mt-3 text-xs text-zinc-500">No credit card. No spam. Just better semesters.</p>
             </motion.div>
           </div>
+
+          <div>
+            <div className="flex justify-center md:justify-center mb-0">
+            <img
+                src={mascot}
+                alt="DooleyHelpz Mascot"
+                className="h-60 w-auto object-contain drop-shadow-md scale-x-[-1]"
+              />
+            </div>
 
           {/* Right hero card */}
           <motion.div
