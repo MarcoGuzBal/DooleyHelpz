@@ -1,22 +1,7 @@
 import { useState } from 'react'
 import './index.css'
-import HomePage from "./pages/HomePage";
-import { Routes, Route, Link } from "react-router-dom";
-import TranscriptUploadPage from "./pages/TranscriptUploadPage";
 
-
-function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/transcript-upload" element={<TranscriptUploadPage />} />
-    </Routes>
-  );
-}
-
-export default App
 import React from "react";
-import { useState } from 'react'
 import './index.css'
 import { onAuthStateChanged, signOut} from "firebase/auth";
 import type { User } from "firebase/auth";
@@ -29,6 +14,7 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import ProtectedRoute from "./components/ProtectedRoute";
 import DropTranscript from "./components/DropTranscript";
+import TranscriptUploadPage from "./pages/TranscriptUploadPage";
 
 
 
