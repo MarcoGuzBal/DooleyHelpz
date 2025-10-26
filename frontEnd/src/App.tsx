@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import './index.css'
-
 import React from "react";
-import './index.css'
 import { onAuthStateChanged, signOut} from "firebase/auth";
 import type { User } from "firebase/auth";
 import { auth } from "./firebase"
@@ -14,8 +12,6 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import ProtectedRoute from "./components/ProtectedRoute";
 import DropTranscript from "./components/DropTranscript";
-import TranscriptUploadPage from "./pages/TranscriptUploadPage";
-
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);

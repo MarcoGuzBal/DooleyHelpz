@@ -1,3 +1,14 @@
+/* Force light base so pages don't inherit a dark body from templates */
+html, body {
+  background: #ffffff !important;
+  color: #111827 !important; /* zinc-900 */
+}
+
+/* Ensure the app root can fill the screen */
+#root {
+  min-height: 100vh;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -20,7 +31,9 @@
 .read-the-docs {
   color: #888;
 }
+
 /* Emory Colors*/
+
 
 .text-emoryBlue { 
   color: #002878;
@@ -41,7 +54,6 @@
 .bg-lighterBlue {
   background-color: #6384c6;
 }
-
 
 .text-Gold { 
   color: #d2b000;
