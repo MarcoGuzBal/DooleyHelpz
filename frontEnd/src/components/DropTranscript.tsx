@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import * as pdfjsLib from "pdfjs-dist";
 import workerSrc from "pdfjs-dist/build/pdf.worker?url"; // Vite-friendly worker URL
 import type { TextItem } from "pdfjs-dist/types/src/display/api";
-import { parseTranscript, type ParsedCourse } from "../utils/parseTranscript";
+import { parseTranscript } from "../utils/parseTranscript";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
 
@@ -11,34 +11,37 @@ export default function DropTranscript() {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const [text, setText] = useState("");
-  const [courses, setCourses] = useState<ParsedCourse[]>([]);
-  const [unparsed, setUnparsed] = useState<string[]>([]);
+  const [courseCodes, setCourseCodes] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [pagesWithText, setPagesWithText] = useState(0);
   const [numPages, setNumPages] = useState(0);
+  const [postedOk, setPostedOk] = useState<null | boolean>(null);
 
   async function handleFile(file: File) {
     try {
+      // Reset UI if new file is uploaded
       setError(null);
+      setPostedOk(null);
       setLoading(true);
       setText("");
-      setCourses([]);
-      setUnparsed([]);
+      setCourseCodes([]);
       setPagesWithText(0);
       setNumPages(0);
-
+      
+      // Validates that the file is a PDF
       if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
         setError("Please choose a PDF (.pdf).");
         return;
       }
 
+      
       const buf = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(buf) }).promise;
       setNumPages(pdf.numPages);
 
-      let all = "";
-      let pages = 0;
+      let all = ""; // The entire text
+      let pages = 0; // Num of Pages
 
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
@@ -57,10 +60,10 @@ export default function DropTranscript() {
       const clean = all.trim();
       setText(clean);
 
-      // ⬇️ use the new parser + types
-      const { courses, unparsed } = parseTranscript(clean);
-      setCourses(courses);
-      setUnparsed(unparsed);
+      // only extract codes like "CS170", "ECON101", etc.
+      const codes = parseTranscript(clean);
+      setCourseCodes(codes);
+      sendToBackend(codes);
     } catch (e: any) {
       setError(e?.message || "Failed to read PDF.");
     } finally {
@@ -68,10 +71,27 @@ export default function DropTranscript() {
     }
   }
 
+  async function sendToBackend(codes) {
+    try {
+      setPostedOk(null);
+      console.log(codes)
+      const res = await fetch("http://localhost:5001/api/userCourses", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ courses: codes }),
+      });
+      setPostedOk(res.ok);
+      if (!res.ok) throw new Error(`Backend responded ${res.status}`);
+    } catch (err: any) {
+      setPostedOk(false);
+      alert(err?.message || "Failed to send to backend");
+    }
+  }
+
   return (
     <div style={{ maxWidth: 900, margin: "2rem auto", padding: 16 }}>
-      <h1>Drop Transcript (Dept • Number • Course • Grade)</h1>
-      <p>Parsed locally in-browser. Planned/no-grade rows are hidden by default.</p>
+      <h1>Drop Transcript → Course Codes Only</h1>
+      <p>We extract only course identifiers like <code>CS170</code>, <code>ECON112</code>, etc. (including transfer/AP).</p>
 
       <div
         onDragOver={(e) => e.preventDefault()}
@@ -112,46 +132,38 @@ export default function DropTranscript() {
         </div>
       )}
 
-      {courses.length > 0 && (
+      {courseCodes.length > 0 && (
         <>
-          <h3>Parsed</h3>
-          <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: 12 }}>
-            <thead>
-              <tr>
-                <th style={{ textAlign: "left" }}>Dept</th>
-                <th style={{ textAlign: "left" }}>Number</th>
-                <th style={{ textAlign: "left" }}>Course</th>
-                <th style={{ textAlign: "left" }}>Grade</th>
-              </tr>
-            </thead>
-            <tbody>
-              {courses.map((c, i) => (
-                <tr key={i}>
-                  <td>{c.dept ?? ""}</td>
-                  <td>{c.number}</td>
-                  <td>{c.name}</td>
-                  <td>{c.grade}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </>
-      )}
+          <div style={{ marginBottom: 8 }}>
+            <strong>Found {courseCodes.length}</strong> unique course codes
+          </div>
 
-      {unparsed.length > 0 && (
-        <>
-          <h4 style={{ marginTop: 16 }}>Unparsed course-like lines (for tweaking)</h4>
-          <ul>
-            {unparsed.slice(0, 20).map((l, i) => (
-              <li key={i}>
-                <code>{l}</code>
-              </li>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
+              gap: 8,
+              marginBottom: 12,
+            }}
+          >
+            {courseCodes.map((code) => (
+              <div
+                key={code}
+                style={{
+                  border: "1px solid #ddd",
+                  borderRadius: 8,
+                  padding: "8px 10px",
+                  background: "#fafafa",
+                }}
+              >
+                {code}
+              </div>
             ))}
-          </ul>
+          </div>
         </>
       )}
 
-      {text && (
+      {/* {text && (
         <>
           <h3 style={{ marginTop: 16 }}>Raw extracted text (debug)</h3>
           <pre
@@ -167,10 +179,11 @@ export default function DropTranscript() {
             {text}
           </pre>
         </>
-      )}
+      )} */}
     </div>
   );
 }
+
 
 
 
