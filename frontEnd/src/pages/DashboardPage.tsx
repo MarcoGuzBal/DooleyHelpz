@@ -2,7 +2,7 @@ import React from 'react'
 import { auth } from "../firebase";
 
 function DashboardPage() {
-
+  
   const user = auth.currentUser;
   return (
     <div className="p-6">

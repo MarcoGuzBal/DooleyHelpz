@@ -17,7 +17,6 @@ import DropTranscript from "./components/DropTranscript";
 import TranscriptUploadPage from "./pages/TranscriptUploadPage";
 
 
-
 export default function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -54,8 +53,6 @@ export default function App() {
             }
           />
           <Route path="/droptranscript" element={<DropTranscript />} />
-
-          
 
           {/* wildcard for 404s */}
           <Route path="*" element={<h1>Not found</h1>} />
