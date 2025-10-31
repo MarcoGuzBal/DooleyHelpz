@@ -4,7 +4,6 @@ from pprint import pprint
 import ast
 
 # --- config ---
-# input_path = "data/course_detailed_correct_prereq.jsonl" 
 raw_path = "data/unique_raw_req.txt"
 cleaned_path = "data/unique_cleaned_req.txt"
 existing_req_path = "data/requirement_dictionary.json"
