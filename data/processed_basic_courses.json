@@ -23,7 +23,7 @@
         "title": "Section LAB1, Class Nbr 5274",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -377,7 +377,7 @@
         "title": "Animal Behavior",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SNT"
         ],
@@ -402,7 +402,7 @@
         "title": "Primate Social Psychology",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SNT"
         ],
@@ -502,7 +502,7 @@
         "title": "Food, Health, and Society",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -584,7 +584,7 @@
         "title": "Mechanisms Of Animal Behavior",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -783,7 +783,7 @@
         "title": "Ecology of the Tropics",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -816,7 +816,7 @@
         "title": "Ecology of the Tropics Field Course",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -835,7 +835,7 @@
         "title": "Marine Ecology",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -860,7 +860,7 @@
         "title": "Special Topics in Biology: Marine Biology",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -883,7 +883,7 @@
         "title": "Section LAB, Class Nbr 5439",
         "type": null,
         "credits": "1-5",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -950,7 +950,7 @@
         "title": "Building Brains",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -1227,7 +1227,7 @@
         "title": "Computational Modeling for Scientist & Engineers with Laboratory",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -1333,7 +1333,7 @@
         "title": "Undergraduate Research",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -1529,7 +1529,7 @@
         "title": "Study Abroad BUS Elective (Related Elective)",
         "type": null,
         "credits": "1-16",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -1543,7 +1543,7 @@
         "title": "Study Abroad BUS Elective (Global Elective)",
         "type": null,
         "credits": "1-16",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -1591,7 +1591,7 @@
         "title": "Internship",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -1638,7 +1638,7 @@
         "title": "Community Building and Social Change I - Principles and Perspectives",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -1654,7 +1654,7 @@
         "title": "Planning Community Initiatives",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "XA"
         ],
@@ -1670,7 +1670,7 @@
         "title": "Planning Comm.Initiatives-Lab",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -1684,7 +1684,7 @@
         "title": "Structure and Properties",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -1700,7 +1700,7 @@
         "title": "Structure and Properties Lab",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SNTL"
         ],
@@ -1716,7 +1716,7 @@
         "title": "Principles of Reactivity",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -1739,7 +1739,7 @@
         "title": "Principles of Reactivity Lab",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -1765,7 +1765,7 @@
         "title": "Principles of Reactivity",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -1788,7 +1788,7 @@
         "title": "Principles of Reactivity Lab",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -1806,7 +1806,7 @@
         "title": "Advanced Reactivity",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -1830,7 +1830,7 @@
         "title": "Advanced Reactivity Lab",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -1855,7 +1855,7 @@
         "title": "Advanced Reactivity",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -1875,7 +1875,7 @@
         "title": "Advanced Reactivity Lab",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -1897,7 +1897,7 @@
         "title": "Macromolecules",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SNT"
         ],
@@ -1922,7 +1922,7 @@
         "title": "Macromolecules Lab",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SNTL"
         ],
@@ -1951,7 +1951,7 @@
         "title": "Light and Matter",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SNT"
         ],
@@ -1983,7 +1983,7 @@
         "title": "Light and Matter Lab",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SNTL"
         ],
@@ -2010,7 +2010,7 @@
         "title": "Analytical Tools and Techniques",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -2291,7 +2291,7 @@
         "title": "Special Topics in Chemistry",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -2312,7 +2312,7 @@
         "title": "Special Laboratory Topics in Chemistry: Chemistry of Color (LW)",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -2330,7 +2330,7 @@
         "title": "Peer-Led Learning",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -2398,7 +2398,7 @@
         "title": "Honors Thesis",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "XA"
         ],
@@ -2537,7 +2537,7 @@
         "title": "Principles of Reactivity",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -2564,7 +2564,7 @@
         "title": "Principles of Reactivity Lab",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -2589,7 +2589,7 @@
         "title": "Advanced Reactivity",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -2616,7 +2616,7 @@
         "title": "Advanced Reactivity Lab",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -2641,7 +2641,7 @@
         "title": "Macromolecules",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -2668,7 +2668,7 @@
         "title": "Macromolecules Lab",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -2695,7 +2695,7 @@
         "title": "Light and Matter",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -2779,7 +2779,7 @@
         "title": "How It Works: Spectroscopy",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -2817,7 +2817,7 @@
         "title": "Independent Laboratory Research",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -3048,7 +3048,7 @@
         "title": "Chinese Drama",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -3064,7 +3064,7 @@
         "title": "Business Chinese",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "IC"
         ],
@@ -3205,7 +3205,7 @@
         "title": "Advanced High Chinese for Heritage Speakers",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "IC"
@@ -3459,7 +3459,7 @@
         "title": "Classical Greek Drama",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -3475,7 +3475,7 @@
         "title": "Roman Law",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -3528,7 +3528,7 @@
         "title": "Classical Athens",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -3676,7 +3676,7 @@
         "title": "The History of Now",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -3692,7 +3692,7 @@
         "title": "Great Books: History",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -3800,7 +3800,7 @@
         "title": "History of the American West",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -3953,7 +3953,7 @@
         "title": "History of African Americans Since 1865",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -4005,7 +4005,7 @@
         "title": "From Pearls to Petroleum",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -4021,7 +4021,7 @@
         "title": "Plantation to Postcolonial",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HSC",
@@ -4058,7 +4058,7 @@
         "title": "The Civil Rights Movement",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -4133,7 +4133,7 @@
         "title": "Special Topics: Cross-listed: God, Sex, and Crime",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -4169,7 +4169,7 @@
         "title": "History of Rome",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -4203,7 +4203,7 @@
         "title": "The Classical Tradition & American Founding",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC",
             "WRT"
@@ -4220,7 +4220,7 @@
         "title": "Gandhi: Non-Violence & Freedom",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HSC"
@@ -4256,7 +4256,7 @@
         "title": "Jews of Eastern Europe",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HSC"
@@ -4322,7 +4322,7 @@
         "title": "The Industrial Revolution",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -4375,7 +4375,7 @@
         "title": "Sugar and Rum",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HSC",
@@ -4525,7 +4525,7 @@
         "title": "Special Topics: Cross-listed: Zionist Thought",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -4541,7 +4541,7 @@
         "title": "Research Tutorial",
         "type": null,
         "credits": "1-3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "XA"
         ],
@@ -4557,7 +4557,7 @@
         "title": "Research Tutorial",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "XA"
@@ -4574,7 +4574,7 @@
         "title": "Women and the Family in Rome",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -4588,7 +4588,7 @@
         "title": "Love & Sex Renaissance Europe",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -4602,7 +4602,7 @@
         "title": "Facing the French Revolution: Germany and Great Britain",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -4618,7 +4618,7 @@
         "title": "Germany after 1945",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -4673,7 +4673,7 @@
         "title": "Capitalism and Anthropocene",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -4987,7 +4987,7 @@
         "title": "History of the Caribbean",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "ETHN"
@@ -5071,7 +5071,7 @@
         "title": "Fundamentals of Epidemiology",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -5085,7 +5085,7 @@
         "title": "Predictive Health and Society",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -5128,7 +5128,7 @@
         "title": "Foundations of Global Health",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -5185,7 +5185,7 @@
         "title": "Designing Health Research",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -5208,7 +5208,7 @@
         "title": "Microbiome in Health & Disease",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -5282,7 +5282,7 @@
         "title": "Nutrition for Exercise and Sport",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -5312,7 +5312,7 @@
         "title": "Motor Physiology",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -5340,7 +5340,7 @@
         "title": "Food, Health, and Society",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -5368,7 +5368,7 @@
         "title": "Core Issues in Global Health: Under the Weather?",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -5456,7 +5456,7 @@
         "title": "Health Policy",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -5470,7 +5470,7 @@
         "title": "Delivering Health",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -5498,7 +5498,7 @@
         "title": "Health Communication",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -5615,7 +5615,7 @@
         "title": "Many Diseases, Few Causes",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -5712,7 +5712,7 @@
         "title": "Medical Discourse in Latin America",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -5730,7 +5730,7 @@
         "title": "Research in Health Economics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -5889,7 +5889,7 @@
         "title": "Foundations in Global Health",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -6094,7 +6094,7 @@
         "title": "ORDER Seminar: What Does it Mean to be Human?",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -6131,7 +6131,7 @@
         "title": "Interdisciplinary Sidecar: Queering Immunity",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -6327,7 +6327,7 @@
         "title": "Interdisciplinary Literatures and Arts: Production and Reception",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "HA"
@@ -6368,7 +6368,7 @@
         "title": "Directed Study",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -6416,7 +6416,7 @@
         "title": "Disciplinary Internship",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -6561,7 +6561,7 @@
         "title": "Honor Council Practicum",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -6575,7 +6575,7 @@
         "title": "Honor Council Advanced Practicum",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -6644,7 +6644,7 @@
         "title": "Poetry",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -6680,7 +6680,7 @@
         "title": "History of Drama and Theater I",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -6696,7 +6696,7 @@
         "title": "History of Drama & Theater II",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -6769,7 +6769,7 @@
         "title": "Survey of African-American Literature Before 1900",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -6786,7 +6786,7 @@
         "title": "Survey of African-American Literature Since 1900",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -6861,7 +6861,7 @@
         "title": "Topics in Literary History: Literature and Medicine",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "HA"
@@ -6974,7 +6974,7 @@
         "title": "Victorian Literature",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -7010,7 +7010,7 @@
         "title": "Modern Irish Literature",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -7184,7 +7184,7 @@
         "title": "Satire",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -7201,7 +7201,7 @@
         "title": "Introduction to Digital Humanities",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC",
             "WRT"
@@ -7235,7 +7235,7 @@
         "title": "Topics In Women's Literature: Latina Feminisms",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -7291,7 +7291,7 @@
         "title": "Methods for Literary Research: Contemporary Poetry & Archive",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC",
             "WRT"
@@ -7308,7 +7308,7 @@
         "title": "Literature and Science",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -7556,7 +7556,7 @@
         "title": "Introduction to Creative Writing",
         "type": null,
         "credits": "3-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -7673,7 +7673,7 @@
         "title": "Creative Writing: Advanced Fiction",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -7707,7 +7707,7 @@
         "title": "Creative Writing: Advanced Drama",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -7777,7 +7777,7 @@
         "title": "Advanced Screenwriting",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -7814,7 +7814,7 @@
         "title": "Creative Writing Special Topics: Journalism in the Movies",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -7949,7 +7949,7 @@
         "title": "Communicative Grammar",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -8001,7 +8001,7 @@
         "title": "Multiliteracy Tutor Practicum",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -8015,7 +8015,7 @@
         "title": "Gateway: Portfolio",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -8029,7 +8029,7 @@
         "title": "Rhetorical Studies",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -8155,7 +8155,7 @@
         "title": "Rhetorics of Resistance",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -8171,7 +8171,7 @@
         "title": "Race, Gender, and Media-Making",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "ETHN"
@@ -8188,7 +8188,7 @@
         "title": "Writing for Publication",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -8202,7 +8202,7 @@
         "title": "Writing for Games",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -8218,7 +8218,7 @@
         "title": "Topic: Writing/ Rhetoric/Literacy",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -8235,7 +8235,7 @@
         "title": "History & Theory in Rhetoric/Writing/Literacy",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -8251,7 +8251,7 @@
         "title": "Capstone in RWID",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -8302,7 +8302,7 @@
         "title": "Writing & Communication Center Practicum",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -8350,7 +8350,7 @@
         "title": "Advanced Writing Workshop: Writing in the Health Sciences",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "HA"
@@ -8384,7 +8384,7 @@
         "title": "Survey of African-American Literature Since 1900",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -8567,7 +8567,7 @@
         "title": "Independent Study",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -8627,7 +8627,7 @@
         "title": "Environmental Change and Health",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -8728,7 +8728,7 @@
         "title": "Economy and the Environment",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -8752,7 +8752,7 @@
         "title": "Environmental Policy",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -8805,7 +8805,7 @@
         "title": "Physical Oceanography",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -8848,7 +8848,7 @@
         "title": "Ecosystem Ecology Lab",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -8870,7 +8870,7 @@
         "title": "Ecology",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -8893,7 +8893,7 @@
         "title": "Ecology Laboratory",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -8980,7 +8980,7 @@
         "title": "Environmental Communication",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -9022,7 +9022,7 @@
         "title": "Environmental Data Science",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -9043,7 +9043,7 @@
         "title": "Special Topics: Practical Methods in Env Sci",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -9166,7 +9166,7 @@
         "title": "Climate Change and Society",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -9213,7 +9213,7 @@
         "title": "Field Botany",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -9251,7 +9251,7 @@
         "title": "Conservation Biology",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SNT"
         ],
@@ -9286,7 +9286,7 @@
         "title": "Sustainable Business Strategy",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -9339,7 +9339,7 @@
         "title": "Community Building and Social Change I - Principles and Perspectives",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -9355,7 +9355,7 @@
         "title": "Planning Community Initiatives",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "XA"
         ],
@@ -9371,7 +9371,7 @@
         "title": "Planning Comm.Initiatives-Lab",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -9441,7 +9441,7 @@
         "title": "Marine Ecology",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -9502,7 +9502,7 @@
         "title": "Special Topics w/Lab: Remote Sensing w/lab",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -9516,7 +9516,7 @@
         "title": "Special Topics w/Field: Food and Forests",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -9583,7 +9583,7 @@
         "title": "U.N.Climate Change Conference",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -9617,7 +9617,7 @@
         "title": "Special Topics: Capitalism and Anthropocene",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -9631,7 +9631,7 @@
         "title": "ENVS Senior Capstone Portfolio",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -9671,7 +9671,7 @@
         "title": "Supervised Reading",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -9685,7 +9685,7 @@
         "title": "Special Topics in Classics: Picturing Others",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HAP",
@@ -9834,7 +9834,7 @@
         "title": "Literary Theory",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -9851,7 +9851,7 @@
         "title": "Modern World Literatures: Global Modernisms",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -9925,7 +9925,7 @@
         "title": "Comparative Literature Major Seminar",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -9978,7 +9978,7 @@
         "title": "Computer Science Fundamentals",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "QR"
         ],
@@ -10209,7 +10209,7 @@
         "title": "Analysis of Algorithms",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "MQR"
         ],
@@ -10265,7 +10265,7 @@
         "title": "Machine Learning",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "MQR"
         ],
@@ -10387,7 +10387,7 @@
         "title": "Topics in Computer Science: Enabling User Interaction",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -10559,7 +10559,7 @@
         "title": "Computing Methods in Economics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -10601,7 +10601,7 @@
         "title": "Honors",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "XA"
         ],
@@ -10654,7 +10654,7 @@
         "title": "Directed Reading",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -10932,7 +10932,7 @@
         "title": "African Dance",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "PE"
         ],
@@ -10948,7 +10948,7 @@
         "title": "Flamenco",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "PE"
         ],
@@ -11001,7 +11001,7 @@
         "title": "Hip-Hop beginning/intermediate",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "PE"
         ],
@@ -11134,7 +11134,7 @@
         "title": "Hip-Hop intermediate/advanced",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "PE"
         ],
@@ -11315,7 +11315,7 @@
         "title": "Jazz Dance IV (Advanced)",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "PE"
         ],
@@ -11469,7 +11469,7 @@
         "title": "Dance Company",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -11483,7 +11483,7 @@
         "title": "Discovery Seminar: Politics of Religious Freedom",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -11536,7 +11536,7 @@
         "title": "Introduction to East Asian Studies",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -11550,7 +11550,7 @@
         "title": "Special Topics in East Asian Studies: Intro.to East AsianLinguistics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -11564,7 +11564,7 @@
         "title": "Special Topics in East Asian Studies: Asian American Feminisms",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC",
             "WRT"
@@ -11581,7 +11581,7 @@
         "title": "Chinese Drama",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -11615,7 +11615,7 @@
         "title": "Religion Health and Healing",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -12038,7 +12038,7 @@
         "title": "Financial Economics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -12095,7 +12095,7 @@
         "title": "Pol.Econ.of M.East & N. Africa",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -12111,7 +12111,7 @@
         "title": "The Political Economy of China",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -12137,7 +12137,7 @@
         "title": "Development Issues for Africa",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC",
             "WRT"
@@ -12192,7 +12192,7 @@
         "title": "Health Care Markets",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -12383,7 +12383,7 @@
         "title": "Behavioral Economics & Finance",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -12434,7 +12434,7 @@
         "title": "Financial Econometrics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -12452,7 +12452,7 @@
         "title": "Mathematical Economics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "MQR"
         ],
@@ -12500,7 +12500,7 @@
         "title": "Advanced Financial Markets",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -12528,7 +12528,7 @@
         "title": "Public Finance",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -12574,7 +12574,7 @@
         "title": "Housing and Mortgage Markets",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -12618,7 +12618,7 @@
         "title": "Research in Health Economics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -12642,7 +12642,7 @@
         "title": "Computing Methods in Economics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -12731,7 +12731,7 @@
         "title": "Undergraduate Research in Economics",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "XA"
@@ -12943,7 +12943,7 @@
         "title": "Peer Mentoring and Leadership",
         "type": null,
         "credits": "1-2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -12990,7 +12990,7 @@
         "title": "Emory Edge: Transfers",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -13020,7 +13020,7 @@
         "title": "Directed Research (CLSS)",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "XA"
         ],
@@ -13058,7 +13058,7 @@
         "title": "Basic Internship in Politics",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "XA"
         ],
@@ -13074,7 +13074,7 @@
         "title": "Directed Research in Political Science",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -13370,7 +13370,7 @@
         "title": "Criminal Justice",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -13422,7 +13422,7 @@
         "title": "Directed Study",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -13495,7 +13495,7 @@
         "title": "Intro.Topics Luso-Afro-Braz.St: Casa \u00c9mory",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -13579,7 +13579,7 @@
         "title": "Advanced Practice in Portuguese",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "IC"
         ],
@@ -13599,7 +13599,7 @@
         "title": "Inter.Topics Luso-Afro-Braz.St",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -13613,7 +13613,7 @@
         "title": "Inter.Topics Luso-Afro-Braz.St: Literatures, Genres, Media",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "HA"
@@ -13676,7 +13676,7 @@
         "title": "Adv.Topics Luso-Afro-Braz St.: Public's Health in Latin Amer.",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -13692,7 +13692,7 @@
         "title": "Honors Thesis",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -13706,7 +13706,7 @@
         "title": "Supervised Reading",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -14000,7 +14000,7 @@
         "title": "Language Acquisition",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -14014,7 +14014,7 @@
         "title": "Psycholinguistics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -14069,7 +14069,7 @@
         "title": "Sleep & Dreaming, Brain & Mind",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SNT"
         ],
@@ -14277,7 +14277,7 @@
         "title": "Advanced Neuroimaging Practicum",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SNT"
         ],
@@ -14304,7 +14304,7 @@
         "title": "Advanced Statistics and Research Methods",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -14325,7 +14325,7 @@
         "title": "Seminar in Cognitive Processes: Conc.Found.Func.Neuroimaging",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -14347,7 +14347,7 @@
         "title": "Adv Topics In Abn Psychology: Autism Spectrum Disorders",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -14363,7 +14363,7 @@
         "title": "Sem: Developmental Psychology: Psychology of Reputation",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -14400,7 +14400,7 @@
         "title": "Biological Foundations of Behavior: Coyotes; Raccoons, & Opossums:",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -14530,7 +14530,7 @@
         "title": "Child Development",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -14585,7 +14585,7 @@
         "title": "Drugs and Behavior",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -14630,7 +14630,7 @@
         "title": "Adolescent Psychology",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -14644,7 +14644,7 @@
         "title": "Foundations of Leadership",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -14911,7 +14911,7 @@
         "title": "Technical Writing",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -15169,7 +15169,7 @@
         "title": "Big/Small Data and Visualization",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC",
             "WRT"
@@ -15377,7 +15377,7 @@
         "title": "Introduction to Scientific Methods",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "QR"
         ],
@@ -15393,7 +15393,7 @@
         "title": "Introduction to Statistical Computing I",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -15459,7 +15459,7 @@
         "title": "Honors Program in REES",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "XA"
         ],
@@ -15475,7 +15475,7 @@
         "title": "Honors Program in REES",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -15733,7 +15733,7 @@
         "title": "Tibetan Culture",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -15922,7 +15922,7 @@
         "title": "Directed Reading",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -15936,7 +15936,7 @@
         "title": "Introduction To Religion",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "HA"
@@ -15970,7 +15970,7 @@
         "title": "Study Abroad ISOM Elective (General Elective)",
         "type": null,
         "credits": "1-16",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -15984,7 +15984,7 @@
         "title": "Study Abroad ISOM Elective (Global Elective)",
         "type": null,
         "credits": "1-16",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -15998,7 +15998,7 @@
         "title": "Study Abroad ISOM Elective (Related Elective)",
         "type": null,
         "credits": "1-16",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -16044,7 +16044,7 @@
         "title": "Healthcare Operations & Technology Management",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -16400,7 +16400,7 @@
         "title": "Sustainable Food and Italy",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -16573,7 +16573,7 @@
         "title": "Language Usage in Japanese Society",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "SS"
@@ -16807,7 +16807,7 @@
         "title": "Special Topics in Jewish Studies: Intro to Anc't Med Societies",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -16842,7 +16842,7 @@
         "title": "Nazi Germany",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -16898,7 +16898,7 @@
         "title": "Topics in Jewish Rel & Culture: Jews and Food",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -16914,7 +16914,7 @@
         "title": "Special Topics in Jewish Studies: Global Medieval Encounters",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -16951,7 +16951,7 @@
         "title": "Jews of Eastern Europe",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HSC"
@@ -16968,7 +16968,7 @@
         "title": "Medieval Jewish Thought",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -17004,7 +17004,7 @@
         "title": "Israeli-Palestinian Literature",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "ETHN"
@@ -17060,7 +17060,7 @@
         "title": "Topics In Jewish Literature: Making sense of Fascism",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -17076,7 +17076,7 @@
         "title": "Topics In Jewish Literature: Holocaust Literature",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -17093,7 +17093,7 @@
         "title": "Germany after 1945",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -17109,7 +17109,7 @@
         "title": "Hebrew of the Israeli Media",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "IC"
@@ -17147,7 +17147,7 @@
         "title": "Honors Thesis",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "XA"
         ],
@@ -17258,7 +17258,7 @@
         "title": "Food Media and Transnational Culture",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -17329,7 +17329,7 @@
         "title": "Modern Korean Literature in Translation",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -17404,7 +17404,7 @@
         "title": "Korean for Professional Purposes",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "IC"
         ],
@@ -17579,7 +17579,7 @@
         "title": "Topics in Latin American Issues: Literatures, Genres, Media",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "HA"
@@ -17691,7 +17691,7 @@
         "title": "Medical Discourse in Latin America",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -17729,7 +17729,7 @@
         "title": "Introduction to Latin American Studies",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -17746,7 +17746,7 @@
         "title": "Latin American Music and Globalization",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -17763,7 +17763,7 @@
         "title": "Topics: Latin American Issues: Introduction to Latinx Culture",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN"
         ],
@@ -17851,7 +17851,7 @@
         "title": "Oratory & Rhetoric",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "IC"
         ],
@@ -17886,7 +17886,7 @@
         "title": "Supervised Reading",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -18071,7 +18071,7 @@
         "title": "Structure of Human Language",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -18093,7 +18093,7 @@
         "title": "Introduction to Japanese Linguistics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -18127,7 +18127,7 @@
         "title": "Intro Topics in Linguistics: Intro.to East AsianLinguistics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -18141,7 +18141,7 @@
         "title": "Phonetics: How Spanish Sounds",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "IC"
         ],
@@ -18179,7 +18179,7 @@
         "title": "Brain and Language",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SNT"
         ],
@@ -18212,7 +18212,7 @@
         "title": "Psycholinguistics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -18226,7 +18226,7 @@
         "title": "Historical Ling & Lang Change",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -18270,7 +18270,7 @@
         "title": "Language, Gender and Sexuality",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -18286,7 +18286,7 @@
         "title": "Advanced Language and Culture",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -18302,7 +18302,7 @@
         "title": "Language Prejudice",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HSC"
@@ -18394,7 +18394,7 @@
         "title": "Medical Discourse in Latin America",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -18412,7 +18412,7 @@
         "title": "Topics in Spanish Linguistics: Culture and the Senses",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -18469,7 +18469,7 @@
         "title": "Big/Small Data and Visualization",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC",
             "WRT"
@@ -18559,7 +18559,7 @@
         "title": "Directed Reading: Language & Linguistics Sci-Fi",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -18619,7 +18619,7 @@
         "title": "Directed Study in Linguisitics",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -18633,7 +18633,7 @@
         "title": "Directed Study in Linguisitics",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -18647,7 +18647,7 @@
         "title": "Learning to Lead",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -18661,7 +18661,7 @@
         "title": "Teaching to Lead",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -18823,7 +18823,7 @@
         "title": "Advanced Calculus for Data Sciences",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "QR"
         ],
@@ -18985,7 +18985,7 @@
         "title": "Black Music",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HAP"
@@ -19002,7 +19002,7 @@
         "title": "Music & Revolution in 1960s",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -19210,7 +19210,7 @@
         "title": "Live Electronic Music",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "XA"
         ],
@@ -19245,7 +19245,7 @@
         "title": "Independent Research",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "XA"
         ],
@@ -19313,7 +19313,7 @@
         "title": "Studies in Music History and Culture: Singing the Sacred",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC",
             "WRT"
@@ -19348,7 +19348,7 @@
         "title": "Special Topics Seminar: Music: Music and Emotions",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -19384,7 +19384,7 @@
         "title": "Senior Thesis",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -19509,7 +19509,7 @@
         "title": "Oxford Chorale",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -19646,7 +19646,7 @@
         "title": "Introduction to Neuroethics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -19676,7 +19676,7 @@
         "title": "Introduction To Neurobiology",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SNT"
         ],
@@ -19708,7 +19708,7 @@
         "title": "Behavioral Neuroscience",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SNT"
         ],
@@ -19724,7 +19724,7 @@
         "title": "Behavioral Neuroendrocrinology",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -19776,7 +19776,7 @@
         "title": "Special Topics in NBB: Neuro Science Writing",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW"
         ],
@@ -19792,7 +19792,7 @@
         "title": "Advanced Neuroethics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -19871,7 +19871,7 @@
         "title": "Building Brains",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -19911,7 +19911,7 @@
         "title": "Applied Neuroethics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -20037,7 +20037,7 @@
         "title": "Introduction to Neuroethology",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -20172,7 +20172,7 @@
         "title": "Introduction to Clinical Nutrition",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -20760,7 +20760,7 @@
         "title": "Introduction to Interprofessional Pediatric Critical Care",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -20957,7 +20957,7 @@
         "title": "Directed Study: Qual Methods Implm Research",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -21102,7 +21102,7 @@
         "title": "Study Abroad O&M Elective (General Elective)",
         "type": null,
         "credits": "1-16",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -21116,7 +21116,7 @@
         "title": "Study Abroad O&M Elective (Global)",
         "type": null,
         "credits": "1-16",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -21130,7 +21130,7 @@
         "title": "Study Abroad O&M Elective (Related)",
         "type": null,
         "credits": "1-16",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -21392,7 +21392,7 @@
         "title": "Special Topics: Building a Satisfying Life",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -21422,7 +21422,7 @@
         "title": "Oxford Studies",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -21959,7 +21959,7 @@
         "title": "Introduction to Environmental Studies",
         "type": null,
         "credits": "5",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -22098,7 +22098,7 @@
         "title": "Introduction to TV and Digital Media",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -22119,7 +22119,7 @@
         "title": "Introduction to Media Production",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -22322,7 +22322,7 @@
         "title": "Film Producing",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -22343,7 +22343,7 @@
         "title": "Cinematography and Lighting",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -22364,7 +22364,7 @@
         "title": "Viewing Black Girlhood",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -22381,7 +22381,7 @@
         "title": "Film, Media, and Social Change",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -22422,7 +22422,7 @@
         "title": "Writing the Short Film",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "HA"
@@ -22444,7 +22444,7 @@
         "title": "Special Topics: Film and Media: Awards Shows",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -22505,7 +22505,7 @@
         "title": "Film Theory",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -22585,7 +22585,7 @@
         "title": "Media, Islam, and Social Movements",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -22599,7 +22599,7 @@
         "title": "Acting for the Camera",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "XA"
         ],
@@ -22621,7 +22621,7 @@
         "title": "Screenwriting",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -22651,7 +22651,7 @@
         "title": "Advanced Screenwriting",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -22783,7 +22783,7 @@
         "title": "Gender in Film and Media",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -22805,7 +22805,7 @@
         "title": "Experimental/Avant-Garde Cinema",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -22851,7 +22851,7 @@
         "title": "Advanced Topics in Film and Media Studies: Artificial Intelligence & Film",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -22911,7 +22911,7 @@
         "title": "Directed Project in Production",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -23112,7 +23112,7 @@
         "title": "Directed Research",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -23306,7 +23306,7 @@
         "title": "Study Abroad Finance Elective (General Elective)",
         "type": null,
         "credits": "1-16",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -23320,7 +23320,7 @@
         "title": "Study Abroad Finance Elective (Global)",
         "type": null,
         "credits": "1-16",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -23355,7 +23355,7 @@
         "title": "Study Abroad Finance Elective (Related)",
         "type": null,
         "credits": "1-16",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -24027,7 +24027,7 @@
         "title": "French and Francophone Cinema",
         "type": null,
         "credits": "5",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "IC"
@@ -24252,7 +24252,7 @@
         "title": "Topics in French Literature and Culture: The \"Banlieue\"",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "IC"
@@ -24381,7 +24381,7 @@
         "title": "Nazi Germany",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -24493,7 +24493,7 @@
         "title": "Topics in German Studies: Kafka: Law & Literature",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "IC"
@@ -24732,7 +24732,7 @@
         "title": "Historians",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "IC"
         ],
@@ -24764,7 +24764,7 @@
         "title": "Supervised Reading",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -24885,7 +24885,7 @@
         "title": "Advanced Modern Hebrew I",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "IC"
@@ -24958,7 +24958,7 @@
         "title": "Perspectives on the Past",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -25032,7 +25032,7 @@
         "title": "Jazz: Its Evolution & Essence",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -25048,7 +25048,7 @@
         "title": "History of African Americans Since 1865",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -25065,7 +25065,7 @@
         "title": "Racial & Ethnic Relations",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "SS"
@@ -25102,7 +25102,7 @@
         "title": "Survey of African-American Literature Before 1900",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -25194,7 +25194,7 @@
         "title": "Black Music",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HAP"
@@ -25211,7 +25211,7 @@
         "title": "Music & Revolution in 1960s",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -25246,7 +25246,7 @@
         "title": "Topics in Black Women's Studies: Runaways and Homecomings",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HAP"
@@ -25263,7 +25263,7 @@
         "title": "Slavery in US History and Culture",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HSC"
@@ -25377,7 +25377,7 @@
         "title": "Survey of African-American Literature Since 1900",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -25394,7 +25394,7 @@
         "title": "Topics in African American Studies: African American Soundscapes",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HSC"
@@ -25641,7 +25641,7 @@
         "title": "Study Abroad Accounting Elective (General)",
         "type": null,
         "credits": "1-16",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -25655,7 +25655,7 @@
         "title": "Study Abroad Accounting Elective (Related)",
         "type": null,
         "credits": "1-16",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -25774,7 +25774,7 @@
         "title": "Special Topics: Machine Learning",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -25829,7 +25829,7 @@
         "title": "The Making of Modern Africa",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "SS"
@@ -25946,7 +25946,7 @@
         "title": "Nutritional Anthropology",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -25962,7 +25962,7 @@
         "title": "Media, Islam, and Social Movements",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -25994,7 +25994,7 @@
         "title": "Pol.Econ.of M.East & N. Africa",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -26124,7 +26124,7 @@
         "title": "Capitalism and Anthropocene",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -26481,7 +26481,7 @@
         "title": "Introduction to American Studies",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -26517,7 +26517,7 @@
         "title": "Anthropology: Special Topics: Classical Mythology",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -26552,7 +26552,7 @@
         "title": "Foundations of Behavior",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -26604,7 +26604,7 @@
         "title": "Foundations of Linguistics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -26638,7 +26638,7 @@
         "title": "Foundations of Global Health",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -26744,7 +26744,7 @@
         "title": "Quantitative Methods for Anthropologists",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -26832,7 +26832,7 @@
         "title": "Language, Gender and Sexuality",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -26884,7 +26884,7 @@
         "title": "Advanced Language and Culture",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -26933,7 +26933,7 @@
         "title": "Food, Health, and Society",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -26997,7 +26997,7 @@
         "title": "Fieldwork into Performance",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "XA"
@@ -27129,7 +27129,7 @@
         "title": "Advanced Seminar in Cultural Anthropology: Democracy and its Discontents",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -27143,7 +27143,7 @@
         "title": "Section DIS, Class Nbr 4479",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -27311,7 +27311,7 @@
         "title": "Concepts and Methods in Cultural Anthropology",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "SS"
@@ -27346,7 +27346,7 @@
         "title": "Foundations in Global Health",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -27362,7 +27362,7 @@
         "title": "Culture and Nutrition",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -27698,7 +27698,7 @@
         "title": "Drawing I",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -27714,7 +27714,7 @@
         "title": "Introduction to Painting",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -27765,7 +27765,7 @@
         "title": "Ancient Egypt Art 1550-30 BCE",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -28037,7 +28037,7 @@
         "title": "Directed Study",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -28051,7 +28051,7 @@
         "title": "Directed Study",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -28229,7 +28229,7 @@
         "title": "Russian Literature in Original",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "IC"
         ],
@@ -28382,7 +28382,7 @@
         "title": "Foundations of Global Health",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -28398,7 +28398,7 @@
         "title": "Media, Islam, and Social Movements",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -28517,7 +28517,7 @@
         "title": "Community Building and Social Change I - Principles and Perspectives",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -28533,7 +28533,7 @@
         "title": "Planning Community Initiatives",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "XA"
         ],
@@ -28549,7 +28549,7 @@
         "title": "Planning Comm.Initiatives-Lab",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -28598,7 +28598,7 @@
         "title": "Big/Small Data and Visualization",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC",
             "WRT"
@@ -28771,7 +28771,7 @@
         "title": "People and Nature",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -28785,7 +28785,7 @@
         "title": "Sociology of Education",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -28813,7 +28813,7 @@
         "title": "Directed Study",
         "type": null,
         "credits": "1-3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -28886,7 +28886,7 @@
         "title": "Topics: Introduction to Hispanic Studies: Casa \u00c9mory",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -29013,7 +29013,7 @@
         "title": "Topics: Hispanic Studies: Reading Comparatively",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "HA"
@@ -29185,7 +29185,7 @@
         "title": "Critical Writing in Hispanic Topics: Span for Int'l Business & Econ",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "IC"
         ],
@@ -29249,7 +29249,7 @@
         "title": "Medical Discourse in Latin America",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -29308,7 +29308,7 @@
         "title": "Madrid, Barcelona, New York",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -29344,7 +29344,7 @@
         "title": "Topics in Hispanic Culture: Latin American Film",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -29362,7 +29362,7 @@
         "title": "Topics in Hispanic Culture: US Frontera and Other Border",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "ETHN"
@@ -29497,7 +29497,7 @@
         "title": "Practical Conversation",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "IC"
         ],
@@ -29551,7 +29551,7 @@
         "title": "Theatre, Film & Performing Art",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "IC"
         ],
@@ -29599,7 +29599,7 @@
         "title": "The Science of Climate Change",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -29927,7 +29927,7 @@
         "title": "Special Topics: Theater: Scenic and Lighting Design",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -29943,7 +29943,7 @@
         "title": "Chinese Drama",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -30104,7 +30104,7 @@
         "title": "Advanced Playwriting",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -30120,7 +30120,7 @@
         "title": "Fieldwork into Performance",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "CW",
             "XA"
@@ -30141,7 +30141,7 @@
         "title": "Special Topics: Empathy,Theater,Social Change",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -30300,7 +30300,7 @@
         "title": "Stagecraft",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -30316,7 +30316,7 @@
         "title": "Theatre Practicum",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -30473,7 +30473,7 @@
         "title": "Viewing Black Girlhood",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -30564,7 +30564,7 @@
         "title": "Feminist Theory",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -30580,7 +30580,7 @@
         "title": "Language, Gender and Sexuality",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -30614,7 +30614,7 @@
         "title": "Gender Politics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -30630,7 +30630,7 @@
         "title": "Japanese Modern Women Writers",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -30850,7 +30850,7 @@
         "title": "Introduction to Studies in Sexualities",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN"
         ],
@@ -30866,7 +30866,7 @@
         "title": "Special Topics in Women's, Gender and Sexuality Studies: Feminist/Queer Art & Politics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -31171,7 +31171,7 @@
         "title": "Varsity Women's Golf",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "PE"
         ],
@@ -31535,7 +31535,7 @@
         "title": "Dance Improvisation",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "PE"
         ],
@@ -31570,7 +31570,7 @@
         "title": "Varsity Sport - Men's Soccer",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "PE"
         ],
@@ -31586,7 +31586,7 @@
         "title": "Varsity Sport - Women's Soccer",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "PE"
         ],
@@ -31602,7 +31602,7 @@
         "title": "Varsity Sport - Men's Tennis",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "PE"
         ],
@@ -31618,7 +31618,7 @@
         "title": "Varsity Sport - Women's Tennis",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "PE"
         ],
@@ -31634,7 +31634,7 @@
         "title": "Varsity Sport-Men's Basketball",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "PE"
         ],
@@ -31650,7 +31650,7 @@
         "title": "Varsity Sports - Men's Cross Country",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "PE"
         ],
@@ -31685,7 +31685,7 @@
         "title": "Varsity Sports - Men's Golf",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "PE"
         ],
@@ -31701,7 +31701,7 @@
         "title": "Varsity Sports - Women's Golf",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "PE"
         ],
@@ -31888,7 +31888,7 @@
         "title": "Philosophy of Race & Ethnicity",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -31979,7 +31979,7 @@
         "title": "Special Topics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -32209,7 +32209,7 @@
         "title": "Topics Ancient Greek Philosophy",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -32233,7 +32233,7 @@
         "title": "Topics:19th Century Philosophy: German Romanticism",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC",
             "WRT"
@@ -32257,7 +32257,7 @@
         "title": "Topics: Contemporary Philosophy: The Technological World",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -32330,7 +32330,7 @@
         "title": "Seminar on Individual Philosophers",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -32587,7 +32587,7 @@
         "title": "History of Political Philosophy",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -32621,7 +32621,7 @@
         "title": "Issues in Metaphysics and Epistemology",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -32686,7 +32686,7 @@
         "title": "Intr. Astronomy 2: Adv.Topics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SNT"
         ],
@@ -32726,7 +32726,7 @@
         "title": "The Science of Climate Change",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -33165,7 +33165,7 @@
         "title": "Modern Materials",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SNT"
         ],
@@ -33538,7 +33538,7 @@
         "title": "Computational Modeling for Scientist & Engineers with Laboratory",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -33606,7 +33606,7 @@
         "title": "Principles of Political Science",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -33753,7 +33753,7 @@
         "title": "Environmental Policy",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -33817,7 +33817,7 @@
         "title": "Spec Topics: Political Science: Race, Place, and Pol. Economy",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "SS"
@@ -33834,7 +33834,7 @@
         "title": "Major Texts In Political Theory",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP"
         ],
@@ -33911,7 +33911,7 @@
         "title": "Race and Ethnicity Politics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HSC"
@@ -33946,7 +33946,7 @@
         "title": "Gender Politics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -33962,7 +33962,7 @@
         "title": "Public Policy",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -33978,7 +33978,7 @@
         "title": "Interest Group Politics",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -34083,7 +34083,7 @@
         "title": "Guerilla Political Videography",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HAP",
             "WRT"
@@ -34144,7 +34144,7 @@
         "title": "Game Theory I",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -34270,7 +34270,7 @@
         "title": "Directed Study",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -34426,7 +34426,7 @@
         "title": "Mathematical Modeling",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "MQR"
         ],
@@ -34484,7 +34484,7 @@
         "title": "Non-Linear Optimization",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -34550,7 +34550,7 @@
         "title": "PDE's in Action",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -34629,7 +34629,7 @@
         "title": "Topics in Mathematics: Problem-Solving Strategies",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -34785,7 +34785,7 @@
         "title": "Topics in Mathematics: Probabilistic Machine Learning",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -34858,7 +34858,7 @@
         "title": "Independent Research",
         "type": null,
         "credits": "1-4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "XA"
         ],
@@ -35130,7 +35130,7 @@
         "title": "Candler ADVANCE",
         "type": null,
         "credits": "0",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -35181,7 +35181,7 @@
         "title": "Special Topics: MESAS-100 Level: Yoga:Hindu, Jaina and Buddhist",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -35311,7 +35311,7 @@
         "title": "Making of Modern South Asia",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -35346,7 +35346,7 @@
         "title": "Conversational Tibetan",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -35379,7 +35379,7 @@
         "title": "From Pearls to Petroleum",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "SS"
         ],
@@ -35492,7 +35492,7 @@
         "title": "Media, Islam, and Social Movements",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -35506,7 +35506,7 @@
         "title": "Tibetan Culture",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -35522,7 +35522,7 @@
         "title": "Gandhi: Non-Violence & Freedom",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HSC"
@@ -35598,7 +35598,7 @@
         "title": "Pol.Econ.of M.East & N. Africa",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -35631,7 +35631,7 @@
         "title": "Orientalism: Self & Other in Asian & African Literature",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC"
         ],
@@ -35726,7 +35726,7 @@
         "title": "Special Topics in MESAS: Empires of Ancient Near East",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HSC",
             "WRT"
@@ -35814,7 +35814,7 @@
         "title": "Arab World: Culture & Society",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "HA"
         ],
@@ -35860,7 +35860,7 @@
         "title": "Patient Care",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -35874,7 +35874,7 @@
         "title": "Patient Care",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -35888,7 +35888,7 @@
         "title": "Patient Care",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -35902,7 +35902,7 @@
         "title": "Medical Imaging Procedure",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -35916,7 +35916,7 @@
         "title": "Medical Imaging Procedures",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -35930,7 +35930,7 @@
         "title": "Medical Imaging Procedures",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -35944,7 +35944,7 @@
         "title": "Medical Imaging Procedures",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -35958,7 +35958,7 @@
         "title": "Anatomy Physiology",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -35972,7 +35972,7 @@
         "title": "Anatomy & Physiology",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -35986,7 +35986,7 @@
         "title": "Anatomy & Physiology",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36000,7 +36000,7 @@
         "title": "Clinical Clerkship",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36014,7 +36014,7 @@
         "title": "Clinical Clerkship",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36028,7 +36028,7 @@
         "title": "Physical Principles of Imaging",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36042,7 +36042,7 @@
         "title": "Principles Radiographic Technique",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36056,7 +36056,7 @@
         "title": "Image Processing Technique",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36070,7 +36070,7 @@
         "title": "Clinical Internship",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36084,7 +36084,7 @@
         "title": "Clinical Internship",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36098,7 +36098,7 @@
         "title": "Imaging Equipment",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36112,7 +36112,7 @@
         "title": "Basic Radiation Biology",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36126,7 +36126,7 @@
         "title": "Quality Control",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36140,7 +36140,7 @@
         "title": "Evaluation and Measurement",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36154,7 +36154,7 @@
         "title": "Organizational Behavior",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36168,7 +36168,7 @@
         "title": "Hospital Organization & Personnel Management",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36182,7 +36182,7 @@
         "title": "Healthcare Finance",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36196,7 +36196,7 @@
         "title": "Marketing",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36210,7 +36210,7 @@
         "title": "Practice Teaching (Clinical)",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36224,7 +36224,7 @@
         "title": "Practice Teaching (Didactic)",
         "type": null,
         "credits": "2-3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36238,7 +36238,7 @@
         "title": "Admiinistration of Medical Imaging Programs",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36252,7 +36252,7 @@
         "title": "CT Procedures III",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36266,7 +36266,7 @@
         "title": "MRI Physics & Instrumentation",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36280,7 +36280,7 @@
         "title": "MRI Procedures III",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36294,7 +36294,7 @@
         "title": "Advanced Clinical Procedures II: Interventional Radiology",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36308,7 +36308,7 @@
         "title": "Advanced Clinical Procedures III: Interventional Radiology",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36322,7 +36322,7 @@
         "title": "Clinical Practicum",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36336,7 +36336,7 @@
         "title": "Clinical Practicum",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36350,7 +36350,7 @@
         "title": "Management Practicum",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36364,7 +36364,7 @@
         "title": "Management Practicum",
         "type": null,
         "credits": "2",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36378,7 +36378,7 @@
         "title": "CT Practicum",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36392,7 +36392,7 @@
         "title": "CT Practicum III",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36406,7 +36406,7 @@
         "title": "MRI Practicum",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36420,7 +36420,7 @@
         "title": "MRI Practicum III",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36434,7 +36434,7 @@
         "title": "Advanced Clinical Practicum II: Interventional Radiology",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36448,7 +36448,7 @@
         "title": "Advanced Clinical Practicum III: Interventional Radiology",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36527,7 +36527,7 @@
         "title": "Advanced Marketing Strategy",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": [
@@ -36577,7 +36577,7 @@
         "title": "Study Abroad MKT Elective (General Elective)",
         "type": null,
         "credits": "1-16",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36591,7 +36591,7 @@
         "title": "Study Abroad MKT Elective (Global Elective)",
         "type": null,
         "credits": "1-16",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36605,7 +36605,7 @@
         "title": "Study Abroad MKT Elective (Related Elective)",
         "type": null,
         "credits": "1-16",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36748,7 +36748,7 @@
         "title": "Milestone Project",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36781,7 +36781,7 @@
         "title": "Keyboard Skills",
         "type": null,
         "credits": "1",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,
@@ -36874,7 +36874,7 @@
         "title": "Music Cultures of the World",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "ETHN",
             "HA"
@@ -36910,7 +36910,7 @@
         "title": "The Musical Brain",
         "type": null,
         "credits": "3",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": [
             "NS"
         ],
@@ -37089,7 +37089,7 @@
         "title": "Special Topics in Music: Classical Mus.in Latin America",
         "type": null,
         "credits": "4",
-        "typically_offered": "",
+        "typically_offered": null,
         "ger": null,
         "requirements": {
             "prereq": null,

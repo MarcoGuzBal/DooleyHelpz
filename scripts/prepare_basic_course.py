@@ -31,9 +31,11 @@ if __name__ == "__main__":
         
         code = normalize_code(code)
         typically_offered = obj.get("typically_offered")
-        if typically_offered:
+        if typically_offered is not None and typically_offered != "":
             typically_offered = normalize_typically_offered(typically_offered)
             # print(code, "typically_offered normalized to:", typically_offered)
+        else:
+            typically_offered = None
         ger_sen = obj.get("ger")
         if ger_sen:
             labels = match_ger_labels(code, ger_sen)
