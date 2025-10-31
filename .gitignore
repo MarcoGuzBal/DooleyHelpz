@@ -3,4 +3,6 @@ dooleyhelpz/
 .env
 test_db/
 cluster0/
-scripts_old_versions/
+archived/
+scripts/debug.py
+data/unique_ger_out.txt

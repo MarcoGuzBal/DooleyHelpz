@@ -1,10 +1,9 @@
 import re
 import json
+from pprint import pprint
 
-input_path = "data/course_detailed_correct_prereq.jsonl" 
-# just a copy of 
-# backEnd/Scraper/spring_2026_atlanta_complete.jsonl in the main branch
-# cuz I don't know github that well...
+spring26_path = "data/courses_spring_2026.jsonl" 
+basic_courses_path = "data/courses_basic.jsonl" 
 output_path = "data/unique_ger_out.txt"
 
 # --- ger labels and their full names starts ---
@@ -39,7 +38,7 @@ gold_ger_labels = {
     "HLTH": "HLTH 100",    # absorbed in blue ger     
     "PED": "Physical Education and Dance", 
     "PPF": "Principles of Physical Fitness",
-    "ETHN": "Race and Ethnicity",
+    "ETHN": "Race and Ethnicity", # absorbed in blue ger
 }
 # --- ger labels and their full names ends ---
 
@@ -164,26 +163,53 @@ def match_ger_labels(code, raw):
 
 
 if __name__ == "__main__":
-    lines = []
     out = ""
+    lines = []
+    seen = set()
+    count = 0
+    with open(spring26_path, 'r') as file:
+        for i, line in enumerate(file):
+            obj = json.loads(line)
+            ger_raw = obj.get("ger")
+            
+            if not ger_raw or ger_raw in seen:
+                continue
 
-    with open(input_path, 'r') as file:
-        lines = [json.loads(line) for line in file if json.loads(line).get("ger")]
+            
+            seen.add(ger_raw)
+            lines.append(obj)
+            count += 1
 
+    with open(basic_courses_path, 'r') as file:
+        for i, line in enumerate(file):
+            obj = json.loads(line)
+            ger_raw = obj.get("ger")
+            
+            if not ger_raw or ger_raw in seen:
+                continue
+
+            
+            seen.add(ger_raw)
+            lines.append(obj)
+            count += 1
+    
+    pprint(lines)
     print(f"GER lines: {len(lines)}")
 
     for i in range(0, len(lines)):
         line = lines[i]
-        code = line["code"]
-        raw = ""
-        for word in line["ger"]:
-            raw += word + ' '
-        raw = raw.replace("Requirement Designation:", "").strip().lower()
+
+        code = line.get("code")
+        raw = line.get("ger")
+        # for word in line["ger"]:
+        #     raw += word + ' '
+        # raw = raw.replace("Requirement Designation:", "").strip().lower()
+        raw = raw.strip().lower()
         labels = match_ger_labels(code, raw)
         labels_str = "["
         labels_str += ", ".join(labels)
         labels_str += "]"
-        out += f"{i+1:<6}{line['code']:<12}{labels_str:<20} <-- {raw}\n"
+        out += f"{i+1:<6}{line['code']:<15}{labels_str:<20} <-- {raw}\n"
     
 
     with open(output_path, 'w') as f:

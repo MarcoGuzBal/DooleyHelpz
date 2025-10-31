@@ -144,10 +144,11 @@ if __name__ == "__main__":
   # 5. query
   # print("finding all courses with code CS170")
   results = col.find({"code": "CS170"}, {"_id": 0, "code": 1, "title": 1, "section": 1, "professor": 1})
+ 
   # _id is included by default, so we set it to 0 to exclude it
   # results = col.find()
-  # for r in results:
-  #   pprint.pprint(r)
+  for r in results:
+    pprint.pprint(r)
 
   profs = col.distinct("professor", {"code": "CS170"})
 
