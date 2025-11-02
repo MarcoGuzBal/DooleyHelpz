@@ -4,6 +4,7 @@ import { auth } from '../firebase';
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Link } from 'react-router-dom';
 
 
 // Delcaring Validation Schema
@@ -144,6 +145,15 @@ export default function RegisterRHFZod() {
           >
             {isSubmitting ? "Creating..." : "Create account"}
           </button>
+          
+          <Link
+            to= "/login">
+            <button
+              className="w-full rounded bg-emoryBlue px-4 py-2 font-semibold text-white hover:bg-emoryBlue/90 disabled:opacity-60"
+            >
+              Already have an account?
+            </button>
+          </Link>
   
           {serverSuccess && (
             <p className="mt-2 text-sm text-emerald-600">{serverSuccess}</p>
