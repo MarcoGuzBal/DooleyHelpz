@@ -1,6 +1,29 @@
+# general
 .DS_Store
-dooleyhelpz/
 .env
+__pycache__/
+*.pyc
+
+# frontend + backend build outputs
+/dist
+/build
+
+# node & python environments
+node_modules/
+.venv/
+venv/
+
+# editor settings
+.vscode/
+.idea/
+
+# OS / temp files
+*.log
+*.tmp
+
+
+# Zimo put:
+dooleyhelpz/
 test_db/
 cluster0/
 archived/
