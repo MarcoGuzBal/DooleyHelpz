@@ -26,3 +26,6 @@ venv/
 dooleyhelpz/
 test_db/
 cluster0/
+archived/
+scripts/debug.py
+data/unique_ger_out.txt

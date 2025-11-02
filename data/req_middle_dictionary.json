@@ -1,0 +1,1666 @@
+{
+    "OAM 330 or OAM 331 or SPECSTUBUS students": {
+        "prereq": [
+            [
+                "OAM330",
+                "OAM331"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "OAM 330 or OAM 331 or SPECSTUBUS students. This section is reserved for students in the BBA program"
+    },
+    "This section is reserved for students in the Emory College Liberal Arts and Sciences program": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "This section is reserved for students in the Emory College Liberal Arts and Sciences program"
+    },
+    "This course is intended for junior and senior level student": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "This course is intended for junior and senior level student"
+    },
+    "BBA or SPECSTUBUS students": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "BBA or SPECSTUBUS students. This section is reserved for students in the BBA program"
+    },
+    "At least one Foundational Course (SPAN 300-318W)": {
+        "prereq": [
+            [
+                "SPAN300~318W"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "FIN 201 or ((ECON 101 or ECON_OX 101) and (ECON 112 or ECON_OX 112)) or SPECSTUBUS students": {
+        "prereq": [
+            [
+                "FIN201",
+                "ECON101",
+                "ECON_OX101"
+            ],
+            [
+                "FIN201",
+                "ECON112",
+                "ECON_OX112"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "FIN 201 or ((ECON 101 or ECON_OX 101) and (ECON 112 or ECON_OX 112)) or SPECSTUBUS students. This section is reserved for students in the BBA program"
+    },
+    "At least one Foundational Course (SPAN 300-318W) or one SPAN 400-level class": {
+        "prereq": [
+            [
+                "SPAN300~318W",
+                "SPAN400-"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "FIN 220 or FIN 320 or SPECSTUBUS students": {
+        "prereq": [
+            [
+                "FIN220",
+                "FIN320"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "FIN 220 or FIN 320 or SPECSTUBUS students. This section is reserved for students in the BBA program"
+    },
+    "At least one Foundational Course (SPAN 300-318W) or one 400-level Spanish course": {
+        "prereq": [
+            [
+                "SPAN300~318W",
+                "SPAN400-"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "Open to Seniors and juniors ONLY. \uff08PSYC 110 or PSYC 111\uff09 and QTM 100 and PSYC 200W": {
+        "prereq": [
+            [
+                "PSYC110",
+                "PSYC111"
+            ],
+            [
+                "QTM100"
+            ],
+            [
+                "PSYC200W"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "Open to Seniors and juniors ONLY. Permission of the department required"
+    },
+    "Juniors and seniors only. (PSYC 110 or PSYC 111) and PSYC 200W": {
+        "prereq": [
+            [
+                "PSYC110",
+                "PSYC111"
+            ],
+            [
+                "PSYC200W"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "Juniors and seniors only"
+    },
+    "One PHIL course": {
+        "prereq": [
+            [
+                "PHIL*"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "Permission of the department required"
+    },
+    "One PHIL course. This course is restricted to PPL major": {
+        "prereq": [
+            [
+                "PHIL*"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "This course is restricted to PPL major. Permission of the department required"
+    },
+    "CHEM 141 or CHEM_OX 141 or CHEM 150L or CHEM_OX 150L as a prerequisite and CHEM 202 or CHEM_OX 202 as a corequisite": {
+        "prereq": [
+            [
+                "CHEM141",
+                "CHEM_OX141",
+                "CHEM150L",
+                "CHEM_OX150L"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM202",
+                "CHEM_OX202"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "This course is restricted to PPL major": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "This course is restricted to PPL major. Permission of the department required"
+    },
+    "Psychology majors only": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "Psychology majors only. Permission of the department required"
+    },
+    "FREN 310, FREN 314 and two 300 level FREN courses,. FREN 488": {
+        "prereq": [
+            [
+                "FREN310"
+            ],
+            [
+                "FREN 314"
+            ],
+            [
+                "FREN300-"
+            ],
+            [
+                "FREN300-"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM 202ZL as prerequisite and CHEM 203Z as co-requisite": {
+        "prereq": [
+            [
+                "CHEM202ZL"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM203Z"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "ENVS 371 or BIOL 371 as a prerequisite OR permission of instructor": {
+        "prereq": [
+            [
+                "ENVS371",
+                "BIOL371"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "1. Permission of the department required"
+    },
+    "Students completing PSYC_OX 100 or equivalent cannot enroll in PSYC 111": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": [
+            [
+                "PSYC_OX100"
+            ]
+        ],
+        "notes": null
+    },
+    "Any NBB or WGS course": {
+        "prereq": [
+            [
+                "NBB*",
+                "WGS*"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "PSYC 111 or PSYC_OX 111. Juniors and seniors only": {
+        "prereq": [
+            [
+                "PSYC111",
+                "PSYC_OX111"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "Juniors and seniors only"
+    },
+    "BIOL 141 and BIOL 141L or BIOL 151 or BIOL_OX141. Students must also register for a BIOL 142L section": {
+        "prereq": [
+            [
+                "BIOL141",
+                "BIOL151",
+                "BIOL_OX141"
+            ],
+            [
+                "BIOL141L",
+                "BIOL151",
+                "BIOL_OX141"
+            ]
+        ],
+        "coreq": [
+            [
+                "BIOL142L"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "A research and methods seminar intended for Junior/Senior majors in the Classics department; sophomores may enroll with instructor permission": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "A research and methods seminar intended for Junior/Senior majors in the Classics department; sophomores may enroll with instructor permission"
+    },
+    "Freshmen are not allowed to register": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "Freshmen are not allowed to register"
+    },
+    "Any SOC or SOC_OX": {
+        "prereq": [
+            [
+                "SOC*",
+                "SOC_OX*"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "Any one SOC course as prerequisite": {
+        "prereq": [
+            [
+                "SOC*"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "One HIST course 200 level or above": {
+        "prereq": [
+            [
+                "HIST200+"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "Permission of the department required"
+    },
+    "For History Honors Students Only": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "For History Honors Students Only. Permission of the department required"
+    },
+    "For Graduating History Honors Students Only": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "For Graduating History Honors Students Only. Permission of the department required"
+    },
+    "This class is open only to declared dance majors and minor": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "This class is open only to declared dance majors and minor. Permission of the department required"
+    },
+    "Prerequisite: Official Spanish Placement into Span 111 is required to remain in the course": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "Official Spanish Placement into Span 111 is required to remain in the course"
+    },
+    "FIN 425. SPECSTUBUS students are allowed to enroll": {
+        "prereq": [
+            [
+                "FIN425"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "SPECSTUBUS students are allowed to enroll. This section is reserved for students in the BBA program"
+    },
+    "Juniors and seniors with declared majors or minors offered by the Department of Data and Decision Sciences will receive permission codes for this course prior to the pre-registration period": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "Juniors and seniors with declared majors or minors offered by the Department of Data and Decision Sciences will receive permission codes for this course prior to the pre-registration period. Permission of the department required"
+    },
+    "MATH_OX 117 or MATH 207 or MATH_OX 207 or MATH 362 or ECON 220 or ECON_OX 220 or QTM 100 or QTM_OX 100 or QTM 110 or QTM_OX 110 or SOC 275 or QTM 999XFR or QTM_OX ELEC. Students enrolled or who took ISOM 350 can't take BUS 350. This section is reserved for students in the Emory College Liberal Arts and Sciences program": {
+        "prereq": [
+            [
+                "MATH_OX117",
+                "MATH207",
+                "MATH_OX207",
+                "MATH362",
+                "ECON220",
+                "ECON_OX220",
+                "QTM100",
+                "QTM_OX100",
+                "QTM110",
+                "QTM_OX110",
+                "SOC275",
+                "QTM999XFR"
+            ]
+        ],
+        "coreq": null,
+        "antireq": [
+            [
+                "ISOM350"
+            ]
+        ],
+        "notes": "MATH_OX 117 or MATH 207 or MATH_OX 207 or MATH 362 or ECON 220 or ECON_OX 220 or QTM 100 or QTM_OX 100 or QTM 110 or QTM_OX 110 or SOC 275 or QTM 999XFR or QTM_OX ELEC. Students enrolled or who took ISOM 350 can't take BUS 350. This section is reserved for students in the Emory College Liberal Arts and Sciences program. SPECSTUBUS students can enroll"
+    },
+    "Students enrolled in the NDBU program not allowed to enroll in this course": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": [
+            [
+                "NDBU program"
+            ]
+        ],
+        "notes": "Students enrolled in the NDBU program not allowed to enroll in this course. This section is reserved for students in the BBA program"
+    },
+    "Juniors or Seniors only or permission of instructor required for enrollment": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "Juniors or Seniors only or permission of instructor required for enrollment"
+    },
+    "ISOM 351 or ISOM_OX 351 or SPESTUBUS students": {
+        "prereq": [
+            [
+                "ISOM351",
+                "ISOM_OX351"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "ISOM 351 or ISOM_OX 351 or SPESTUBUS students. This section is reserved for students in the BBA program"
+    },
+    "ISOM 350 or BUS 350 or BUS_OX 350 or MATH_OX 117 or MATH_OX 117Q or QTM 999XFR or QTM_OX ELEC or SPECSTUBUS students": {
+        "prereq": [
+            [
+                "ISOM350",
+                "BUS350",
+                "BUS_OX350",
+                "MATH_OX117",
+                "MATH_OX117Q",
+                "QTM999XFR"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "ISOM 350 or BUS 350 or BUS_OX 350 or MATH_OX 117 or MATH_OX 117Q or QTM 999XFR or QTM_OX ELEC or SPECSTUBUS students. This section is reserved for students in the BBA program"
+    },
+    "Capstone courses are intended for chemistry seniors who have taken at least two 300-level chemistry elective": {
+        "prereq": [
+            [
+                "CHEM300-"
+            ],
+            [
+                "CHEM300-"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "Capstone courses are intended for chemistry seniors who have taken at least two 300-level chemistry elective"
+    },
+    "BUS 350 or BUS_OX 350 or ISOM 350. STECSTUBUS student may enroll": {
+        "prereq": [
+            [
+                "BUS350",
+                "BUS_OX350",
+                "ISOM350"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "STECSTUBUS student may enroll. This section is reserved for students in the BBA program"
+    },
+    "NRSG 464 as co-requisite (Students must enroll in NRSG 464 first)": {
+        "prereq": null,
+        "coreq": [
+            [
+                "NRSG464"
+            ]
+        ],
+        "antireq": null,
+        "notes": "NRSG 464 as co-requisite (Students must enroll in NRSG 464 first)"
+    },
+    "This section is for BSN semester 4 students only": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "This section is for BSN semester 4 students only. Permission of the department required"
+    },
+    "MATH 112 or MATH_OX 112. coreq MATH 212": {
+        "prereq": [
+            [
+                "MATH112",
+                "MATH_OX112"
+            ]
+        ],
+        "coreq": [
+            [
+                "MATH212"
+            ]
+        ],
+        "antireq": null,
+        "notes": "Permission of the department required"
+    },
+    "BIOL 120 or BIOL_OX 120 as Corequisite": {
+        "prereq": null,
+        "coreq": [
+            [
+                "BIOL120",
+                "BIOL_OX120"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "Two PHIL courses": {
+        "prereq": [
+            [
+                "PHIL*"
+            ],
+            [
+                "PHIL*"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM 203L or CHEM_OX 203L or CHEM 203ZL or CHEM 222L or CHEM_OX 222L as prerequisite and CHEM 204 or CHEM_OX 204 as co-requisite": {
+        "prereq": [
+            [
+                "CHEM203L",
+                "CHEM_OX203L",
+                "CHEM203ZL",
+                "CHEM222L",
+                "CHEM_OX222L"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM204",
+                "CHEM_OX204"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "ENVS 120 or ENVS 130 or ENVS 140 as prerequisite or co-requisite,": {
+        "prereq": [
+            [
+                "ENVS120",
+                "ENVS130",
+                "ENVS140"
+            ]
+        ],
+        "coreq": [
+            [
+                "ENVS120",
+                "ENVS130",
+                "ENVS140"
+            ]
+        ],
+        "antireq": null,
+        "notes": "ENVS 120 or ENVS 130 or ENVS 140 as prerequisite or co-requisite,"
+    },
+    "CHEM 203L or CHEM_OX 203L or CHEM 203ZL as prerequisites and CHEM 205 or CHEM_OX 205 as co-requisite": {
+        "prereq": [
+            [
+                "CHEM203L",
+                "CHEM_OX203L",
+                "CHEM203ZL"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM205",
+                "CHEM_OX205"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "SPAN 212 or an Official Spanish Placement into our Foundational Course level (Span 300-318)": {
+        "prereq": [
+            [
+                "SPAN212"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "SPAN 212 or an Official Spanish Placement into our Foundational Course level (Span 300-318)"
+    },
+    "(CHEM 204L or CHEM_OX 204L) and (CHEM 205L or CHEM_OX 205L)  as prerequisite or co-requisite": {
+        "prereq": [
+            [
+                "CHEM204L",
+                "CHEM_OX204L"
+            ],
+            [
+                "CHEM205L",
+                "CHEM_OX205L"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM204L",
+                "CHEM_OX204L"
+            ],
+            [
+                "CHEM205L",
+                "CHEM_OX205L"
+            ]
+        ],
+        "antireq": null,
+        "notes": "(CHEM 204L or CHEM_OX 204L) and (CHEM 205L or CHEM_OX 205L)  as prerequisite or co-requisite"
+    },
+    "ENVS 240 as prerequisite or co-requisite,": {
+        "prereq": [
+            [
+                "ENVS240"
+            ]
+        ],
+        "coreq": [
+            [
+                "ENVS240"
+            ]
+        ],
+        "antireq": null,
+        "notes": "ENVS 240 as prerequisite or co-requisite,"
+    },
+    "(CHEM 204 or CHEM_OX 204) and (CHEM 204L or CHEM_OX 204L) and (BIOL 141 or BIOL_OX 141). Students who took BIOL 301, or have transfer credit equivalent to BIOL 301, cannot take this course": {
+        "prereq": [
+            [
+                "CHEM204",
+                "CHEM_OX204"
+            ],
+            [
+                "CHEM204L",
+                "CHEM_OX204L"
+            ],
+            [
+                "BIOL141",
+                "BIOL_OX141"
+            ]
+        ],
+        "coreq": null,
+        "antireq": [
+            [
+                "BIOL301"
+            ]
+        ],
+        "notes": null
+    },
+    "BUS 350 or BUS_OX 350 or ISOM 350 or MATH_OX 117 or MATH_OX 117Q or QTM 100 or QTM_OX 100 or QTM 110 or QTM_OX 110 or ECON 220 or ECON_OX 220 or MATH 207 or MATH_OX 207 or MATH_OX 207Q or QTM 999XFR or QTM_OX ELEC or STAT COMPETENCY EXAM or SPECSTUBUS or transfer credit": {
+        "prereq": [
+            [
+                "BUS350",
+                "BUS_OX350",
+                "ISOM350",
+                "MATH_OX117",
+                "MATH_OX117Q",
+                "QTM100",
+                "QTM_OX100",
+                "QTM110",
+                "QTM_OX110",
+                "ECON220",
+                "ECON_OX220",
+                "MATH207",
+                "MATH_OX207",
+                "MATH_OX207Q",
+                "QTM999XFR"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "BUS 350 or BUS_OX 350 or ISOM 350 or MATH_OX 117 or MATH_OX 117Q or QTM 100 or QTM_OX 100 or QTM 110 or QTM_OX 110 or ECON 220 or ECON_OX 220 or MATH 207 or MATH_OX 207 or MATH_OX 207Q or QTM 999XFR or QTM_OX ELEC or STAT COMPETENCY EXAM or SPECSTUBUS or transfer credit. This section is reserved for students in the BBA program"
+    },
+    "ENVS 241 as a prerequisite OR permission of instructor": {
+        "prereq": [
+            [
+                "ENVS241"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "ENVS 241 as a prerequisite OR permission of instructor. Permission of the department required"
+    },
+    "The course is only available to graduating seniors who have declared the following majors or minors: Linguistics, Psych/Ling, Span/Ling, or QSS major w/ concentration in Linguistic": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "The course is only available to graduating seniors who have declared the following majors or minors: Linguistics, Psych/Ling, Span/Ling, or QSS major w/ concentration in Linguistic. Permission of the department required"
+    },
+    "BUS 350 as co-requisite or ISOM 350 or MATH_OX 117 or MATH_OX 117Q or QTM XFR or QTM_OX ELEC as prerequisite or SPECSTUBUS students,": {
+        "prereq": [
+            [
+                "ISOM350",
+                "MATH_OX117",
+                "MATH_OX117Q"
+            ]
+        ],
+        "coreq": [
+            [
+                "BUS350"
+            ]
+        ],
+        "antireq": null,
+        "notes": "BUS 350 as co-requisite or ISOM 350 or MATH_OX 117 or MATH_OX 117Q or QTM XFR or QTM_OX ELEC as prerequisite or SPECSTUBUS students,. This section is reserved for students in the BBA program"
+    },
+    "MKT 340 or SPECSTUBUS students": {
+        "prereq": [
+            [
+                "MKT340"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "MKT 340 or SPECSTUBUS students. This section is reserved for students in the BBA program"
+    },
+    "ACT 200 or ACT_OX 200 or ACT 210 or ACT_OX 210 or SPECSTUBUS students": {
+        "prereq": [
+            [
+                "ACT200",
+                "ACT_OX200",
+                "ACT210",
+                "ACT_OX210"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "ACT 200 or ACT_OX 200 or ACT 210 or ACT_OX 210 or SPECSTUBUS students"
+    },
+    "MKT 340. SPECSTUBUS students are allowed to enroll": {
+        "prereq": [
+            [
+                "MKT340"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "SPECSTUBUS students are allowed to enroll. This section is reserved for students in the BBA program"
+    },
+    "BIOL 142, BIOL 142L or BIOL_OX142 AND BIOL 247 or ENVS 247": {
+        "prereq": [
+            [
+                "BIOL142",
+                "BIOL_OX142",
+                "ENVS247"
+            ],
+            [
+                "BIOL142",
+                "BIOL247",
+                "ENVS247"
+            ],
+            [
+                "BIOL142L",
+                "BIOL_OX142",
+                "ENVS247"
+            ],
+            [
+                "BIOL142L",
+                "BIOL247",
+                "ENVS247"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "This class is for SOPHOMORES, JUNIORS, and SENIORS and has a LECTURE and a DISCUSSION SECTION. BIOL 142 and BIOL 142L": {
+        "prereq": [
+            [
+                "BIOL142"
+            ],
+            [
+                "BIOL142L"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "This class is for SOPHOMORES, JUNIORS, and SENIORS and has a LECTURE and a DISCUSSION SECTION"
+    },
+    "(BIOL 142 and BIOL 142L) or BIOL_OX 142. Students must also register for the LAB component": {
+        "prereq": [
+            [
+                "BIOL142",
+                "BIOL_OX142"
+            ],
+            [
+                "BIOL142L",
+                "BIOL_OX142"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "(BIOL 142 and BIOL 142L) or BIOL_OX 142. Students must also register for the LAB component"
+    },
+    "BIOL_OX 141 or BIOL_OX 141 co-requisite": {
+        "prereq": null,
+        "coreq": [
+            [
+                "BIOL_OX141"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "PHYS_OX 141 or PHYS_OX 151 and MATH_OX 112. Must enroll in BIOL_OX 212 lab": {
+        "prereq": [
+            [
+                "PHYS_OX141",
+                "PHYS_OX151"
+            ],
+            [
+                "PHYS_OX141",
+                "MATH_OX112"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "PHYS_OX 141 or PHYS_OX 151 and MATH_OX 112. Must enroll in BIOL_OX 212 lab"
+    },
+    "BIOL_OX 141 as prerequisite and (BIOL_OX 142 or BIOL 242) as prerequisite/corequisite": {
+        "prereq": [
+            [
+                "BIOL_OX141"
+            ],
+            [
+                "BIOL_OX142",
+                "BIOL242"
+            ]
+        ],
+        "coreq": [
+            [
+                "BIOL_OX142",
+                "BIOL242"
+            ]
+        ],
+        "antireq": null,
+        "notes": "BIOL_OX 141 as prerequisite and (BIOL_OX 142 or BIOL 242) as prerequisite/corequisite. Permission of the department required"
+    },
+    "CHEM 150 and CHEM 150L. This course is reserved for freshmen entering with AP, IB, or Chem 150 transfer credit": {
+        "prereq": [
+            [
+                "CHEM150"
+            ],
+            [
+                "CHEM150L"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "This course is reserved for freshmen entering with AP, IB, or Chem 150 transfer credit"
+    },
+    "CHEM 202Z as co-requisite. This course is only for freshmen entering with AP, IB, or other Chem 150 transfer credit and who are taking CHEM 202Z": {
+        "prereq": null,
+        "coreq": [
+            [
+                "CHEM202Z"
+            ]
+        ],
+        "antireq": null,
+        "notes": "This course is only for freshmen entering with AP, IB, or other Chem 150 transfer credit and who are taking CHEM 202Z"
+    },
+    "CHEM 202L or CHEM_OX 202L or CHEM 202ZL as prerequisite and CHEM 203 or CHEM_OX 203 as co-requisite,": {
+        "prereq": [
+            [
+                "CHEM202L",
+                "CHEM_OX202L",
+                "CHEM202ZL"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM203",
+                "CHEM_OX203"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM_OX 150L co-requisite": {
+        "prereq": null,
+        "coreq": [
+            [
+                "CHEM_OX150L"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM_OX 150 co-requisite": {
+        "prereq": null,
+        "coreq": [
+            [
+                "CHEM_OX150"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "AP Chemistry score of 4 or 5, or IB Chemistry score of 5, 6, or 7. Co-requisite: CHEM_OX 202 or CHEM_OX 202Q": {
+        "prereq": null,
+        "coreq": [
+            [
+                "CHEM_OX202",
+                "CHEM_OX202Q"
+            ]
+        ],
+        "antireq": null,
+        "notes": "AP Chemistry score of 4 or 5, or IB Chemistry score of 5, 6, or 7"
+    },
+    "CHEM_OX 150 and CHEM_OX 150L prerequisites & CHEM_OX 202L co-requisite": {
+        "prereq": [
+            [
+                "CHEM_OX150"
+            ],
+            [
+                "CHEM_OX150L"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM_OX202L"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM_OX 150 and CHEM_OX 150L. CHEM_OX 202 co-requisite": {
+        "prereq": [
+            [
+                "CHEM_OX150"
+            ],
+            [
+                "CHEM_OX150L"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM_OX202"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM_OX 202 and CHEM_OX 202L prerequisites & CHEM_OX 203L co-requisite": {
+        "prereq": [
+            [
+                "CHEM_OX202"
+            ],
+            [
+                "CHEM_OX202L"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM_OX203L"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM_OX 202 & CHEM_OX 202L prerequisites,. CHEM_OX 203 as coreq": {
+        "prereq": [
+            [
+                "CHEM_OX202"
+            ],
+            [
+                "CHEM_OX202L"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM_OX203"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM_OX 203 & CHEM_OX 203L prerequisites & CHEM 204L co-requisite": {
+        "prereq": [
+            [
+                "CHEM_OX203"
+            ],
+            [
+                "CHEM_OX203L"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM_OX204L"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM_OX 203 and CHEM_OX 203L as prerequisites. CHEM_OX 204 coreq": {
+        "prereq": [
+            [
+                "CHEM_OX203"
+            ],
+            [
+                "CHEM_OX203L"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM_OX204"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "((CHEM_OX 203 and CHEM_OX 203L) or (CHEM 203 and CHEM 203L)) and (MATH_OX 111 or MATH 111). & CHEM_OX 205L co-req": {
+        "prereq": [
+            [
+                "CHEM_OX203",
+                "CHEM203"
+            ],
+            [
+                "CHEM_OX203",
+                "CHEM203L"
+            ],
+            [
+                "CHEM_OX203L",
+                "CHEM203"
+            ],
+            [
+                "CHEM_OX203L",
+                "CHEM203L"
+            ],
+            [
+                "MATH_OX111",
+                "MATH111"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM_OX205L"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "((CHEM_OX 203 & CHEM_OX 203L) or (CHEM 203 & CHEM 203L)) and (MATH_OX 111 or MATH 111) prerequisite. CHEM_OX 205 coreq": {
+        "prereq": [
+            [
+                "CHEM_OX203",
+                "CHEM203"
+            ],
+            [
+                "CHEM_OX203",
+                "CHEM203L"
+            ],
+            [
+                "CHEM_OX203L",
+                "CHEM203"
+            ],
+            [
+                "CHEM_OX203L",
+                "CHEM203L"
+            ],
+            [
+                "MATH_OX111",
+                "MATH111"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM_OX205"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "CHEM_OX 202 or CHEM 202  as prerequisite or co-requisite": {
+        "prereq": [
+            [
+                "CHEM_OX202",
+                "CHEM202"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM_OX202",
+                "CHEM202"
+            ]
+        ],
+        "antireq": null,
+        "notes": "CHEM_OX 202 or CHEM 202  as prerequisite or co-requisite"
+    },
+    "Any JS or MESAS course": {
+        "prereq": [
+            [
+                "JS*",
+                "MESAS*"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "Prerequisites: At least one foundational course (SPAN 300- 318) or permission from instructor": {
+        "prereq": [
+            [
+                "SPAN300~318W"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "Freshmen Only": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "Freshmen Only. Permission of the department required"
+    },
+    "Directed self-placement (DSP) recommendation for ENG_OX 186 required prior to enrollment": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "Directed self-placement (DSP) recommendation for ENG_OX 186 required prior to enrollment"
+    },
+    "BIOL 142, BIOL 142L or BIOL_OX142 AND BIOL 247 or ENVS 247. Pre or coreq BIOL 247 or ENVS 247": {
+        "prereq": [
+            [
+                "BIOL142",
+                "BIOL_OX142",
+                "ENVS247"
+            ],
+            [
+                "BIOL142",
+                "BIOL_OX142",
+                "BIOL247",
+                "ENVS247"
+            ],
+            [
+                "BIOL142",
+                "BIOL247",
+                "ENVS247"
+            ],
+            [
+                "BIOL142",
+                "BIOL247",
+                "ENVS247"
+            ],
+            [
+                "BIOL142L",
+                "BIOL_OX142",
+                "ENVS247"
+            ],
+            [
+                "BIOL142L",
+                "BIOL_OX142",
+                "BIOL247",
+                "ENVS247"
+            ],
+            [
+                "BIOL142L",
+                "BIOL247",
+                "ENVS247"
+            ],
+            [
+                "BIOL142L",
+                "BIOL247",
+                "ENVS247"
+            ]
+        ],
+        "coreq": [
+            [
+                "BIOL247",
+                "ENVS247"
+            ]
+        ],
+        "antireq": null,
+        "notes": "BIOL 142, BIOL 142L or BIOL_OX142 AND BIOL 247 or ENVS 247. Pre or coreq BIOL 247 or ENVS 247"
+    },
+    "ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140 or (BIOL 142 and BIOL 142L) or BIOL_OX 142. This course is best suited for SR's and JR's in ENVS; permission of instructor is required if you are a sophomore in ENVS": {
+        "prereq": [
+            [
+                "ENVS120",
+                "ENVS130",
+                "ENVS131",
+                "ENVS_OX131",
+                "ENVS140",
+                "BIOL142",
+                "BIOL_OX142"
+            ],
+            [
+                "ENVS120",
+                "ENVS130",
+                "ENVS131",
+                "ENVS_OX131",
+                "ENVS140",
+                "BIOL142L",
+                "BIOL_OX142"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "This course is best suited for SR's and JR's in ENVS; permission of instructor is required if you are a sophomore in ENVS"
+    },
+    "CS 170 or CS_OX 170 as prerequisite and MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 as co-requisite": {
+        "prereq": [
+            [
+                "CS170",
+                "CS_OX170"
+            ]
+        ],
+        "coreq": [
+            [
+                "MATH111",
+                "MATH_OX111",
+                "MATH112",
+                "MATH_OX112"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "DANCE 150R or PE_OX 151. Open only to declared dance majors and minor": {
+        "prereq": [
+            [
+                "DANCE150R",
+                "PE_OX151"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "Open only to declared dance majors and minor. Permission of the department required"
+    },
+    "This course is open to declared dance and theater majors and minors in their junior or senior year": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "This course is open to declared dance and theater majors and minors in their junior or senior year. Permission of the department required"
+    },
+    "Any POLS 100 or POLS_OX 100 level course": {
+        "prereq": [
+            [
+                "POLS100-",
+                "POLS_OX100-"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "PSYC 110 OR PSYC 111. Juniors and Seniors ONLY": {
+        "prereq": [
+            [
+                "PSYC110",
+                "PSYC111"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "Juniors and Seniors ONLY. Permission of the department required"
+    },
+    "This course is for TA positions for QTM courses besides QTM 100": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "This course is for TA positions for QTM courses besides QTM 100. Permission of the department required"
+    },
+    "This is the course number for students receiving QTM credit hours for their quantitative intern experience": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "This is the course number for students receiving QTM credit hours for their quantitative intern experience"
+    },
+    "This is the course number of students receiving QTM credit hours for their research fellowship": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "This is the course number of students receiving QTM credit hours for their research fellowship"
+    },
+    "ISOM 351. STECSTUBUS student may enroll": {
+        "prereq": [
+            [
+                "ISOM351"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "STECSTUBUS student may enroll. This section is reserved for students in the BBA program"
+    },
+    "ISOM 351 as prereq or coreq": {
+        "prereq": [
+            [
+                "ISOM351"
+            ]
+        ],
+        "coreq": [
+            [
+                "ISOM351"
+            ]
+        ],
+        "antireq": null,
+        "notes": "ISOM 351 as prereq or coreq. BBA and SPECSTUBUS students can enroll. This section is reserved for students in the BBA program"
+    },
+    "PREREQUISITE: At least one foundational course (SPAN 300-318W) or permission from the instructor": {
+        "prereq": [
+            [
+                "SPAN300~318W"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "PREREQUISITE: At least one foundational course (SPAN 300-318W) or permission from the instructor"
+    },
+    "Pre- or co-requisite: at least one other LING course, or permission of instructor": {
+        "prereq": [
+            [
+                "LING*"
+            ]
+        ],
+        "coreq": [
+            [
+                "LING*"
+            ]
+        ],
+        "antireq": null,
+        "notes": "Pre- or co-requisite: at least one other LING course, or permission of instructor. Permission of the department required"
+    },
+    "MATH AP/AB or IB credits. First-year students only (there are NO EXCEPTIONS)": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "MATH AP/AB or IB credits. First-year students only (there are NO EXCEPTIONS). Permission of the department required"
+    },
+    "The MUS 347 pre-requisite is in the process of being removed, so any students interested in learning electronic music through hands-on performing and working with electronic instruments are encouraged to reach out to Dr": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "The MUS 347 pre-requisite is in the process of being removed, so any students interested in learning electronic music through hands-on performing and working with electronic instruments are encouraged to reach out to Dr. Permission of the department required"
+    },
+    "All nursing pre-reqs courses require department permission to enroll": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "All nursing pre-reqs courses require department permission to enroll. Permission of the department required"
+    },
+    "NRSG 310. This section is for traditional BSN semester 2 students only": {
+        "prereq": [
+            [
+                "NRSG310"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "This section is for traditional BSN semester 2 students only"
+    },
+    "NRSG 301 and NRSG 302 and NRSG 363. This section is for traditional BSN semester 3 students only": {
+        "prereq": [
+            [
+                "NRSG301"
+            ],
+            [
+                "NRSG302"
+            ],
+            [
+                "NRSG363"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "This section is for traditional BSN semester 3 students only"
+    },
+    "NRSG 301 and NRSG 302 and NRSG 301 and NRSG 302 and NRSG 363. This section is for traditional BSN semester 3 students only": {
+        "prereq": [
+            [
+                "NRSG301"
+            ],
+            [
+                "NRSG302"
+            ],
+            [
+                "NRSG301"
+            ],
+            [
+                "NRSG302"
+            ],
+            [
+                "NRSG363"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "This section is for traditional BSN semester 3 students only"
+    },
+    "NRSG 331 and NRSG 332. For trad BSN seniors only": {
+        "prereq": [
+            [
+                "NRSG331"
+            ],
+            [
+                "NRSG332"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "For trad BSN seniors only. Permission of the department required"
+    },
+    "ENVS_OX 232EL as coreq": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": [
+            [
+                "ENVS_OX232EL"
+            ]
+        ],
+        "notes": null
+    },
+    "FREN 310, FREN 314 and two 300 level FREN courses,": {
+        "prereq": [
+            [
+                "FREN310"
+            ],
+            [
+                "FREN 314"
+            ],
+            [
+                "FREN300-"
+            ],
+            [
+                "FREN300-"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "ACT 200 or ACT_OX 200 or ACT 210 or ACT_OX 210 or SPECSTUBUS students. Students registered in ACT 200 cannot register for ACT 211": {
+        "prereq": [
+            [
+                "ACT200",
+                "ACT_OX200",
+                "ACT210",
+                "ACT_OX210"
+            ]
+        ],
+        "coreq": null,
+        "antireq": [
+            [
+                "ACT200"
+            ]
+        ],
+        "notes": "ACT 200 or ACT_OX 200 or ACT 210 or ACT_OX 210 or SPECSTUBUS students. Students registered in ACT 200 cannot register for ACT 211"
+    },
+    "(Same as THEA 377W 1) Pre-requisite: Previous sociocultural anthropology course at 200 level or above is required": {
+        "prereq": [
+            [
+                "ANT200+"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "Previous sociocultural anthropology course at 200 level or above is required"
+    },
+    "BIOL 141L as coreq. Students with AP credit for the lecture are required to take the Lab (BIOL 141L)": {
+        "prereq": null,
+        "coreq": [
+            [
+                "BIOL141L"
+            ]
+        ],
+        "antireq": null,
+        "notes": "Students with AP credit for the lecture are required to take the Lab (BIOL 141L)"
+    },
+    "BIOL 141 or BIOL_OX 141 as co-requisite or CHEM 141 or CHEM_OX 141 as prerequisite": {
+        "prereq": [
+            [
+                "BIOL141",
+                "BIOL_OX141"
+            ]
+        ],
+        "coreq": [
+            [
+                "CHEM141",
+                "CHEM_OX141"
+            ]
+        ],
+        "antireq": null,
+        "notes": "BIOL 141 or BIOL_OX 141 as co-requisite or CHEM 141 or CHEM_OX 141 as prerequisite"
+    },
+    "Only open to students in the Oxford Launch: London program fall 2025": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "Only open to students in the Oxford Launch: London program fall 2025"
+    },
+    "Prerequisite: At least one 300-level foundational course for the Spanish Major or Minor OR one 400-level elective": {
+        "prereq": [
+            [
+                "SPAN300~318W",
+                "SPAN400-"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "Prerequisite: At least one 300-level foundational course for the Spanish Major or Minor OR one 400-level elective"
+    },
+    "(Same as ANT 377W 1) Pre-requisite: Previous sociocultural anthropology course at 200 level or above is required": {
+        "prereq": [
+            [
+                "ANT200+"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "Previous sociocultural anthropology course at 200 level or above is required"
+    },
+    "(THEA 130 or THEA_OX 130) and THEA 210W and (THEA 215 or THEA_OX 215) and (THEA 216 or THEA_OX 216). This course, the Theater Studies senior seminar, is designed for Theater majors in their senior year; students in other majors welcome by permission of instructor": {
+        "prereq": [
+            [
+                "THEA130",
+                "THEA_OX130"
+            ],
+            [
+                "THEA210W"
+            ],
+            [
+                "THEA215",
+                "THEA_OX215"
+            ],
+            [
+                "THEA216",
+                "THEA_OX216"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "This course, the Theater Studies senior seminar, is designed for Theater majors in their senior year; students in other majors welcome by permission of instructor"
+    },
+    "This course is open to declared dance majors and minors in their junior or senior year": {
+        "prereq": null,
+        "coreq": null,
+        "antireq": null,
+        "notes": "This course is open to declared dance majors and minors in their junior or senior year. Permission of the department required"
+    },
+    "Two PHIL course": {
+        "prereq": [
+            [
+                "PHIL*"
+            ],
+            [
+                "PHIL*"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": null
+    },
+    "Two PHIL courses. This course is restricted to PPL major": {
+        "prereq": [
+            [
+                "PHIL*"
+            ],
+            [
+                "PHIL*"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "This course is restricted to PPL major. Permission of the department required"
+    },
+    "(MATH 111 or MATH_OX 111) as prerequisites and (MATH 112 or MATH_OX 112 or MATH 112Z or MATH 210 or MATH_OX 210) as co-requisites,": {
+        "prereq": [
+            [
+                "MATH111",
+                "MATH_OX111"
+            ]
+        ],
+        "coreq": [
+            [
+                "MATH112",
+                "MATH_OX112",
+                "MATH112Z",
+                "MATH210",
+                "MATH_OX210"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "(PHYS 142 or PHYS_OX 142 or PHYS 152 or PHYS_OX 152) as prerequisite and (MATH 211 or MATH_OX 211) as co-requisite": {
+        "prereq": [
+            [
+                "PHYS142",
+                "PHYS_OX142",
+                "PHYS152",
+                "PHYS_OX152"
+            ]
+        ],
+        "coreq": [
+            [
+                "MATH211",
+                "MATH_OX211"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "(PHYS 142 or PHYS_OX 142 or PHYS 152 or PHYS_OX 152) as prerequisite and (PHYS 220 or MATH 212 or MATH_OX 212) as co-requisite": {
+        "prereq": [
+            [
+                "PHYS142",
+                "PHYS_OX142",
+                "PHYS152",
+                "PHYS_OX152"
+            ]
+        ],
+        "coreq": [
+            [
+                "PHYS220",
+                "MATH212",
+                "MATH_OX212"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "Math_OX 111 or Math_OX 110. PHYS_OX 141L as coreq": {
+        "prereq": [
+            [
+                "MATH_OX111",
+                "MATH_OX110"
+            ]
+        ],
+        "coreq": [
+            [
+                "PHYS_OX141L"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "MATH_OX 112 and PHYS_OX 151L as coreq": {
+        "prereq": null,
+        "coreq": [
+            [
+                "MATH_OX112"
+            ],
+            [
+                "PHYS_OX151L"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "Phys_OX 151. Must also enroll in the Physics 152 Tuesday 2:30PM lab section": {
+        "prereq": [
+            [
+                "PHYS_OX151"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "Must also enroll in the Physics 152 Tuesday 2:30PM lab section"
+    },
+    "(MATH_OX 112 or MATH_OX 112Z) and (PHYS_OX 141 or PHYS_OX 151). PHYS_OX 141 or PHYS_OX 151 and Math_Ox 112. Phys_OX 212 as coreq": {
+        "prereq": [
+            [
+                "MATH_OX112",
+                "MATH_OX112Z"
+            ],
+            [
+                "PHYS_OX141",
+                "PHYS_OX151"
+            ]
+        ],
+        "coreq": [
+            [
+                "PHYS_OX212"
+            ]
+        ],
+        "antireq": null,
+        "notes": null
+    },
+    "MATH 111 and MATH 112Z. Math 275 and 276 are intended for ambitious math majors, including freshmen, who are serious about math and ready for the challenging material covered": {
+        "prereq": [
+            [
+                "MATH111"
+            ],
+            [
+                "MATH112Z"
+            ]
+        ],
+        "coreq": null,
+        "antireq": null,
+        "notes": "Math 275 and 276 are intended for ambitious math majors, including freshmen, who are serious about math and ready for the challenging material covered. Permission of the department required"
+    }
+}
