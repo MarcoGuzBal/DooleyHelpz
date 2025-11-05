@@ -1,21 +1,12 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Force light base so pages don't inherit a dark body from templates */
+html, body {
+  background: #ffffff !important;
+  color: #111827 !important; /* zinc-900 */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Ensure the app root can fill the screen */
+#root {
+  min-height: 100vh;
 }
 
 @keyframes logo-spin {
@@ -39,4 +30,51 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Emory Colors*/
+
+
+.text-emoryBlue { 
+  color: #002878;
+}
+
+.bg-emoryBlue {
+  background-color: #002878;
+}
+
+.hover\:bg-emoryBlue\/90:hover {
+  background-color: rgba(0, 40, 120, 0.9);
+}
+
+.text-lighterBlue { 
+  color: #6384c6;
+}
+
+.bg-lighterBlue {
+  background-color: #6384c6;
+}
+
+.text-Gold { 
+  color: #d2b000;
+}
+
+.bg-Gold {
+  background-color: #d2b000;
+}
+
+.hover\:bg-Gold\/90:hover {
+  background-color: rgba(210,176,0, 1.0);
+}
+
+.text-paleGold { 
+  color: #e8d585;
+}
+
+.bg-paleGold {
+  background-color: #e8d585;
+}
+
+.hover\:bg-paleGold\/90:hover {
+  background-color: rgba(232,213,133, 1.0);
 }

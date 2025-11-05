@@ -1,0 +1,661 @@
+HIST 498R      : Permission of the department required
+OAM 432        : BBA & SPECSTUBUS students allowed to enroll. This section is reserved for students in the BBA program
+DANC 226       : Permission of the department required
+OAM 438        : OAM 330 or OAM 331 or SPECSTUBUS students. This section is reserved for students in the BBA program
+FILM 385W      : FILM 102 and (FILM 201 or FILM 202 or FILM 203 or FILM 204 or FILM_OX 204 or FILM 205)
+SPAN 202       : SPAN 201 or SPAN_OX 201
+OAM 464        : This section is reserved for students in the BBA program
+SPAN 212       : SPAN 202 or SPAN 212
+SPAN 217R      : SPAN 212
+FILM 407       : FILM 301 or FILM 301W or FILM 302. Permission of the department required
+OAM 499R       : This section is reserved for students in the BBA program
+SPAN 300       : SPAN 212
+DANC 342       : Permission of the department required
+FILM 485       : FILM 301 or FILM 301W or FILM 302
+SPAN 302W      : SPAN 212
+DANC 350       : DANC 250 AND DANC 150
+FILM 499R      : Permission of the department required
+POLS 208       : QTM 100 or QTM_OX 100 or MATH_OX 117 or MATH_OX 117Q or QTM 220 or ECON 220 or ECON_OX 220 or POLS 310 or POLS 310W or ISOM 350 or BUS 350 or BUS_OX 350
+SPAN 303       : SPAN 212
+DANC 360R      : DANC 350 AND DANC 250 AND DANC 150
+FIN 201        : This section is reserved for students in the Emory College Liberal Arts and Sciences program
+DANC 421R      : Permission of the department required
+SPAN 304       : SPAN 212
+MUS 122        : MUS 121
+DANC 424R      : Permission of the department required
+SPAN 318       : SPAN 212
+SPAN 330       : SPAN 212. Permission of the department required
+DANC 454W      : This course is intended for junior and senior level student
+DANC 491R      : Permission of the department required
+SPAN 385       : SPAN 217
+FIN 320        : BBA or SPECSTUBUS students. This section is reserved for students in the BBA program
+SPAN 413W      : SPAN 303 or LING 303 or SPAN 304 or LING 304
+SPAN 421W      : At least one Foundational Course (SPAN 300-318W)
+FIN 321        : FIN 201 or ((ECON 101 or ECON_OX 101) and (ECON 112 or ECON_OX 112)) or SPECSTUBUS students. This section is reserved for students in the BBA program
+HLTH 285       : HLTH 207
+SPAN 424       : At least one Foundational Course (SPAN 300-318W) or one SPAN 400-level class
+SPAN 485       : At least one Foundational Course (SPAN 300-318W)
+FIN 322        : FIN 220 or FIN 320 or SPECSTUBUS students. This section is reserved for students in the BBA program
+MUS 222        : MUS 221
+SPAN 485W      : At least one Foundational Course (SPAN 300-318W) or one 400-level Spanish course
+HLTH 306       : ECON 220 or ECON_OX 220 or HLTH 207 or MATH_OX 117Q or QTM 100 or QTM_OX 100
+FIN 382        : This section is reserved for students in the BBA program
+HLTH 321       : HLTH 220 or HLTH 221
+BIOL 247       : (BIOL 142 and BIOL 142L) or BIOL_OX 142
+MATH 315       : (MATH 221 or MATH_OX 221 or MATH 275 or MATH 321) and (CS 170 or CS_OX 170 or MATH 170)
+ECON 212       : (ECON 101 or ECON_OX 101 or FIN 201) and (ECON 112 or ECON_OX 112) and (MATH 111 or MATH_OX 111 or MATH 116)
+BIOL 250       : (BIOL 142 and BIOL 142L) or BIOL_OX 142
+MATH 321       : MATH 250 or MATH_OX 250 or MATH_OX 250Q or MATH 276
+JPN 102        : JPN 101
+ECON 215       : ECON 101 or ECON_OX 101 or FIN 201
+MATH 330       : (MATH 221 or MATH_OX 221 or MATH 275 or MATH 321) and (MATH 250 or MATH_OX 250 or MATH 276)
+JPN 202        : JPN 201
+BIOL 264       : (BIOL 142 and BIOL 142L) or BIOL_OX 142
+MATH 344       : (MATH 211 or PHYS 211 or MATH_OX 211 or MATH 276) and (MATH 221 or MATH_OX 221 or MATH 321) and (MATH 250 or MATH_OX 250 or MATH 276)
+PHYS 117       : PHYS 115 or PHYS 116 or ASTR_OX 116
+BIOL 285       : (BIOL 142 and BIOL 142L) or BIOL_OX 142. Permission of the department required
+JPN 302        : JPN 301
+MATH 346       : (MATH 221 or MATH_OX 221 or MATH 275 or MATH 321) and (CS 170 or CS_OX 170 or MATH 170)
+ECON 220       : (ECON 101 or ECON_OX 101 or FIN 201) and (MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 or MATH 112Z or MATH_OX 112Z or MATH 116)
+JPN 351        : JPN 202
+ECON 231       : ECON 101 or ECON_OX 101 or FIN 201
+BIOL 301       : ((BIOL 142 and BIOL 142L) or (BIOL_OX 142)) and (CHEM 203 or CHEM 203Z or CHEM_OX 203 or CHEM 221 or CHEM_OX 221 or CHEM 221Z)
+MATH 351       : (MATH 211 or MATH_OX 211 or MATH 276) and (MATH 212 or MATH_OX 212) and (MATH 221 or MATH_OX 221 or MATH 275 or MATH 321)
+JPN 402        : JPN 401 or JPN 401W
+MATH 362       : MATH 361
+BIOL 336       : (BIOL 142 and BIOL 142L) or BIOL_OX 142
+ECON 312       : (ECON 101 or ECON_OX 101 or FIN 201) and (ECON 112 or ECON_OX 112)
+ECON 315       : ECON_OX 100 or ECON 101 or ECON_OX 101 or FIN 201 AND ECON 112 or ECON_OX112
+MATH 412       : MATH 411
+BIOL 351       : (BIOL 142 and BIOL 142L) or BIOL_OX 142
+BIOL 352       : ((BIOL 142 or BIOL_OX 142) and BIOL 264)
+MATH 422       : MATH 421
+PHYS 142       : PHYS 141 OR PHYS_OX 141 OR PHYS 151 OR PHYS_OX 151
+BIOL 360       : ((BIOL 142 and BIOL 142L) or BIOL_OX 142) and (CHEM 142 or CHEM_OX 142 or CHEM 202 or CHEM_OX 202 or CHEM 202Z)
+MATH 425       : (MATH 211 or MATH_OX 211 or MATH 276) and (ECON 201 or ECON_OX 201). Permission of the department required
+BIOL 360L      : ((BIOL 142 and BIOl 142L) or BIOL_OX142) and (BIOL 360 or NBB 301). Permission of the department required
+ECON 320       : (ECON 101 or ECON_OX 101 or BUS 201) and (ECON 112 or ECON_OX 112) and (ECON 220 or ECON_OX 220 or MATH 207 or MATH_OX 207 or MATH 361 or MATH 362)
+ECON 350       : ECON 101 or ECON_OX 101 or FIN 201
+BIOL 364       : BIOL 264 or BIOL_OX 264
+PHYS 152       : (PHYS 141 or PHYS_OX 141 or PHYS 151 or PHYS_OX 151) and (MATH 112 or MATH_OX 112 or MATH 116 or MATH 210)
+PSYC 333       : PSYC 110 or PSYC_OX 110 or PSYC 111 or PSYC_OX 111
+FREN 102       :
+PSYC 352       : QTM 100 or QTM_OX 100 or ECON 220 or ECON_OX 220 or ISOM 350 or POLS 310 or POLS 310W or MATH_OX 117
+FREN 201       :
+NBB 495BW      : Permission of the department required
+ARTHIST 190    :
+PSYC 424       : Open to Seniors and juniors ONLY. （PSYC 110 or PSYC 111） and QTM 100 and PSYC 200W. Permission of the department required
+FREN 203       : FREN 201
+PSYC 430       : QTM 100 and PSYC 200W. Permission of the department required
+ARTHIST 203    : Permission of the department required
+WGS 454W       : This course is intended for junior and senior level student
+FREN 310W      : FREN 203
+PSYC 471R      : Juniors and seniors only. (PSYC 110 or PSYC 111) and PSYC 200W
+ENGRD 219      : Permission of the department required
+PHIL 200W      : One PHIL course. Permission of the department required
+FREN 314       : FREN 310
+CHEM 202       : CHEM 141 or CHEM_OX 141 or CHEM 150 or CHEM_OX 150
+WGS 495BW      : Permission of the department required
+PHIL 220W      : One PHIL course. This course is restricted to PPL major. Permission of the department required
+ENGRD 221RW    : Permission of the department required
+IDS 205W       :
+FREN 351       : FREN 310 or FREN_OX 310 and FREN 314 or FREN_OX 314
+CHEM 202L      : CHEM 141 or CHEM_OX 141 or CHEM 150L or CHEM_OX 150L as a prerequisite and CHEM 202 or CHEM_OX 202 as a corequisite
+PHIL 300       : This course is restricted to PPL major. Permission of the department required
+ENGRD 224R     : Permission of the department required
+PSYC 495BW     : PSYC 495A. Permission of the department required
+CHEM 203       : CHEM 202 or CHEM_OX 202 or CHEM 202Z or CHEM 221 or CHEM_OX 221
+FREN 391R      : FREN 310 or FREN_OX 310 and FREN 314 or FREN_OX 314
+PSYC 498R      : Psychology majors only. Permission of the department required
+CHEM 203Z      : CHEM 202Z
+FREN 488W      : FREN 310, FREN 314 and two 300 level FREN courses,. FREN 488
+CHEM 203ZL     : CHEM 202ZL as prerequisite and CHEM 203Z as co-requisite
+BIOL 368L      : (BIOL 142 and BIOL 142L) or BIOL_OX 142
+ECON 385       : ECON_OX 100 or ECON 101 or ECON_OX 101 or FIN 201 AND ECON 112 or ECON_OX112
+HIST 210       :
+BIOL 370       : (BIOL 142 and BIOL 142L) or BIOL_OX 142
+CS 171         : CS 170 OR CS_OX 170
+CS 211         : (MATH 111 or MATH_OX 111 or QTM 100 or QTM_OX 100) and (CS 110 or CS 170 or CS_OX 170)
+PHYS 212       : (PHYS 151 or PHYS_OX 151) or ((PHYS 141 or PHYS_OX 141) and (MATH 112 or MATH 112Z or MATH_OX 112 or MATH_OX 112Z0) or ((PHYS 141 or PHYS_OX 141) and MATH 116))
+BIOL 370L      : ((BIOL 142 and BIOL 142L) or BIOL_OX142 or BIOL 152) and BIOL 370
+ECON 410W      : (ECON 201 or ECON_OX 201) and (ECON 212 or ECON_OX 212)
+CS 224         : (CS 170 or CS_OX 170) and (MATH 111 or MATH_OX 111)
+PHYS 222       : (PHYS 142 or PHYS_OX 142 or PHYS 152 or PHYS_OX 152) and (MATH 112 or MATH_OX 112 or MATH 112Z or MATH 116) and (CHEM 205 or CHEM_OX 205 or CHEM 331 or PHYS 253 or PHYS_OX 253)
+BIOL 371       : ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140 or (BIOL 142 and BIOL 142L) or BIOL_OX 142
+CS 253         : CS 171 or CS 171Z or CS_OX 171
+CS 255         : CS 171 or CS 171Z or CS_OX 171
+BIOL 372       : ENVS 371 or BIOL 371 as a prerequisite OR permission of instructor. Permission of the department required
+ECON 412W      : (ECON 201 or ECON_OX 201) and (ECON 212 or ECON_OX 212)
+PHYS 311       : PHYS 253
+CS 312         : CS 211 or CS 323 or CS 325 or CS 334 or CS 470
+BIOL 385       : (BIOL 142 and BIOL 142L) or BIOL_OX 142
+ECON 425       : (MATH 211 or MATH_OX 211 or MATH 276) and (ECON 201 or ECON_OX 201)
+PHYS 365       : PHYS 220
+ECON 433       : (ECON 112 or ECON_OX 112) and (ECON 201 or ECON_OX 201) and (ECON 220 or ECON_OX 220 or MATH 361)
+CS 325         : (CS 224 or CS_OX 224) and CS 253
+ECON 436       : (ECON 201 or ECON_OX 201) and ECON 215
+PHYS 422       : PHYS 253 or PHYS_OX 253 or (CHEM 205 and CHEM 205L) or (CHEM 331 and CHEM 331L) or (CHEM 331 and CHEM 331LW)
+CS 326         : (CS 170 or CS_OX 170) and (CS 171 or CS_OX 171) and (CS 224 or CS_OX 224) and CS 253
+BIOL 450       : BIOL 360 or NBB 301 or IBS 514
+ECON 442       : ECON 201 OR ECON_OX201
+CS 329         : CS 171 or CS 171Z or CS_OX 171
+BIOL 463       : (BIOL 142 and BIOL 142L) or BIOL_OX 142
+AAS 490R       : Permission of the department required
+ECON 451       : ECON 220 or ECON_OX 220 or MATH 361
+PHYS 437       : (PHYS 212 or PHYS_OX 212) and (PHYS 220 or PHYS_OX 220) and PHYS 421
+THEA 321       : THEA 223 or THEA 224
+PSYC 110       :
+ENGCW 190      :
+PSYC 111       : Students completing PSYC_OX 100 or equivalent cannot enroll in PSYC 111
+THEA 363       : SPAN 212
+ANT 495BW      : Permission of the department required
+NBB 301        : ((BIOL 142 and BIOL 142L) or BIOL_OX 142) and (CHEM 142 or CHEM_OX 142 or CHEM 202 or CHEM_OX 202 or CHEM 202Z)
+DATASCI 499R   : Permission of the department required
+ENGCW 271W     : Permission of the department required
+NBB 301L       : ((BIOL 142 and BIOl 142L) or BIOL_OX142) and (BIOL 360 or NBB 301). Permission of the department required
+THEA 375R      : Permission of the department required
+ANT 498        : Permission of the department required
+ENGCW 272W     : Permission of the department required
+ANT 499        : ANT 202 or ANTH_OX 202. Permission of the department required
+NBB 318        : Any NBB or WGS course
+ENGCW 370RW    : Permission of the department required
+PSYC 200W      : (PSYC 110 or PSYC_OX 110 or PSYC 111 or PSYC_OX 111) and (PSYC 230 or QTM 100 or QTM_OX 100)
+ENGCW 371RW    : Permission of the department required
+NBB 361W       : BIOL 360 or NBB 301
+ENGCW 373R     : Permission of the department required
+ENGCW 374R     : Permission of the department required
+ENGCW 375R     : Permission of the department required
+ENGCW 376RW    : Permission of the department required
+ENGCW 378RW    : ENGCW 270 or ENGCW 270W or ENGCW_OX 270 or ENGCW 271 or ENGCW 271W or ENGCW_OX 271 or ENGCW 272 or ENGCW 272W or FILM 101 or FILM_OX 101. Permission of the department required
+ARAB 202       : ARAB_OX 201
+NBB 380        : NBB 280. Permission of the department required
+ENGCW 389      : Permission of the department required
+ENGCW 389W     : Permission of the department required
+FREN 101       :
+PSYC 326       : PSYC 111 or PSYC_OX 111. Juniors and seniors only
+NBB 426        : PSYC 110 or PSYC_OX 110 or BIOL 142 or BIOL_OX 142
+MATH 250       :  (MATH 111) and (MATH 112 or MATH_OX 112 or MATH 112Z or MATH_OX 112Z)
+MATH 270       : MATH 112 or MATH 112S or MATH 112Z
+MATH 276       : MATH 275. Permission of the department required
+BIOL 142       : BIOL 141 and BIOL 141L or BIOL 151 or BIOL_OX141. Students must also register for a BIOL 142L section
+BIOL 223       : (BIOL 142 and BIOL 142L) or BIOL_OX 142
+BIOL 237L      : (BIOL 142 or BIOL_OX 142) and BIOL 142L and BIOL 236L. Permission of the department required
+BIOL 240       : (BIOL 141 and BIOL 141L) or BIOL 151 or BIOL_OX 141
+BIOL 241       : (BIOL 142 and BIOL 142L) or BIOL_OX 142 or BIOL_OX 142X
+REES 423W      :
+GRK 102        : GRK 101
+REL 190        :
+CL 487         : A research and methods seminar intended for Junior/Senior majors in the Classics department; sophomores may enroll with instructor permission
+REL 300W       :
+ITAL 320W      : ITAL 202 or ITAL_OX 202
+REL 490W       : Permission of the department required
+LACS 385       :
+FILM 202       : FILM 101 or FILM_OX 101
+FILM 203       : FILM 101 or FILM 102 or FILM_OX 270
+ECS 100        : Permission of the department required
+SOC 446W       : Freshmen are not allowed to register
+FILM 213       : FILM 107 or ARTVIS 107 or FILM_OX 107 or FILM_OX 107E
+SOC 457W       : Any SOC or SOC_OX
+ACT 477        : (ACT 200 or ACT_OX 200) and (FIN 320 or FIN_OX 320). This section is reserved for students in the BBA program
+SOC 461        : Any one SOC course as prerequisite
+SOC 489        :
+FILM 278W      : FILM 101 or FILM_OX 101
+HIST 423W      :
+FILM 295W      : (FILM 101 or FILM_OX 101) and (FILM 102 or FILM_OX 102)
+HIST 494R      : One HIST course 200 level or above. Permission of the department required
+DANC 207R      : Permission of the department required
+HIST 495A      : For History Honors Students Only. Permission of the department required
+OAM 335        : BBA and SPECSTUBUS students can enroll. This section is reserved for students in the BBA program
+FILM 307       : FILM 207
+HIST 495BW     : For Graduating History Honors Students Only. Permission of the department required
+DANC 220       : This class is open only to declared dance majors and minor. Permission of the department required
+SPAN 102       : SPAN 101 or SPAN_OX 101
+FILM 378RW     : ENGCW 270 or ENGCW 270W or ENGCW_OX 270 or ENGCW 271 or ENGCW 271W or ENGCW_OX 271 or ENGCW 272 or ENGCW 272W or FILM 101 or FILM_OX 101
+SPAN 111       : Prerequisite: Official Spanish Placement into Span 111 is required to remain in the course
+FILM 379RW     : FILM 378R or ENGCW 378R or FILM 378RW or ENGCW 378RW or FILM_OX 378RW or ENG_OX 378RW
+SPAN 190       :
+HLTH 324       : HLTH 220
+HLTH 350R      : HLTH 250 or HLTH_OX 250 or ANT 205 or ANTH_OX 205 or SOC 250
+POLS 370B      : Permission of the department required
+POLS 370L      : Permission of the department required
+POLS 374W      : POLS 110 or POLS_OX 110
+POLS 394       : POLS 208 or POLS_OX 208
+FIN 486        : FIN 425. SPECSTUBUS students are allowed to enroll. This section is reserved for students in the BBA program
+ENG 300W       :
+ANT 201        : Permission of the department required
+FIN 499R       : FIN 220 or FIN 320 or SPECSTUBUS students. This section is reserved for students in the BBA program
+DATASCI 185    :
+POLS 494       : POLS 208 or POLS_OX 208
+POLS 494W      : POLS 208 or POLS_OX 208
+HLTH 397R      : HLTH 210. Permission of the department required
+DATASCI 210    : (MATH 210 or MATH_OX 210 or MATH 211 or MATH_OX 211) and (QTM 150 or QTM_OX 150)
+DATASCI 220    : (QTM 110 or QTM_OX 110) and (QTM 210 or QTM_OX 210 or (MATH 361 and MATH 362)) and (MATH 221 or MATH_OX 221)
+HLTH 415       : HLTH 210 and HLTH 230 and HLTH 250. Permission of the department required
+DATASCI 302W   : Juniors and seniors with declared majors or minors offered by the Department of Data and Decision Sciences will receive permission codes for this course prior to the pre-registration period. Permission of the department required
+HLTH 420       : HLTH 220 and (BIOL 141 or BIOL_OX 141 or CHEM 141 or CHEM_OX 141 or CHEM 151 or CHEM_OX 151)
+DATASCI 329    : QTM 220
+DATASCI 340    : (QTM 150 and QTM 151) or CS 170
+HLTH 470       : ECON 320 and (ECON 371 or ECON 372 or ECON 372W or HLTH 370)
+HLTH 485       : Permission of the department required
+DATASCI 345    : QTM 220
+BUS 300        : This section is reserved for students in the BBA program
+BUS 300B       : This section is reserved for students in the BBA program. Permission of the department required
+DATASCI 385    :
+HLTH 495BW     : HLTH 210 and HLTH 230 and HLTH 250. Permission of the department required
+BUS 350        : MATH_OX 117 or MATH 207 or MATH_OX 207 or MATH 362 or ECON 220 or ECON_OX 220 or QTM 100 or QTM_OX 100 or QTM 110 or QTM_OX 110 or SOC 275 or QTM 999XFR or QTM_OX ELEC. SPECSTUBUS students can enroll. Students enrolled or who took ISOM 350 can't take BUS 350. This section is reserved for students in the Emory College Liberal Arts and Sciences program
+MUS 315        : MUS 122
+BUS 365        : Students enrolled in the NDBU program not allowed to enroll in this course. This section is reserved for students in the BBA program
+DATASCI 398R   : Permission of the department required
+ANT 332        : Juniors or Seniors only or permission of instructor required for enrollment
+DATASCI 445    : QTM 345
+DATASCI 447    : QTM 347
+BUS 380        : Students enrolled in the NDBU program not allowed to enroll in this course. This section is reserved for students in the BBA program. Permission of the department required
+DATASCI 465    : (QTM 151 or QTM_OX 151) and QTM 220
+PORT 102       : PORT 101
+PORT 110       :
+PORT 201       : PORT 101 and PORT 102 and PORT 110
+DATASCI 496R   : Permission of the department required
+PORT 212       : PORT 201
+THEA 200R      : Permission of the department required
+PORT 385       : PORT 201
+MUS 340        : MUS 240
+DATASCI 498RW  : Permission of the department required
+THEA 250       : THEA 210 or THEA_OX 210
+LING 413W      : SPAN 303 or LING 303 or SPAN 304 or LING 304
+ISOM 353       : ISOM 351 or ISOM_OX 351 or SPESTUBUS students. This section is reserved for students in the BBA program
+CHEM 370       : CHEM 204 or CHEM_OX 204 or CHEM 205 or CHEM_OX 205
+NRSG 454       : NRSG 453. Permission of the department required
+LING 485       : Permission of the department required
+ENVS 250       : QTM 100 or QTM_OX 100 or BUS 350 or BUS_OX 350
+CHEM 380LW     : CHEM 300L
+ISOM 356       : BBA and SPECSTUBUS students can enroll. This section is reserved for students in the BBA program
+ENVS 310       : (ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140) and (ENVS 221 or ENVS 224 or ENVS 225 or ENVS 226 or ENVS 227 or POLS 227 or ENVS_OX 227)
+CHEM 392R      : (CHEM 141 or CHEM_OX 141 or CHEM 150 or CHEM_OX 150) and (CHEM 142 or CHEM_OX 142 or CHEM 202 or CHEM_OX 202). Permission of the department required
+ISOM 454       : ISOM 350 or BUS 350 or BUS_OX 350 or MATH_OX 117 or MATH_OX 117Q or QTM 999XFR or QTM_OX ELEC or SPECSTUBUS students. This section is reserved for students in the BBA program
+ENVS 331W      : ENVS 222 or ENVS_OX 222 or ENVS 229 or ENVS_OX 229 or ENVS 230 or ENVS_OX 230 or ENVS 233 or ENVS 235 or ENVS 239 or ENVS_OX 239 or ENVS 245
+ARTVIS 205     : ARTVIS 105
+CHEM 470       : Capstone courses are intended for chemistry seniors who have taken at least two 300-level chemistry elective
+ENVS 352W      : ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140 or ENVS 225 or ENVS 227 or POLS 227 or ENVS 227W or POLS 227W
+ARTVIS 206R    : ARTVIS 106
+ISOM 456       : BUS 350 or BUS_OX 350 or ISOM 350. STECSTUBUS student may enroll. This section is reserved for students in the BBA program
+NRSG 465       : NRSG 464 as co-requisite (Students must enroll in NRSG 464 first)
+ENVS 360       : ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140
+ARTVIS 220     : ARTVIS 120
+ARTVIS 306R    : ARTVIS 206R
+MATH 112       : MATH 111 OR MATH_OX111 OR MATH 115 OR MATH 119 OR MATH_OX119
+ENVS 371       : ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140 or (BIOL 142 and BIOL 142L) or BIOL_OX 142
+ENVS 372       : ENVS 371 or BIOL 371 as a prerequisite OR permission of instructor. Permission of the department required
+NRSG 488       : This section is for BSN semester 4 students only. Permission of the department required
+MATH 116       : MATH 111 or MATH 111L
+MATH 210       : MATH 111 or MATH 111L or MATH_OX 111
+ENVS 491       : ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140. Permission of the department required
+MATH 211       : MATH 112 or MATH 112Z or MATH_OX 112 or MATH_OX 112Z
+MATH 212L      : MATH 112 or MATH_OX 112. coreq MATH 212. Permission of the department required
+ECON 201       : (ECON 101 or ECON_OX 101 or FIN 201) and (MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 or MATH 112Z or MATH_OX 112Z or MATH 116)
+MATH 221       : MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 or MATH 112Z
+BIOL 120L      : BIOL 120 or BIOL_OX 120 as Corequisite
+ENGRD 302W     : Permission of the department required
+NRSG 200       : Permission of the department required
+PHIL 405W      : Two PHIL courses
+CHEM 204       : CHEM 203 or CHEM_OX 203 or CHEM 222 or CHEM_OX 222 or CHEM 222Z or CHEM 203Z
+PHIL 482W      : Two PHIL courses
+CHEM 204L      : CHEM 203L or CHEM_OX 203L or CHEM 203ZL or CHEM 222L or CHEM_OX 222L as prerequisite and CHEM 204 or CHEM_OX 204 as co-requisite
+LING 214       :
+CHEM 205       : (CHEM 203 or CHEM_OX 203 or CHEM 222 or CHEM_OX 222 or CHEM 222Z or CHEM 203Z) and (MATH 111 or MATH_OX 111 or MATH 112 or MATH 112Z or MATH_OX 112)
+ENGRD 415      : Permission of the department required
+ENVS 131       : ENVS 120 or ENVS 130 or ENVS 140 as prerequisite or co-requisite,
+GER 102        :
+NRSG 332       : NRSG 331. Permission of the department required
+IDS 390        : Permission of the department required
+CHEM 205L      : CHEM 203L or CHEM_OX 203L or CHEM 203ZL as prerequisites and CHEM 205 or CHEM_OX 205 as co-requisite
+LING 303       : SPAN 212 or an Official Spanish Placement into our Foundational Course level (Span 300-318)
+PSYC 499R      : Psychology majors only. Permission of the department required
+GER 192R       : GER 192
+CHEM 300L      : (CHEM 204L or CHEM_OX 204L) and (CHEM 205L or CHEM_OX 205L)  as prerequisite or co-requisite
+CHEM 322       : (CHEM 204 or CHEM_OX 204) and (CHEM 204L or CHEM_OX 204L)
+LING 329       : CS 171 or CS 171Z or CS_OX 171
+CHEM 327       : (CHEM 203 or CHEM 203Z or CHEM_OX 203) and (CHEM 203L or CHEM 203ZL or CHEM_OX 203L)
+CHEM 334       : (CHEM 205 or CHEM_OX 205) and (PHYS 142 or PHYS_OX 142 or PHYS 152 or PHYS_OX 152) and (MATH 112 or MATH_OX 112 or MATH 210 or MATH_OX 210 or CHEM 270)
+LING 363W      :
+ENVS 240L      : ENVS 240 as prerequisite or co-requisite,
+CHEM 340       : (CHEM 204 or CHEM_OX 204) and (CHEM 204L or CHEM_OX 204L) and (BIOL 141 or BIOL_OX 141). Students who took BIOL 301, or have transfer credit equivalent to BIOL 301, cannot take this course
+NRSG 402       : NRSG 419
+ISOM 351       : BUS 350 or BUS_OX 350 or ISOM 350 or MATH_OX 117 or MATH_OX 117Q or QTM 100 or QTM_OX 100 or QTM 110 or QTM_OX 110 or ECON 220 or ECON_OX 220 or MATH 207 or MATH_OX 207 or MATH_OX 207Q or QTM 999XFR or QTM_OX ELEC or STAT COMPETENCY EXAM or SPECSTUBUS or transfer credit. This section is reserved for students in the BBA program
+CHEM 343       : (CHEM 204 or CHEM_OX 204) and (CHEM 204L or CHEM_OX 204L) and (CHEM 340 or BIOL 301)
+ENVS 242       : ENVS 241 as a prerequisite OR permission of instructor. Permission of the department required
+GER 392R       : GER 392
+LING 401W      : The course is only available to graduating seniors who have declared the following majors or minors: Linguistics, Psych/Ling, Span/Ling, or QSS major w/ concentration in Linguistic. Permission of the department required
+ISOM 352       : BUS 350 as co-requisite or ISOM 350 or MATH_OX 117 or MATH_OX 117Q or QTM XFR or QTM_OX ELEC as prerequisite or SPECSTUBUS students,. This section is reserved for students in the BBA program
+ENVS 247       : (BIOL 142 and BIOL 142L) or BIOL_OX 142
+CHEM 350       : (CHEM 203 or CHEM 203Z or CHEM_OX 203) and (CHEM 203L or CHEM 203ZL or CHEM_OX 203L) and (CHEM 205 or CHEM_OX 205) and (CHEM 205L or CHEM_OX 205L)
+CS 334         : (CS224 or CS_OX 224) and (CS 253 or CS_OX 253) and (MATH 221 or MATH_OX 221 or MATH 275 or MATH 321)
+BIOL 475       : (BIOL 142 and BIOL 142L) or BIOL_OX 142
+ECON 470       : ECON 320 and (ECON 371 or ECON 372 or ECON 372W or HLTH 370)
+CS 350         : CS 253 and CS 255
+BIOL 485       : (BIOL 142 and BIOL 142L) or BIOL_OX 142
+ECON 480       : ECON 320 and CS 334
+PHYS 445W      : PHYS 253 or PHYS_OX 253
+CS 370         : CS 253
+BIOL 495A      : (BIOL 142 and BIOL 142L) or BIOL_OX 142. Permission of the department required
+PHYS 461       : PHYS 220 and (PHYS 253 or PHYS_OX 253) and (MATH 212 or MATH_OX 212)
+BIOL 495BW     : BIOL 142 and BIOL 142L or BIOL_OX142 or BIOL 152 AND BIOL 495A. Permission of the department required
+CS 385         : CS 253. Permission of the department required
+PHYS 463       : PHYS 220 or MATH 221 or MATH_OX 221
+CS 424         : CS 326
+KRN 202        : Permission of the department required
+CS 441         : CS 253 or CS_OX 253
+CS 443         : CS 325
+KRN 302        : Permission of the department required
+CS 452         : CS 350
+KRN 402        : KRN 401. Permission of the department required
+CS 463         : PHYS 220 or MATH 221 or MATH_OX 221
+KRN 404        : KRN 402. Permission of the department required
+CS 470         : CS 224 and CS 253
+CS 485         : CS 334 or CS 534. Permission of the department required
+MKT 345        : MKT 340 or SPECSTUBUS students. This section is reserved for students in the BBA program
+ACT 300        : ACT 200 or ACT_OX 200 or ACT 210 or ACT_OX 210 or SPECSTUBUS students
+ACT 301        : ACT 200 or ACT_OX 200 or ACT 210 or ACT_OX 210. This section is reserved for students in the BBA program
+BIOL 497R      : (BIOL 142 and BIOL 142L) or BIOL_OX 142. Permission of the department required
+ACT 316        : ACT 200 or ACT_OX 200. This section is reserved for students in the BBA program
+FILM 107       : FILM 101 or FILM_OX 101
+MKT 452        : MKT 340. SPECSTUBUS students are allowed to enroll. This section is reserved for students in the BBA program
+BIOL 499R      : (BIOL 142 and BIOL 142L) or BIOL_OX 142. Permission of the department required
+BIOL 212       : (PHYS 151 or PHYS_OX 151) or ((PHYS 141 or PHYS_OX 141) and (MATH 112 or MATH 112Z or MATH_OX 112 or MATH_OX 112Z0) or ((PHYS 141 or PHYS_OX 141) and MATH 116))
+BIOL 236L      : (BIOL 142 or BIOL_OX 142) and BIOL 142L. Permission of the department required
+BIOL 247LW     : BIOL 142, BIOL 142L or BIOL_OX142 AND BIOL 247 or ENVS 247
+BIOL 300       : This class is for SOPHOMORES, JUNIORS, and SENIORS and has a LECTURE and a DISCUSSION SECTION. BIOL 142 and BIOL 142L
+BIOL 320       : (BIOL 142 and BIOL 142L) or BIOL_OX 142WE
+BIOL 325       : PSYC 110 or BIOL 142 or BIOL_OX142
+BIOL 329       : (BIOL 142 and BIOL 142L) or BIOL_OX 142WE. Permission of the department required
+BIOL 342       : (BIOL 142 and BIOL 142L) or BIOL_OX 142. Students must also register for the LAB component
+BIOL 345       : ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140 or (BIOL 142 and BIOL 142L) or BIOL_OX 142
+BIOL 347       : ((BIOL 142 and BIOL 142L) or BIOL_OX 142 or BIOL_OX 142X) and (QTM 100 or QTM_OX 100)
+BIOL 348       : (BIOL 142 or BIOL_OX 142) and (CHEM 141 or CHEM_OX 141 or CHEM 150 or CHEM_OX 150)
+BIOL 370       : (BIOL 142 and BIOL 142L) or BIOL_OX 142
+BIOL 373W      : ENVS 232 or ENVS_OX 232 or ENVS 236 or ENVS 240 or ENVS 247 or BIOL 247
+BIOL 415       : ((BIOL 142 and BIOL 142L) or BIOL_OX 142) and (BIOL 223 or BIOL 250 or BIOL 264 or BIOL_OX 264)
+BIOL 460       : (BIOL 142 and BIOL 142L) or BIOL_OX 142WE
+BIOL_OX 141L   : BIOL_OX 141 or BIOL_OX 141 co-requisite
+BIOL_OX 142WE  : (BIOL 141 and BIOL 141L) or (BIOL_OX 141 and BIOL_OX 141L)
+BIOL_OX 212    : PHYS_OX 141 or PHYS_OX 151 and MATH_OX 112. Must enroll in BIOL_OX 212 lab
+BIOL_OX 340E   : BIOL_OX 141 as prerequisite and (BIOL_OX 142 or BIOL 242) as prerequisite/corequisite. Permission of the department required
+BIOL_OX 386R   : (BIOL 141 or BIOL_OX 141) and (BIOL 142 or BIOL_OX 142)
+BIOL_OX 397R   : Permission of the department required
+BIOL_OX 399RE  : Permission of the department required
+BUS 300        : This section is reserved for students in the BBA program
+BUS 399R       : This section is reserved for students in the BBA program. MKT 340
+CBSC 370A      : Permission of the department required
+CHEM 202Z      : CHEM 150 and CHEM 150L. This course is reserved for freshmen entering with AP, IB, or Chem 150 transfer credit
+CHEM 202ZL     : CHEM 202Z as co-requisite. This course is only for freshmen entering with AP, IB, or other Chem 150 transfer credit and who are taking CHEM 202Z
+CHEM 203L      : CHEM 202L or CHEM_OX 202L or CHEM 202ZL as prerequisite and CHEM 203 or CHEM_OX 203 as co-requisite,
+CHEM 328       : (CHEM 150 or CHEM_OX 150) and (PHYS 141 or PHYS_OX 141 or PHYS 151 or PHYS_OX 151) and (PHYS 142 or PHYS_OX 142 or PHYS 152 or PHYS_OX 152)
+CHEM 333       : (CHEM 204 or CHEM_OX 204) and (CHEM 204L or CHEM_OX 204L) and (CHEM 205 or CHEM_OX 205) and (CHEM 205L or CHEM_OX 205L)
+CHEM 335LW     : (CHEM 205 or CHEM_OX 205) and (CHEM 205L or CHEM_OX 205L)
+CHEM 371LW     : CHEM 300L
+CHEM_OX 150    : CHEM_OX 150L co-requisite
+CHEM_OX 150L   : CHEM_OX 150 co-requisite
+CHEM_OX 151    : AP Chemistry score of 4 or 5, or IB Chemistry score of 5, 6, or 7. Co-requisite: CHEM_OX 202 or CHEM_OX 202Q
+CHEM_OX 202    : CHEM_OX 150 and CHEM_OX 150L prerequisites & CHEM_OX 202L co-requisite
+CHEM_OX 202L   : CHEM_OX 150 and CHEM_OX 150L. CHEM_OX 202 co-requisite
+CHEM_OX 203    : CHEM_OX 202 and CHEM_OX 202L prerequisites & CHEM_OX 203L co-requisite
+CHEM_OX 203L   : CHEM_OX 202 & CHEM_OX 202L prerequisites,. CHEM_OX 203 as coreq
+CHEM_OX 204    : CHEM_OX 203 & CHEM_OX 203L prerequisites & CHEM 204L co-requisite
+CHEM_OX 204L   : CHEM_OX 203 and CHEM_OX 203L as prerequisites. CHEM_OX 204 coreq
+CHEM_OX 205    : ((CHEM_OX 203 and CHEM_OX 203L) or (CHEM 203 and CHEM 203L)) and (MATH_OX 111 or MATH 111). & CHEM_OX 205L co-req
+CHEM_OX 205L   : ((CHEM_OX 203 & CHEM_OX 203L) or (CHEM 203 & CHEM 203L)) and (MATH_OX 111 or MATH 111) prerequisite. CHEM_OX 205 coreq
+CHEM_OX 261    : CHEM_OX 202 or CHEM 202  as prerequisite or co-requisite
+CHN 303W       : Permission of the department required
+CHN_OX 203     : CHN 103
+HIST 343       :
+HIST 387RW     : Permission of the department required
+HIST 448W      : Any JS or MESAS course
+HIST_OX 101WE  :
+HLTH 220       : BIOL 141 or BIOL_OX 141 or CHEM 141 or CHEM_OX 141 or CHEM 150 or CHEM_OX 150
+HLTH 300R      : HLTH 200. Permission of the department required
+HLTH 317       : BIOL 142 or BIOL_OX 142
+HLTH 320       : HLTH 220
+HLTH 352       : HLTH 250 or HLTH_OX 250 or ANT 205 or ANTH_OX 205 or SOC 250
+HLTH 353       : HLTH 250 or HLTH_OX 250 or ANT 205 or ANTH_OX 205 or SOC 250
+HLTH 374       :
+HLTH 381W      : Permission of the department required
+HLTH 408       : HLTH 207
+HLTH 411       : ANT 231 or HLTH 210 and BIOL 141 and BIOL 142
+HLTH 469       : Prerequisites: At least one foundational course (SPAN 300- 318) or permission from instructor
+IDS 489        : Permission of the department required
+IDS_OX 216E    : ENG_OX 185 or ENG_OX 186. Permission of the department required
+ENG 262W       :
+ENG 332W       : Permission of the department required
+ENG 356W       :
+ENG 384RW      :
+ENG 489W       :
+ENGCW 372RW    : Permission of the department required
+ENGCW 385RW    : Permission of the department required
+ENGRD 123R     : Freshmen Only. Permission of the department required
+ENGRD 202      : Permission of the department required
+ENGRD 349W     :
+ENG_OX 185     :
+ENG_OX 186     : Directed self-placement (DSP) recommendation for ENG_OX 186 required prior to enrollment
+ENVS 227       : ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140 or POLS 111 or POLS_OX 111
+ENVS 247LW     : BIOL 142, BIOL 142L or BIOL_OX142 AND BIOL 247 or ENVS 247. Pre or coreq BIOL 247 or ENVS 247
+ENVS 255W      : ENVS 131 or ENVS_OX 131
+ENVS 260       : QTM 100 or QTM_OX 100
+ENVS 320       : (ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140) and (ENVS 232 or ENVS 240 or ENVS 247 or BIOL 247)
+ENVS 328       : (CHEM 150 or CHEM_OX 150) and (PHYS 141 or PHYS_OX 141 or PHYS 151 or PHYS_OX 151) and (PHYS 142 or PHYS_OX 142 or PHYS 152 or PHYS_OX 152)
+ENVS 342       : ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140
+ENVS 345       : ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140 or (BIOL 142 and BIOL 142L) or BIOL_OX 142
+ENVS 370A      : Permission of the department required
+ENVS 373W      : ENVS 232 or ENVS_OX 232 or ENVS 236 or ENVS 240 or ENVS 247 or BIOL 247
+ENVS 420       : ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140 or (BIOL 142 and BIOL 142L) or BIOL_OX 142. This course is best suited for SR's and JR's in ENVS; permission of instructor is required if you are a sophomore in ENVS
+ENVS 426       : ENVS 326. Permission of the department required
+CPLT 489W      :
+CPLT 497R      : Permission of the department required
+CS 371W        : CS 325 or CS 334
+CS 444         : CS 334
+CS_OX 170      :
+CS_OX 171      : CS 170 or CS_OX 170
+CS_OX 224      : CS 170 or CS_OX 170 as prerequisite and MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 as co-requisite
+DANC 250       : DANCE 150R or PE_OX 151. Open only to declared dance majors and minor. Permission of the department required
+DANC 322R      : DANC 222R
+DANC 429W      : This course is open to declared dance and theater majors and minors in their junior or senior year. Permission of the department required
+DANC_OX 300RE  : Permission of the department required
+ECON 333       : (ECON 112 or ECON_OX 112) and (ECON 220 or ECON_OX 220 or MATH 361)
+ECON 366W      : ECON_OX 100 or ECON 101 or ECON_OX 101 or FIN 201 AND ECON 112 or ECON_OX112
+ECON 385W      : ECON_OX 100 or ECON 101 or ECON_OX 101 or FIN 201 AND ECON 112 or ECON_OX112
+ECON 405       : ECON 201 AND ECON 220 or MATH 207 or MATH_OX207 or MATH 361 or MATH 362
+ECON 415       : (ECON 101 or ECON_OX 101 or FIN 201) and (ECON 112 or ECON_OX 112) and (ECON 201 or ECON_OX 201)
+ECON 422       : ECON 320
+ECON 434       : ECON 112 OR ECON_OX112 AND ECON 201 OR ECON_OX201
+ECON 496RW     : (ECON 201 or ECON_OX 201) and (ECON 212 or ECON_OX 212). Permission of the department required
+ECON 499RW     : (ECON 201 or ECON_OX 201 or ECON 212 or ECON_OX 212) and (ECON 220 or ECON_OX 220 or MATH 361). Permission of the department required
+ECON_OX 112    : Econ_OX 101 or Econ 101
+ECON_OX 212    : ECON_OX 101 and ECON_OX 112 and MATH_OX 111
+ECON_OX 220    : ECON 101 and MATH 111
+ECON_OX 385R   : Econ_OX 112. Permission of the department required
+ECON_OX 385RE  : Econ_OX 112. Permission of the department required
+POLS 448W      : Any JS or MESAS course
+POLS_OX 320    : POLS 110 or POLS_OX 110 or POLS 120 or POLS_OX 120
+POLS_OX 354    : Any POLS 100 or POLS_OX 100 level course
+POLS_OX 385R   : POLS 100 or POLS 111
+PORT 185       : Permission of the department required
+PORT 202       : Port 201
+PORT 302W      : PORT 201
+PORT 303W      : PORT 201
+PSYC 200W      : (PSYC 110 or PSYC_OX 110 or PSYC 111 or PSYC_OX 111) and (PSYC 230 or QTM 100 or QTM_OX 100)
+PSYC 320       : PSYC 110 or PSYC_OX 110 or BIOL 141 or BIOL_OX 141
+PSYC 324       : (PSYC 110 or PSYC_OX 110 or NBB 201 or ANT 200 or NBB_OX 201 or NBB 301 or BIOL 360) and (QTM 100 or QTM_OX 100)
+PSYC 325       : PSYC 110 or BIOL 142 or BIOL_OX142
+PSYC 331       : QTM 100 and PSYC 110 or PSYC 111
+PSYC 473W      : Permission of the department required
+PSYC 474R      : PSYC 110 OR PSYC 111. Juniors and Seniors ONLY. Permission of the department required
+PSYC 495A      : Permission of the department required
+PSYC_OX 210    : PSYC_OX 110 OR PSYC_OX 111
+PSYC_OX 223    :
+PSYC_OX 225    : PSYC 110 or PSYC_OX 110 or PSYC 111 or PSYC_OX 111 or FILM 101 or FILM_OX 101 or FILM 102 or FILM_OX 102
+QTM 100        :
+QTM 185        :
+QTM 190        :
+QTM 302W       : Permission of the department required
+QTM 398R       : This course is for TA positions for QTM courses besides QTM 100. Permission of the department required
+QTM 465        : (QTM 220 or ECON 320) and( QTM 151 or QTM_OX 151)
+QTM 496R       : This is the course number for students receiving QTM credit hours for their quantitative intern experience
+QTM 498R       : QTM 220. Permission of the department required
+QTM 499R       : This is the course number of students receiving QTM credit hours for their research fellowship
+REL 371        : REL 250. Permission of the department required
+REL_OX 170RW   :
+ISOM 453       : ISOM 351. STECSTUBUS student may enroll. This section is reserved for students in the BBA program
+ISOM 499R      : BBA and SPECSTUBUS students can enroll. This section is reserved for students in the BBA program. ISOM 351 as prereq or coreq
+ITAL 201       : ITAL 102
+ITAL 301W      : ITAL 201 and ITAL 202
+JPN 201        : JPN 102
+JPN 401        : JPN 302 or JPN 302W
+JS 273         :
+JS 448W        : Any JS or MESAS course
+KRN 227W       :
+KRN 301        : Permission of the department required
+KRN 383        :
+KRN 403        : KRN 402. Permission of the department required
+LACS 409       : Prerequisites: At least one foundational course (SPAN 300- 318) or permission from instructor
+LACS 490R      : PREREQUISITE: At least one foundational course (SPAN 300-318W) or permission from the instructor
+LAT_OX 201W    : LAT_OX 102 or LAT 102 or LAT_OX 111
+LING 212W      : LING 201 or LING_OX 201 or ANT 203
+LING 242       :
+LING 328       : LING 201
+LING 409       : Prerequisites: At least one foundational course (SPAN 300- 318) or permission from instructor
+LING 430R      : LING 201 or ANT 203 or LING_OX 201
+LING 446W      : Freshmen are not allowed to register
+LING 497R      : Permission of the department required
+LING 498R      : Pre- or co-requisite: at least one other LING course, or permission of instructor. Permission of the department required
+LTL_OX 201E    : LTL_OX 200. Permission of the department required
+MATH 112Z      : MATH AP/AB or IB credits. First-year students only (there are NO EXCEPTIONS). Permission of the department required
+MUS 384        : The MUS 347 pre-requisite is in the process of being removed, so any students interested in learning electronic music through hands-on performing and working with electronic instruments are encouraged to reach out to Dr. Permission of the department required
+MUS 443R       : Permission of the department required
+NBB 361W       : BIOL 360 or NBB301
+NBB 460        : (BIOL 142 and BIOL 142L) or BIOL_OX 142WE
+NBB_OX 202     : (BIOL 141 and BIOL 141L) or BIOL_OX 141 or PSYC 110 or PSYC_OX 110
+NBB_OX 270R    : BIOL 141L or BIOL_OX 141L
+NRSG 201       : All nursing pre-reqs courses require department permission to enroll. Permission of the department required
+NRSG 205       : All nursing pre-reqs courses require department permission to enroll. Permission of the department required
+NRSG 326       : NRSG 310. This section is for traditional BSN semester 2 students only
+NRSG 331       : Permission of the department required
+NRSG 335       :
+NRSG 409       : NRSG 301 and NRSG 302 and NRSG 363. This section is for traditional BSN semester 3 students only
+NRSG 410       : NRSG 301 and NRSG 302 and NRSG 363. This section is for traditional BSN semester 3 students only
+NRSG 414       : NRSG 301 and NRSG 302 and NRSG 301 and NRSG 302 and NRSG 363. This section is for traditional BSN semester 3 students only
+NRSG 453       : NRSG 331 and NRSG 332. For trad BSN seniors only. Permission of the department required
+NRSG 497R      : Permission of the department required
+NRSG_OX 201    : Permission of the department required
+NRSG_OX 202    : Permission of the department required
+OAM 450        : (FIN 320 or FIN_OX 320) and OAM 331. This section is reserved for students in the BBA program. Permission of the department required
+OAM 497        : This section is reserved for students in the BBA program. Permission of the department required
+ENVS_OX 232E   : ENVS_OX 232EL as coreq
+ENVS_OX 244E   : Permission of the department required
+FILM 207       : FILM 107 or FILM_OX 107
+FILM 208       : FILM 107 or FILM_OX 107
+FILM 211       : FILM 107 or ARTVIS 107 or FILM_OX 107
+FILM 214       :
+FILM 255       : (FILM 101 or FILM_OX 101) and (FILM 107 or FILM_OX 107)
+FILM 292R      : FILM 101 or FILM_OX 101
+FILM 326       : FILM 376 or THEA 221 or THEA 222. Permission of the department required
+FILM 403       : FILM 301 or FILM 301W or FILM 302
+FILM 404       : FILM 301 or FILM 301W or FILM 302
+FILM_OX 225    : PSYC 110 or PSYC_OX 110 or PSYC 111 or PSYC_OX 111 or FILM 101 or FILM_OX 101 or FILM 102 or FILM_OX 102
+FILM_OX 278W   : FILM_OX 101 or FILM 107 or ARTVIS 107 or FILM_OX 107
+FIN 399R       : This section is reserved for students in the BBA program
+FIN 422        : FIN 220 or FIN 320 or SPECSTUBUS students
+FIN 484        : FIN 424. This section is reserved for students in the BBA program
+FIN 485        : FIN 220 or FIN 320. This section is reserved for students in the BBA program
+FIN 488        : FIN 425. This section is reserved for students in the BBA program
+FREN 313       : FREN 310
+FREN 331       : FREN 310 or FREN_OX 310 and FREN 314 or FREN_OX 314
+FREN 460W      : FREN 310, FREN 314 and two 300 level FREN courses,
+FREN 495BW     : FREN 310, FREN 314 and two 300 level FREN courses,. Permission of the department required
+FREN_OX 101    :
+FREN_OX 102    :
+FREN_OX 201    : FREN_OX 102
+FREN_OX 203    : FREN_OX 201
+FREN_OX 314    : French 203
+GER 101        :
+AAS 387RW      : Permission of the department required
+ACT 211        : ACT 200 or ACT_OX 200 or ACT 210 or ACT_OX 210 or SPECSTUBUS students. Students registered in ACT 200 cannot register for ACT 211
+ACT 420        : (ACT 200 or ACT_OX 200 or ACT 210 or ACT_OX 210) and (BUS 350 or BUS_OX 350 or ISOM 350). This section is reserved for students in the BBA program
+ACT 450        : ACT 200 or ACT_OX 200 or ACT 210 or ACT_OX 210 or ACT 512. This section is reserved for students in the BBA program
+ACT 499R       : ACT 200 or ACT_OX 200. This section is reserved for students in the BBA program
+AFS 302W       : PORT 201
+AFS 366W       : ECON_OX 100 or ECON 101 or ECON_OX 101 or FIN 201 AND ECON 112 or ECON_OX112
+AFS 386        :
+AMST 387RW     : Permission of the department required
+AMST 490W      : Permission of the department required
+ANT 270        :
+ANT 373W       : Permission of the department required
+ANT 377W       : (Same as THEA 377W 1) Pre-requisite: Previous sociocultural anthropology course at 200 level or above is required
+ANT 455W       : ANT 302 or PSYC 320 or BIOL 320 or PSYC 325 or BIOL 325
+ANTH_OX 332E   : (ANTH_OX 101 or ANT 101) or (ANTH_OX 205 or ANT 205 or HLTH_OX 250 or HLTH 250)
+ARAB_OX 201    : ARAB_OX 102
+BIOL 141       : BIOL 141L as coreq. Students with AP credit for the lecture are required to take the Lab (BIOL 141L)
+BIOL 141L      : BIOL 141 or BIOL_OX 141 as co-requisite or CHEM 141 or CHEM_OX 141 as prerequisite
+REL_OX 397RE   : Permission of the department required
+SOC 319        : FILM 102 and (FILM 201 or FILM 202 or FILM 203 or FILM 204)
+SOC 355W       : Any SOC or SOC_OX
+SOC 370A       : Permission of the department required
+SOC_OX 389R    : Only open to students in the Oxford Launch: London program fall 2025
+SPAN 101       :
+SPAN 185       : Permission of the department required
+SPAN 201       : SPAN 102 or SPAN 111
+SPAN 281       : SPAN 212
+SPAN 305       : SPAN 212
+SPAN 311       : SPAN 212
+SPAN 409       : Prerequisites: At least one foundational course (SPAN 300- 318) or permission from instructor
+SPAN 423       : Prerequisite: At least one 300-level foundational course for the Spanish Major or Minor OR one 400-level elective
+SPAN_OX 102    : SPAN_OX 101
+SPAN_OX 111    :
+SPAN_OX 385R   :
+THEA 223       :
+THEA 224       : THEA 120 or THEA_OX 120
+THEA 326       : FILM 376 or THEA 221 or THEA 222. Permission of the department required
+THEA 372RW     : Permission of the department required
+THEA 377W      : (Same as ANT 377W 1) Pre-requisite: Previous sociocultural anthropology course at 200 level or above is required
+THEA 397R      : Permission of the department required
+THEA 410W      : (THEA 130 or THEA_OX 130) and THEA 210W and (THEA 215 or THEA_OX 215) and (THEA 216 or THEA_OX 216). This course, the Theater Studies senior seminar, is designed for Theater majors in their senior year; students in other majors welcome by permission of instructor
+THEA 429W      : This course is open to declared dance majors and minors in their junior or senior year. Permission of the department required
+THEA 497R      : Permission of the department required
+PE 399R        : Permission of the department required
+PE_OX 126      :
+PE_OX 128      :
+PHIL 404W      : Two PHIL courses
+PHIL 406W      : Two PHIL courses
+PHIL 441W      : Two PHIL course
+PHIL 488W      : Two PHIL courses. This course is restricted to PPL major. Permission of the department required
+PHIL 495A      : Two PHIL courses. Permission of the department required
+PHIL_OX 200W   : One PHIL course
+PHYS 151       : (MATH 111 or MATH_OX 111) as prerequisites and (MATH 112 or MATH_OX 112 or MATH 112Z or MATH 210 or MATH_OX 210) as co-requisites,
+PHYS 212       : (PHYS 151 or PHYS_OX 151) or ((PHYS 141 or PHYS_OX 141) and (MATH 112 or MATH 112Z or MATH_OX 112 or MATH_OX 112Z0) or ((PHYS 141 or PHYS_OX 141) and MATH 116))
+PHYS 220       : (PHYS 142 or PHYS_OX 142 or PHYS 152 or PHYS_OX 152) as prerequisite and (MATH 211 or MATH_OX 211) as co-requisite
+PHYS 234       : PHYS 142 or PHYS_OX 142 OR PHYS 152 or PHYS_OX152
+PHYS 253       : PHYS 142 OR PHYS_OX142 OR PHYS 152 OR PHYS_OX152 AND MATH 112 or MATH 112Z OR MATH_OX112
+PHYS 361       : (PHYS 142 or PHYS_OX 142 or PHYS 152 or PHYS_OX 152) as prerequisite and (PHYS 220 or MATH 212 or MATH_OX 212) as co-requisite
+PHYS 421       : PHYS 220 and (PHYS 253 or PHYS_OX 253)
+PHYS 436       : (PHYS 212 or PHYS_OX 212) and (PHYS 220 or PHYS_OX 220)
+PHYS 458       : (PHYS 253 or PHYS_OX 253) and (MATH 211 or MATH_OX 211)
+PHYS_OX 141    : Math_OX 111 or Math_OX 110. PHYS_OX 141L as coreq
+PHYS_OX 151    : MATH_OX 112 and PHYS_OX 151L as coreq
+PHYS_OX 152    : Phys_OX 151. Must also enroll in the Physics 152 Tuesday 2:30PM lab section
+PHYS_OX 212    : (MATH_OX 112 or MATH_OX 112Z) and (PHYS_OX 141 or PHYS_OX 151). PHYS_OX 141 or PHYS_OX 151 and Math_Ox 112. Phys_OX 212 as coreq
+POLS 227       : ENVS 120 or ENVS 130 or ENVS 131 or ENVS_OX 131 or ENVS 140 or POLS 111 or POLS_OX 111
+POLS 313W      : POLS 208 or POLS_OX 208
+POLS 370A      : Permission of the department required
+MATH 275       : MATH 111 and MATH 112Z. Math 275 and 276 are intended for ambitious math majors, including freshmen, who are serious about math and ready for the challenging material covered. Permission of the department required
+MATH 300       : (MATH 210 or MATH_OX 210 or MATH 211 or MATH_OX 211) and (MATH 221 or MATH_OX 221) and (CS 170 or CS_OX 170 or MATH 170)
+MATH 318       : ((MATH 211 or MATH_OX211) and (MATH 250 or MATH_OX 250)) or MATH 276
+MATH 345       : MATH 212 OR MATH_OX212 AND CS 170 or CS_OX170
+MATH 361       : MATH 210 or MATH_OX 210 or MATH 211 or PHYS 211 or MATH_OX 211 or MATH 276
+MATH 385       : MATH 250. Permission of the department required
+MATH 485       : MATH 221 or MATH 362. Permission of the department required
+MATH 497R      : Permission of the department required
+MATH_OX 112    : MATH 111 or MATH_OX 111
+MATH_OX 210    : MATH_OX 111
+MATH_OX 211    : Math_OX 112 or Math_OX 112Z or Math 112
+MATH_OX 315    : Math_OX 221 and CS_OX 170
+MDIV 300       :
+MESAS 448W     : Any JS or MESAS course
+MESAS_OX 210E  : Permission of the department required
+MKT 499R       : MKT 340 or SPECSTUBUS students. This section is reserved for students in the BBA program
