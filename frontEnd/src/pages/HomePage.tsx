@@ -104,11 +104,8 @@ export default function HomePage() {
           <a href="#features" className="text-emoryBlue hover:text-Gold transition-colors">
             Features
           </a>
-          <a href="#preview" className="text-emoryBlue hover:text-Gold transition-colors">
-            Preview
-          </a>
           <Link
-            to="/register"
+            to="/login"
             className="rounded-xl bg-lighterBlue px-3 py-1.5 font-medium text-white hover:bg-emoryBlue/90 transition-colors">
             Get Started
           </Link>
@@ -140,18 +137,15 @@ export default function HomePage() {
                 generate a schedule that just works.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <a
-                  href="#cta"
+               
+                <Link to="/login"
                   className="group inline-flex items-center justify-center rounded-xl bg-emoryBlue px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emoryBlue/90"
                 >
-                  <Sparkles className="mr-2 h-4 w-4 text-Gold" /> Start planning
-                </a>
-                <a
-                  href="#preview"
-                  className="inline-flex items-center justify-center rounded-xl border border-zinc-300 bg-white px-4 py-2.5 text-sm font-semibold text-emoryBlue hover:bg-zinc-50"
-                >
-                  <Wand2 className="mr-2 h-4 w-4 text-lighterBlue" /> See a sample schedule
-                </a>
+                  <Sparkles className="mr-2 h-4 w-4 text-Gold" /> Get Started 
+                </Link>
+
+
+
               </div>
               <p className="mt-3 text-xs text-zinc-500">
                 No credit card. No spam. Just better semesters.
@@ -258,18 +252,15 @@ export default function HomePage() {
             the best-fit courses. Then generate a conflict-free schedule around your life.
           </p>
           <div className="mt-6 flex justify-center gap-3">
-            <a
+            
+            
+            <Link to="/login"
               className="rounded-xl bg-emoryBlue px-4 py-2.5 text-sm font-semibold text-white hover:bg-emoryBlue/90"
-              href="#"
             >
-              Sign up free
-            </a>
-            <a
-              className="rounded-xl border border-zinc-300 bg-white px-4 py-2.5 text-sm font-semibold text-emoryBlue hover:bg-zinc-50"
-              href="#"
-            >
-              Continue as guest
-            </a>
+              Get Started
+            </Link>
+
+
           </div>
         </div>
       </section>
