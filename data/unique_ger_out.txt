@@ -1,0 +1,38 @@
+1     POLS 111       [SS]                 <-- social sciences(*)
+2     DANC 224R      [PE]                 <-- physical education(*)
+3     AFS 221        [ETHN, SS]           <-- social sciences with race & ethnicity(*)
+4     AFS 263        [HA]                 <-- humanities and arts(*)
+5     FILM 385W      [HAP, WRT]           <-- humanities, arts, performance with writing
+6     SPAN 202       [IC]                 <-- intercultural communication(*)
+7     AFS 270        [HAP]                <-- humanities, arts, performance
+8     POLS 190       [FS]                 <-- first year seminar
+9     AFS 334        [ETHN, HSC]          <-- hsc w/race & ethnicity req.
+10    SPAN 302W      [CW, IC]             <-- intercultural communication w.cont.comm(*)
+11    POLS 268       [ETHN, HA]           <-- humanities and arts with race & ethnicity(*)
+12    AMST 201W      [CW, HA]             <-- humanities and arts with cont.communication(*)
+13    DANC 454W      [CW]                 <-- continuing communication and writing(*)
+14    POLS 310W      [MQR, WRT]           <-- mathematics & quantitative reasoning with writing
+15    POLS 325       [HSC]                <-- history, society, cultures
+16    AMST 321       [ETHN, HAP]          <-- hap w/race & ethnicity req.
+17    MUS 220        [NS]                 <-- natural sciences(*)
+18    AMST 385W      [ETHN, HAP, WRT]     <-- hapw w/race & ethnicity req.
+19    SPAN 485W      [CW, ETHN]           <-- continuing comm.& writing with race & ethnicity(*)
+20    MATH 315       [MQR]                <-- mathematics and quantitative reasoning
+21    AAS 190        [ETHN, FS]           <-- first year seminar with race & ethnicity(*)
+22    PHYS 117       [SNT]                <-- science, nature, technology
+23    ECON 220       [QR]                 <-- quantitative reasoning(*)
+24    CPLT 101       [FW]                 <-- first-year writing(*)
+25    ECON 309W      [HSC, WRT]           <-- history, society, cultures with writing
+26    AAS 267W       [ETHN, HA]           <-- humanities & arts with c.comm/race & ethnicity(*)
+27    AAS 285W       [ETHN, HSC, WRT]     <-- hscw w/race & ethnicity req.
+28    BIOL 360L      [SNTL]               <-- science, nature and technology with lab
+29    ECON 350       [ETHN]               <-- race and ethnicity(*)
+30    NBB 495A       [XA]                 <-- experience and application(*)
+31    IDS 205W       [CW, NS]             <-- natural sciences with continuing communication(*)
+32    FREN 391R      [ETHN, IC]           <-- intercultural communication w. race & ethnicity(*)
+33    ANT 495BW      [CW, XA]             <-- experience and application with cont.comm(*)
+34    PSYC 200W      [CW, SS]             <-- social sciences with continuing communication(*)
+35    NBB 361W       [SNTL, WRT]          <-- science, nature, & technology lab with writing
+36    HLTH 100       [HLTH]               <-- health(*)
+37    HNDI 301W      [IC, WRT]            <-- intercultural communication with writing/r&e(*)
+38    NBB 401W       [SNT, WRT]           <-- science, nature, technology with writing

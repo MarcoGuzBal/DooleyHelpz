@@ -43,6 +43,18 @@ export default function DashboardPage() {
             Go to Transcript Drop
           </button>
         </div>
+        {/* Navigate to Updaing Preferences */}
+        <div className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center border-l-4 border-emoryBlue">
+          <h2 className="text-lg font-semibold text-emoryBlue mb-4">
+            Update your preferences
+          </h2>
+          <button
+            // onClick={() => navigate("/droptranscript")}
+            className="px-4 py-2 bg-emoryBlue text-white rounded hover:bg-emoryBlue/90"
+          >
+            Go to Preference Update
+          </button>
+        </div>
       </div>
     </div>
   );
