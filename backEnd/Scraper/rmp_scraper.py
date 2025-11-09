@@ -12,24 +12,16 @@ def get_all_professor_urls_via_scrolling(page, school_id, school_name):
     
     print(f"[{school_name}] Loading search page...")
     page.goto(url, wait_until="domcontentloaded", timeout=20000)
-    time.sleep(5)  
-    initial_count = len(page.query_selector_all("div.SearchResultsPage__StyledResultsWrapper-vhbycj-4 a"))
-    print(f"[{school_name}] Initial load: {initial_count} links found")
     
-    if initial_count < 3:
-        print(f"[{school_name}] Too few results, trying with search box...")
-        try:
-            search_box = page.query_selector('input[placeholder*="professor"]')
-            if search_box:
-                search_box.click()
-                search_box.fill("")  # Empty search
-                search_box.press("Enter")
-                time.sleep(3)
-                initial_count = len(page.query_selector_all("div.SearchResultsPage__StyledResultsWrapper-vhbycj-4 a"))
-                print(f"[{school_name}] After search: {initial_count} links found")
-        except:
-            pass
+    # Wait for results to appear (more robust)
+    try:
+        page.wait_for_selector("a[href*='/professor/']", timeout=10000)
+    except:
+        print(f"[{school_name}] Warning: No professors found initially")
     
+    time.sleep(3)
+    
+    # Close any popups
     print(f"[{school_name}] Checking for popups...")
     try:
         close_selectors = ['button[aria-label="Close"]', 'button.close', '.bx-close', '[class*="bx-close"]']
@@ -54,7 +46,9 @@ def get_all_professor_urls_via_scrolling(page, school_id, school_name):
     max_iterations = 500
     
     while iteration < max_iterations:
-        current_count = len(page.query_selector_all("div.SearchResultsPage__StyledResultsWrapper-vhbycj-4 a"))
+        # Use more flexible selector - just look for professor links
+        current_links = page.query_selector_all("a[href*='/professor/']")
+        current_count = len(current_links)
         
         if current_count == prev_count:
             no_change_count += 1
@@ -65,34 +59,37 @@ def get_all_professor_urls_via_scrolling(page, school_id, school_name):
             no_change_count = 0
             prev_count = current_count
         
+        # Scroll to bottom
         page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
         time.sleep(0.5)
         
+        # Try to click "Show More" button (multiple possible selectors)
         try:
-            show_more_button = page.query_selector('button:has-text("Show More")')
-            if show_more_button:
-                if show_more_button.is_visible():
-                    is_disabled = page.evaluate("(btn) => btn.disabled", show_more_button)
-                    if not is_disabled:
-                        try:
+            show_more_selectors = [
+                'button:has-text("Show More")',
+                'button:text-is("Show More")',
+                '[data-testid="show-more-button"]',
+                'button[class*="Buttons__Button"]'
+            ]
+            
+            clicked = False
+            for selector in show_more_selectors:
+                try:
+                    show_more_button = page.query_selector(selector)
+                    if show_more_button and show_more_button.is_visible():
+                        is_disabled = page.evaluate("(btn) => btn.disabled", show_more_button)
+                        if not is_disabled:
                             show_more_button.click(force=True, timeout=2000)
-                        except:
-                            try:
-                                show_more_button.scroll_into_view_if_needed()
-                                time.sleep(0.3)
-                                show_more_button.click(timeout=2000)
-                            except:
-                                pass
-                    else:
-                        print(f"[{school_name}] Show More button disabled")
-                        break
-                else:
-                    
-                    pass
-            else:
-                if iteration > 10:  
-                    print(f"[{school_name}] No Show More button found")
-                    break
+                            clicked = True
+                            time.sleep(1)
+                            break
+                except:
+                    continue
+            
+            if not clicked and iteration > 10:
+                # No button found after several iterations
+                break
+                
         except Exception as e:
             if iteration % 50 == 0 and iteration > 0:
                 print(f"[{school_name}] Iteration {iteration}: {current_count} professors")
@@ -101,94 +98,251 @@ def get_all_professor_urls_via_scrolling(page, school_id, school_name):
         
         if iteration % 50 == 0:
             print(f"[{school_name}] Iteration {iteration}: loaded {current_count} professors")
-        
-        time.sleep(0.8)
     
     print(f"[{school_name}] Finished loading, extracting professor URLs...")
     
     all_prof_urls = []
     all_prof_names = []
     
-    result_a_tags = page.query_selector_all("div.SearchResultsPage__StyledResultsWrapper-vhbycj-4 a")
-    print(f"[{school_name}] Found {len(result_a_tags)} total links, filtering for professors...")
+    # Get all professor links
+    result_a_tags = page.query_selector_all("a[href*='/professor/']")
+    print(f"[{school_name}] Found {len(result_a_tags)} total professor links")
     
+    seen_urls = set()
     for a in result_a_tags:
         href = a.get_attribute("href")
         if href and "/professor/" in href:
             full_url = f"https://www.ratemyprofessors.com{href}"
-            name_div = a.query_selector("div.CardName__StyledCardName-sc-1gyrgim-0")
-            name = name_div.inner_text().strip() if name_div else "Unknown"
             
-            if full_url not in all_prof_urls:
-                all_prof_urls.append(full_url)
-                all_prof_names.append(name)
+            if full_url in seen_urls:
+                continue
+            seen_urls.add(full_url)
+            
+            # Try multiple selectors for name
+            name = "Unknown"
+            try:
+                # Try multiple possible name selectors
+                name_selectors = [
+                    "div[class*='CardName']",
+                    "div[class*='TeacherCard__StyledName']",
+                    ".TeacherCard__StyledName",
+                    "h3",
+                    "strong"
+                ]
+                for selector in name_selectors:
+                    name_elem = a.query_selector(selector)
+                    if name_elem:
+                        name = name_elem.inner_text().strip()
+                        if name:
+                            break
+            except:
+                pass
+            
+            all_prof_urls.append(full_url)
+            all_prof_names.append(name)
     
     print(f"[{school_name}] ✓ Total professors found: {len(all_prof_urls)} after {iteration} iterations")
     return all_prof_urls, all_prof_names
 
 def scrape_professor_page(page, prof_url):
+    """Scrape a professor page - with review pagination to get ALL reviews"""
     max_retries = 2
     for attempt in range(max_retries):
         try:
             page.goto(prof_url, wait_until="domcontentloaded", timeout=30000)
+            
+            # Wait for content to load
+            try:
+                page.wait_for_selector("div[class*='RatingValue'], div:has-text('No ratings yet')", timeout=8000)
+            except:
+                pass
+            
             time.sleep(1.5)
             
-            name_elem = page.query_selector("div.NameTitle__Name-dowf0z-0")
-            name = name_elem.inner_text().strip() if name_elem else "N/A"
+            # Extract professor info - use flexible selectors
+            name = "N/A"
+            name_selectors = ["div[class*='NameTitle__Name']", "h1", "div[class*='TeacherInfo__Name']"]
+            for selector in name_selectors:
+                name_elem = page.query_selector(selector)
+                if name_elem:
+                    name = name_elem.inner_text().strip()
+                    if name:
+                        break
             
-            rating_elem = page.query_selector("div.RatingValue__Numerator-qw8sqy-2")
-            rating = rating_elem.inner_text().strip() if rating_elem else "N/A"
+            # Rating
+            rating = "N/A"
+            rating_selectors = ["div[class*='RatingValue__Numerator']", "div[class*='RatingValue']"]
+            for selector in rating_selectors:
+                rating_elem = page.query_selector(selector)
+                if rating_elem:
+                    rating = rating_elem.inner_text().strip()
+                    if rating:
+                        break
             
             if not rating or rating == "N/A":
                 no_ratings_elem = page.query_selector("div:has-text('No ratings yet')")
                 if no_ratings_elem:
                     rating = "No rating"
             
-            num_ratings_elem = page.query_selector("a[href='#ratingsList']")
+            # Number of ratings
             num_ratings = "0"
-            if num_ratings_elem:
-                text = num_ratings_elem.inner_text().strip()
-                match = re.search(r'(\d+)\s+rating', text, re.I)
-                if match:
-                    num_ratings = match.group(1)
+            num_selectors = ["a[href='#ratingsList']", "div[class*='RatingValue']:has-text('rating')"]
+            for selector in num_selectors:
+                num_ratings_elem = page.query_selector(selector)
+                if num_ratings_elem:
+                    text = num_ratings_elem.inner_text().strip()
+                    match = re.search(r'(\d+)\s+rating', text, re.I)
+                    if match:
+                        num_ratings = match.group(1)
+                        break
             
-            dept_elem = page.query_selector("div.NameTitle__Title-dowf0z-1 a")
-            department = dept_elem.inner_text().strip() if dept_elem else "N/A"
+            # Department
+            department = "N/A"
+            dept_selectors = ["div[class*='NameTitle__Title'] a", "a[href*='/school/']"]
+            for selector in dept_selectors:
+                dept_elem = page.query_selector(selector)
+                if dept_elem:
+                    department = dept_elem.inner_text().strip()
+                    if department:
+                        break
             
+            # ===== CRITICAL: Load ALL reviews by scrolling =====
             reviews = []
-            review_cards = page.query_selector_all("div.Rating__RatingBody-sc-1rhvpxz-0")
+            
+            # Scroll to reviews section
+            try:
+                page.evaluate("window.scrollTo(0, document.body.scrollHeight / 2)")
+                time.sleep(1)
+            except:
+                pass
+            
+            # Load more reviews by clicking "Load More" buttons
+            print(f"    Loading all reviews...")
+            prev_review_count = 0
+            no_change_iterations = 0
+            max_review_iterations = 50
+            
+            for _ in range(max_review_iterations):
+                # Count current reviews - use flexible selector
+                review_selectors = [
+                    "div[class*='Rating__RatingBody']",
+                    "div[class*='Rating__StyledRating']",
+                    "li[class*='Rating']"
+                ]
+                
+                current_reviews = []
+                for selector in review_selectors:
+                    current_reviews = page.query_selector_all(selector)
+                    if len(current_reviews) > 0:
+                        break
+                
+                current_count = len(current_reviews)
+                
+                if current_count == prev_review_count:
+                    no_change_iterations += 1
+                    if no_change_iterations >= 3:
+                        break
+                else:
+                    no_change_iterations = 0
+                    prev_review_count = current_count
+                
+                # Scroll down
+                page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                time.sleep(0.5)
+                
+                # Try to click "Load More" button
+                load_more_clicked = False
+                load_more_selectors = [
+                    'button:has-text("Load More")',
+                    'button:has-text("Show More")',
+                    'button[class*="Buttons__Button"]:has-text("More")'
+                ]
+                
+                for selector in load_more_selectors:
+                    try:
+                        load_more_btn = page.query_selector(selector)
+                        if load_more_btn and load_more_btn.is_visible():
+                            load_more_btn.click(timeout=2000)
+                            load_more_clicked = True
+                            time.sleep(1)
+                            break
+                    except:
+                        continue
+                
+                if not load_more_clicked and no_change_iterations >= 2:
+                    break
+            
+            # Now extract ALL reviews
+            review_cards = current_reviews  # Use the last set we found
+            print(f"    Found {len(review_cards)} total reviews")
             
             for card in review_cards:
                 try:
                     # Quality rating
-                    quality_elem = card.query_selector("div.CardNumRating__CardNumRatingNumber-sc-17t4b9u-2")
-                    quality = quality_elem.inner_text().strip() if quality_elem else "N/A"
+                    quality = "N/A"
+                    quality_selectors = [
+                        "div[class*='CardNumRating__CardNumRatingNumber']",
+                        "div[class*='CardNumRating']"
+                    ]
+                    for selector in quality_selectors:
+                        quality_elem = card.query_selector(selector)
+                        if quality_elem:
+                            quality = quality_elem.inner_text().strip()
+                            if quality:
+                                break
                     
-                    # Course name - extract just the course code
-                    course_elem = card.query_selector("div.RatingHeader__StyledClass-sc-1dlkqw1-3")
-                    course_raw = course_elem.inner_text().strip() if course_elem else "N/A"
+                    # Course name
+                    course_raw = "N/A"
+                    course_selectors = [
+                        "div[class*='RatingHeader__StyledClass']",
+                        "div[class*='Class']"
+                    ]
+                    for selector in course_selectors:
+                        course_elem = card.query_selector(selector)
+                        if course_elem:
+                            course_raw = course_elem.inner_text().strip()
+                            if course_raw:
+                                break
                     
-                    # Try to extract course code pattern (e.g., "CS 170", "MATH 211")
+                    # Extract course code
                     course_code = "N/A"
                     course_match = re.search(r'\b([A-Z]{2,10})\s*(\d{3,4}[A-Z]*)\b', course_raw, re.I)
                     if course_match:
                         course_code = f"{course_match.group(1).upper()} {course_match.group(2).upper()}"
                     else:
-                        course_code = course_raw  # Keep original if no pattern match
+                        course_code = course_raw
                     
                     # Date
-                    date_elem = card.query_selector("div.TimeStamp__StyledTimeStamp-sc-9q2r30-0")
-                    date = date_elem.inner_text().strip() if date_elem else "N/A"
+                    date = "N/A"
+                    date_selectors = ["div[class*='TimeStamp']", "time", "span[class*='Date']"]
+                    for selector in date_selectors:
+                        date_elem = card.query_selector(selector)
+                        if date_elem:
+                            date = date_elem.inner_text().strip()
+                            if date:
+                                break
                     
-                    # Review comment
-                    comment_elem = card.query_selector("div.Comments__StyledComments-dzzyvm-0")
-                    comment = comment_elem.inner_text().strip() if comment_elem else ""
+                    # Comment
+                    comment = ""
+                    comment_selectors = ["div[class*='Comments']", "div[class*='Comment']", "p"]
+                    for selector in comment_selectors:
+                        comment_elem = card.query_selector(selector)
+                        if comment_elem:
+                            comment = comment_elem.inner_text().strip()
+                            if comment:
+                                break
                     
-                    # Tags (would take again, difficulty, etc.)
+                    # Tags
                     tags = []
-                    tag_elems = card.query_selector_all("span.Tag-bs9vf4-0")
-                    for tag in tag_elems:
-                        tags.append(tag.inner_text().strip())
+                    tag_selectors = ["span[class*='Tag']", "span[class*='tag']", "div[class*='Tag']"]
+                    for selector in tag_selectors:
+                        tag_elems = card.query_selector_all(selector)
+                        if tag_elems:
+                            for tag in tag_elems:
+                                tag_text = tag.inner_text().strip()
+                                if tag_text:
+                                    tags.append(tag_text)
+                            break
                     
                     reviews.append({
                         "quality": quality,
@@ -233,9 +387,10 @@ def scrape_professor_batch_from_queue(prof_queue, worker_id, stats, stats_lock, 
             except:
                 break
             
-            if prof_url is None:  
+            if prof_url is None:
                 break
             
+            print(f"[Worker {worker_id}] Scraping: {prof_name}")
             prof_data = scrape_professor_page(page, prof_url)
             if prof_data:
                 prof_data["school"] = school_name
@@ -246,7 +401,7 @@ def scrape_professor_batch_from_queue(prof_queue, worker_id, stats, stats_lock, 
                 stats["completed"] += 1
                 stats["total_reviews"] += len(prof_data.get("reviews", [])) if prof_data else 0
                 
-                if stats["completed"] % 25 == 0 or stats["completed"] == 1:
+                if stats["completed"] % 10 == 0 or stats["completed"] == 1:
                     print(f"[Worker {worker_id}] Progress: {stats['completed']} professors scraped, {stats['total_reviews']} reviews")
             
             time.sleep(0.5)
@@ -260,7 +415,7 @@ def scrape_professor_batch_from_queue(prof_queue, worker_id, stats, stats_lock, 
 
 def run(output_file, workers=6):
     print("=" * 60)
-    print("RATE MY PROFESSOR SCRAPER - OPTIMIZED")
+    print("RATE MY PROFESSOR SCRAPER - FIXED VERSION")
     print("=" * 60)
     print(f"Using {workers} parallel workers")
     print("Step 1: Loading all professor URLs via pagination...")
@@ -294,7 +449,7 @@ def run(output_file, workers=6):
     print(f"Using {workers} workers pulling from shared queue")
     
     print("\n" + "=" * 60)
-    print("Step 3: Scraping professor pages (workers help each other)...")
+    print("Step 3: Scraping professor pages (with ALL reviews)...")
     print("=" * 60)
     
     stats_lock = threading.Lock()
@@ -334,7 +489,7 @@ def run(output_file, workers=6):
 if __name__ == "__main__":
     import argparse
     
-    ap = argparse.ArgumentParser(description="Scrape Rate My Professor with reviews - OPTIMIZED")
+    ap = argparse.ArgumentParser(description="Scrape Rate My Professor with ALL reviews - FIXED")
     ap.add_argument("--output", default="rmp_data.jsonl", help="Output file path")
     ap.add_argument("--workers", type=int, default=6, help="Number of parallel workers (default: 6)")
     args = ap.parse_args()

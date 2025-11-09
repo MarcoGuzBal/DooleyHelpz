@@ -238,7 +238,6 @@ def scrape_course(page, course_code: str, term: str, include_email: bool):
 
 
 def process_batch(courses_batch, term, include_email, batch_id, total, stats, stats_lock):
-    """Process a batch of courses"""
     results = []
     
     with sync_playwright() as p:
