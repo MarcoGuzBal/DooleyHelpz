@@ -1,1 +1,35 @@
+<<<<<<< HEAD
 .env
+=======
+# general
+.DS_Store
+.env
+__pycache__/
+*.pyc
+
+# frontend + backend build outputs
+/dist
+/build
+
+# node & python environments
+node_modules/
+.venv/
+venv/
+
+# editor settings
+.vscode/
+.idea/
+
+# OS / temp files
+*.log
+*.tmp
+
+
+# Zimo put:
+dooleyhelpz/
+test_db/
+cluster0/
+archived/
+scripts/debug.py
+data/unique_ger_out.txt
+>>>>>>> 3ea0d2cb5482e77192d80bf5f7286a86c3b2a1e0
