@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Upload, FileText, Clock, CheckCircle2, AlertCircle } from "lucide-react";
+import {
+  Upload,
+  FileText,
+  Clock,
+  CheckCircle2,
+  AlertCircle,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 // Logo
@@ -24,7 +30,7 @@ type UploadedItem = {
   size: number;
   file: File;
   url: string;
-  text: string;   // extracted text (used for parsing only; never displayed)
+  text: string; // extracted text (used for parsing only; never displayed)
   time: string;
 };
 
@@ -87,7 +93,10 @@ export default function TranscriptParserPage() {
   }
 
   // ---- POST separated buckets to backend ----
-  async function sendToBackendSeparated(incoming_courses: string[], emory_courses: string[]) {
+  async function sendToBackendSeparated(
+    incoming_courses: string[],
+    emory_courses: string[]
+  ) {
     try {
       setPosting(true);
       setPostedOk(null);
@@ -115,12 +124,16 @@ export default function TranscriptParserPage() {
   // Re-render preview & parse (codes-only) when selection changes
   useEffect(() => {
     if (selected) {
-      renderPreview(selected).catch((e) => console.error("Preview render failed:", e));
+      renderPreview(selected).catch((e) =>
+        console.error("Preview render failed:", e)
+      );
 
       // Parse into buckets, then:
       // 1) combine to flat array for UI grid
       // 2) send as separated JSON to backend
-      const { incoming_courses, emory_courses } = parseTranscript(selected.text);
+      const { incoming_courses, emory_courses } = parseTranscript(
+        selected.text
+      );
       const codes = [...incoming_courses, ...emory_courses];
 
       setCourseCodes(codes);
@@ -128,7 +141,10 @@ export default function TranscriptParserPage() {
       if (incoming_courses.length || emory_courses.length) {
         sendToBackendSeparated(incoming_courses, emory_courses);
         // console.log for debugging if needed:
-        console.log({ incoming_courses: incoming_courses, emory_courses: emory_courses });
+        console.log({
+          incoming_courses: incoming_courses,
+          emory_courses: emory_courses,
+        });
       } else {
         setPostedOk(null);
       }
@@ -164,11 +180,20 @@ export default function TranscriptParserPage() {
         const time = new Date().toLocaleString();
         const text = await extractPdfText(file); // parse-only
 
-        newItems.push({ name: file.name, size: file.size, file, url, text, time });
+        newItems.push({
+          name: file.name,
+          size: file.size,
+          file,
+          url,
+          text,
+          time,
+        });
       }
 
       if (newItems.length === 0) {
-        setExtractError("No valid PDF selected. Please choose a text-based transcript PDF.");
+        setExtractError(
+          "No valid PDF selected. Please choose a text-based transcript PDF."
+        );
         return;
       }
 
@@ -192,9 +217,15 @@ export default function TranscriptParserPage() {
       <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
         <Link to="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-Gold">
-            <img src={applogo} alt="DooleyHelpz" className="h-6 w-6 object-contain" />
+            <img
+              src={applogo}
+              alt="DooleyHelpz"
+              className="h-6 w-6 object-contain"
+            />
           </div>
-          <span className="text-lg font-semibold text-emoryBlue">DooleyHelpz</span>
+          <span className="text-lg font-semibold text-emoryBlue">
+            DooleyHelpz
+          </span>
         </Link>
 
         <Link
@@ -217,8 +248,9 @@ export default function TranscriptParserPage() {
         </motion.h1>
 
         <p className="mb-6 text-zinc-600">
-          Upload a <strong>.pdf</strong> transcript. We’ll preview the first page and extract{" "}
-          <strong>course codes only</strong> locally in your browser, then send them to your account.
+          Upload a <strong>.pdf</strong> transcript. We’ll preview the first
+          page and extract <strong>course codes only</strong> locally in your
+          browser, then send them to your account.
         </p>
 
         {/* ===== Upload Section (PDF only) ===== */}
@@ -229,8 +261,9 @@ export default function TranscriptParserPage() {
           >
             <Upload className="h-8 w-8 opacity-80" />
             <p className="text-sm font-medium">
-              Click to choose <span className="font-semibold">PDF transcript</span>{" "}
-              (you can select multiple)
+              Click to choose{" "}
+              <span className="font-semibold">PDF transcript</span> (you can
+              select multiple)
             </p>
             {isExtracting && (
               <p className="text-xs text-zinc-600">Extracting text from PDF…</p>
@@ -258,7 +291,9 @@ export default function TranscriptParserPage() {
         {/* ===== Recently Uploaded ===== */}
         {uploadedFiles.length > 0 && (
           <section className="mb-10">
-            <h2 className="mb-3 text-xl font-semibold text-emoryBlue">Recently Uploaded</h2>
+            <h2 className="mb-3 text-xl font-semibold text-emoryBlue">
+              Recently Uploaded
+            </h2>
             <div className="overflow-x-auto rounded-xl border border-zinc-200 bg-white shadow-sm">
               <table className="min-w-full text-sm">
                 <thead className="bg-zinc-100 text-zinc-700">
@@ -279,7 +314,9 @@ export default function TranscriptParserPage() {
                         <FileText className="h-4 w-4 text-emoryBlue" />
                         {f.name}
                       </td>
-                      <td className="px-4 py-2">{(f.size / 1024).toFixed(1)} KB</td>
+                      <td className="px-4 py-2">
+                        {(f.size / 1024).toFixed(1)} KB
+                      </td>
                       <td className="flex items-center gap-1 px-4 py-2">
                         <Clock className="h-3.5 w-3.5 opacity-70" />
                         {f.time}
@@ -303,11 +340,12 @@ export default function TranscriptParserPage() {
         {/* ===== Preview + Parsed Course Codes ===== */}
         {selected && (
           <section className="grid gap-6 md:grid-cols-2">
-
             {/* Parsed Codes */}
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-emoryBlue">Parsed Course Codes</h2>
+                <h2 className="text-xl font-semibold text-emoryBlue">
+                  Parsed Course Codes
+                </h2>
                 {postedOk === true && (
                   <span className="inline-flex items-center gap-1 rounded-md bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700">
                     <CheckCircle2 className="h-3.5 w-3.5" /> Saved
@@ -341,7 +379,9 @@ export default function TranscriptParserPage() {
                   </div>
                 </>
               ) : (
-                <p className="text-sm italic text-zinc-500">No course codes detected.</p>
+                <p className="text-sm italic text-zinc-500">
+                  No course codes detected.
+                </p>
               )}
             </div>
           </section>
@@ -349,11 +389,15 @@ export default function TranscriptParserPage() {
 
         {/* ===== Privacy Disclaimer ===== */}
         <div className="mt-10 rounded-xl border border-zinc-200 bg-zinc-50 p-5 text-sm text-zinc-600">
-          <p className="mb-1 font-semibold text-emoryBlue">Data Privacy Disclaimer</p>
+          <p className="mb-1 font-semibold text-emoryBlue">
+            Data Privacy Disclaimer
+          </p>
           <p>
-            DooleyHelpz only stores information about <strong>classes taken</strong> (course codes)
-            for the purpose of schedule planning. We do <strong>not</strong> store any grades, GPA
-            data, personal names, or identifying information. Failed (F) and withdrawn (W) courses are excluded.
+            DooleyHelpz only stores information about{" "}
+            <strong>classes taken</strong> (course codes) for the purpose of
+            schedule planning. We do <strong>not</strong> store any grades, GPA
+            data, personal names, or identifying information. Failed (F) and
+            withdrawn (W) courses are excluded.
           </p>
         </div>
       </main>
@@ -367,5 +411,3 @@ export default function TranscriptParserPage() {
     </div>
   );
 }
-
-

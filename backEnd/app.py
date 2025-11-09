@@ -35,12 +35,6 @@ def userCourses():
         if emory is None:
             emory = []
 
-        # # Basic list checks (very simple)
-        # if type(incoming) is not list:
-        #     return {"error": "incoming_courses must be a list."}, 400
-        # if type(emory) is not list:
-        #     return {"error": "emory_courses must be a list."}, 400
-
         last_incoming_courses = incoming
         last_emory_courses = emory
         last_all_courses = incoming + emory
@@ -64,6 +58,25 @@ def viewUserCourses():
         "emory_courses": last_emory_courses,
         "incoming_courses": last_incoming_courses,
     }), 200
+    
+@app.route("/api/preferences", methods=["POST"])
+def userPreferences():
+    if not request.is_json:
+        return {"error": "Send JSON (Content-Type: application/json)."}, 400
+
+    data = request.get_json(silent=True)
+    
+    print("Received JSON data:", data)
+
+    #Example: Iterate over all fields and log them
+    # for key, value in data.items():
+    #     print(f"{key}, {value}")
+
+    # Return a success response with the received fields
+    return {
+        "message": "Preferences received successfully!",
+        "received_fields": list(data.keys()),  # Return the list of received fields
+    }, 200
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", "5001"))
