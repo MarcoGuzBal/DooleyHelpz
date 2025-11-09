@@ -15,7 +15,10 @@ const schema = z.object({
   email: z
     .string()
     .email("Enter a valid email")
-    .refine((v) => v.toLowerCase().endsWith("@emory.edu"), "Use your @emory.edu email"),
+    .refine(
+      (v) => v.toLowerCase().endsWith("@emory.edu"),
+      "Use your @emory.edu email"
+    ),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 type FormData = z.infer<typeof schema>;
@@ -65,9 +68,15 @@ export default function LoginPage() {
       <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
         <Link to="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-Gold">
-            <img src={applogo} alt="DooleyHelpz logo" className="h-6 w-6 object-contain" />
+            <img
+              src={applogo}
+              alt="DooleyHelpz logo"
+              className="h-6 w-6 object-contain"
+            />
           </div>
-          <span className="text-lg font-semibold text-emoryBlue">DooleyHelpz</span>
+          <span className="text-lg font-semibold text-emoryBlue">
+            DooleyHelpz
+          </span>
         </Link>
 
         <Link
@@ -94,8 +103,10 @@ export default function LoginPage() {
                   Welcome back 👋
                 </h1>
                 <p className="mt-2 max-w-prose text-sm text-zinc-600">
-                  Sign in with your <span className="font-medium">@emory.edu</span> email to get
-                  personalized course recommendations and a conflict-free schedule.
+                  Sign in with your{" "}
+                  <span className="font-medium">@emory.edu</span> email to get
+                  personalized course recommendations and a conflict-free
+                  schedule.
                 </p>
                 <ul className="mt-4 space-y-2 text-sm text-zinc-700">
                   <li>• Smart, degree-aware suggestions</li>
@@ -120,7 +131,9 @@ export default function LoginPage() {
           className="order-1 md:order-2"
         >
           <div className="w-full rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
-            <h2 className="mb-1 text-xl font-semibold text-emoryBlue">Sign in</h2>
+            <h2 className="mb-1 text-xl font-semibold text-emoryBlue">
+              Sign in
+            </h2>
             <p className="mb-4 text-sm text-zinc-600">
               Use your Emory email and password to access your dashboard.
             </p>
@@ -135,10 +148,17 @@ export default function LoginPage() {
               </div>
             )}
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-3" noValidate>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="space-y-3"
+              noValidate
+            >
               {/* Email */}
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-zinc-800">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-zinc-800"
+                >
                   Full Emory Email
                 </label>
                 <input
@@ -152,7 +172,11 @@ export default function LoginPage() {
                   aria-describedby={errors.email ? "email-error" : undefined}
                 />
                 {errors.email && (
-                  <p id="email-error" role="alert" className="mt-1 text-sm text-rose-600">
+                  <p
+                    id="email-error"
+                    role="alert"
+                    className="mt-1 text-sm text-rose-600"
+                  >
                     {errors.email.message}
                   </p>
                 )}
@@ -160,7 +184,10 @@ export default function LoginPage() {
 
               {/* Password */}
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-zinc-800">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-zinc-800"
+                >
                   Password
                 </label>
                 <input
@@ -171,10 +198,16 @@ export default function LoginPage() {
                   className="mt-1 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-emoryBlue"
                   autoComplete="current-password"
                   aria-invalid={!!errors.password}
-                  aria-describedby={errors.password ? "password-error" : undefined}
+                  aria-describedby={
+                    errors.password ? "password-error" : undefined
+                  }
                 />
                 {errors.password && (
-                  <p id="password-error" role="alert" className="mt-1 text-sm text-rose-600">
+                  <p
+                    id="password-error"
+                    role="alert"
+                    className="mt-1 text-sm text-rose-600"
+                  >
                     {errors.password.message}
                   </p>
                 )}
@@ -219,15 +252,19 @@ export default function LoginPage() {
           <div className="flex items-center gap-2">
             <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-emoryBlue text-white">
               {/* tiny logo box */}
-              <img src={applogo} alt="DooleyHelpz" className="h-4 w-4 object-contain" />
+              <img
+                src={applogo}
+                alt="DooleyHelpz"
+                className="h-4 w-4 object-contain"
+              />
             </div>
             <span>DooleyHelpz</span>
           </div>
-          <div className="text-xs text-zinc-500">© {new Date().getFullYear()} DooleyHelpz</div>
+          <div className="text-xs text-zinc-500">
+            © {new Date().getFullYear()} DooleyHelpz
+          </div>
         </div>
       </footer>
     </div>
   );
 }
-
-

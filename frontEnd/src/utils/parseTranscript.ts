@@ -1,13 +1,17 @@
 export type ParseResult = {
   incoming_courses: string[]; // transfer/test/AP bucket (includes "as XYZ" destination codes)
-  emory_courses: string[];    // all other Emory term courses
+  emory_courses: string[]; // all other Emory term courses
 };
 
 export function parseTranscript(rawText: string): ParseResult {
   if (!rawText) return { incoming_courses: [], emory_courses: [] };
 
   // Normalize whitespace
-  const text = String(rawText).replace(/\r/g, " ").replace(/\n/g, " ").replace(/\s+/g, " ").trim();
+  const text = String(rawText)
+    .replace(/\r/g, " ")
+    .replace(/\n/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
   const lower = text.toLowerCase();
 
   // Find section boundaries
@@ -16,14 +20,20 @@ export function parseTranscript(rawText: string): ParseResult {
 
   // Slice sections
   const transferSection =
-    transferStart !== -1 && academicStart !== -1 && academicStart > transferStart
+    transferStart !== -1 &&
+    academicStart !== -1 &&
+    academicStart > transferStart
       ? text.slice(transferStart, academicStart)
       : transferStart !== -1
-      ? text.slice(transferStart)
-      : "";
+        ? text.slice(transferStart)
+        : "";
 
   const academicSection =
-    academicStart !== -1 ? text.slice(academicStart) : (transferStart !== -1 ? text.slice(0, transferStart) : text);
+    academicStart !== -1
+      ? text.slice(academicStart)
+      : transferStart !== -1
+        ? text.slice(0, transferStart)
+        : text;
 
   // --- Code extractor: e.g., CS 170, MATH 221A, QTM 999XFR, CHEM 150L
   // Dept: 2–6 A-Z or '&'
@@ -58,12 +68,3 @@ export function parseTranscript(rawText: string): ParseResult {
 
   return { incoming_courses, emory_courses };
 }
-
-
-
-  
-  
-  
-
-
-
