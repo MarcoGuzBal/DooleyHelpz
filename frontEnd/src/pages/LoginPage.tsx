@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
@@ -87,7 +87,7 @@ export default function LoginPage() {
           transition={{ duration: 0.45 }}
           className="order-2 md:order-1"
         >
-          <div className="relative overflow-hidden rounded-3xl border border-zinc-200 bg-gradient-to-br from-emoryBlue/5 via-white to-paleGold/30 p-6">
+          <div className="relative overflow-hidden rounded-3xl border border-zinc-200 bg-linear-to-br from-emoryBlue/5 via-white to-paleGold/30 p-6">
             <div className="flex items-start justify-between">
               <div>
                 <h1 className="text-2xl font-bold text-emoryBlue md:text-3xl">

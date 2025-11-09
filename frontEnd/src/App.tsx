@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './index.css'
 import React from "react";
-import { onAuthStateChanged, signOut} from "firebase/auth";
+import { onAuthStateChanged} from "firebase/auth";
 import type { User } from "firebase/auth";
 import { auth } from "./firebase"
 import { Routes, Route, useNavigate} from "react-router-dom";
@@ -17,7 +17,6 @@ import PreferencesPage from './pages/PreferencesPage';
 export default function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   React.useEffect(() => {
     // Firebase tells us when someone logs in or out
