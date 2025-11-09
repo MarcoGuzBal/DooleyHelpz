@@ -12,6 +12,7 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import ProtectedRoute from "./components/ProtectedRoute";
 import DropTranscript from "./components/DropTranscript";
+import PreferencesPage from './pages/PreferencesPage';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -49,6 +50,7 @@ export default function App() {
             }
           />
           <Route path="/droptranscript" element={<DropTranscript />} />
+          <Route path="/preferences" element={<PreferencesPage />} />
 
           {/* wildcard for 404s */}
           <Route path="*" element={<h1>Not found</h1>} />
