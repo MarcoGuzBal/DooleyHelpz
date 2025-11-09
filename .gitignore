@@ -29,3 +29,9 @@ cluster0/
 archived/
 scripts/debug.py
 data/unique_ger_out.txt
+node_modules/
+dist/
+build/
+coverage/
+.next/
+.out/
