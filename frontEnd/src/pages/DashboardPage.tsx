@@ -49,7 +49,7 @@ export default function DashboardPage() {
             Update your preferences
           </h2>
           <button
-            // onClick={() => navigate("/droptranscript")}
+            onClick={() => navigate("/preferences")}
             className="px-4 py-2 bg-emoryBlue text-white rounded hover:bg-emoryBlue/90"
           >
             Go to Preference Update
