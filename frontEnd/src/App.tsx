@@ -17,7 +17,6 @@ import PreferencesPage from "./pages/PreferencesPage";
 export default function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   React.useEffect(() => {
     // Firebase tells us when someone logs in or out
