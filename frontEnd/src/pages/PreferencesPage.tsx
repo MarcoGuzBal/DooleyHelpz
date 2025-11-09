@@ -109,11 +109,11 @@ export default function PreferencesPage() {
     alert("Saved! Check console for JSON output.");
 
     // send to backend
-    // fetch("/api/preferences", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(payload),
-    // });
+    fetch("http://localhost:5001/api/preferences", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
   }
 
   /* --------------------------- JSX ------------------------------- */
@@ -286,7 +286,7 @@ export default function PreferencesPage() {
       </button>
 
       {/* JSON Preview */}
-      <div>
+      {/* <div>
         <h3 className="font-semibold mt-2">Live JSON Preview</h3>
         <pre className="bg-gray-100 text-sm p-3 rounded overflow-auto">
           {JSON.stringify(
@@ -303,7 +303,7 @@ export default function PreferencesPage() {
             2
           )}
         </pre>
-      </div>
+      </div> */}
     </form>
   );
 }
