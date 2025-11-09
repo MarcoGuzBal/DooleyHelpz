@@ -1,35 +1,65 @@
-// src/utils/parseCoursesOnly.ts
-/**
- * Extracts all course codes (including transfer/AP ones) from transcript text.
- * Each course is stored as a single string like "CS170" or "ECON120".
- */
-export function parseTranscript(rawText: string): string[] {
-  if (!rawText) return [];
+export type ParseResult = {
+  incoming_courses: string[]; // transfer/test/AP bucket (includes "as XYZ" destination codes)
+  emory_courses: string[];    // all other Emory term courses
+};
 
-  // Flatten all lines into one clean string
-  const text = rawText.replace(/\r/g, " ").replace(/\n/g, " ");
+export function parseTranscript(rawText: string): ParseResult {
+  if (!rawText) return { incoming_courses: [], emory_courses: [] };
 
-  // Regex: match DEPT + NUMBER (e.g., CS 170, ECON 112, MATH 221)
-  const pattern = /\b([A-Z&]{2,6})\s+(\d{3,4}[A-Z]?)\b/g;
+  // Normalize whitespace
+  const text = String(rawText).replace(/\r/g, " ").replace(/\n/g, " ").replace(/\s+/g, " ").trim();
+  const lower = text.toLowerCase();
 
-  const courses: string[] = []; // Stores Courses
-  const seen = new Set<string>(); // Set
+  // Find section boundaries
+  const transferStart = lower.indexOf("transfer credits");
+  const academicStart = lower.indexOf("beginning of academic record");
 
-  let match: RegExpExecArray | null;
-  while ((match = pattern.exec(text)) !== null) {
-    const dept = match[1];
-    const num = match[2];
-    const code = `${dept}${num}`;
+  // Slice sections
+  const transferSection =
+    transferStart !== -1 && academicStart !== -1 && academicStart > transferStart
+      ? text.slice(transferStart, academicStart)
+      : transferStart !== -1
+      ? text.slice(transferStart)
+      : "";
 
-    // You can remove this duplicate check if you want repeats too
-    if (!seen.has(code)) {
-      seen.add(code);
-      courses.push(code);
+  const academicSection =
+    academicStart !== -1 ? text.slice(academicStart) : (transferStart !== -1 ? text.slice(0, transferStart) : text);
+
+  // --- Code extractor: e.g., CS 170, MATH 221A, QTM 999XFR, CHEM 150L
+  // Dept: 2–6 A-Z or '&'
+  // Num: 3–4 digits
+  // Suffix: 0–3 trailing A-Z (to cover 150L / 999XFR / 390A)
+  const codeRe = /\b([A-Z&]{2,6})\s+(\d{3,4})([A-Z]{0,3})\b/g;
+
+  function grabCodes(section: string): string[] {
+    const seen = new Set<string>();
+    const out: string[] = [];
+    let m: RegExpExecArray | null;
+    while ((m = codeRe.exec(section)) !== null) {
+      const dept = m[1];
+      const num = m[2];
+      const suf = m[3] || "";
+      const code = `${dept}${num}${suf}`;
+      if (!seen.has(code)) {
+        seen.add(code);
+        out.push(code);
+      }
     }
+    return out;
   }
 
-  return courses;
+  const incoming_courses = grabCodes(transferSection);
+  const emoryAll = grabCodes(academicSection);
+
+  // Defensive filtering: remove any codes that were already counted as incoming_courses
+  // (rare, but helps if the transcript echoes transfer lines later)
+  const incomingSet = new Set(incoming_courses);
+  const emory_courses = emoryAll.filter((c) => !incomingSet.has(c));
+
+  return { incoming_courses, emory_courses };
 }
+
+
 
   
   

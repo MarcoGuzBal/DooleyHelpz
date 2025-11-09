@@ -6,7 +6,9 @@ app = Flask(__name__)
 
 CORS(app)
 
-last_courses = []
+last_incoming_courses = []
+last_emory_courses = []
+last_all_courses = []
 
 @app.route("/")
 def home():
@@ -14,28 +16,53 @@ def home():
 
 @app.route("/api/userCourses", methods=["POST"])
 def userCourses():
-    global last_courses
-    data = request.get_json(force=True)
-    courses = data.get("courses", [])
-    
-    last_courses = courses
+    global last_incoming_courses, last_emory_courses, last_all_courses
+    if not request.is_json:
+        return {"error": "Send JSON (Content-Type: application/json)."}, 400
 
-    print("Received courses:", courses)
+    data = request.get_json(silent=True)
+    if data is None:
+        return {"error": "Bad JSON."}, 400
 
-    if data:
+    # Try the new separated format first
+    incoming = data.get("incoming_courses")
+    emory = data.get("emory_courses")
+
+    if incoming is not None or emory is not None:
+        # Default to empty lists if missing
+        if incoming is None:
+            incoming = []
+        if emory is None:
+            emory = []
+
+        # # Basic list checks (very simple)
+        # if type(incoming) is not list:
+        #     return {"error": "incoming_courses must be a list."}, 400
+        # if type(emory) is not list:
+        #     return {"error": "emory_courses must be a list."}, 400
+
+        last_incoming_courses = incoming
+        last_emory_courses = emory
+        last_all_courses = incoming + emory
+
         return jsonify({
-            "message": "Courses received successfully!",
-            "count": len(courses),
-            "courses": courses
+            "message": "OK",
+            "counts": {
+                "incoming": len(incoming),
+                "emory": len(emory),
+                "total": len(last_all_courses)
+            },
+            "incoming_courses": incoming,
+            "emory_courses": emory
         }), 200
-    else:
-        return {'error': 'Invalid JSON or empty request body'}, 400
     
 @app.route("/api/userCourses", methods=["GET"])
 def viewUserCourses():
     return jsonify({
         "message": "Last uploaded course list",
-        "courses": last_courses
+        "all_courses": last_all_courses,
+        "emory_courses": last_emory_courses,
+        "incoming_courses": last_incoming_courses,
     }), 200
 
 if __name__ == "__main__":
