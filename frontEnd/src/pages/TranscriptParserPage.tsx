@@ -150,7 +150,7 @@ export default function TranscriptParserPage() {
         </Link>
 
         <Link
-          to="/"
+          to="/dash"
           className="hidden rounded-xl bg-lighterBlue px-3 py-1.5 text-sm font-semibold text-white hover:bg-emoryBlue/90 md:inline-block"
         >
           Back to Home
