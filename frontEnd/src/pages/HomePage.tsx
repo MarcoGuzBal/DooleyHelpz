@@ -18,34 +18,62 @@ const mockWeek = [
   {
     day: "Mon",
     blocks: [
-      { time: "9:00–10:15", course: "CS 201", color: "bg-emoryBlue/10 text-emoryBlue" },
-      { time: "1:30–2:45", course: "BIO 212", color: "bg-emerald-50 text-emerald-800" },
+      {
+        time: "9:00–10:15",
+        course: "CS 201",
+        color: "bg-emoryBlue/10 text-emoryBlue",
+      },
+      {
+        time: "1:30–2:45",
+        course: "BIO 212",
+        color: "bg-emerald-50 text-emerald-800",
+      },
     ],
   },
   {
     day: "Tue",
     blocks: [
-      { time: "11:00–12:15", course: "MATH 231", color: "bg-paleGold text-emoryBlue" },
+      {
+        time: "11:00–12:15",
+        course: "MATH 231",
+        color: "bg-paleGold text-emoryBlue",
+      },
     ],
   },
   {
     day: "Wed",
     blocks: [
-      { time: "9:00–10:15", course: "CS 201", color: "bg-emoryBlue/10 text-emoryBlue" },
+      {
+        time: "9:00–10:15",
+        course: "CS 201",
+        color: "bg-emoryBlue/10 text-emoryBlue",
+      },
       { time: "3:00–4:15", course: "HUM 101", color: "bg-Gold/10 text-Gold" },
     ],
   },
   {
     day: "Thu",
     blocks: [
-      { time: "11:00–12:15", course: "MATH 231", color: "bg-paleGold text-emoryBlue" },
-      { time: "2:00–3:15", course: "CHEM 110", color: "bg-lighterBlue/10 text-lighterBlue" },
+      {
+        time: "11:00–12:15",
+        course: "MATH 231",
+        color: "bg-paleGold text-emoryBlue",
+      },
+      {
+        time: "2:00–3:15",
+        course: "CHEM 110",
+        color: "bg-lighterBlue/10 text-lighterBlue",
+      },
     ],
   },
   {
     day: "Fri",
     blocks: [
-      { time: "10:00–11:50", course: "LAB – CHEM", color: "bg-lighterBlue/10 text-lighterBlue" },
+      {
+        time: "10:00–11:50",
+        course: "LAB – CHEM",
+        color: "bg-lighterBlue/10 text-lighterBlue",
+      },
     ],
   },
 ];
@@ -98,15 +126,25 @@ export default function HomePage() {
               className="h-6 w-6 object-contain"
             />
           </div>
-          <span className="text-lg font-semibold text-emoryBlue">DooleyHelpz</span>
+          <span className="text-lg font-semibold text-emoryBlue">
+            DooleyHelpz
+          </span>
         </div>
         <div className="hidden items-center gap-6 text-sm md:flex">
-          <a href="#features" className="text-emoryBlue hover:text-Gold transition-colors">
+          <a
+            href="#features"
+            className="text-emoryBlue hover:text-Gold transition-colors"
+          >
             Features
           </a>
           <Link
             to="/login"
+<<<<<<< HEAD
             className="rounded-xl bg-lighterBlue px-3 py-1.5 font-medium text-white hover:bg-emoryBlue/90 transition-colors">
+=======
+            className="rounded-xl bg-lighterBlue px-3 py-1.5 font-medium text-white hover:bg-emoryBlue/90 transition-colors"
+          >
+>>>>>>> origin/main
             Get Started
           </Link>
         </div>
@@ -133,10 +171,11 @@ export default function HomePage() {
               <p className="mt-4 max-w-prose text-zinc-600">
                 DooleyHelpz helps students pick the right courses and auto-build
                 a timetable around classes, jobs, and life. Get recommendations
-                that fit prerequisites, preferences, and degree requirements—then
-                generate a schedule that just works.
+                that fit prerequisites, preferences, and degree
+                requirements—then generate a schedule that just works.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
+<<<<<<< HEAD
                
                 <Link to="/login"
                   className="group inline-flex items-center justify-center rounded-xl bg-emoryBlue px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emoryBlue/90"
@@ -146,6 +185,14 @@ export default function HomePage() {
 
 
 
+=======
+                <Link
+                  to="/login"
+                  className="group inline-flex items-center justify-center rounded-xl bg-emoryBlue px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emoryBlue/90"
+                >
+                  <Sparkles className="mr-2 h-4 w-4 text-Gold" /> Get Started
+                </Link>
+>>>>>>> origin/main
               </div>
               <p className="mt-3 text-xs text-zinc-500">
                 No credit card. No spam. Just better semesters.
@@ -214,7 +261,8 @@ export default function HomePage() {
             What DooleyHelpz does for you
           </h2>
           <p className="mt-2 max-w-prose text-zinc-600">
-            Designed for students who juggle classes, work, clubs, research, and life.
+            Designed for students who juggle classes, work, clubs, research, and
+            life.
           </p>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -249,18 +297,27 @@ export default function HomePage() {
           </h3>
           <p className="mx-auto mt-2 max-w-2xl text-zinc-600">
             Create your profile, set preferences, and let DooleyHelpz recommend
-            the best-fit courses. Then generate a conflict-free schedule around your life.
+            the best-fit courses. Then generate a conflict-free schedule around
+            your life.
           </p>
           <div className="mt-6 flex justify-center gap-3">
+<<<<<<< HEAD
             
             
             <Link to="/login"
+=======
+            <Link
+              to="/login"
+>>>>>>> origin/main
               className="rounded-xl bg-emoryBlue px-4 py-2.5 text-sm font-semibold text-white hover:bg-emoryBlue/90"
             >
               Get Started
             </Link>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/main
           </div>
         </div>
       </section>
@@ -275,9 +332,15 @@ export default function HomePage() {
             <span>DooleyHelpz</span>
           </div>
           <div className="flex gap-4">
-            <a href="#features" className="hover:text-Gold">Features</a>
-            <a href="#preview" className="hover:text-Gold">Preview</a>
-            <a href="#cta" className="hover:text-Gold">Start</a>
+            <a href="#features" className="hover:text-Gold">
+              Features
+            </a>
+            <a href="#preview" className="hover:text-Gold">
+              Preview
+            </a>
+            <a href="#cta" className="hover:text-Gold">
+              Start
+            </a>
           </div>
           <div className="text-xs text-zinc-500">
             © {new Date().getFullYear()} DooleyHelpz
