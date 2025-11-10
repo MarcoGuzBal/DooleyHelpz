@@ -2,8 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage"
 import RegisterPage from "./pages/RegisterPage";
-import TranscriptParserPage from "./pages/TranscriptParserPage";
-import DashboardPage from "./pages/DashboardPage";
+import TranscriptParserPage from "./pages/TranscriptParserPageOLI";
+import DashboardPage from "./pages/DashboardPageOLI";
 
 export default function App() {
   return (

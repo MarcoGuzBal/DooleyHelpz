@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import * as pdfjsLib from "pdfjs-dist";
 import workerSrc from "pdfjs-dist/build/pdf.worker?url"; // Vite-friendly worker URL
 import type { TextItem } from "pdfjs-dist/types/src/display/api";
-import { parseTranscript, type ParsedCourse } from "../utils/parseTranscript";
+import { parseTranscript, type ParsedCourse } from "../utils/parseTranscriptOLI";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
 

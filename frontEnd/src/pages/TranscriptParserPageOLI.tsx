@@ -1,6 +1,6 @@
 // frontEnd/src/pages/TranscriptParserPage.tsx
 import React, { useEffect, useRef, useState } from "react";
-import { parseTranscript, type ParseResult } from "../utils/parseTranscript";
+import { parseTranscript, type ParseResult } from "../utils/parseTranscriptOLI";
 import { motion } from "framer-motion";
 import { Upload, FileText, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
