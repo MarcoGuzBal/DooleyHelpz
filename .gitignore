@@ -9,7 +9,7 @@ __pycache__/
 /build
 
 # node & python environments
-node_modules/
+frontEnd/node_modules/
 .venv/
 venv/
 
