@@ -272,7 +272,7 @@ export default function TranscriptParserPage() {
         </p>
 
         {/* ===== Upload Section (PDF only) ===== */}
-        <div className="mb-8 rounded-2xl border border-zinc-200 bg-gradient-to-br from-emoryBlue/5 via-white to-paleGold/20 p-6 shadow-sm">
+        <div className="mb-8 rounded-2xl border border-zinc-200 bg-linear-to-br from-emoryBlue/5 via-white to-paleGold/20 p-6 shadow-sm">
           <label
             htmlFor="fileUpload"
             className="flex cursor-pointer flex-col items-center justify-center gap-3 py-6 text-center text-emoryBlue transition-colors hover:text-Gold"
