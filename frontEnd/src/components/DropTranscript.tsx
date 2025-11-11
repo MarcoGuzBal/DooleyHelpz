@@ -63,6 +63,7 @@ export default function TranscriptParserPage() {
         .join(" ");
       all += (p > 1 ? "\n\n" : "") + pageText;
     }
+    console.log(all)
     return all.trim();
   }
 
