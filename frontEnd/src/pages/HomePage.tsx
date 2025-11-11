@@ -139,12 +139,8 @@ export default function HomePage() {
           </a>
           <Link
             to="/login"
-<<<<<<< HEAD
-            className="rounded-xl bg-lighterBlue px-3 py-1.5 font-medium text-white hover:bg-emoryBlue/90 transition-colors">
-=======
             className="rounded-xl bg-lighterBlue px-3 py-1.5 font-medium text-white hover:bg-emoryBlue/90 transition-colors"
           >
->>>>>>> origin/main
             Get Started
           </Link>
         </div>
@@ -175,24 +171,12 @@ export default function HomePage() {
                 requirements—then generate a schedule that just works.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
-<<<<<<< HEAD
-               
-                <Link to="/login"
-                  className="group inline-flex items-center justify-center rounded-xl bg-emoryBlue px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emoryBlue/90"
-                >
-                  <Sparkles className="mr-2 h-4 w-4 text-Gold" /> Get Started 
-                </Link>
-
-
-
-=======
                 <Link
                   to="/login"
                   className="group inline-flex items-center justify-center rounded-xl bg-emoryBlue px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emoryBlue/90"
                 >
                   <Sparkles className="mr-2 h-4 w-4 text-Gold" /> Get Started
                 </Link>
->>>>>>> origin/main
               </div>
               <p className="mt-3 text-xs text-zinc-500">
                 No credit card. No spam. Just better semesters.
@@ -301,23 +285,12 @@ export default function HomePage() {
             your life.
           </p>
           <div className="mt-6 flex justify-center gap-3">
-<<<<<<< HEAD
-            
-            
-            <Link to="/login"
-=======
             <Link
               to="/login"
->>>>>>> origin/main
               className="rounded-xl bg-emoryBlue px-4 py-2.5 text-sm font-semibold text-white hover:bg-emoryBlue/90"
             >
               Get Started
             </Link>
-<<<<<<< HEAD
-
-
-=======
->>>>>>> origin/main
           </div>
         </div>
       </section>
