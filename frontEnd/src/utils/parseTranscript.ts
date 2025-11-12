@@ -46,7 +46,7 @@ export function parseTranscript(rawText: string): ParseResult {
   const codeRe = /\b([A-Z&]{2,6})\s+(\d{3,4})([A-Z]{0,3})\b/g;
 
   // Accept only likely course numbers (filters out MAC 2022 / MIC 2022, etc.)
-  function isLikelyCourse(dept: string, numStr: string, suf: string): boolean {
+  function isLikelyCourse(_dept: string, numStr: string, suf: string): boolean {
     const n = parseInt(numStr, 10);
     // 3-digit standard undergrad, allow 100–699
     if (numStr.length === 3) {
