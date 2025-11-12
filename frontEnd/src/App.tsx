@@ -7,16 +7,16 @@ import { auth } from "./firebase";
 import { Routes, Route, Outlet } from "react-router-dom";
 
 import AuthProvider from "./utils/AuthProvider";
-import RequireAuth from "./utils/RequireAuth";
+//import RequireAuth from "./utils/RequireAuth";
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
-import ProtectedRoute from "./components/ProtectedRoute";
+//import ProtectedRoute from "./components/ProtectedRoute";
 import DropTranscript from "./components/DropTranscript";
 import PreferencesPage from "./pages/PreferencesPage";
 
-function Protected() { return <Outlet /> }
+// function Protected() { return <Outlet /> }
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
