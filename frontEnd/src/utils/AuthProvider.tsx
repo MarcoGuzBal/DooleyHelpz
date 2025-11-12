@@ -28,9 +28,6 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     catch {return null}
   }
 
-
-
-
   return (
     <AuthContext.Provider value={{ user, loading, getIdToken }}>{children}</AuthContext.Provider>
   )

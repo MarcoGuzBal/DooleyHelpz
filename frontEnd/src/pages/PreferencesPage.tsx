@@ -56,6 +56,9 @@ export default function PreferencesPage() {
   // Priority
   const [priorityOrder, setPriorityOrder] = useState<PriorityKey[]>([...PRIORITY_KEYS]);
 
+  // holds the submitted preferences (null until user submits)
+  const [submittedPayload, setSubmittedPayload] = useState<PreferencesPayload | null>(null);
+
   /* ----------------------- Utility Functions --------------------- */
   function toggleInterest(x: Interests){
     if (interestList.includes(x)) setInterestList(interestList.filter(i => i!==x));
@@ -113,7 +116,17 @@ export default function PreferencesPage() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
-    });
+    })
+      .then(async (res) => {
+        const body = await res.json().catch(() => null);
+        if (!res.ok) throw body || new Error("Server error");
+        // show the saved payload in the UI (use server response if desired)
+        setSubmittedPayload(payload);
+      })
+      .catch((err) => {
+        console.error("Save failed", err);
+        alert("Failed to save preferences.");
+      });
   }
 
   /* --------------------------- JSX ------------------------------- */
@@ -284,24 +297,12 @@ export default function PreferencesPage() {
       <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded">
         Save
       </button>
-
-      {/* JSON Preview */}
-      <div>
-        <h3 className="font-semibold mt-2">Live JSON Preview</h3>
-        <pre className="bg-gray-100 text-sm p-3 rounded overflow-auto">
-          {JSON.stringify(
-            {
-              degreeType,
-              year,
-              expectedGraduation: { month: gradMonth, year: gradYear },
-              preferredCredits,
-              interests: interestList,
-              timeUnavailable: unavailable,
-              priorityOrder,
-            },
-            null,
-            2
-          )}
+      
+      {/* JSON preview — only visible after a successful submit */}
+      <div className="mt-6">
+        <h3 className="font-semibold">Saved Preferences (JSON)</h3>
+        <pre className="bg-gray-100 p-3 rounded overflow-auto text-sm">
+          {submittedPayload ? JSON.stringify(submittedPayload, null, 2) : "No saved preferences yet."}
         </pre>
       </div>
     </form>

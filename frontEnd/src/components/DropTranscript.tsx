@@ -46,6 +46,9 @@ export default function TranscriptParserPage() {
   const [postedOk, setPostedOk] = useState<null | boolean>(null);
   const [postError, setPostError] = useState<string | null>(null);
 
+  // store the last submitted payload (for JSON preview)
+  const [submittedPayload, setSubmittedPayload] = useState<Record<string, unknown> | null>(null);
+  
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // ---- Extract all text from PDF (for parsing only) ----
@@ -204,6 +207,12 @@ export default function TranscriptParserPage() {
       return;
     }
     sendToBackendSeparated(incoming_transfer_courses, incoming_test_courses, emory_courses);
+
+    setSubmittedPayload({
+      incoming_transfer_courses,
+      incoming_test_courses,
+      emory_courses,
+    });
   }
 
   // --- Small UI helpers ---
@@ -461,6 +470,15 @@ export default function TranscriptParserPage() {
             </button>
           </div>
         )}
+
+        <div className="mt-6">
+          <h3 className="font-semibold">Submitted JSON Preview</h3>
+          <pre className="bg-gray-100 text-sm p-3 rounded overflow-auto">
+            {submittedPayload
+              ? JSON.stringify(submittedPayload, null, 2)
+              : "No data submitted yet."}
+          </pre>
+        </div>
 
         {/* ===== Privacy Disclaimer ===== */}
         <div className="mt-10 rounded-xl border border-zinc-200 bg-zinc-50 p-5 text-sm text-zinc-600">
