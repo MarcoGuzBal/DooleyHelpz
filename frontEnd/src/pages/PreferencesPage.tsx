@@ -286,7 +286,7 @@ export default function PreferencesPage() {
       </button>
 
       {/* JSON Preview */}
-      {/* <div>
+      <div>
         <h3 className="font-semibold mt-2">Live JSON Preview</h3>
         <pre className="bg-gray-100 text-sm p-3 rounded overflow-auto">
           {JSON.stringify(
@@ -303,7 +303,7 @@ export default function PreferencesPage() {
             2
           )}
         </pre>
-      </div> */}
+      </div>
     </form>
   );
 }

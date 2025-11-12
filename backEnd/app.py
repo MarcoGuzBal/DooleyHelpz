@@ -6,9 +6,7 @@ app = Flask(__name__)
 
 CORS(app)
 
-last_incoming_courses = []
-last_emory_courses = []
-last_all_courses = []
+last_userCourses = None
 last_preferences = None
 
 @app.route("/")
@@ -17,48 +15,26 @@ def home():
 
 @app.route("/api/userCourses", methods=["POST"])
 def userCourses():
-    global last_incoming_courses, last_emory_courses, last_all_courses
+    global last_userCourses
     if not request.is_json:
         return {"error": "Send JSON (Content-Type: application/json)."}, 400
 
     data = request.get_json(silent=True)
-    if data is None:
-        return {"error": "Bad JSON."}, 400
+    last_userCourses = data if isinstance(data, dict) else {"value": data}
 
-    # Try the new separated format first
-    incoming = data.get("incoming_courses")
-    emory = data.get("emory_courses")
+    print("Received JSON data:", data)
 
-    if incoming is not None or emory is not None:
-        # Default to empty lists if missing
-        if incoming is None:
-            incoming = []
-        if emory is None:
-            emory = []
-
-        last_incoming_courses = incoming
-        last_emory_courses = emory
-        last_all_courses = incoming + emory
-
-        return jsonify({
-            "message": "OK",
-            "counts": {
-                "incoming": len(incoming),
-                "emory": len(emory),
-                "total": len(last_all_courses)
-            },
-            "incoming_courses": incoming,
-            "emory_courses": emory
-        }), 200
-    
+    # Return a success response with the received fields
+    return {
+        "message": "Preferences received successfully!",
+        "received_fields": list(data.keys()),  # Return the list of received fields
+    }, 200
 @app.route("/api/userCourses", methods=["GET"])
 def viewUserCourses():
-    return jsonify({
-        "message": "Last uploaded course list",
-        "all_courses": last_all_courses,
-        "emory_courses": last_emory_courses,
-        "incoming_courses": last_incoming_courses,
-    }), 200
+    if last_userCourses is None:
+        return {"message": "No preferences saved yet."}, 404
+    return {"message": "Last saved preferences", "userCourses": last_userCourses}, 200
+
     
 @app.route("/api/preferences", methods=["POST"])
 def userPreferences():
