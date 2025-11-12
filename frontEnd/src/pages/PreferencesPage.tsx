@@ -95,7 +95,7 @@ export default function PreferencesPage() {
     if (!gradMonth || !gradYear) return alert("Please set your expected graduation date");
     if (isNaN(n) || n < min || n > 22) return alert(`Credits must be between ${min} and 22`);
 
-    const payload = {
+    const payload: PreferencesPayload = {
       degreeType,
       year,
       expectedGraduation: { month: gradMonth, year: gradYear },
