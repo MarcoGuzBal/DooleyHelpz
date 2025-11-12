@@ -9,6 +9,7 @@ CORS(app)
 last_incoming_courses = []
 last_emory_courses = []
 last_all_courses = []
+last_preferences = None
 
 @app.route("/")
 def home():
@@ -67,16 +68,21 @@ def userPreferences():
     data = request.get_json(silent=True)
     
     print("Received JSON data:", data)
-
-    #Example: Iterate over all fields and log them
-    # for key, value in data.items():
-    #     print(f"{key}, {value}")
+    global last_preferences
+    last_preferences = data if isinstance(data, dict) else {"value": data}
 
     # Return a success response with the received fields
     return {
         "message": "Preferences received successfully!",
         "received_fields": list(data.keys()),  # Return the list of received fields
     }, 200
+    
+@app.route("/api/preferences", methods=["GET"])
+def viewUserPreferences():
+    # GET should return the last saved preferences (POST stores them)
+    if last_preferences is None:
+        return {"message": "No preferences saved yet."}, 404
+    return {"message": "Last saved preferences", "preferences": last_preferences}, 200
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", "5001"))
