@@ -1,10 +1,9 @@
-import { useState } from "react";
-import "./index.css";
-import React from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import type { User } from "firebase/auth";
-import { auth } from "./firebase";
-import { Routes, Route, Outlet } from "react-router-dom";
+// import { useState } from "react";
+// import "./index.css";
+// import { onAuthStateChanged } from "firebase/auth";
+// import type { User } from "firebase/auth";
+// import { auth } from "./firebase";
+import { Routes, Route } from "react-router-dom";
 
 import AuthProvider from "./utils/AuthProvider";
 //import RequireAuth from "./utils/RequireAuth";
@@ -19,28 +18,7 @@ import PreferencesPage from "./pages/PreferencesPage";
 // function Protected() { return <Outlet /> }
 
 export default function App() {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  React.useEffect(() => {
-    // Firebase tells us when someone logs in or out
-    const unsubscribe = onAuthStateChanged(
-      auth,
-      (user) => {
-        setCurrentUser(user); // user object or null
-        setLoading(false); // stop showing the loading screen
-      },
-      (error) => {
-        console.error("Auth state change error:", error);
-        setLoading(false);
-      }
-    );
-    return () => unsubscribe(); // cleanup when component unmounts
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
   // Will work on logout later
   // async function handleLogout() {
   //   await signOut(auth); // clear Firebase session
