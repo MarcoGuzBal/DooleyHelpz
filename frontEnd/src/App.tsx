@@ -1,10 +1,10 @@
 import { useState } from "react";
 import "./index.css";
 import React from "react";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import type { User } from "firebase/auth";
 import { auth } from "./firebase";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
@@ -34,6 +34,9 @@ export default function App() {
     return () => unsubscribe(); // cleanup when component unmounts
   }, []);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   // Will work on logout later
   // async function handleLogout() {
   //   await signOut(auth); // clear Firebase session

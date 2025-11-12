@@ -44,20 +44,20 @@ export default function PreferencesPage() {
   // Grad Info
   const [gradMonth, setGradMonth] = useState<string>("");
   const [gradYear, setGradYear] = useState<string>("");
-  const [preferredCredits, setPreferredCredits] = useState<String>("");
+  const [preferredCredits, setPreferredCredits] = useState<string>("");
   const [interestList, setInterestList] = useState<Interests[]>([]);
 
   // Time Unavailable
   const [tempDay, setTempDay] = useState<Days>("Monday");
-  const [tempStart, setTempStart] = useState<String>("");
-  const [tempEnd, setTempEnd] = useState<String>("");
+  const [tempStart, setTempStart] = useState<string>("");
+  const [tempEnd, setTempEnd] = useState<string>("");
   const [unavailable, setUnavailable] = useState<TimeBlock[]>([]);
 
   // Priority
   const [priorityOrder, setPriorityOrder] = useState<PriorityKey[]>([...PRIORITY_KEYS]);
 
   /* ----------------------- Utility Functions --------------------- */
-  function toggleInterest(x){
+  function toggleInterest(x: Interests){
     if (interestList.includes(x)) setInterestList(interestList.filter(i => i!==x));
     else setInterestList(interestList.concat(x));
   }
@@ -65,11 +65,11 @@ export default function PreferencesPage() {
   function addBlock(){
     if (!tempStart || !tempEnd) return;
     if (tempStart >= tempEnd) return; // start before end
-    setUnavailable(unavailable.concat({day: tempDay, start: tempStart, end: tempEnd}));
+    setUnavailable(unavailable.concat([{day: tempDay, start: tempStart, end: tempEnd}]));
     setTempStart(""); setTempEnd("");
   }
 
-  function move(i, dir) {
+  function move(i: number, dir: number) {
     const j = i + dir;
     if (j < 0 || j >= priorityOrder.length) return;
     const copy = priorityOrder.slice();
