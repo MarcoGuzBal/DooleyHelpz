@@ -11,10 +11,18 @@ CORS(app)
 
 load_dotenv()
 uri = os.getenv("MONGODB_URI")
+print("MONGO URI repr:", repr(uri))
 
 # 2. connect to MongoDB
 client = MongoClient(uri) #cluster
-print("created client")  
+print("created client", client)  
+
+db = client["Users"] # database
+col = db["TestUsers"] # database
+
+print("mongo_client type:", type(client))
+print("db type:", type(db))
+print("prefs_col type:", type(col))
 
 last_userCourses = None
 last_preferences = None
@@ -33,12 +41,18 @@ def userCourses():
     last_userCourses = data if isinstance(data, dict) else {"value": data}
 
     print("Received JSON data:", data)
+    try:
+        col.insert_one(data)
+    except Exception as e:
+        print(e)
+        return {"error": "Failed to save data"}, 500
 
     # Return a success response with the received fields
     return {
         "message": "Preferences received successfully!",
         "received_fields": list(data.keys()),  # Return the list of received fields
     }, 200
+    
 @app.route("/api/userCourses", methods=["GET"])
 def viewUserCourses():
     if last_userCourses is None:
