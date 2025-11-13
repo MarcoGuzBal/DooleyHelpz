@@ -44,20 +44,23 @@ export default function PreferencesPage() {
   // Grad Info
   const [gradMonth, setGradMonth] = useState<string>("");
   const [gradYear, setGradYear] = useState<string>("");
-  const [preferredCredits, setPreferredCredits] = useState<String>("");
+  const [preferredCredits, setPreferredCredits] = useState<string>("");
   const [interestList, setInterestList] = useState<Interests[]>([]);
 
   // Time Unavailable
   const [tempDay, setTempDay] = useState<Days>("Monday");
-  const [tempStart, setTempStart] = useState<String>("");
-  const [tempEnd, setTempEnd] = useState<String>("");
+  const [tempStart, setTempStart] = useState<string>("");
+  const [tempEnd, setTempEnd] = useState<string>("");
   const [unavailable, setUnavailable] = useState<TimeBlock[]>([]);
 
   // Priority
   const [priorityOrder, setPriorityOrder] = useState<PriorityKey[]>([...PRIORITY_KEYS]);
 
+  // holds the submitted preferences (null until user submits)
+  const [submittedPayload, setSubmittedPayload] = useState<PreferencesPayload | null>(null);
+
   /* ----------------------- Utility Functions --------------------- */
-  function toggleInterest(x){
+  function toggleInterest(x: Interests){
     if (interestList.includes(x)) setInterestList(interestList.filter(i => i!==x));
     else setInterestList(interestList.concat(x));
   }
@@ -65,11 +68,11 @@ export default function PreferencesPage() {
   function addBlock(){
     if (!tempStart || !tempEnd) return;
     if (tempStart >= tempEnd) return; // start before end
-    setUnavailable(unavailable.concat({day: tempDay, start: tempStart, end: tempEnd}));
+    setUnavailable(unavailable.concat([{day: tempDay, start: tempStart, end: tempEnd}]));
     setTempStart(""); setTempEnd("");
   }
 
-  function move(i, dir) {
+  function move(i: number, dir: number) {
     const j = i + dir;
     if (j < 0 || j >= priorityOrder.length) return;
     const copy = priorityOrder.slice();
@@ -95,7 +98,7 @@ export default function PreferencesPage() {
     if (!gradMonth || !gradYear) return alert("Please set your expected graduation date");
     if (isNaN(n) || n < min || n > 22) return alert(`Credits must be between ${min} and 22`);
 
-    const payload = {
+    const payload: PreferencesPayload = {
       degreeType,
       year,
       expectedGraduation: { month: gradMonth, year: gradYear },
@@ -113,7 +116,17 @@ export default function PreferencesPage() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
-    });
+    })
+      .then(async (res) => {
+        const body = await res.json().catch(() => null);
+        if (!res.ok) throw body || new Error("Server error");
+        // show the saved payload in the UI (use server response if desired)
+        setSubmittedPayload(payload);
+      })
+      .catch((err) => {
+        console.error("Save failed", err);
+        alert("Failed to save preferences.");
+      });
   }
 
   /* --------------------------- JSX ------------------------------- */
@@ -284,26 +297,14 @@ export default function PreferencesPage() {
       <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded">
         Save
       </button>
-
-      {/* JSON Preview */}
-      {/* <div>
-        <h3 className="font-semibold mt-2">Live JSON Preview</h3>
-        <pre className="bg-gray-100 text-sm p-3 rounded overflow-auto">
-          {JSON.stringify(
-            {
-              degreeType,
-              year,
-              expectedGraduation: { month: gradMonth, year: gradYear },
-              preferredCredits,
-              interests: interestList,
-              timeUnavailable: unavailable,
-              priorityOrder,
-            },
-            null,
-            2
-          )}
+      
+      {/* JSON preview — only visible after a successful submit */}
+      <div className="mt-6">
+        <h3 className="font-semibold">Saved Preferences (JSON)</h3>
+        <pre className="bg-gray-100 p-3 rounded overflow-auto text-sm">
+          {submittedPayload ? JSON.stringify(submittedPayload, null, 2) : "No saved preferences yet."}
         </pre>
-      </div> */}
+      </div>
     </form>
   );
 }

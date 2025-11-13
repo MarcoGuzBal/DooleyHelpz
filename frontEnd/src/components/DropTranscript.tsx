@@ -15,7 +15,7 @@ import {
 import workerSrc from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 GlobalWorkerOptions.workerSrc = workerSrc;
 
-// Bucketing parser: returns { incoming_courses, emory_courses }
+// Parser now returns 3 buckets
 import { parseTranscript, type ParseResult } from "../utils/parseTranscript";
 
 type UploadedItem = {
@@ -35,8 +35,9 @@ export default function TranscriptParserPage() {
   const [buckets, setBuckets] = useState<ParseResult | null>(null);
 
   // Which codes are currently INCLUDED (green). Start with all parsed codes included.
-  const [selectedIncoming, setSelectedIncoming] = useState<Set<string>>(new Set());
-  const [selectedEmory, setSelectedEmory] = useState<Set<string>>(new Set());
+  const [selIncomingTransfer, setSelIncomingTransfer] = useState<Set<string>>(new Set());
+  const [selIncomingTest, setSelIncomingTest] = useState<Set<string>>(new Set());
+  const [selEmory, setSelEmory] = useState<Set<string>>(new Set());
 
   // UX state
   const [isExtracting, setIsExtracting] = useState(false);
@@ -45,6 +46,9 @@ export default function TranscriptParserPage() {
   const [postedOk, setPostedOk] = useState<null | boolean>(null);
   const [postError, setPostError] = useState<string | null>(null);
 
+  // store the last submitted payload (for JSON preview)
+  const [submittedPayload, setSubmittedPayload] = useState<Record<string, unknown> | null>(null);
+  
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // ---- Extract all text from PDF (for parsing only) ----
@@ -85,7 +89,11 @@ export default function TranscriptParserPage() {
   }
 
   // ---- POST separated buckets to backend ----
-  async function sendToBackendSeparated(incoming_courses: string[], emory_courses: string[]) {
+  async function sendToBackendSeparated(
+    incoming_transfer_courses: string[],
+    incoming_test_courses: string[],
+    emory_courses: string[]
+  ) {
     try {
       setPosting(true);
       setPostedOk(null);
@@ -94,7 +102,7 @@ export default function TranscriptParserPage() {
       const res = await fetch("http://localhost:5001/api/userCourses", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ incoming_courses, emory_courses }),
+        body: JSON.stringify({ incoming_transfer_courses, incoming_test_courses, emory_courses }),
       });
 
       setPostedOk(res.ok);
@@ -116,16 +124,19 @@ export default function TranscriptParserPage() {
       renderPreview(selected).catch((e) => console.error("Preview render failed:", e));
 
       const parsed = parseTranscript(selected.text);
-
       setBuckets(parsed);
-      setSelectedIncoming(new Set(parsed.incoming_courses));
-      setSelectedEmory(new Set(parsed.emory_courses));
+
+      setSelIncomingTransfer(new Set(parsed.incoming_transfer_courses));
+      setSelIncomingTest(new Set(parsed.incoming_test_courses));
+      setSelEmory(new Set(parsed.emory_courses));
+
       setPostedOk(null);
       setPostError(null);
     } else {
       setBuckets(null);
-      setSelectedIncoming(new Set());
-      setSelectedEmory(new Set());
+      setSelIncomingTransfer(new Set());
+      setSelIncomingTest(new Set());
+      setSelEmory(new Set());
       setPostedOk(null);
       setPostError(null);
     }
@@ -176,16 +187,8 @@ export default function TranscriptParserPage() {
   }
 
   // --- Toggle helpers ---
-  function toggleIncoming(code: string) {
-    setSelectedIncoming((prev) => {
-      const next = new Set(prev);
-      if (next.has(code)) next.delete(code); else next.add(code);
-      return next;
-    });
-  }
-
-  function toggleEmory(code: string) {
-    setSelectedEmory((prev) => {
+  function toggle(setter: React.Dispatch<React.SetStateAction<Set<string>>>, code: string) {
+    setter((prev) => {
       const next = new Set(prev);
       if (next.has(code)) next.delete(code); else next.add(code);
       return next;
@@ -194,14 +197,22 @@ export default function TranscriptParserPage() {
 
   // --- Submit handler ---
   function handleSubmit() {
-    const incoming_courses = Array.from(selectedIncoming);
-    const emory_courses = Array.from(selectedEmory);
-    if (!incoming_courses.length && !emory_courses.length) {
+    const incoming_transfer_courses = Array.from(selIncomingTransfer);
+    const incoming_test_courses = Array.from(selIncomingTest);
+    const emory_courses = Array.from(selEmory);
+
+    if (!incoming_transfer_courses.length && !incoming_test_courses.length && !emory_courses.length) {
       setPostedOk(false);
       setPostError("No courses selected.");
       return;
     }
-    sendToBackendSeparated(incoming_courses, emory_courses);
+    sendToBackendSeparated(incoming_transfer_courses, incoming_test_courses, emory_courses);
+
+    setSubmittedPayload({
+      incoming_transfer_courses,
+      incoming_test_courses,
+      emory_courses,
+    });
   }
 
   // --- Small UI helpers ---
@@ -231,9 +242,8 @@ export default function TranscriptParserPage() {
     );
   }
 
-  const incomingCount = selectedIncoming.size;
-  const emoryCount = selectedEmory.size;
-  const totalCount = incomingCount + emoryCount;
+  const totalSelected =
+    selIncomingTransfer.size + selIncomingTest.size + selEmory.size;
 
   return (
     <div className="min-h-screen bg-white text-zinc-900">
@@ -247,7 +257,7 @@ export default function TranscriptParserPage() {
         </Link>
 
         <Link
-          to="/"
+          to="/dashboard"
           className="hidden rounded-xl bg-lighterBlue px-3 py-1.5 text-sm font-semibold text-white hover:bg-emoryBlue/90 md:inline-block"
         >
           Back to Home
@@ -344,43 +354,78 @@ export default function TranscriptParserPage() {
         {/* ===== Preview + Parsed Course Codes (toggleable) ===== */}
         {selected && buckets && (
           <section className="grid gap-6 md:grid-cols-2">
-            {/* Incoming bucket */}
+            {/* Incoming Transfer */}
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-emoryBlue">Incoming (Transfer/Test)</h2>
-                <span className="text-sm text-zinc-600">{selectedIncoming.size} selected</span>
+                <h2 className="text-xl font-semibold text-emoryBlue">Incoming — Transfer</h2>
+                <span className="text-sm text-zinc-600">{selIncomingTransfer.size} selected</span>
               </div>
-              {buckets.incoming_courses.length ? (
+              {buckets.incoming_transfer_courses.length ? (
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {buckets.incoming_courses.map((code) => {
-                    const isSelected = selectedIncoming.has(code);
+                  {buckets.incoming_transfer_courses.map((code) => {
+                    const isSelected = selIncomingTransfer.has(code);
                     return (
-                      <Chip key={`in-${code}`} code={code} isSelected={isSelected} onClick={() => toggleIncoming(code)} />
+                      <Chip
+                        key={`in-tr-${code}`}
+                        code={code}
+                        isSelected={isSelected}
+                        onClick={() => toggle(setSelIncomingTransfer, code)}
+                      />
                     );
                   })}
                 </div>
               ) : (
-                <p className="text-sm italic text-zinc-500">No incoming codes found.</p>
+                <p className="text-sm italic text-zinc-500">No transfer credits found.</p>
+              )}
+            </div>
+
+            {/* Incoming Test */}
+            <div>
+              <div className="mb-2 flex items-center justify-between">
+                <h2 className="text-xl font-semibold text-emoryBlue">Incoming — Test (AP/IB/etc.)</h2>
+                <span className="text-sm text-zinc-600">{selIncomingTest.size} selected</span>
+              </div>
+              {buckets.incoming_test_courses.length ? (
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  {buckets.incoming_test_courses.map((code) => {
+                    const isSelected = selIncomingTest.has(code);
+                    return (
+                      <Chip
+                        key={`in-te-${code}`}
+                        code={code}
+                        isSelected={isSelected}
+                        onClick={() => toggle(setSelIncomingTest, code)}
+                      />
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="text-sm italic text-zinc-500">No test credits found.</p>
               )}
             </div>
 
             {/* Emory bucket */}
-            <div>
+            <div className="md:col-span-2">
               <div className="mb-2 flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-emoryBlue">Emory (Academic Record)</h2>
-                <span className="text-sm text-zinc-600">{selectedEmory.size} selected</span>
+                <h2 className="text-xl font-semibold text-emoryBlue">Emory — Academic Record</h2>
+                <span className="text-sm text-zinc-600">{selEmory.size} selected</span>
               </div>
               {buckets.emory_courses.length ? (
-                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                   {buckets.emory_courses.map((code) => {
-                    const isSelected = selectedEmory.has(code);
+                    const isSelected = selEmory.has(code);
                     return (
-                      <Chip key={`em-${code}`} code={code} isSelected={isSelected} onClick={() => toggleEmory(code)} />
+                      <Chip
+                        key={`em-${code}`}
+                        code={code}
+                        isSelected={isSelected}
+                        onClick={() => toggle(setSelEmory, code)}
+                      />
                     );
                   })}
                 </div>
               ) : (
-                <p className="text-sm italic text-zinc-500">No Emory codes found.</p>
+                <p className="text-sm italic text-zinc-500">No Emory courses found.</p>
               )}
             </div>
           </section>
@@ -390,7 +435,7 @@ export default function TranscriptParserPage() {
         {selected && buckets && (
           <div className="mt-6 flex items-center justify-between">
             <div className="text-sm text-zinc-600">
-              <span className="font-medium text-emoryBlue">{totalCount}</span> total selected
+              <span className="font-medium text-emoryBlue">{totalSelected}</span> total selected
               {posting && <span className="ml-2 italic">• posting…</span>}
               {postError && <span className="ml-2 text-rose-600">• {postError}</span>}
               {postedOk === true && (
@@ -408,10 +453,14 @@ export default function TranscriptParserPage() {
             <button
               type="button"
               onClick={handleSubmit}
-              disabled={posting || (!selectedIncoming.size && !selectedEmory.size)}
+              disabled={
+                posting ||
+                (!selIncomingTransfer.size && !selIncomingTest.size && !selEmory.size)
+              }
               className={
                 "inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold shadow-sm " +
-                (posting || (!selectedIncoming.size && !selectedEmory.size)
+                (posting ||
+                (!selIncomingTransfer.size && !selIncomingTest.size && !selEmory.size)
                   ? "cursor-not-allowed bg-zinc-200 text-zinc-500"
                   : "bg-emoryBlue text-white hover:bg-emoryBlue/90")
               }
@@ -421,6 +470,15 @@ export default function TranscriptParserPage() {
             </button>
           </div>
         )}
+
+        <div className="mt-6">
+          <h3 className="font-semibold">Submitted JSON Preview</h3>
+          <pre className="bg-gray-100 text-sm p-3 rounded overflow-auto">
+            {submittedPayload
+              ? JSON.stringify(submittedPayload, null, 2)
+              : "No data submitted yet."}
+          </pre>
+        </div>
 
         {/* ===== Privacy Disclaimer ===== */}
         <div className="mt-10 rounded-xl border border-zinc-200 bg-zinc-50 p-5 text-sm text-zinc-600">
@@ -442,3 +500,4 @@ export default function TranscriptParserPage() {
     </div>
   );
 }
+

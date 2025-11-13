@@ -115,7 +115,7 @@ const Pill = ({ children }: { children: React.ReactNode }) => (
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-paleGold/10 to-white">
+    <div className="min-h-screen bg-linear-to-b from-white via-paleGold/10 to-white">
       {/* Top bar */}
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2">
