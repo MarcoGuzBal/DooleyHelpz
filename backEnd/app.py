@@ -18,11 +18,9 @@ client = MongoClient(uri) #cluster
 print("created client", client)  
 
 db = client["Users"] # database
-col = db["TestUsers"] # database
-
-print("mongo_client type:", type(client))
-print("db type:", type(db))
-print("prefs_col type:", type(col))
+user_col = db['TestUsers']
+course_col = db['TestCourses']
+pref_col = db['TestPreferences']
 
 last_userCourses = None
 last_preferences = None
@@ -42,7 +40,7 @@ def userCourses():
 
     print("Received JSON data:", data)
     try:
-        col.insert_one(data)
+        user_col.insert_one(data)
     except Exception as e:
         print(e)
         return {"error": "Failed to save data"}, 500
@@ -68,9 +66,17 @@ def userPreferences():
     data = request.get_json(silent=True)
     
     print("Received JSON data:", data)
+    
+    try:
+        pref_col.insert_one(data)
+    except Exception as e:
+        print(e)
+        return {"error": "Failed to save data"}, 500
     global last_preferences
     last_preferences = data if isinstance(data, dict) else {"value": data}
-
+    
+    
+    
     # Return a success response with the received fields
     return {
         "message": "Preferences received successfully!",

@@ -182,7 +182,7 @@ export default function TranscriptParserPage() {
       setExtractError("We couldn’t read that PDF. If it’s a scanned image, export a text-based PDF first.");
     } finally {
       setIsExtracting(false);
-      e.currentTarget.value = "";
+      //e.currentTarget.value = "";
     }
   }
 

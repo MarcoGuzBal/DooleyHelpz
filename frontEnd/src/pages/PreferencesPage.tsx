@@ -298,13 +298,13 @@ export default function PreferencesPage() {
         Save
       </button>
       
-      {/* JSON preview — only visible after a successful submit */}
+      {/* JSON preview — only visible after a successful submit
       <div className="mt-6">
         <h3 className="font-semibold">Saved Preferences (JSON)</h3>
         <pre className="bg-gray-100 p-3 rounded overflow-auto text-sm">
           {submittedPayload ? JSON.stringify(submittedPayload, null, 2) : "No saved preferences yet."}
         </pre>
-      </div>
+      </div> */}
     </form>
   );
 }
