@@ -1,10 +1,20 @@
 import os
-from flask import Flask, jsonify, request, g
+from flask import Flask, jsonify, request
 from flask_cors import CORS
+from pymongo import MongoClient
+import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 
 CORS(app)
+
+load_dotenv()
+uri = os.getenv("MONGODB_URI")
+
+# 2. connect to MongoDB
+client = MongoClient(uri) #cluster
+print("created client")  
 
 last_userCourses = None
 last_preferences = None
