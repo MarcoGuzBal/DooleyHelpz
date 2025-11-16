@@ -112,6 +112,10 @@ emory_courses = [
     "MATH212"
 ]
 courses = incoming_courses + emory_courses
+def getridofZ(course_code):
+    if course_code.endswith('Z'):
+        return course_code[:-1]
+    return course_code
 def get_regex(pattern):
     query = {"code": {"$regex": pattern}}
     results = col.find(query, {"_id": 0, "code": 1})
@@ -131,8 +135,29 @@ def track_major(courses):
                         group["courses"].remove(req)
                         group["choose"] -= 1
                         break
-def ger_fulfilled(courses):
-    for course in courses:
+def ger_fulfilled(incoming_courses, emory_courses, countic):
+    fw_fulfilled = False
+    ic_fulfilled = False
+    for course in incoming_courses:
+        c = getridofZ(course)
+        query = {"code": c}
+        result = col.find_one(query, {"_id": 0, "ger": 1})
+        result2 = col2.find_one(query, {"_id": 0, "ger": 1})
+        ger_tags = None
+        if result and result.get("ger"):
+            ger_tags = result.get("ger")
+        elif result2 and result2.get("ger"):
+            ger_tags = result2.get("ger")
+        if not ger_tags:
+            continue
+        if not fw_fulfilled and "FW" in ger_tags and Blue_GER["FW"] > 0:
+            Blue_GER["FW"] -= 1
+            fw_fulfilled = True
+        if countic and not ic_fulfilled and "IC" in ger_tags and Blue_GER["IC"] > 0:
+            Blue_GER["IC"] -= 1
+            ic_fulfilled = True
+        
+    for course in emory_courses:
         query = {"code": course}
         result = col.find_one(query, {"_id": 0, "ger": 1})
         result2 = col2.find_one(query, {"_id": 0, "ger": 1})
@@ -145,6 +170,7 @@ def ger_fulfilled(courses):
                 for ger in result2["ger"]:
                     if ger in Blue_GER and Blue_GER[ger] > 0:
                         Blue_GER[ger] -= 1
+
 def ger_needed_soon(year, term): ## year = Freshman, Sophomore, Junior, Senior & term = Fall, Spring
     due_ger = []
     if year == "Freshman" and term == "Fall":
@@ -160,7 +186,8 @@ def ger_needed_soon(year, term): ## year = Freshman, Sophomore, Junior, Senior &
     due_ger = [g for g in due_ger if Blue_GER[g] > 0]
     return due_ger
 # main function to get major_left, ger_due, ger_left
-def track_grad(incoming_courses, emory_courses, year, term):
+def track_grad(incoming_courses, emory_courses, year, term, countic):
+    incoming_courses = [getridofZ(course) for course in incoming_courses]
     courses = incoming_courses + emory_courses
     ger_due = []
     ger_left = []
@@ -172,7 +199,7 @@ def track_grad(incoming_courses, emory_courses, year, term):
         if group["choose"] > 0
     ]
     # major_left = major_must + major_elec
-    ger_fulfilled(courses)
+    ger_fulfilled(incoming_courses, emory_courses, countic)
     ger_due_tags = ger_needed_soon(year, term)
     for ger, count in Blue_GER.items():
         if ger in ger_due_tags:
@@ -198,7 +225,7 @@ def track_grad(incoming_courses, emory_courses, year, term):
  #   print(f"  - Choose {req['choose']} from: {', '.join(req['courses'])}")
 # print("Check GERs needed soon:")
 # print(ger_needed_soon(courses, "Sophomore", "Spring"))
-major_must, major_elec, ger_due, ger_left = track_grad(incoming_courses, emory_courses, "Sophomore", "Spring")
+major_must, major_elec, ger_due, ger_left = track_grad(incoming_courses, emory_courses, "Sophomore", "Spring", True)
 print("major_must:")
 pprint(major_must)
 print("\nmajor_elec:")

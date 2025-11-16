@@ -155,20 +155,25 @@ def normalize_name_for_match(name: Optional[str]) -> Optional[str]:
 
 DAY_TOKENS = ["Th", "M", "T", "W", "F"]  # order matters; match 'Th' before 'T'
 
-def _parse_time_component(t: str) -> int:
-    """Return minutes from midnight for '8:30am', '1pm', '11:15am', '7pm'."""
+def _parse_time_component(t):
     t = t.strip().lower()
+
+    # Example match: "10:00am", "2pm", "11:15 pm"
     m = re.match(r"^(\d{1,2})(?::(\d{2}))?\s*(am|pm)$", t)
     if not m:
-        return -1
-    hh = int(m.group(1))
-    mm = int(m.group(2) or 0)
-    ap = m.group(3)
-    if hh == 12:
-        hh = 0
-    if ap == "pm":
-        hh += 12
-    return hh * 60 + mm
+        return None  # return None instead of -1
+
+    hour = int(m.group(1))
+    minute = int(m.group(2) or 0)
+    ampm = m.group(3)
+
+    # Convert to 24-hour scale
+    if hour == 12:
+        hour = 0
+    if ampm == "pm":
+        hour += 12
+
+    return hour * 60 + minute
 
 def parse_meeting_time(time_str: Optional[str]) -> Dict[str, Any]:
     """
