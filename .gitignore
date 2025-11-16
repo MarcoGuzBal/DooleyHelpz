@@ -15,6 +15,7 @@ __pycache__/
 node_modules/
 .venv/
 venv/
+.env
 
 # editor settings
 .vscode/
