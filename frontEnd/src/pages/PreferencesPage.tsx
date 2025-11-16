@@ -28,10 +28,11 @@ type PreferencesPayload = {
   degreeType: DegreeType | "";
   //major: string; // you can restrict later if you have a list
   year: Year | "";
-  expectedGraduation: { month: string; year: string };
+  expectedGraduation: { semester: string; year: string };
   preferredCredits: number | ""; // store as string while typing; coerce on submit
   interests: Interests[];
   timeUnavailable: TimeBlock[];
+  timePreference?: [string, string] | null;
   priorityOrder: PriorityKey[];
 };
 
@@ -52,6 +53,9 @@ export default function PreferencesPage() {
   const [tempStart, setTempStart] = useState<string>("");
   const [tempEnd, setTempEnd] = useState<string>("");
   const [unavailable, setUnavailable] = useState<TimeBlock[]>([]);
+
+  const [earliest, setEarliest] = useState<string>("");
+  const [latest, setLatest] = useState<string>("");
 
   // Priority
   const [priorityOrder, setPriorityOrder] = useState<PriorityKey[]>([...PRIORITY_KEYS]);
@@ -101,10 +105,11 @@ export default function PreferencesPage() {
     const payload: PreferencesPayload = {
       degreeType,
       year,
-      expectedGraduation: { month: gradMonth, year: gradYear },
+      expectedGraduation: { semester: gradMonth, year: gradYear },
       preferredCredits: n,
       interests: interestList,
       timeUnavailable: unavailable,
+      timePreference: (earliest && latest) ? [earliest, latest] : null,
       priorityOrder,
     };
 
@@ -166,14 +171,14 @@ export default function PreferencesPage() {
       <fieldset className="border border-gray-200 rounded p-3">
         <legend className="font-semibold">Expected Graduation</legend>
         <div className="flex flex-wrap items-center gap-3">
-          <label className="font-medium">Month</label>
+          <label className="font-medium">Semester</label>
           <select
             value={gradMonth}
             onChange={(e)=>setGradMonth(e.target.value)}
             className="border border-gray-300 rounded p-2 w-24"
           >
-            <option value="">MM</option>
-            {["01","02","03","04","05","06","07","08","09","10","11","12"].map(m =>
+            <option value=""></option>
+            {["Spring", "Fall"].map(m =>
               <option key={m} value={m}>{m}</option>
             )}
           </select>
@@ -264,6 +269,27 @@ export default function PreferencesPage() {
             </li>
           ))}
         </ul>
+      </fieldset>
+
+      {/* Time Preference */}
+      <fieldset className="border border-gray-200 rounded p-3">
+        <legend className="font-semibold">Earliest and Latest Class:</legend>
+        <div className="flex items-center gap-2 mb-2">
+          <label className="font-medium">Earliest</label>
+          <input
+            type="time"
+            value={earliest}
+            onChange={(e)=>setEarliest(e.target.value)}
+            className="border border-gray-300 rounded p-2"
+          />
+          <label className="font-medium">Latest</label>
+          <input
+            type="time"
+            value={latest}
+            onChange={(e)=>setLatest(e.target.value)}
+            className="border border-gray-300 rounded p-2"
+          />
+        </div>
       </fieldset>
 
       {/* Ranking (↑/↓) */}
