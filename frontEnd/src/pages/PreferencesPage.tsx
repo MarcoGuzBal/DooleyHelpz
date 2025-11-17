@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { getOrCreateSharedId } from "../utils/anonID"; 
+
 /* ------------------------ Helper Types ------------------------- */
 const DEGREE_TYPES = ["BS", "BA"] as const;  
 type DegreeType = typeof DEGREE_TYPES[number];
@@ -34,6 +36,7 @@ type PreferencesPayload = {
   timeUnavailable: TimeBlock[];
   timePreference?: [string, string] | null;
   priorityOrder: PriorityKey[];
+  shared_id?: number;
 };
 
 export default function PreferencesPage() {
@@ -111,11 +114,9 @@ export default function PreferencesPage() {
       timeUnavailable: unavailable,
       timePreference: (earliest && latest) ? [earliest, latest] : null,
       priorityOrder,
+      shared_id: getOrCreateSharedId(),
     };
-
-    console.log("SUBMIT", payload);
-    alert("Saved! Check console for JSON output.");
-
+    
     // send to backend
     fetch("http://localhost:5001/api/preferences", {
       method: "POST",

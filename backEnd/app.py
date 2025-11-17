@@ -11,11 +11,8 @@ CORS(app)
 
 load_dotenv()
 uri = os.getenv("MONGODB_URI")
-print("MONGO URI repr:", repr(uri))
 
-# 2. connect to MongoDB
 client = MongoClient(uri) #cluster
-print("created client", client)  
 
 db = client["Users"] # database
 user_col = db['TestUsers']
@@ -40,7 +37,14 @@ def userCourses():
 
     print("Received JSON data:", data)
     try:
-        user_col.insert_one(data)
+        # attach or generate a shared_id so this submission can be linked
+        shared_id = None
+        if isinstance(data, dict):
+            shared_id = data.get("shared_id")
+
+        course_col.insert_one({
+            "payload": last_userCourses,
+        })
     except Exception as e:
         print(e)
         return {"error": "Failed to save data"}, 500
@@ -48,7 +52,8 @@ def userCourses():
     # Return a success response with the received fields
     return {
         "message": "Preferences received successfully!",
-        "received_fields": list(data.keys()),  # Return the list of received fields
+        "received_fields": list(data.keys()) if isinstance(data, dict) else [],
+        "shared_id": shared_id,
     }, 200
     
 @app.route("/api/userCourses", methods=["GET"])
@@ -68,6 +73,10 @@ def userPreferences():
     print("Received JSON data:", data)
     
     try:
+        shared_id = None
+        if isinstance(data, dict):
+            shared_id = data.get("shared_id")
+
         pref_col.insert_one(data)
     except Exception as e:
         print(e)
@@ -75,12 +84,11 @@ def userPreferences():
     global last_preferences
     last_preferences = data if isinstance(data, dict) else {"value": data}
     
-    
-    
     # Return a success response with the received fields
     return {
         "message": "Preferences received successfully!",
-        "received_fields": list(data.keys()),  # Return the list of received fields
+        "received_fields": list(data.keys()) if isinstance(data, dict) else [],
+        "shared_id": shared_id,
     }, 200
     
 @app.route("/api/preferences", methods=["GET"])
