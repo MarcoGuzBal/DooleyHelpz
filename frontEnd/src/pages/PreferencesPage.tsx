@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { getOrCreateSharedId } from "../utils/anonID"; 
+
 /* ------------------------ Helper Types ------------------------- */
 const DEGREE_TYPES = ["BS", "BA"] as const;  
 type DegreeType = typeof DEGREE_TYPES[number];
@@ -28,11 +30,13 @@ type PreferencesPayload = {
   degreeType: DegreeType | "";
   //major: string; // you can restrict later if you have a list
   year: Year | "";
-  expectedGraduation: { month: string; year: string };
+  expectedGraduation: { semester: string; year: string };
   preferredCredits: number | ""; // store as string while typing; coerce on submit
   interests: Interests[];
   timeUnavailable: TimeBlock[];
+  timePreference?: [string, string] | null;
   priorityOrder: PriorityKey[];
+  shared_id?: number;
 };
 
 export default function PreferencesPage() {
@@ -53,11 +57,14 @@ export default function PreferencesPage() {
   const [tempEnd, setTempEnd] = useState<string>("");
   const [unavailable, setUnavailable] = useState<TimeBlock[]>([]);
 
+  const [earliest, setEarliest] = useState<string>("");
+  const [latest, setLatest] = useState<string>("");
+
   // Priority
   const [priorityOrder, setPriorityOrder] = useState<PriorityKey[]>([...PRIORITY_KEYS]);
 
   // holds the submitted preferences (null until user submits)
-  const [submittedPayload, setSubmittedPayload] = useState<PreferencesPayload | null>(null);
+  //const [submittedPayload, setSubmittedPayload] = useState<PreferencesPayload | null>(null);
 
   /* ----------------------- Utility Functions --------------------- */
   function toggleInterest(x: Interests){
@@ -97,20 +104,21 @@ export default function PreferencesPage() {
     if (!year) return alert("Please select your year");
     if (!gradMonth || !gradYear) return alert("Please set your expected graduation date");
     if (isNaN(n) || n < min || n > 22) return alert(`Credits must be between ${min} and 22`);
+    if (!earliest || !latest) return alert("Must select an Earliest and Latest Time");
+    if (earliest >= latest) return alert("Earliest time must be before Latest time");
 
     const payload: PreferencesPayload = {
       degreeType,
       year,
-      expectedGraduation: { month: gradMonth, year: gradYear },
+      expectedGraduation: { semester: gradMonth, year: gradYear },
       preferredCredits: n,
       interests: interestList,
       timeUnavailable: unavailable,
+      timePreference: (earliest && latest) ? [earliest, latest] : null,
       priorityOrder,
+      shared_id: getOrCreateSharedId(),
     };
-
-    console.log("SUBMIT", payload);
-    alert("Saved! Check console for JSON output.");
-
+    
     // send to backend
     fetch("http://localhost:5001/api/preferences", {
       method: "POST",
@@ -120,8 +128,9 @@ export default function PreferencesPage() {
       .then(async (res) => {
         const body = await res.json().catch(() => null);
         if (!res.ok) throw body || new Error("Server error");
+        alert("Success");
         // show the saved payload in the UI (use server response if desired)
-        setSubmittedPayload(payload);
+        //setSubmittedPayload(payload);
       })
       .catch((err) => {
         console.error("Save failed", err);
@@ -166,14 +175,14 @@ export default function PreferencesPage() {
       <fieldset className="border border-gray-200 rounded p-3">
         <legend className="font-semibold">Expected Graduation</legend>
         <div className="flex flex-wrap items-center gap-3">
-          <label className="font-medium">Month</label>
+          <label className="font-medium">Semester</label>
           <select
             value={gradMonth}
             onChange={(e)=>setGradMonth(e.target.value)}
             className="border border-gray-300 rounded p-2 w-24"
           >
-            <option value="">MM</option>
-            {["01","02","03","04","05","06","07","08","09","10","11","12"].map(m =>
+            <option value=""></option>
+            {["Spring", "Fall"].map(m =>
               <option key={m} value={m}>{m}</option>
             )}
           </select>
@@ -266,6 +275,27 @@ export default function PreferencesPage() {
         </ul>
       </fieldset>
 
+      {/* Time Preference */}
+      <fieldset className="border border-gray-200 rounded p-3">
+        <legend className="font-semibold">Earliest and Latest Class:</legend>
+        <div className="flex items-center gap-2 mb-2">
+          <label className="font-medium">Earliest</label>
+          <input
+            type="time"
+            value={earliest}
+            onChange={(e)=>setEarliest(e.target.value)}
+            className="border border-gray-300 rounded p-2"
+          />
+          <label className="font-medium">Latest</label>
+          <input
+            type="time"
+            value={latest}
+            onChange={(e)=>setLatest(e.target.value)}
+            className="border border-gray-300 rounded p-2"
+          />
+        </div>
+      </fieldset>
+
       {/* Ranking (↑/↓) */}
       <fieldset className="border border-gray-200 rounded p-3">
         <legend className="font-semibold">Order of Importance (1 = most important)</legend>
@@ -298,13 +328,13 @@ export default function PreferencesPage() {
         Save
       </button>
       
-      {/* JSON preview — only visible after a successful submit */}
+      {/* JSON preview — only visible after a successful submit
       <div className="mt-6">
         <h3 className="font-semibold">Saved Preferences (JSON)</h3>
         <pre className="bg-gray-100 p-3 rounded overflow-auto text-sm">
           {submittedPayload ? JSON.stringify(submittedPayload, null, 2) : "No saved preferences yet."}
         </pre>
-      </div>
+      </div> */}
     </form>
   );
 }

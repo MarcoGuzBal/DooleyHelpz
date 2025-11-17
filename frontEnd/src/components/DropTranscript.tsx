@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Upload, FileText, Clock, CheckCircle2, AlertCircle, Send } from "lucide-react";
 import { Link } from "react-router-dom";
+import { getOrCreateSharedId } from "../utils/anonID"; 
 
 // Logo
 import applogo from "../assets/dooleyHelpzAppLogo.png";
@@ -92,18 +93,23 @@ export default function TranscriptParserPage() {
   async function sendToBackendSeparated(
     incoming_transfer_courses: string[],
     incoming_test_courses: string[],
-    emory_courses: string[]
+    emory_courses: string[],
+    shared_id?: number
   ) {
     try {
       setPosting(true);
       setPostedOk(null);
       setPostError(null);
 
+      const idToSend = shared_id ?? getOrCreateSharedId();
+
+
       const res = await fetch("http://localhost:5001/api/userCourses", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ incoming_transfer_courses, incoming_test_courses, emory_courses }),
+        body: JSON.stringify({ incoming_transfer_courses, incoming_test_courses, emory_courses, shared_id: idToSend }),
       });
+
 
       setPostedOk(res.ok);
       if (!res.ok) {
@@ -182,7 +188,7 @@ export default function TranscriptParserPage() {
       setExtractError("We couldn’t read that PDF. If it’s a scanned image, export a text-based PDF first.");
     } finally {
       setIsExtracting(false);
-      e.currentTarget.value = "";
+      //e.currentTarget.value = "";
     }
   }
 
@@ -206,13 +212,17 @@ export default function TranscriptParserPage() {
       setPostError("No courses selected.");
       return;
     }
-    sendToBackendSeparated(incoming_transfer_courses, incoming_test_courses, emory_courses);
+    const shared_id = getOrCreateSharedId();
 
     setSubmittedPayload({
       incoming_transfer_courses,
       incoming_test_courses,
       emory_courses,
+      shared_id
     });
+
+    sendToBackendSeparated(incoming_transfer_courses, incoming_test_courses, emory_courses, shared_id);
+
   }
 
   // --- Small UI helpers ---

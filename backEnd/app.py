@@ -12,9 +12,12 @@ CORS(app)
 load_dotenv()
 uri = os.getenv("MONGODB_URI")
 
-# 2. connect to MongoDB
 client = MongoClient(uri) #cluster
-print("created client")  
+
+db = client["Users"] # database
+user_col = db['TestUsers']
+course_col = db['TestCourses']
+pref_col = db['TestPreferences']
 
 last_userCourses = None
 last_preferences = None
@@ -33,12 +36,24 @@ def userCourses():
     last_userCourses = data if isinstance(data, dict) else {"value": data}
 
     print("Received JSON data:", data)
+    try:
+        # attach or generate a shared_id so this submission can be linked
+        shared_id = None
+        if isinstance(data, dict):
+            shared_id = data.get("shared_id")
+
+        course_col.insert_one(last_userCourses)
+    except Exception as e:
+        print(e)
+        return {"error": "Failed to save data"}, 500
 
     # Return a success response with the received fields
     return {
         "message": "Preferences received successfully!",
-        "received_fields": list(data.keys()),  # Return the list of received fields
+        "received_fields": list(data.keys()) if isinstance(data, dict) else [],
+        "shared_id": shared_id,
     }, 200
+    
 @app.route("/api/userCourses", methods=["GET"])
 def viewUserCourses():
     if last_userCourses is None:
@@ -54,13 +69,24 @@ def userPreferences():
     data = request.get_json(silent=True)
     
     print("Received JSON data:", data)
+    
+    try:
+        shared_id = None
+        if isinstance(data, dict):
+            shared_id = data.get("shared_id")
+
+        pref_col.insert_one(data)
+    except Exception as e:
+        print(e)
+        return {"error": "Failed to save data"}, 500
     global last_preferences
     last_preferences = data if isinstance(data, dict) else {"value": data}
-
+    
     # Return a success response with the received fields
     return {
         "message": "Preferences received successfully!",
-        "received_fields": list(data.keys()),  # Return the list of received fields
+        "received_fields": list(data.keys()) if isinstance(data, dict) else [],
+        "shared_id": shared_id,
     }, 200
     
 @app.route("/api/preferences", methods=["GET"])
