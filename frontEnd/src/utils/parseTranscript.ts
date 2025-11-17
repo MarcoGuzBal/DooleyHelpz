@@ -1,134 +1,152 @@
-// src/utils/parseTranscript.ts
-export type ParsedCourse = {
-    dept: string | null;
-    number: string;
-    name: string;
-    grade: string;       // "A", "A-", "S", "IN", etc.
-    inProgress?: boolean;
-  };
-  
-  export type ParseResult = { courses: ParsedCourse[]; unparsed: string[] };
-  
-  export function parseTranscript(rawText: string): ParseResult {
-    const normalizeSpaces = (s: string) => (s || "").replace(/\s+/g, " ").trim();
-    const stripCourseTopic = (s: string) => s.replace(/\s+Course\s+Topic:.*$/i, "").trim();
-  
-    const gradeRe = /(?:[A-F][+\-]?|P|S|U|I|W|T|NR|IP)/;
-    const summaryLike =
-      /(Attempted|Earned|GPA|Units|Points|Term\s+GPA|Totals|Transfer\s+Totals|Combined|Cum\s+GPA|Program:|Plan:|Major\b|Beginning of Academic Record|End of Advising Document)/i;
-    const isTransferish = (s: string) => /Incoming\s+Course|Transferred\s+to\s+Term/i.test(s);
-  
-    const lines = (rawText || "").replace(/\r/g, "\n").split(/\n/).map(l => l.trim()).filter(Boolean);
-    const flatOne = normalizeSpaces(lines.join(" "));
-  
-    const registrar: ParsedCourse[] = [];
-    const tableOnly: ParsedCourse[] = [];
-    const unparsed: string[] = [];
-  
-    // ---------- A) Registrar chunks (authoritative) ----------
-    // ✅ FIX A: require a word boundary before dept so we don't split inside BUS/ECON/etc.
-    const chunks = flatOne
-      .split(/(?=(?:\b[A-Z&]{2,6}\s+\d{3,4}[A-Z]?)(?:\s|$))/g)
-      .map(s => s.trim())
-      .filter(Boolean);
-  
-    // with grade: DEPT NUM Title ... attempted earned GRADE points [Course Topic: ...]
-    const withGrade = new RegExp(
-      String.raw`^(?<dept>[A-Z&]{2,6})\s+(?<num>\d{3,4}[A-Z]?)\s+(?<title>.+?)\s+` +
-      String.raw`(?<att>\d+(?:\.\d+)?)\s+(?<earn>\d+(?:\.\d+)?)\s+` +
-      String.raw`(?<grade>${gradeRe.source})\s+(?<pts>\d+(?:\.\d+)?)` +
-      String.raw`(?:\s+Course\s+Topic:.*)?$`
-    );
-  
-    // ✅ FIX B: planned rows (no grade), end with points=0.000 (attempted can be 0.500/3.000/etc.)
-    const plannedLine = new RegExp(
-      String.raw`^(?<dept>[A-Z&]{2,6})\s+(?<num>\d{3,4}[A-Z]?)\s+(?<title>.+?)\s+` +
-      String.raw`(?<att>\d+(?:\.\d+)?)\s+(?<earn>\d+(?:\.\d+)?)\s+0\.000$`
-    );
-  
-    for (const rawChunk of chunks) {
-      if (summaryLike.test(rawChunk)) continue;
-      if (!/^[A-Z&]{2,6}\s+\d{3,4}[A-Z]?/.test(rawChunk)) continue;
-      if (isTransferish(rawChunk)) continue; // ignore transfer/AP
-  
-      const c = stripCourseTopic(rawChunk);
-  
-      let m = c.match(withGrade);
-      if (m?.groups) {
-        registrar.push({
-          dept: m.groups["dept"]!,
-          number: m.groups["num"]!,
-          name: normalizeSpaces(m.groups["title"] || ""),
-          grade: m.groups["grade"]!,
-        });
-        continue;
-      }
-  
-      // ✅ Always try planned match if no grade match
-      m = c.match(plannedLine);
-      if (m?.groups) {
-        registrar.push({
-          dept: m.groups["dept"]!,
-          number: m.groups["num"]!,
-          name: normalizeSpaces(m.groups["title"] || ""),
-          grade: "IN",
-          inProgress: true,
-        });
-        continue;
-      }
-  
-      unparsed.push(c);
-    }
-  
-    // ---------- B) Simple table (fallback) ----------
-    let inSimple = false;
-    for (const line of lines) {
-      if (/^number\s+course\s+grade$/i.test(line)) { inSimple = true; continue; }
-      if (inSimple) {
-        if (!line || /^[A-Z]{2,}\b/.test(line)) { inSimple = false; continue; }
-        const m =
-          line.match(new RegExp(String.raw`^(?<num>\d{3,4}[A-Z]?)\s+(?<title>.+?)\s+(?<grade>${gradeRe.source}|IN)$`))
-          || (() => {
-               const parts = line.split(/\s+/);
-               if (parts.length >= 3) {
-                 const g = parts[parts.length - 1];
-                 if (new RegExp(`^(?:${gradeRe.source}|IN)$`).test(g)) {
-                   const num = parts[0];
-                   const title = parts.slice(1, -1).join(" ");
-                   if (/^\d{3,4}[A-Z]?$/.test(num)) return { groups: { num, title, grade: g } } as any;
-                 }
-               }
-               return null;
-             })();
-  
-        if (m?.groups) {
-          tableOnly.push({
-            dept: null,
-            number: m.groups["num"]!,
-            name: (m.groups["title"] || "").trim(),
-            grade: m.groups["grade"]!,
-          });
-        } else {
-          unparsed.push(line);
-        }
-      }
-    }
-  
-    // ---------- C) Prefer registrar rows; add table rows only if new ----------
-    const normTitle = (s: string) => normalizeSpaces(s).toLowerCase();
-    const keyOf = (c: ParsedCourse) => `${c.dept ?? ""}|${c.number}|${normTitle(c.name)}|${c.grade}|${c.inProgress ? "1" : "0"}`;
-  
-    const seen = new Set<string>();
-    const merged: ParsedCourse[] = [];
-    for (const c of registrar) { const k = keyOf(c); if (!seen.has(k)) { seen.add(k); merged.push(c); } }
-    for (const c of tableOnly) { const k = keyOf(c); if (!seen.has(k)) { seen.add(k); merged.push(c); } }
-  
-    return { courses: merged, unparsed };
-  }
-  
-  
-  
-  
+export type ParseResult = {
+  incoming_transfer_courses: string[]; // from "Transfer Credits" → "... as DEPT NUM[SUF] ... T"
+  incoming_test_courses: string[];     // from "Test Credits" → "... as DEPT NUM[SUF] ... T"
+  emory_courses: string[];             // from "Beginning of Academic Record", filtered by grade
+};
 
+export function parseTranscript(rawText: string): ParseResult {
+  if (!rawText) {
+    return {
+      incoming_transfer_courses: [],
+      incoming_test_courses: [],
+      emory_courses: [],
+    };
+  }
+
+  // --- Normalize ---
+  const text = String(rawText)
+    .replace(/\r/g, " ")
+    .replace(/\n/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const lower = text.toLowerCase();
+
+  // --- Anchor positions (case-insensitive) ---
+  const transferIdx  = lower.indexOf("transfer credits");
+  const testIdx      = lower.indexOf("test credits");
+  const academicIdx  = lower.indexOf("beginning of academic record");
+
+  // Helper: slice a section that starts at `start` and ends at the nearest subsequent anchor
+  function sliceSection(start: number): string {
+    if (start < 0) return "";
+    const ends: number[] = [];
+    if (transferIdx >= 0 && transferIdx > start) ends.push(transferIdx);
+    if (testIdx >= 0 && testIdx > start) ends.push(testIdx);
+    if (academicIdx >= 0 && academicIdx > start) ends.push(academicIdx);
+    const end = ends.length ? Math.min(...ends) : text.length;
+    return text.slice(start, end);
+  }
+
+  const transferSection = sliceSection(transferIdx); // only Transfer block
+  const testSection     = sliceSection(testIdx);     // only Test block
+  const academicSection = academicIdx >= 0 ? text.slice(academicIdx) : "";
+
+  // --- Patterns ---
+  // Course code: DEPT + number + optional suffix (e.g., QTM 999XFR, CHEM 150L, SPAN 302W, MATH 112Z)
+  const codeRe = /\b([A-Z&]{2,6})\s+(\d{3,4})([A-Z]{0,3})\b/g;
+
+  // Accept only likely course numbers (filters out MAC 2022 / MIC 2022, etc.)
+  function isLikelyCourse(_dept: string, numStr: string, suf: string): boolean {
+    const n = parseInt(numStr, 10);
+    // 3-digit standard undergrad, allow 100–699
+    if (numStr.length === 3) {
+      if (n === 999) return suf === "XFR"; // special case: 999XFR only
+      return n >= 100 && n <= 699;
+    }
+    // reject 4-digit numbers (years) by default
+    return false;
+  }
+
+  // Does "as" appear right before this code occurrence?
+  function hasAsBefore(hay: string, codeStartIdx: number): boolean {
+    const windowStart = Math.max(0, codeStartIdx - 40);
+    const snippet = hay.slice(windowStart, codeStartIdx).toLowerCase();
+    // tolerate extra spaces
+    return /\bas\s*$/.test(snippet.trimEnd()) || snippet.includes(" as ");
+  }
+
+  // Academic grade tokens
+  const gradeTokenRe = /\b(W|S|U|F|[A-D][+-]?)\b/;
+  function isFailOrWithdraw(grade: string): boolean {
+    const g = grade.toUpperCase();
+    if (g === "W" || g === "U" || g === "F") return true;
+    if (g === "D" || g === "D+" || g === "D-") return true; // below C-
+    return false;
+  }
+
+  // Extract destination codes from an "incoming" section (Transfer or Test)
+  function extractIncoming(section: string): string[] {
+    if (!section) return [];
+    const out = new Set<string>();
+    let m: RegExpExecArray | null;
+    while ((m = codeRe.exec(section)) !== null) {
+      const dept = m[1];
+      const num  = m[2];
+      const suf  = m[3] || "";
+      if (!isLikelyCourse(dept, num, suf)) continue;
+
+      const code = `${dept}${num}${suf}`;
+      const codeStart = m.index;
+
+      // Destination codes usually satisfy:
+      //  (a) immediately follows "as", or
+      //  (b) followed soon by a standalone 'T' (transfer notation)
+      const afterAs = hasAsBefore(section, codeStart);
+
+      const lookaheadStart = codeRe.lastIndex;
+      const lookaheadEnd = Math.min(lookaheadStart + 120, section.length);
+      const windowText = section.slice(lookaheadStart, lookaheadEnd);
+      const hasT = /\bT\b/.test(windowText);
+
+      if (afterAs || hasT) out.add(code);
+    }
+    return Array.from(out);
+  }
+
+  // Extract Emory courses from the academic section with grade filtering
+  function extractEmory(section: string): string[] {
+    if (!section) return [];
+    const out = new Set<string>();
+    let m: RegExpExecArray | null;
+    while ((m = codeRe.exec(section)) !== null) {
+      const dept = m[1];
+      const num  = m[2];
+      const suf  = m[3] || "";
+      if (!isLikelyCourse(dept, num, suf)) continue;
+
+      const code = `${dept}${num}${suf}`;
+      const lookaheadStart = codeRe.lastIndex;
+      const lookaheadEnd = Math.min(lookaheadStart + 120, section.length);
+      const windowText = section.slice(lookaheadStart, lookaheadEnd);
+      const gradeMatch = windowText.match(gradeTokenRe);
+
+      if (gradeMatch) {
+        const g = gradeMatch[1];
+        if (!isFailOrWithdraw(g)) out.add(code);
+      } else {
+        // In-progress (no grade token yet) → include
+        out.add(code);
+      }
+    }
+    return Array.from(out);
+  }
+
+  const incoming_transfer_courses = extractIncoming(transferSection);
+  const incoming_test_courses     = extractIncoming(testSection);
+
+  const incomingAllSet = new Set<string>([
+    ...incoming_transfer_courses,
+    ...incoming_test_courses,
+  ]);
+
+  let emory_courses = extractEmory(academicSection)
+    .filter((c) => !incomingAllSet.has(c)); // defensive de-dupe vs incoming
+
+  return {
+    incoming_transfer_courses,
+    incoming_test_courses,
+    emory_courses,
+  };
+}
 
 
