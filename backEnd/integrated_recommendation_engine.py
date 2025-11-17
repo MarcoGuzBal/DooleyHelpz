@@ -1,8 +1,3 @@
-"""
-DooleyHelpz Integrated Recommendation Engine
-Combines Fibonacci Heap with actual major/GER tracking
-"""
-
 import re
 from typing import Dict, List, Set, Optional, Tuple
 from fibonacci_heap import FibonacciHeap
