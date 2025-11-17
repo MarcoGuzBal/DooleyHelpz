@@ -64,7 +64,7 @@ export default function PreferencesPage() {
   const [priorityOrder, setPriorityOrder] = useState<PriorityKey[]>([...PRIORITY_KEYS]);
 
   // holds the submitted preferences (null until user submits)
-  const [submittedPayload, setSubmittedPayload] = useState<PreferencesPayload | null>(null);
+  //const [submittedPayload, setSubmittedPayload] = useState<PreferencesPayload | null>(null);
 
   /* ----------------------- Utility Functions --------------------- */
   function toggleInterest(x: Interests){
@@ -104,6 +104,8 @@ export default function PreferencesPage() {
     if (!year) return alert("Please select your year");
     if (!gradMonth || !gradYear) return alert("Please set your expected graduation date");
     if (isNaN(n) || n < min || n > 22) return alert(`Credits must be between ${min} and 22`);
+    if (!earliest || !latest) return alert("Must select an Earliest and Latest Time");
+    if (earliest >= latest) return alert("Earliest time must be before Latest time");
 
     const payload: PreferencesPayload = {
       degreeType,
@@ -126,8 +128,9 @@ export default function PreferencesPage() {
       .then(async (res) => {
         const body = await res.json().catch(() => null);
         if (!res.ok) throw body || new Error("Server error");
+        alert("Success");
         // show the saved payload in the UI (use server response if desired)
-        setSubmittedPayload(payload);
+        //setSubmittedPayload(payload);
       })
       .catch((err) => {
         console.error("Save failed", err);

@@ -42,9 +42,7 @@ def userCourses():
         if isinstance(data, dict):
             shared_id = data.get("shared_id")
 
-        course_col.insert_one({
-            "payload": last_userCourses,
-        })
+        course_col.insert_one(last_userCourses)
     except Exception as e:
         print(e)
         return {"error": "Failed to save data"}, 500

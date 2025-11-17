@@ -101,13 +101,15 @@ export default function TranscriptParserPage() {
       setPostedOk(null);
       setPostError(null);
 
-      const shared_id = getOrCreateSharedId();
+      const idToSend = shared_id ?? getOrCreateSharedId();
+
 
       const res = await fetch("http://localhost:5001/api/userCourses", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ incoming_transfer_courses, incoming_test_courses, emory_courses, shared_id }),
+        body: JSON.stringify({ incoming_transfer_courses, incoming_test_courses, emory_courses, shared_id: idToSend }),
       });
+
 
       setPostedOk(res.ok);
       if (!res.ok) {
