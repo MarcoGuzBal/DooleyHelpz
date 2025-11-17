@@ -268,7 +268,7 @@ export default function TranscriptParserPage() {
         <p className="mb-6 text-zinc-600">
           Upload a <strong>.pdf</strong> transcript. We’ll preview the first page and extract{" "}
           <strong>course codes</strong> locally. Click codes to toggle validity (green = include,
-          red = exclude), then submit to save.
+          red = exclude)(you can choose to exclude classes that you have failed, withdrawn, or feel that you will fail), then submit to save.
         </p>
 
         {/* ===== Upload Section (PDF only) ===== */}

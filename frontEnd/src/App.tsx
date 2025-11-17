@@ -7,13 +7,14 @@ import { auth } from "./firebase";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage"
-import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DropTranscript from "./components/DropTranscript";
 import PreferencesPage from "./pages/PreferencesPage";
+import DashBoardPageOLI from "./pages/DashBoardPageOLI";
+
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -44,6 +45,8 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/dash" element={<DashBoardPageOLI />} />
+          <Route path="/preferences" element={<PreferencesPage />} />
           <Route path="/dashboard" element={
             <ProtectedRoute isAuthed={!!currentUser}>
               <DashboardPage />
@@ -54,6 +57,7 @@ export default function App() {
 
           {/* wildcard for 404s */}
           <Route path="*" element={<h1>Not found</h1>} />
+          
         </Routes>
     </div>
   )
