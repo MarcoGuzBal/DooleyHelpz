@@ -1,197 +1,232 @@
 import os
-from flask import Flask, jsonify, request, 
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from pymongo import MongoClient
+from dotenv import load_dotenv
+import sys
+from pathlib import Path
 
 app = Flask(__name__)
 CORS(app)
 
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
-DB_NAME = os.getenv("DB_NAME", "dooleyhelpz")
-client = MongoClient(MONGO_URI)
-db = client[DB_NAME]
+load_dotenv()
+uri = os.getenv("MONGODB_URI")
 
-last_incoming_courses = []
-last_emory_courses = []
-last_all_courses = []
+client = MongoClient(uri)
 
-def validate_user_schema(data):
-    errors = []
-    
-    if "degree_type" in data and data["degree_type"] is not None:
-        if not isinstance(data["degree_type"], str):
-            errors.append("degree_type must be a string")
-    
-    if "major" not in data or data["major"] is None:
-        data["major"] = []
-    elif not isinstance(data["major"], list):
-        errors.append("major must be an array")
-    
-    if "minor" not in data or data["minor"] is None:
-        data["minor"] = []
-    elif not isinstance(data["minor"], list):
-        errors.append("minor must be an array")
-    
-    if "year" in data and data["year"] is not None:
-        if not isinstance(data["year"], (int, str)):
-            errors.append("year must be an integer or string")
-    
-    if "expected_grad_term" in data and data["expected_grad_term"] is not None:
-        if not isinstance(data["expected_grad_term"], str):
-            errors.append("expected_grad_term must be a string")
-    
-    if "preference_order" not in data or data["preference_order"] is None:
-        data["preference_order"] = []
-    elif not isinstance(data["preference_order"], list):
-        errors.append("preference_order must be an array")
-    
-    if "interest_tags" not in data or data["interest_tags"] is None:
-        data["interest_tags"] = []
-    elif not isinstance(data["interest_tags"], list):
-        errors.append("interest_tags must be an array")
-    
-    if "transcript" not in data or data["transcript"] is None:
-        data["transcript"] = {
-            "expected_grad_year": None,
-            "courses": []
-        }
-    elif not isinstance(data["transcript"], dict):
-        errors.append("transcript must be an object")
-    else:
-        transcript = data["transcript"]
-        
-        if "expected_grad_year" not in transcript:
-            transcript["expected_grad_year"] = None
-        elif transcript["expected_grad_year"] is not None:
-            if not isinstance(transcript["expected_grad_year"], (int, str)):
-                errors.append("transcript.expected_grad_year must be an integer or string")
-        
-        if "courses" not in transcript or transcript["courses"] is None:
-            transcript["courses"] = []
-        elif not isinstance(transcript["courses"], list):
-            errors.append("transcript.courses must be an array")
-    
-    return data, errors
+# User data collections
+users_db = client["Users"]
+user_col = users_db['TestUsers']
+course_col = users_db['TestCourses']
+pref_col = users_db['TestPreferences']
 
-def prereqs_ok(prereqs, have):
-    if not prereqs:
-        return True
-    for group in prereqs:
-        if not any(p in have for p in group):
-            return False
-    return True
+# Course data collections
+courses_db = client["DetailedCourses"]
+enriched_courses_col = courses_db["CoursesEnriched"]
+
+# Import the integrated recommendation engine
+sys.path.insert(0, str(Path(__file__).parent))
+
+try:
+    from integrated_recommendation_engine import generate_schedule_for_user
+    RECO_ENGINE_AVAILABLE = True
+    print("Loaded integrated recommendation engine with Fibonacci heap")
+except ImportError as e:
+    print(f"Could not load recommendation engine: {e}")
+    RECO_ENGINE_AVAILABLE = False
+
+# Cache for last submitted data
+last_userCourses = None
+last_preferences = None
+
 
 @app.route("/")
 def home():
-    return "Hello from Flask!"
+    return jsonify({
+        "message": "DooleyHelpz Backend API",
+        "version": "3.0 - Fibonacci Heap Edition",
+        "recommendation_engine": "available" if RECO_ENGINE_AVAILABLE else "unavailable",
+        "endpoints": {
+            "user_courses": "/api/userCourses (POST, GET)",
+            "preferences": "/api/preferences (POST, GET)",
+            "generate_schedule": "/api/generate-schedule (POST)",
+            "health": "/api/health (GET)"
+        }
+    })
+
+
+@app.route("/api/health")
+def health_check():
+    try:
+        users_db.command('ping')
+        courses_db.command('ping')
+        
+        return jsonify({
+            "status": "healthy",
+            "mongodb": "connected",
+            "recommendation_engine": "available" if RECO_ENGINE_AVAILABLE else "unavailable",
+            "collections": {
+                "user_courses": course_col.count_documents({}),
+                "user_preferences": pref_col.count_documents({}),
+                "enriched_courses": enriched_courses_col.count_documents({})
+            }
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "status": "unhealthy",
+            "error": str(e)
+        }), 500
+
 
 @app.route("/api/userCourses", methods=["POST"])
 def userCourses():
-    global last_incoming_courses, last_emory_courses, last_all_courses
+    global last_userCourses
+    
     if not request.is_json:
         return {"error": "Send JSON (Content-Type: application/json)."}, 400
+
     data = request.get_json(silent=True)
-    if data is None:
-        return {"error": "Bad JSON."}, 400
-    incoming = data.get("incoming_courses")
-    emory = data.get("emory_courses")
-    if incoming is not None or emory is not None:
-        if incoming is None:
-            incoming = []
-        if emory is None:
-            emory = []
-        # # Basic list checks (very simple)
-        # if type(incoming) is not list:
-        #     return {"error": "incoming_courses must be a list."}, 400
-        # if type(emory) is not list:
-        #     return {"error": "emory_courses must be a list."}, 400
-        last_incoming_courses = incoming
-        last_emory_courses = emory
-        last_all_courses = incoming + emory
-        return jsonify({
-            "message": "OK",
-            "counts": {
-                "incoming": len(incoming),
-                "emory": len(emory),
-                "total": len(last_all_courses)
-            },
-            "incoming_courses": incoming,
-            "emory_courses": emory
-        }), 200
+    last_userCourses = data if isinstance(data, dict) else {"value": data}
+
+    print("Received user courses:", data)
     
+    try:
+        shared_id = None
+        if isinstance(data, dict):
+            shared_id = data.get("shared_id")
+
+        result = course_col.insert_one(last_userCourses)
+        
+        return {
+            "message": "Courses received successfully!",
+            "received_fields": list(data.keys()) if isinstance(data, dict) else [],
+            "shared_id": shared_id,
+            "inserted_id": str(result.inserted_id)
+        }, 200
+        
+    except Exception as e:
+        print(f"Error saving courses: {e}")
+        return {"error": "Failed to save data"}, 500
+
+
 @app.route("/api/userCourses", methods=["GET"])
 def viewUserCourses():
-    return jsonify({
-        "message": "Last uploaded course list",
-        "all_courses": last_all_courses,
-        "emory_courses": last_emory_courses,
-        "incoming_courses": last_incoming_courses,
-    }), 200
+    if last_userCourses is None:
+        return {"message": "No courses saved yet."}, 404
+    return {"message": "Last saved courses", "userCourses": last_userCourses}, 200
 
-@app.route('/api/users/<username>', methods=['POST'])
-def upsert_user(username):
+
+@app.route("/api/preferences", methods=["POST"])
+def userPreferences():
+    global last_preferences
+    
+    if not request.is_json:
+        return {"error": "Send JSON (Content-Type: application/json)."}, 400
+
+    data = request.get_json(silent=True)
+    print("Received preferences:", data)
+    
     try:
-        payload = request.get_json()
-        if not payload:
-            return jsonify({"error": "No JSON data provided"}), 400
+        shared_id = None
+        if isinstance(data, dict):
+            shared_id = data.get("shared_id")
+
+        result = pref_col.insert_one(data)
+        last_preferences = data if isinstance(data, dict) else {"value": data}
         
-        validated_data, errors = validate_user_schema(payload)
-        if errors:
-            return jsonify({"error": "Validation failed", "details": errors}), 400
+        return {
+            "message": "Preferences received successfully!",
+            "received_fields": list(data.keys()) if isinstance(data, dict) else [],
+            "shared_id": shared_id,
+            "inserted_id": str(result.inserted_id)
+        }, 200
         
-        validated_data["username"] = username
+    except Exception as e:
+        print(f"Error saving preferences: {e}")
+        return {"error": "Failed to save data"}, 500
+
+
+@app.route("/api/preferences", methods=["GET"])
+def viewUserPreferences():
+    if last_preferences is None:
+        return {"message": "No preferences saved yet."}, 404
+    return {"message": "Last saved preferences", "preferences": last_preferences}, 200
+
+
+@app.route("/api/generate-schedule", methods=["POST"])
+def generate_schedule():
+    if not RECO_ENGINE_AVAILABLE:
+        return jsonify({
+            "success": False,
+            "error": "Recommendation engine not available."
+        }), 500
+    
+    try:
+        data = request.get_json()
+        shared_id = data.get("shared_id")
+        num_recommendations = data.get("num_recommendations", 15)
         
-        db.users.update_one(
-            {"username": username},
-            {"$set": validated_data},
-            upsert=True
+        if not shared_id:
+            return jsonify({
+                "success": False,
+                "error": "shared_id required"
+            }), 400
+        
+        result = generate_schedule_for_user(
+            shared_id=shared_id,
+            course_col=course_col,
+            pref_col=pref_col,
+            enriched_courses_col=enriched_courses_col,
+            num_recommendations=num_recommendations
         )
         
-        return '', 204
+        if result.get("success"):
+            return jsonify(result), 200
+        else:
+            return jsonify(result), 400
+            
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route('/api/users/<username>/eligible', methods=['GET'])
-def get_eligible(username):
-    try:
-        user = db.users.find_one({"username": username})
-        if not user:
-            return jsonify({"error": "User not found"}), 404
-        
-        have = set(user.get("transcript", {}).get("courses", []))
-        
-        eligible = []
-        blocked = {}
-        
-        for course in db.catalog.find({}):
-            code = course.get("code")
-            if not code or code in have:
-                continue
-            
-            exclusions = set(course.get("exclusions") or [])
-            if exclusions & have:
-                blocked[code] = "excluded"
-                continue
-            
-            if prereqs_ok(course.get("prereqs") or [], have):
-                eligible.append(code)
-            else:
-                blocked[code] = "missing_prereqs"
-        
-        eligible.sort()
-        
+        import traceback
+        traceback.print_exc()
         return jsonify({
-            "username": username,
-            "eligible": eligible,
-            "blocked": blocked
-        })
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+            "success": False,
+            "error": str(e)
+        }), 500
 
-@app.route('/api/health', methods=['GET'])
-def health():
-    return jsonify({"status": "ok"})
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({
+        "success": False,
+        "error": "Endpoint not found"
+    }), 404
+
+
+@app.errorhandler(500)
+def internal_error(error):
+    return jsonify({
+        "success": False,
+        "error": "Internal server error"
+    }), 500
+
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", "5001"))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    debug = os.getenv("FLASK_ENV", "development") == "development"
+    
+    print(f"\n{'='*60}")
+    print(f"Backend Server Starting")
+    print(f"Fibonacci Heap Edition")
+    print(f"{'='*60}")
+    print(f"Server: http://localhost:{port}")
+    print(f"Debug mode: {debug}")
+    print(f"MongoDB: Connected")
+    print(f"Recommendation Engine: {'Available' if RECO_ENGINE_AVAILABLE else 'Not Available'}")
+    print(f"\n Endpoints:")
+    print(f"  POST /api/userCourses       - Upload transcript data")
+    print(f"  POST /api/preferences        - Set preferences")
+    print(f"  POST /api/generate-schedule  - Generate recommendations")
+    print(f"  GET  /api/health             - Health check")
+    print(f"{'='*60}\n")
+    
+    app.run(host="0.0.0.0", port=port, debug=debug)
