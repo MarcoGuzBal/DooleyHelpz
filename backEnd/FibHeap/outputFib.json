@@ -1,0 +1,569 @@
+{
+  "user_profile": {
+    "degree_type": "BS",
+    "major": "Computer Science",
+    "year": "Junior",
+    "graduation_term": {
+      "season": "Spring",
+      "year": 2026
+    },
+    "preferred_credits": 15,
+    "interests": [
+      "Machine Learning",
+      "Web Development",
+      "Algorithms"
+    ],
+    "time_unavailable": [
+      {
+        "day": "Monday",
+        "start_time": "8:00am",
+        "end_time": "9:00am"
+      },
+      {
+        "day": "Wednesday",
+        "start_time": "8:00am",
+        "end_time": "9:00am"
+      },
+      {
+        "day": "Friday",
+        "start_time": "1:00pm",
+        "end_time": "5:00pm"
+      }
+    ],
+    "priority_order": {
+      "professor_rating": 1,
+      "major_requirements": 2,
+      "time_preference": 3,
+      "ger_requirements": 4,
+      "interests": 5
+    },
+    "preferred_time_of_day": "afternoon"
+  },
+  "transcript": [
+    {
+      "code": "CS 170",
+      "term": "Fall 2023"
+    },
+    {
+      "code": "CS 171",
+      "term": "Spring 2024"
+    },
+    {
+      "code": "CS 253",
+      "term": "Fall 2024"
+    },
+    {
+      "code": "MATH 210",
+      "term": "Fall 2023"
+    },
+    {
+      "code": "MATH 211",
+      "term": "Spring 2024"
+    },
+    {
+      "code": "ENG 101",
+      "term": "Fall 2023"
+    },
+    {
+      "code": "ENG 181",
+      "term": "Fall 2023"
+    },
+    {
+      "code": "HIST 110",
+      "term": "Spring 2024"
+    },
+    {
+      "code": "PSYC 101",
+      "term": "Fall 2024"
+    },
+    {
+      "code": "DANC 224R",
+      "term": "Spring 2024"
+    }
+  ],
+  "recommendations": [
+    {
+      "code": "MATH 221",
+      "title": "Linear Algebra",
+      "section": "5",
+      "type": "LEC",
+      "credits": "4",
+      "typically_offered": "Fall and Spring",
+      "ger": "Quantitative Reasoning(*)",
+      "instruction_method": "In Person",
+      "professor": "Maja Taskovic maja.taskovic@emory.edu Primary Instructor",
+      "schedule_location": "TTh 1pm-2:15pm in Math & Science Center - W201 F 10am-10:50am in Math & Science Center - W303",
+      "campus": "Atlanta",
+      "requirement_sentence": "MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 or MATH 112Z or equivalent transfer credit as prerequisite.",
+      "recommendation_score": 80.0,
+      "score_breakdown": {
+        "professor_rating": 0.5,
+        "time_preference": 1.0,
+        "major_requirements": 1.0,
+        "ger_requirements": 1.0,
+        "interests": 0.0,
+        "credit_fit": 1.0
+      }
+    },
+    {
+      "code": "MATH 221",
+      "title": "Linear Algebra",
+      "section": "6",
+      "type": "LEC",
+      "credits": "4",
+      "typically_offered": "Fall and Spring",
+      "ger": "Quantitative Reasoning(*)",
+      "instruction_method": "In Person",
+      "professor": "Maja Taskovic maja.taskovic@emory.edu Primary Instructor",
+      "schedule_location": "TTh 1pm-2:15pm in Math & Science Center - W201 F 1pm-1:50pm in Math & Science Center - N304",
+      "campus": "Atlanta",
+      "requirement_sentence": "MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 or MATH 112Z or equivalent transfer credit as prerequisite.",
+      "recommendation_score": 80.0,
+      "score_breakdown": {
+        "professor_rating": 0.5,
+        "time_preference": 1.0,
+        "major_requirements": 1.0,
+        "ger_requirements": 1.0,
+        "interests": 0.0,
+        "credit_fit": 1.0
+      }
+    },
+    {
+      "code": "CS 334",
+      "title": "Machine Learning",
+      "section": "1",
+      "type": "LEC",
+      "credits": "3",
+      "typically_offered": null,
+      "ger": "Mathematics and Quantitative Reasoning",
+      "instruction_method": "In Person",
+      "professor": "Shengpu Tang shengpu.tang@emory.edu Primary Instructor",
+      "schedule_location": "TTh 2:30pm-3:45pm in White Hall 103",
+      "campus": "Atlanta",
+      "requirement_sentence": "(CS224 or CS_OX 224) and (CS 253 or CS_OX 253) and (MATH 221 or MATH_OX 221 or MATH 275 or MATH 321) or equivalent transfer credit as prerequisite.",
+      "recommendation_score": 75.50000000000001,
+      "score_breakdown": {
+        "professor_rating": 0.5,
+        "time_preference": 1.0,
+        "major_requirements": 0.5,
+        "ger_requirements": 1.0,
+        "interests": 0.8,
+        "credit_fit": 1.0
+      }
+    },
+    {
+      "code": "CS 255",
+      "title": "Computer Architecture/Machine Level Programming",
+      "section": "1",
+      "type": "LEC",
+      "credits": "3",
+      "typically_offered": "Fall and Spring",
+      "ger": "Quantitative Reasoning(*)",
+      "instruction_method": "In Person",
+      "professor": "Martha Barker martha.barker@emory.edu Primary Instructor",
+      "schedule_location": "TTh 10am-11:15am in Math & Science Center - W201",
+      "campus": "Atlanta",
+      "requirement_sentence": "This course requires CS 171 or CS 171Z or CS_OX 171 or equivalent transfer credit as a prerequisite.",
+      "recommendation_score": 74.00000000000001,
+      "score_breakdown": {
+        "professor_rating": 0.5,
+        "time_preference": 0.7,
+        "major_requirements": 1.0,
+        "ger_requirements": 1.0,
+        "interests": 0.0,
+        "credit_fit": 1.0
+      }
+    },
+    {
+      "code": "MATH 221",
+      "title": "Linear Algebra",
+      "section": "4",
+      "type": "LEC",
+      "credits": "4",
+      "typically_offered": "Fall and Spring",
+      "ger": "Quantitative Reasoning(*)",
+      "instruction_method": "In Person",
+      "professor": "Deependra Singh deependra.singh@emory.edu Primary Instructor",
+      "schedule_location": "TTh 11:30am-12:45pm in Math & Science Center - W201 F 1pm-1:50pm in Math & Science Center - W301",
+      "campus": "Atlanta",
+      "requirement_sentence": "MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 or MATH 112Z or equivalent transfer credit as prerequisite.",
+      "recommendation_score": 74.00000000000001,
+      "score_breakdown": {
+        "professor_rating": 0.5,
+        "time_preference": 0.7,
+        "major_requirements": 1.0,
+        "ger_requirements": 1.0,
+        "interests": 0.0,
+        "credit_fit": 1.0
+      }
+    },
+    {
+      "code": "MATH 221",
+      "title": "Linear Algebra",
+      "section": "1",
+      "type": "LEC",
+      "credits": "4",
+      "typically_offered": "Fall and Spring",
+      "ger": "Quantitative Reasoning(*)",
+      "instruction_method": "In Person",
+      "professor": "Shikhar Shah shikhar.shah@emory.edu Primary Instructor",
+      "schedule_location": "TTh 8:30am-9:45am in Math & Science Center - W201 F 8:30am-9:20am in Math & Science Center - W201",
+      "campus": "Atlanta",
+      "requirement_sentence": "MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 or MATH 112Z or equivalent transfer credit as prerequisite.",
+      "recommendation_score": 74.00000000000001,
+      "score_breakdown": {
+        "professor_rating": 0.5,
+        "time_preference": 0.7,
+        "major_requirements": 1.0,
+        "ger_requirements": 1.0,
+        "interests": 0.0,
+        "credit_fit": 1.0
+      }
+    },
+    {
+      "code": "MATH 221",
+      "title": "Linear Algebra",
+      "section": "2",
+      "type": "LEC",
+      "credits": "4",
+      "typically_offered": "Fall and Spring",
+      "ger": "Quantitative Reasoning(*)",
+      "instruction_method": "In Person",
+      "professor": "Shikhar Shah shikhar.shah@emory.edu Primary Instructor",
+      "schedule_location": "TTh 8:30am-9:45am in Math & Science Center - W201 F 10am-10:50am in Math & Science Center - W201",
+      "campus": "Atlanta",
+      "requirement_sentence": "MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 or MATH 112Z or equivalent transfer credit as prerequisite.",
+      "recommendation_score": 74.00000000000001,
+      "score_breakdown": {
+        "professor_rating": 0.5,
+        "time_preference": 0.7,
+        "major_requirements": 1.0,
+        "ger_requirements": 1.0,
+        "interests": 0.0,
+        "credit_fit": 1.0
+      }
+    },
+    {
+      "code": "MATH 221",
+      "title": "Linear Algebra",
+      "section": "3",
+      "type": "LEC",
+      "credits": "4",
+      "typically_offered": "Fall and Spring",
+      "ger": "Quantitative Reasoning(*)",
+      "instruction_method": "In Person",
+      "professor": "Deependra Singh deependra.singh@emory.edu Primary Instructor",
+      "schedule_location": "TTh 11:30am-12:45pm in Math & Science Center - W201 F 11:30am-12:20pm in Math & Science Center - W307C",
+      "campus": "Atlanta",
+      "requirement_sentence": "MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 or MATH 112Z or equivalent transfer credit as prerequisite.",
+      "recommendation_score": 74.00000000000001,
+      "score_breakdown": {
+        "professor_rating": 0.5,
+        "time_preference": 0.7,
+        "major_requirements": 1.0,
+        "ger_requirements": 1.0,
+        "interests": 0.0,
+        "credit_fit": 1.0
+      }
+    },
+    {
+      "code": "CS 377",
+      "title": "Database Systems",
+      "section": "1",
+      "type": "LEC",
+      "credits": "3",
+      "typically_offered": "Fall and Spring",
+      "ger": "Mathematics and Quantitative Reasoning",
+      "instruction_method": "In Person",
+      "professor": "Nosayba El Sayed nosayba.ae@emory.edu Primary Instructor",
+      "schedule_location": "MW 10am-11:15am in White Hall 110",
+      "campus": "Atlanta",
+      "requirement_sentence": "CS 253 or equivalent transfer credit as prerequisite.",
+      "recommendation_score": 74.00000000000001,
+      "score_breakdown": {
+        "professor_rating": 0.5,
+        "time_preference": 0.7,
+        "major_requirements": 1.0,
+        "ger_requirements": 1.0,
+        "interests": 0.0,
+        "credit_fit": 1.0
+      }
+    },
+    {
+      "code": "CS 377",
+      "title": "Database Systems",
+      "section": "2",
+      "type": "LEC",
+      "credits": "3",
+      "typically_offered": "Fall and Spring",
+      "ger": "Mathematics and Quantitative Reasoning",
+      "instruction_method": "In Person",
+      "professor": "Andreas Zufle azufle@emory.edu Primary Instructor",
+      "schedule_location": "MW 5:30pm-6:45pm in Math & Science Center - W201",
+      "campus": "Atlanta",
+      "requirement_sentence": "CS 253 or equivalent transfer credit as prerequisite.",
+      "recommendation_score": 74.00000000000001,
+      "score_breakdown": {
+        "professor_rating": 0.5,
+        "time_preference": 0.7,
+        "major_requirements": 1.0,
+        "ger_requirements": 1.0,
+        "interests": 0.0,
+        "credit_fit": 1.0
+      }
+    },
+    {
+      "code": "CS 334",
+      "title": "Machine Learning",
+      "section": "2",
+      "type": "LEC",
+      "credits": "3",
+      "typically_offered": null,
+      "ger": "Mathematics and Quantitative Reasoning",
+      "instruction_method": "In Person",
+      "professor": "Wei Jin wei.jin@emory.edu Primary Instructor",
+      "schedule_location": "TTh 4pm-5:15pm in Math & Science Center - W201",
+      "campus": "Atlanta",
+      "requirement_sentence": "(CS224 or CS_OX 224) and (CS 253 or CS_OX 253) and (MATH 221 or MATH_OX 221 or MATH 275 or MATH 321) or equivalent transfer credit as prerequisite.",
+      "recommendation_score": 69.5,
+      "score_breakdown": {
+        "professor_rating": 0.5,
+        "time_preference": 0.7,
+        "major_requirements": 0.5,
+        "ger_requirements": 1.0,
+        "interests": 0.8,
+        "credit_fit": 1.0
+      }
+    },
+    {
+      "code": "CS 326",
+      "title": "Analysis of Algorithms",
+      "section": "1",
+      "type": "LEC",
+      "credits": "3",
+      "typically_offered": null,
+      "ger": "Mathematics and Quantitative Reasoning",
+      "instruction_method": "In Person",
+      "professor": "Michelangelo Grigni mgrigni@emory.edu Primary Instructor",
+      "schedule_location": "TTh 4pm-5:15pm in Math & Science Center - W303",
+      "campus": "Atlanta",
+      "requirement_sentence": "(CS 170 or CS_OX 170) and (CS 171 or CS_OX 171) and (CS 224 or CS_OX 224) and CS 253, or equivalent transfer credit as prerequisite.",
+      "recommendation_score": 69.5,
+      "score_breakdown": {
+        "professor_rating": 0.5,
+        "time_preference": 0.7,
+        "major_requirements": 0.5,
+        "ger_requirements": 1.0,
+        "interests": 0.8,
+        "credit_fit": 1.0
+      }
+    },
+    {
+      "code": "CS 326",
+      "title": "Analysis of Algorithms",
+      "section": "2",
+      "type": "LEC",
+      "credits": "3",
+      "typically_offered": null,
+      "ger": "Mathematics and Quantitative Reasoning",
+      "instruction_method": "In Person",
+      "professor": "Abbey Julian abigail.julian@emory.edu Primary Instructor",
+      "schedule_location": "TTh 8:30am-9:45am in Math & Science Center - W303",
+      "campus": "Atlanta",
+      "requirement_sentence": "(CS 170 or CS_OX 170) and (CS 171 or CS_OX 171) and (CS 224 or CS_OX 224) and CS 253, or equivalent transfer credit as prerequisite.",
+      "recommendation_score": 69.5,
+      "score_breakdown": {
+        "professor_rating": 0.5,
+        "time_preference": 0.7,
+        "major_requirements": 0.5,
+        "ger_requirements": 1.0,
+        "interests": 0.8,
+        "credit_fit": 1.0
+      }
+    },
+    {
+      "code": "CS 424",
+      "title": "Theory of Computing",
+      "section": "1",
+      "type": "LEC",
+      "credits": "3",
+      "typically_offered": "Spring",
+      "ger": "Mathematics and Quantitative Reasoning",
+      "instruction_method": "In Person",
+      "professor": "Michelangelo Grigni mgrigni@emory.edu Primary Instructor",
+      "schedule_location": "TTh 1pm-2:15pm in Math & Science Center - N302",
+      "campus": "Atlanta",
+      "requirement_sentence": "CS 326 or equivalent transfer credit as prerequisite.",
+      "recommendation_score": 67.5,
+      "score_breakdown": {
+        "professor_rating": 0.5,
+        "time_preference": 1.0,
+        "major_requirements": 0.5,
+        "ger_requirements": 1.0,
+        "interests": 0.0,
+        "credit_fit": 1.0
+      }
+    },
+    {
+      "code": "CS 329",
+      "title": "Computational Linguistics",
+      "section": "1",
+      "type": "LEC",
+      "credits": "3",
+      "typically_offered": "Spring",
+      "ger": "Mathematics and Quantitative Reasoning",
+      "instruction_method": "In Person",
+      "professor": "Jinho Choi jinho.choi@emory.edu Primary Instructor",
+      "schedule_location": "MW 2:30pm-3:45pm in Math & Science Center - W201",
+      "campus": "Atlanta",
+      "requirement_sentence": "This course requires CS 171 or CS 171Z or CS_OX 171 or equivalent transfer credit as a prerequisite. (Same as LING 329 1 and DATASCI 329 1)",
+      "recommendation_score": 67.5,
+      "score_breakdown": {
+        "professor_rating": 0.5,
+        "time_preference": 1.0,
+        "major_requirements": 0.5,
+        "ger_requirements": 1.0,
+        "interests": 0.0,
+        "credit_fit": 1.0
+      }
+    }
+  ],
+  "suggested_schedule": {
+    "schedule": {
+      "Monday": [
+        {
+          "code": "CS 377",
+          "title": "Database Systems",
+          "time": "TBA",
+          "location": "White Hall 110"
+        }
+      ],
+      "Tuesday": [
+        {
+          "code": "MATH 221",
+          "title": "Linear Algebra",
+          "time": "TBA",
+          "location": "Math & Science Center - W201 F 10am-10:50am in Math & Science Center - W303"
+        },
+        {
+          "code": "CS 334",
+          "title": "Machine Learning",
+          "time": "2:30pm-3:45pm",
+          "location": "White Hall 103"
+        },
+        {
+          "code": "CS 255",
+          "title": "Computer Architecture/Machine Level Programming",
+          "time": "TBA",
+          "location": "Math & Science Center - W201"
+        }
+      ],
+      "Wednesday": [
+        {
+          "code": "CS 377",
+          "title": "Database Systems",
+          "time": "TBA",
+          "location": "White Hall 110"
+        }
+      ],
+      "Thursday": [],
+      "Friday": [],
+      "Saturday": []
+    },
+    "courses": [
+      {
+        "code": "MATH 221",
+        "title": "Linear Algebra",
+        "section": "5",
+        "type": "LEC",
+        "credits": "4",
+        "typically_offered": "Fall and Spring",
+        "ger": "Quantitative Reasoning(*)",
+        "instruction_method": "In Person",
+        "professor": "Maja Taskovic maja.taskovic@emory.edu Primary Instructor",
+        "schedule_location": "TTh 1pm-2:15pm in Math & Science Center - W201 F 10am-10:50am in Math & Science Center - W303",
+        "campus": "Atlanta",
+        "requirement_sentence": "MATH 111 or MATH_OX 111 or MATH 112 or MATH_OX 112 or MATH 112Z or equivalent transfer credit as prerequisite.",
+        "recommendation_score": 80.0,
+        "score_breakdown": {
+          "professor_rating": 0.5,
+          "time_preference": 1.0,
+          "major_requirements": 1.0,
+          "ger_requirements": 1.0,
+          "interests": 0.0,
+          "credit_fit": 1.0
+        }
+      },
+      {
+        "code": "CS 334",
+        "title": "Machine Learning",
+        "section": "1",
+        "type": "LEC",
+        "credits": "3",
+        "typically_offered": null,
+        "ger": "Mathematics and Quantitative Reasoning",
+        "instruction_method": "In Person",
+        "professor": "Shengpu Tang shengpu.tang@emory.edu Primary Instructor",
+        "schedule_location": "TTh 2:30pm-3:45pm in White Hall 103",
+        "campus": "Atlanta",
+        "requirement_sentence": "(CS224 or CS_OX 224) and (CS 253 or CS_OX 253) and (MATH 221 or MATH_OX 221 or MATH 275 or MATH 321) or equivalent transfer credit as prerequisite.",
+        "recommendation_score": 75.50000000000001,
+        "score_breakdown": {
+          "professor_rating": 0.5,
+          "time_preference": 1.0,
+          "major_requirements": 0.5,
+          "ger_requirements": 1.0,
+          "interests": 0.8,
+          "credit_fit": 1.0
+        }
+      },
+      {
+        "code": "CS 255",
+        "title": "Computer Architecture/Machine Level Programming",
+        "section": "1",
+        "type": "LEC",
+        "credits": "3",
+        "typically_offered": "Fall and Spring",
+        "ger": "Quantitative Reasoning(*)",
+        "instruction_method": "In Person",
+        "professor": "Martha Barker martha.barker@emory.edu Primary Instructor",
+        "schedule_location": "TTh 10am-11:15am in Math & Science Center - W201",
+        "campus": "Atlanta",
+        "requirement_sentence": "This course requires CS 171 or CS 171Z or CS_OX 171 or equivalent transfer credit as a prerequisite.",
+        "recommendation_score": 74.00000000000001,
+        "score_breakdown": {
+          "professor_rating": 0.5,
+          "time_preference": 0.7,
+          "major_requirements": 1.0,
+          "ger_requirements": 1.0,
+          "interests": 0.0,
+          "credit_fit": 1.0
+        }
+      },
+      {
+        "code": "CS 377",
+        "title": "Database Systems",
+        "section": "1",
+        "type": "LEC",
+        "credits": "3",
+        "typically_offered": "Fall and Spring",
+        "ger": "Mathematics and Quantitative Reasoning",
+        "instruction_method": "In Person",
+        "professor": "Nosayba El Sayed nosayba.ae@emory.edu Primary Instructor",
+        "schedule_location": "MW 10am-11:15am in White Hall 110",
+        "campus": "Atlanta",
+        "requirement_sentence": "CS 253 or equivalent transfer credit as prerequisite.",
+        "recommendation_score": 74.00000000000001,
+        "score_breakdown": {
+          "professor_rating": 0.5,
+          "time_preference": 0.7,
+          "major_requirements": 1.0,
+          "ger_requirements": 1.0,
+          "interests": 0.0,
+          "credit_fit": 1.0
+        }
+      }
+    ],
+    "total_credits": 13
+  }
+}
