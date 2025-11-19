@@ -30,7 +30,7 @@ if __name__ == "__main__":
     
     # convert num_ratings to int
     try:
-        for i in range(100):
+        for i in range(len(df)):
             val = df.at[i, "num_ratings"]
             val = str(val).strip()
             val = val.split()[0]  # take only the first part if there are extra words
