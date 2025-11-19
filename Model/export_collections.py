@@ -14,7 +14,11 @@ OUT_DIR = "mongo_exports"
 # ============================
 
 os.makedirs(OUT_DIR, exist_ok=True)
-client = MongoClient("mongodb+srv://apere52:Melody339044@data.apz41ku.mongodb.net/")
+import os
+from dotenv import load_dotenv
+load_dotenv(os.path.join(os.path.dirname(__file__), '../backEnd/.env'))
+uri = os.getenv("MONGODB_URI")
+client = MongoClient(uri)
 
 for db_name, col_name in COLLECTIONS:
     db = client[db_name]

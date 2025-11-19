@@ -1,6 +1,10 @@
 from pymongo import MongoClient
 
-client = MongoClient("mongodb+srv://apere52:Melody339044@data.apz41ku.mongodb.net/")
+import os
+from dotenv import load_dotenv
+load_dotenv('backEnd/.env')
+uri = os.getenv("MONGODB_URI")
+client = MongoClient(uri)
 col = client["DetailedCourses"]["CoursesEnriched"]
 
 total = col.count_documents({})

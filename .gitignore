@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-.env
-=======
 # general
 .DS_Store
 .env
@@ -33,4 +30,3 @@ cluster0/
 archived/
 scripts/debug.py
 data/unique_ger_out.txt
->>>>>>> 3ea0d2cb5482e77192d80bf5f7286a86c3b2a1e0

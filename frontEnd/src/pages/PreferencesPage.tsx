@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { getOrCreateSharedId } from "../utils/anonID"; 
 
 /* ------------------------ Helper Types ------------------------- */
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001";
 const DEGREE_TYPES = ["BS", "BA"] as const;  
 type DegreeType = typeof DEGREE_TYPES[number];
 
@@ -120,7 +121,7 @@ export default function PreferencesPage() {
     };
     
     // send to backend
-    fetch("http://localhost:5001/api/preferences", {
+    fetch(`${API_URL}/api/preferences`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),

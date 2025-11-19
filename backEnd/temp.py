@@ -1,6 +1,9 @@
 from pymongo import MongoClient
 
-uri = "mongodb+srv://apere52:Melody339044@data.apz41ku.mongodb.net/"
+import os
+from dotenv import load_dotenv
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
+uri = os.getenv("MONGODB_URI")
 client = MongoClient(uri)   
 db = client["DetailedCourses"]
 col = db["DetailedCourses"]

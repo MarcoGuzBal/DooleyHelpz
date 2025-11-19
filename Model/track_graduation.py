@@ -2,7 +2,10 @@ from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
 from pprint import pprint
-uri = "mongodb+srv://apere52:Melody339044@data.apz41ku.mongodb.net/"
+import os
+from dotenv import load_dotenv
+load_dotenv(os.path.join(os.path.dirname(__file__), '../backEnd/.env'))
+uri = os.getenv("MONGODB_URI")
 # load_dotenv()
 # uri = os.getenv("DB_URI")
 client1 = MongoClient(uri) #cluster
