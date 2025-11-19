@@ -128,11 +128,14 @@ SECRET_KEY=
 
 ## Contributors
 
-Marco Guzman-Balcazar (Product Owner)
-Anahi Perez (Scrum Master)
-Olivia Choi
-Peteros Kahassay
-Zimo Li
+| Name                      | Role          | GitHub                                             |
+| ------------------------- | ------------- | -------------------------------------------------- |
+| **Marco Guzman-Balcazar** | Product Owner | [github.com/MarcoGuzBal](https://github.com/MarcoGuzBal) |
+| **Anahi Perez**           | Scrum Master  | [github.com/anahip52](https://github.com/anahip52) |
+| **Olivia Choi**           | Developer     | [github.com/eunbioli](https://github.com/eunbioli) |
+| **Peteros Kahassay**      | Developer     | [github.com/Soretep-Yasshak](https://github.com/Soretep-Yasshak) |
+| **Zimo Li**               | Developer     | [github.com/Z1M000](https://github.com/Z1M000) |
+
 
 ---
 
