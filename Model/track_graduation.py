@@ -3,8 +3,6 @@ import os
 from dotenv import load_dotenv
 from pprint import pprint
 uri = "mongodb+srv://apere52:Melody339044@data.apz41ku.mongodb.net/"
-# load_dotenv()
-# uri = os.getenv("DB_URI")
 client1 = MongoClient(uri) #cluster
 client2 = MongoClient(uri)
 db = client1["BasicCourses"] # database
