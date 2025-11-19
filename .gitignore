@@ -28,5 +28,8 @@ test_db/
 cluster0/
 archived/
 scripts/debug.py
+scripts/debug2.py
 data/unique_ger_out.txt
 node_modules/
+frontEnd/
+data/cs_courses.txt
