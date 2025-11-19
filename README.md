@@ -8,7 +8,7 @@ Built by **DooleyDevs**
 
 ---
 
-## 🚀 Overview
+## Overview
 
 **DooleyHelpz** is a full-stack web application designed to help Emory students automatically parse their transcripts, track degree progress, set academic preferences, and generate personalized semester schedules.
 
@@ -16,7 +16,7 @@ This project aims to simplify academic planning, streamline advising, and give s
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### **Frontend**
 
@@ -37,9 +37,9 @@ This project aims to simplify academic planning, streamline advising, and give s
 
 ---
 
-## ⚙️ Installation & Local Development
+## Installation & Local Development
 
-### **🔧 1. Clone the Repository**
+### ** 1. Clone the Repository**
 
 ```bash
 git clone https://github.com/<your-org>/DooleyHelpz.git
@@ -48,7 +48,7 @@ cd DooleyHelpz
 
 ---
 
-### **🖥️ 2. Frontend Setup**
+### ** 2. Frontend Setup**
 
 ```bash
 cd frontend
@@ -64,7 +64,7 @@ http://localhost:5173
 
 ---
 
-### **🌐 3. Backend Setup (Flask)**
+### ** 3. Backend Setup (Flask)**
 
 ```bash
 cd backend
@@ -80,7 +80,7 @@ http://localhost:5000
 
 ---
 
-## 🔑 Environment Variables
+## Environment Variables
 
 ### **Frontend `.env`**
 
@@ -103,7 +103,7 @@ SECRET_KEY=
 
 ---
 
-## ☁️ Deployment
+## Deployment
 
 ### **Frontend (Vercel)**
 
@@ -126,7 +126,7 @@ SECRET_KEY=
 
 ---
 
-## 👥 Contributors
+## Contributors
 
 Marco Guzman-Balcazar (Product Owner)
 Anahi Perez (Scrum Master)
