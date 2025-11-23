@@ -22,7 +22,7 @@ pref_col = users_db['TestPreferences']
 
 # Course data collections
 courses_db = client["DetailedCourses"]
-enriched_courses_col = courses_db["CoursesEnriched"]
+enriched_courses_col = courses_db["DetailedCourses"]
 
 # Import the integrated recommendation engine
 sys.path.insert(0, str(Path(__file__).parent))

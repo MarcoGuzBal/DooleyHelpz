@@ -1,6 +1,8 @@
 import re
-from typing import Dict, List, Set, Optional, Tuple
+from typing import Dict, List, Set, Optional, Tuple, Any
 from fibonacci_heap import FibonacciHeap
+import unicodedata
+import difflib
 
 
 CSBA_REQUIREMENTS = {
@@ -60,11 +62,98 @@ class IntegratedRecommendationEngine:
 
     def __init__(self):
         self.time_pattern = re.compile(r'([MTWRF]+)\s+(\d{1,2}:\d{2}[ap]m)-(\d{1,2}:\d{2}[ap]m)')
+        self.suffixes = {"jr", "sr", "ii", "iii", "iv"}
+        self.degrees  = {"phd", "md", "msc", "ms", "mba", "edd", "dphil"}
+        self.honorifics = {"dr", "prof", "professor"}
+
+    def _strip_accents(self, s: str) -> str:
+        return "".join(c for c in unicodedata.normalize("NFKD", s) if not unicodedata.combining(c))
+
+    def _normalize_name(self, name: Optional[str]) -> Optional[str]:
+        if not name:
+            return None
+        n = self._strip_accents(str(name)).lower().strip()
+        n = n.replace("-", " ")
+        n = n.replace("’", "'").replace("`", "'")
+        n = n.replace(".", "")
+        n = "".join(ch for ch in n if ch.isalnum() or ch.isspace() or ch == ",")
+        n = " ".join(n.split())
+        parts = [p.strip() for p in n.split(",")]
+        if len(parts) == 2 and parts[0] and parts[1]:
+            last = parts[0]
+            first_and_more = parts[1]
+            tokens = [t for t in first_and_more.split()
+                      if t not in self.suffixes and t not in self.degrees and t not in self.honorifics]
+            core = " ".join(tokens)
+            n = f"{core} {last}".strip()
+        else:
+            tokens = [t for t in n.split()
+                      if t not in self.suffixes and t not in self.degrees and t not in self.honorifics]
+            n = " ".join(tokens)
+        return n or None
+
+    def _first_last_keys(self, n: str) -> Set[str]:
+        toks = n.split()
+        if len(toks) == 0:
+            return set()
+        if len(toks) == 1:
+            return {n}
+        first, last = toks[0], toks[-1]
+        return {
+            n,
+            f"{first} {last}",
+            f"{first[0]} {last}",
+            f"{first}{last}",
+            f"{first[0]}{last}",
+            f"{last} {first}",
+        }
+
+    def _same_last_block(self, name_norm: str, key: str) -> bool:
+        toks_a = name_norm.split()
+        toks_b = key.split()
+        return bool(toks_a and toks_b and toks_a[-1] == toks_b[-1])
+
+    def _match_professor(self, raw_name: str, rmp_index: Dict[str, Any]) -> Optional[Dict]:
+        if not raw_name:
+            return None
+        
+        # Handle multi-instructor (take first for simplicity or split?)
+        # For now, let's try to match the whole string or split by common separators
+        # But DetailedCourses might have "Smith, John" or "John Smith"
+        
+        # Simple split if multiple
+        if ";" in raw_name:
+            raw_name = raw_name.split(";")[0]
+        elif " and " in raw_name:
+            raw_name = raw_name.split(" and ")[0]
+            
+        n = self._normalize_name(raw_name)
+        if not n:
+            return None
+
+        # 1. Exact
+        if n in rmp_index:
+            return rmp_index[n]
+
+        # 2. Alias
+        for k in self._first_last_keys(n):
+            if k in rmp_index:
+                return rmp_index[k]
+
+        # 3. Fuzzy
+        pool = [k for k in rmp_index.keys() if self._same_last_block(n, k)]
+        if pool:
+            best = difflib.get_close_matches(n, pool, n=1, cutoff=0.92)
+            if best:
+                return rmp_index[best[0]]
+        
+        return None
     
     def generate_recommendations(self,
                                 user_courses: Dict,
                                 user_prefs: Dict,
                                 all_courses: List[Dict],
+                                rmp_index: Dict[str, Any] = None,
                                 num_recommendations: int = 15) -> List[Dict]:
         """
         Main recommendation function
@@ -73,6 +162,7 @@ class IntegratedRecommendationEngine:
             user_courses: {incoming_transfer_courses: [...], incoming_test_courses: [...], emory_courses: [...]}
             user_prefs: {interests: [...], timeUnavailable: [...], timePreference: [...], degreeType: "BS", ...}
             all_courses: List of course dicts from MongoDB
+            rmp_index: Dictionary of normalized professor names to RMP data
             num_recommendations: How many to return
         
         Returns:
@@ -118,7 +208,8 @@ class IntegratedRecommendationEngine:
                 needed_electives=needed_electives,
                 interests=user_prefs.get('interests', []),
                 time_pref=time_pref,
-                completed=completed
+                completed=completed,
+                rmp_index=rmp_index
             )
             
             if score > 0:
@@ -220,7 +311,8 @@ class IntegratedRecommendationEngine:
                         needed_electives: List[Dict],
                         interests: List[str],
                         time_pref: Optional[List[str]],
-                        completed: Set[str]) -> float:
+                        completed: Set[str],
+                        rmp_index: Dict[str, Any] = None) -> float:
         """
         Calculate recommendation score for a course
         
@@ -245,6 +337,18 @@ class IntegratedRecommendationEngine:
         
         # 2. PROFESSOR RATING
         rmp = course.get('rmp', {})
+        
+        # If no embedded RMP, try to match
+        if not rmp and rmp_index:
+            prof_name = course.get('professor') or course.get('instructor')
+            matched_rmp = self._match_professor(prof_name, rmp_index)
+            if matched_rmp:
+                rmp = matched_rmp
+                # Inject back into course for display
+                course['rmp'] = rmp
+                # Also update professor name to match RMP if needed? 
+                # Maybe keep original for now to avoid confusion
+        
         rating = rmp.get('rating')
         if rating:
             # Normalize 0-5 to 0-15 points
@@ -280,8 +384,8 @@ class IntegratedRecommendationEngine:
             # If has prereqs, check if met
             prereqs_met = self._check_prerequisites(prereqs, completed)
             if not prereqs_met:
-                # Penalize heavily if prereqs not met
-                score *= 0.1
+                # HARD CONSTRAINT: If prereqs not met, do not recommend
+                return 0.0
         
         return score
     
@@ -308,6 +412,7 @@ def generate_schedule_for_user(shared_id: int,
                                course_col, 
                                pref_col, 
                                enriched_courses_col,
+                               rmp_col=None,
                                num_recommendations: int = 15) -> Dict:
     """
     Flask-compatible function to generate recommendations
@@ -317,6 +422,7 @@ def generate_schedule_for_user(shared_id: int,
         course_col: MongoDB collection for user courses
         pref_col: MongoDB collection for user preferences
         enriched_courses_col: MongoDB collection for course catalog
+        rmp_col: MongoDB collection for RMP data (optional)
         num_recommendations: How many courses to recommend
     
     Returns:
@@ -344,12 +450,33 @@ def generate_schedule_for_user(shared_id: int,
     # Get all available courses
     all_courses = list(enriched_courses_col.find({}))
     
+    # Build RMP index if collection provided
+    rmp_index = {}
+    if rmp_col:
+        # Fetch all RMP docs
+        rmp_docs = list(rmp_col.find({}, {"name": 1, "rating": 1, "num_ratings": 1, "department": 1}))
+        
+        # We need the normalization logic to build the index keys
+        temp_engine = IntegratedRecommendationEngine()
+        
+        for doc in rmp_docs:
+            name = doc.get("name")
+            norm_name = temp_engine._normalize_name(name)
+            if norm_name:
+                # Add exact match
+                rmp_index[norm_name] = doc
+                # Add aliases
+                for k in temp_engine._first_last_keys(norm_name):
+                    if k not in rmp_index:
+                        rmp_index[k] = doc
+    
     # Generate recommendations
     engine = IntegratedRecommendationEngine()
     recommendations = engine.generate_recommendations(
         user_courses=user_courses,
         user_prefs=user_prefs,
         all_courses=all_courses,
+        rmp_index=rmp_index,
         num_recommendations=num_recommendations
     )
     
