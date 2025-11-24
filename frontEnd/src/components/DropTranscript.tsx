@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+// src/pages/TranscriptParserPage.tsx
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Upload, FileText, Clock, CheckCircle2, AlertCircle, Send } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -16,8 +17,9 @@ import {
 import workerSrc from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 GlobalWorkerOptions.workerSrc = workerSrc;
 
-// Parser now returns 3 buckets
+// Parser now returns 4 buckets (Transfer, Test, Emory, Spring 2026)
 import { parseTranscript, type ParseResult } from "../utils/parseTranscript";
+
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
 type UploadedItem = {
@@ -25,7 +27,7 @@ type UploadedItem = {
   size: number;
   file: File;
   url: string;
-  text: string; // extracted text (used for parsing only; never displayed)
+  text: string;
   time: string;
 };
 
@@ -40,11 +42,13 @@ export default function TranscriptParserPage() {
   const [selIncomingTransfer, setSelIncomingTransfer] = useState<Set<string>>(new Set());
   const [selIncomingTest, setSelIncomingTest] = useState<Set<string>>(new Set());
   const [selEmory, setSelEmory] = useState<Set<string>>(new Set());
+  const [selSpring2026, setSelSpring2026] = useState<Set<string>>(new Set());
 
   // Manual input fields for each section
   const [transferInput, setTransferInput] = useState("");
   const [testInput, setTestInput] = useState("");
   const [emoryInput, setEmoryInput] = useState("");
+  const [springInput, setSpringInput] = useState("");
 
   // UX state
   const [isExtracting, setIsExtracting] = useState(false);
@@ -52,11 +56,6 @@ export default function TranscriptParserPage() {
   const [posting, setPosting] = useState(false);
   const [postedOk, setPostedOk] = useState<null | boolean>(null);
   const [postError, setPostError] = useState<string | null>(null);
-
-  // store the last submitted payload (for JSON preview)
-  const [, setSubmittedPayload] = useState<Record<string, unknown> | null>(null);
-
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // ---- Extract all text from PDF (for parsing only) ----
   async function extractPdfText(file: File): Promise<string> {
@@ -72,29 +71,8 @@ export default function TranscriptParserPage() {
         .join(" ");
       all += (p > 1 ? "\n\n" : "") + pageText;
     }
+
     return all.trim();
-  }
-
-  // ---- Render first page preview to a canvas (optional visual) ----
-  async function renderPreview(item: UploadedItem) {
-    if (!canvasRef.current) return;
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const buf = await item.file.arrayBuffer();
-    const pdf: PDFDocumentProxy = await getDocument({ data: buf }).promise;
-    const page = await pdf.getPage(1);
-
-    const desiredWidth = 640;
-    const viewport = page.getViewport({ scale: 1 });
-    const scale = desiredWidth / viewport.width;
-    const scaled = page.getViewport({ scale });
-
-    canvas.width = Math.floor(scaled.width);
-    canvas.height = Math.floor(scaled.height);
-
-    await page.render({ canvasContext: ctx, viewport: scaled, canvas }).promise;
   }
 
   // ---- POST separated buckets to backend ----
@@ -102,6 +80,7 @@ export default function TranscriptParserPage() {
     incoming_transfer_courses: string[],
     incoming_test_courses: string[],
     emory_courses: string[],
+    spring_2026_courses: string[],
     shared_id?: number
   ) {
     try {
@@ -118,6 +97,7 @@ export default function TranscriptParserPage() {
           incoming_transfer_courses,
           incoming_test_courses,
           emory_courses,
+          spring_2026_courses,
           shared_id: idToSend,
         }),
       });
@@ -138,10 +118,6 @@ export default function TranscriptParserPage() {
   // Re-render preview & parse when selection changes (no auto-send)
   useEffect(() => {
     if (selected) {
-      renderPreview(selected).catch((e) =>
-        console.error("Preview render failed:", e)
-      );
-
       const parsed = parseTranscript(selected.text);
       setBuckets(parsed);
 
@@ -149,6 +125,7 @@ export default function TranscriptParserPage() {
       setSelIncomingTransfer(new Set(parsed.incoming_transfer_courses));
       setSelIncomingTest(new Set(parsed.incoming_test_courses));
       setSelEmory(new Set(parsed.emory_courses));
+      setSelSpring2026(new Set(parsed.spring_2026_courses));
 
       setPostedOk(null);
       setPostError(null);
@@ -157,6 +134,7 @@ export default function TranscriptParserPage() {
       setSelIncomingTransfer(new Set());
       setSelIncomingTest(new Set());
       setSelEmory(new Set());
+      setSelSpring2026(new Set());
       setPostedOk(null);
       setPostError(null);
     }
@@ -256,16 +234,29 @@ export default function TranscriptParserPage() {
     setEmoryInput("");
   }
 
+  function handleAddSpring() {
+    const code = springInput.trim().toUpperCase();
+    if (!code) return;
+    setSelSpring2026((prev) => {
+      const next = new Set(prev);
+      next.add(code);
+      return next;
+    });
+    setSpringInput("");
+  }
+
   // --- Submit handler ---
   function handleSubmit() {
     const incoming_transfer_courses = Array.from(selIncomingTransfer);
     const incoming_test_courses = Array.from(selIncomingTest);
     const emory_courses = Array.from(selEmory);
+    const spring_2026_courses = Array.from(selSpring2026);
 
     if (
       !incoming_transfer_courses.length &&
       !incoming_test_courses.length &&
-      !emory_courses.length
+      !emory_courses.length &&
+      !spring_2026_courses.length
     ) {
       setPostedOk(false);
       setPostError("No courses selected.");
@@ -273,17 +264,11 @@ export default function TranscriptParserPage() {
     }
     const shared_id = getOrCreateSharedId();
 
-    setSubmittedPayload({
-      incoming_transfer_courses,
-      incoming_test_courses,
-      emory_courses,
-      shared_id,
-    });
-
     sendToBackendSeparated(
       incoming_transfer_courses,
       incoming_test_courses,
       emory_courses,
+      spring_2026_courses,
       shared_id
     );
   }
@@ -314,6 +299,16 @@ export default function TranscriptParserPage() {
       ? Array.from(new Set([...buckets.emory_courses, ...selEmory]))
       : [];
 
+  const displaySpring2026 =
+    buckets
+      ? Array.from(
+          new Set([
+            ...buckets.spring_2026_courses,
+            ...selSpring2026,
+          ])
+        )
+      : [];
+
   // --- Small UI helpers ---
   function Chip({
     code,
@@ -342,7 +337,10 @@ export default function TranscriptParserPage() {
   }
 
   const totalSelected =
-    selIncomingTransfer.size + selIncomingTest.size + selEmory.size;
+    selIncomingTransfer.size +
+    selIncomingTest.size +
+    selEmory.size +
+    selSpring2026.size;
 
   return (
     <div className="min-h-screen bg-white text-zinc-900">
@@ -381,9 +379,9 @@ export default function TranscriptParserPage() {
         </motion.h1>
 
         <p className="mb-6 text-zinc-600">
-          Upload a <strong>.pdf</strong> transcript. We’ll preview the first
-          page and extract <strong>course codes</strong> locally. Click codes to
-          toggle validity (green = include, red = exclude), then submit to save.
+          Upload a <strong>.pdf</strong> transcript. We’ll extract{" "}
+          <strong>course codes</strong> locally. Click codes to toggle validity
+          (green = include, red = exclude), then submit to save.
         </p>
 
         {/* ===== Upload Section (PDF only) ===== */}
@@ -519,7 +517,7 @@ export default function TranscriptParserPage() {
                       handleAddTransfer();
                     }
                   }}
-                  placeholder="e.g. CS170"
+                  placeholder="e.g. CHEM150"
                   className="rounded-md border px-2 py-1 text-sm"
                 />
                 <button
@@ -574,12 +572,67 @@ export default function TranscriptParserPage() {
                       handleAddTest();
                     }
                   }}
-                  placeholder="e.g. MATH111"
+                  placeholder="e.g. PSYC111"
                   className="rounded-md border px-2 py-1 text-sm"
                 />
                 <button
                   type="button"
                   onClick={handleAddTest}
+                  className="rounded-md bg-emoryBlue px-3 py-1 text-sm text-white hover:bg-emoryBlue/90"
+                >
+                  Add
+                </button>
+              </div>
+            </div>
+
+            {/* Incoming Spring 2026 / Planned */}
+            <div>
+              <div className="mb-2 flex items-center justify-between">
+                <h2 className="text-xl font-semibold text-emoryBlue">
+                  Incoming — Spring 2026 (Planned)
+                </h2>
+                <span className="text-sm text-zinc-600">
+                  {selSpring2026.size} selected
+                </span>
+              </div>
+              {displaySpring2026.length ? (
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  {displaySpring2026.map((code) => {
+                    const isSelected = selSpring2026.has(code);
+                    return (
+                      <Chip
+                        key={`sp-26-${code}`}
+                        code={code}
+                        isSelected={isSelected}
+                        onClick={() => toggle(setSelSpring2026, code)}
+                      />
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="text-sm italic text-zinc-500">
+                  No Spring 2026 courses found.
+                </p>
+              )}
+
+              {/* Add Spring 2026 course manually */}
+              <div className="mt-3 flex items-center gap-2">
+                <input
+                  type="text"
+                  value={springInput}
+                  onChange={(e) => setSpringInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleAddSpring();
+                    }
+                  }}
+                  placeholder="e.g. BUS494"
+                  className="rounded-md border px-2 py-1 text-sm"
+                />
+                <button
+                  type="button"
+                  onClick={handleAddSpring}
                   className="rounded-md bg-emoryBlue px-3 py-1 text-sm text-white hover:bg-emoryBlue/90"
                 >
                   Add
@@ -675,14 +728,16 @@ export default function TranscriptParserPage() {
                 posting ||
                 (!selIncomingTransfer.size &&
                   !selIncomingTest.size &&
-                  !selEmory.size)
+                  !selEmory.size &&
+                  !selSpring2026.size)
               }
               className={
                 "inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold shadow-sm " +
                 (posting ||
                 (!selIncomingTransfer.size &&
                   !selIncomingTest.size &&
-                  !selEmory.size)
+                  !selEmory.size &&
+                  !selSpring2026.size)
                   ? "cursor-not-allowed bg-zinc-200 text-zinc-500"
                   : "bg-emoryBlue text-white hover:bg-emoryBlue/90")
               }
@@ -700,10 +755,10 @@ export default function TranscriptParserPage() {
           </p>
           <p>
             DooleyHelpz only stores information about{" "}
-            <strong>classes taken</strong> (course codes) for the purpose of
-            schedule planning. We do <strong>not</strong> store any grades, GPA
-            data, personal names, or identifying information. Failed (F) and
-            withdrawn (W) courses are excluded.
+            <strong>classes taken or planned</strong> (course codes) for the
+            purpose of schedule planning. We do <strong>not</strong> store any
+            grades, GPA data, personal names, or identifying information.
+            Failed (F) and withdrawn (W) courses are excluded.
           </p>
         </div>
       </main>
@@ -717,4 +772,5 @@ export default function TranscriptParserPage() {
     </div>
   );
 }
+
 
