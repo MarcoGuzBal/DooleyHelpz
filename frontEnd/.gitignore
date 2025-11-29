@@ -25,5 +25,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Ignore schedule battle UI while it's being worked on locally
+src/pages/ScheduleBattle.tsx
 # Ignore developer-only pages
 src/pages/ScheduleBattle.tsx
