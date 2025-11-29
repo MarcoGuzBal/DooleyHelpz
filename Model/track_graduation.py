@@ -2,11 +2,16 @@ from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
 from pprint import pprint
-uri = "mongodb+srv://apere52:Melody339044@data.apz41ku.mongodb.net/"
-# load_dotenv()
-# uri = os.getenv("DB_URI")
-client1 = MongoClient(uri) #cluster
-client2 = MongoClient(uri)
+
+load_dotenv()
+
+# Prefer environment variable for MongoDB URI
+MONGO_URI = os.environ.get("MONGO_URI") or os.environ.get("MONGODB_URI")
+if not MONGO_URI:
+    raise EnvironmentError("MONGO_URI or MONGODB_URI not found. Add it to your .env or environment.")
+
+client1 = MongoClient(MONGO_URI) # cluster
+client2 = MongoClient(MONGO_URI)
 db = client1["BasicCourses"] # database
 col = db["BasicCourses"] #collection
 db2 = client2["DetailedCourses"] # database
