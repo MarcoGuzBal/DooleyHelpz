@@ -18,6 +18,7 @@ import ScheduleBuilderPage from "./pages/ScheduleBuilderPage";
 // function Protected() { return <Outlet /> }
 
 export default function App() {
+// import ScheduleBattle from "./pages/ScheduleBattle";
 
   // Will work on logout later
   // async function handleLogout() {
