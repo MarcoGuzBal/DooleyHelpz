@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { getOrCreateSharedId } from "../utils/anonID"; 
-import { Link } from 'react-router-dom';
 
 /* ------------------------ Helper Types ------------------------- */
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001";
 const DEGREE_TYPES = ["BS", "BA"] as const;  
 type DegreeType = typeof DEGREE_TYPES[number];
 
@@ -122,7 +120,7 @@ export default function PreferencesPage() {
     };
     
     // send to backend
-    fetch(`${API_URL}/api/preferences`, {
+    fetch("http://localhost:5001/api/preferences", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -143,13 +141,6 @@ export default function PreferencesPage() {
   /* --------------------------- JSX ------------------------------- */
   return (
     <form onSubmit={handleSubmit} className="space-y-5 max-w-xl mx-auto p-6 bg-white border rounded-lg">
-
-      <Link
-          to="/dashboard"
-          className="hidden rounded-xl bg-lighterBlue px-3 py-1.5 text-sm font-semibold text-white hover:bg-emoryBlue/90 md:inline-block">
-          Back to Dashboard
-        </Link>
-
       {/* Degree Type */}
       <div className="flex flex-col">
         <label className="font-medium mb-1">Degree Type</label>
