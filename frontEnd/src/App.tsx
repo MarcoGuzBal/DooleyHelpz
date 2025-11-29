@@ -18,6 +18,7 @@ import PreferencesPage from "./pages/PreferencesPage";
 // function Protected() { return <Outlet /> }
 
 export default function App() {
+// import ScheduleBattle from "./pages/ScheduleBattle";
 
   // Will work on logout later
   // async function handleLogout() {
