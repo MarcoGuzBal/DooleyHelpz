@@ -2,6 +2,7 @@ export type ParseResult = {
   incoming_transfer_courses: string[]; // from "Transfer Credits" → "... as DEPT NUM[SUF] ... T"
   incoming_test_courses: string[];     // from "Test Credits" → "... as DEPT NUM[SUF] ... T"
   emory_courses: string[];             // from "Beginning of Academic Record", filtered by grade
+  spring_2026_courses: string[];       // planned / Spring 2026 courses (optional)
 };
 
 export function parseTranscript(rawText: string): ParseResult {
@@ -10,6 +11,7 @@ export function parseTranscript(rawText: string): ParseResult {
       incoming_transfer_courses: [],
       incoming_test_courses: [],
       emory_courses: [],
+      spring_2026_courses: [],
     };
   }
 
@@ -142,10 +144,15 @@ export function parseTranscript(rawText: string): ParseResult {
   let emory_courses = extractEmory(academicSection)
     .filter((c) => !incomingAllSet.has(c)); // defensive de-dupe vs incoming
 
+  // No specific extraction implemented yet for Spring 2026 planned courses;
+  // provide an empty array so callers can safely reference the property.
+  const spring_2026_courses: string[] = [];
+
   return {
     incoming_transfer_courses,
     incoming_test_courses,
     emory_courses,
+    spring_2026_courses,
   };
 }
 

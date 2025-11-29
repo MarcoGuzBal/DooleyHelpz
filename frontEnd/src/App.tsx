@@ -36,6 +36,7 @@ export default function App() {
           <Route path="/dashboard" element={<DashboardPage />}/>
           <Route path="/droptranscript" element={<DropTranscript />} />
           <Route path="/preferences" element={<PreferencesPage />} />
+          <Route path="/schedule-builder" element={<ScheduleBuilderPage />} />
           
           {/* <Route element={<RequireAuth><Protected /></RequireAuth>}>
             <Route path="/dashboard" element={<DashboardPage />}/>
