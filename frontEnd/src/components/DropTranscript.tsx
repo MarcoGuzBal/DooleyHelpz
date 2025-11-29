@@ -18,7 +18,7 @@ GlobalWorkerOptions.workerSrc = workerSrc;
 
 // Parser now returns 3 buckets
 import { parseTranscript, type ParseResult } from "../utils/parseTranscript";
-
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001";
 type UploadedItem = {
   name: string;
   size: number;
@@ -104,7 +104,7 @@ export default function TranscriptParserPage() {
       const idToSend = shared_id ?? getOrCreateSharedId();
 
 
-      const res = await fetch("http://localhost:5001/api/userCourses", {
+      const res = await fetch(`${API_URL}/api/userCourses`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ incoming_transfer_courses, incoming_test_courses, emory_courses, shared_id: idToSend }),
@@ -270,7 +270,7 @@ export default function TranscriptParserPage() {
           to="/dashboard"
           className="hidden rounded-xl bg-lighterBlue px-3 py-1.5 text-sm font-semibold text-white hover:bg-emoryBlue/90 md:inline-block"
         >
-          Back to Home
+          Back to Dashboard
         </Link>
       </header>
 

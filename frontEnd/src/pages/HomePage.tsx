@@ -275,7 +275,7 @@ export default function HomePage() {
 
       {/* CTA */}
       <section id="cta" className="mx-auto max-w-6xl px-4 pb-16">
-        <div className="rounded-3xl border border-zinc-200 bg-gradient-to-tr from-emoryBlue/5 via-white to-paleGold/20 p-8 text-center shadow-sm">
+        <div className="rounded-3xl border border-zinc-200 bg-linear-to-tr from-emoryBlue/5 via-white to-paleGold/20 p-8 text-center shadow-sm">
           <h3 className="text-2xl font-semibold text-emoryBlue">
             Ready to plan a calmer semester?
           </h3>

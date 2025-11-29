@@ -88,7 +88,6 @@ def userCourses():
     data = request.get_json(silent=True)
     last_userCourses = data if isinstance(data, dict) else {"value": data}
 
-    print("Received user courses:", data)
     
     try:
         shared_id = None
