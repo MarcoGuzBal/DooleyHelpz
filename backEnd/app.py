@@ -22,7 +22,15 @@ pref_col = users_db['TestPreferences']
 
 # Course data collections
 courses_db = client["DetailedCourses"]
-enriched_courses_col = courses_db["CoursesEnriched"]
+enriched_courses_col = courses_db["DetailedCourses"]
+
+# BasicCourses for GER lookup
+basic_courses_db = client["BasicCourses"]
+basic_courses_col = basic_courses_db["BasicCourses"]
+
+# RMP for professor ratings
+rmp_db = client["RMP"]
+rmp_col = rmp_db["RMP"]
 
 # Import the integrated recommendation engine
 sys.path.insert(0, str(Path(__file__).parent))
@@ -68,7 +76,9 @@ def health_check():
             "collections": {
                 "user_courses": course_col.count_documents({}),
                 "user_preferences": pref_col.count_documents({}),
-                "enriched_courses": enriched_courses_col.count_documents({})
+                "enriched_courses": enriched_courses_col.count_documents({}),
+                "basic_courses": basic_courses_col.count_documents({}),
+                "rmp": rmp_col.count_documents({})
             }
         }), 200
     except Exception as e:
@@ -88,7 +98,6 @@ def userCourses():
     data = request.get_json(silent=True)
     last_userCourses = data if isinstance(data, dict) else {"value": data}
 
-    print("Received user courses:", data)
     
     try:
         shared_id = None
@@ -164,7 +173,7 @@ def generate_schedule():
     try:
         data = request.get_json()
         shared_id = data.get("shared_id")
-        num_recommendations = data.get("num_recommendations", 15)
+        num_recommendations = data.get("num_recommendations", 10)
         
         if not shared_id:
             return jsonify({
@@ -177,6 +186,8 @@ def generate_schedule():
             course_col=course_col,
             pref_col=pref_col,
             enriched_courses_col=enriched_courses_col,
+            rmp_col=rmp_col,
+            basic_courses_col=basic_courses_col,
             num_recommendations=num_recommendations
         )
         
@@ -214,7 +225,6 @@ if __name__ == "__main__":
     port = int(os.getenv("PORT", "5001"))
     debug = os.getenv("FLASK_ENV", "development") == "development"
     
-    print(f" tests - peteros")
     print(f"\n{'='*60}")
     print(f"DooleyHelpz Backend Server Starting...")
     print(f"   (Fibonacci Heap Edition)")

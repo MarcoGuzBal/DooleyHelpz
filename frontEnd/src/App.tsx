@@ -14,7 +14,7 @@ import DashboardPage from "./pages/DashboardPage";
 //import ProtectedRoute from "./components/ProtectedRoute";
 import DropTranscript from "./components/DropTranscript";
 import PreferencesPage from "./pages/PreferencesPage";
-
+import ScheduleBuilderPage from "./pages/ScheduleBuilderPage";
 // function Protected() { return <Outlet /> }
 
 export default function App() {
@@ -35,6 +35,7 @@ export default function App() {
           <Route path="/dashboard" element={<DashboardPage />}/>
           <Route path="/droptranscript" element={<DropTranscript />} />
           <Route path="/preferences" element={<PreferencesPage />} />
+          
           {/* <Route element={<RequireAuth><Protected /></RequireAuth>}>
             <Route path="/dashboard" element={<DashboardPage />}/>
             <Route path="/droptranscript" element={<DropTranscript />} />
