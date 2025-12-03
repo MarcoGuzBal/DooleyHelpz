@@ -69,3 +69,17 @@ body {
 .hover\:bg-paleGold\/90:hover {
   background-color: rgba(232, 213, 133, 1);
 }
+
+.text-susGreen {
+  color: #88a376;
+}
+.bg-susGreen {
+  background-color: #88a376
+}
+.hover\:bg-susGreen\/90:hover {
+  background-color: rgba(136, 163, 118, 0.9);
+}
+
+.text-DarkGreen {
+  color: #002000;
+}
