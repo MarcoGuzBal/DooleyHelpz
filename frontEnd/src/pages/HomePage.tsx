@@ -265,11 +265,40 @@ export default function HomePage() {
             title="Progress aware"
             desc="Keeps you on track for graduation and flags requirement gaps early."
           />
-          <Feature
-            icon={Wand2}
-            title="What-if scenarios"
-            desc="Try alternative loads, sections, or instructors in one click."
-          />
+
+          {/* Sustainability box – full green, whole card is a button */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.4 }}
+          className="rounded-2xl bg-susGreen text-white shadow-sm hover:bg-susGreen/90 hover:shadow-md transition-colors cursor-pointer"
+          >
+          <Link
+              to="/sustainability"
+            className="flex h-full flex-col justify-between p-5"
+            >
+              <div>
+                <div className="flex items-center gap-3">
+                <div className="rounded-xl bg-white/20 p-2">
+                    <Wand2 className="h-5 w-5 text-white" />
+                </div>
+                  <h3 className="text-base font-semibold">
+                    Sustainability &amp; AI Use
+                </h3>
+                </div>
+                <p className="mt-3 text-sm text-white/90">
+                  See how DooleyHelpz lowers heavy AI use, skips AI art, and stays a
+                  little kinder to both the planet and your tuition bill.
+                </p>
+            </div>
+
+            <div className="mt-4 inline-flex items-center justify-center rounded-xl bg-white/15 px-3 py-2 text-xs font-semibold">
+            View sustainability page
+            </div>
+            </Link>
+        </motion.div>
+
         </div>
       </section>
 

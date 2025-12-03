@@ -13,7 +13,9 @@ import DashboardPage from "./pages/DashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DropTranscript from "./components/DropTranscript";
 import PreferencesPage from "./pages/PreferencesPage";
-import DashBoardPageOLI from "./pages/DashBoardPageOLI";
+import SustainabilityPage from "./pages/SustainabilityPage";
+
+
 
 
 export default function App() {
@@ -43,9 +45,9 @@ export default function App() {
     <div>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/sustainability" element={<SustainabilityPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/dash" element={<DashBoardPageOLI />} />
           <Route path="/preferences" element={<PreferencesPage />} />
           <Route path="/dashboard" element={
             <ProtectedRoute isAuthed={!!currentUser}>
