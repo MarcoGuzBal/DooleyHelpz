@@ -14,8 +14,19 @@ import {
   getDocument,
   type PDFDocumentProxy,
 } from "pdfjs-dist";
-import workerSrc from "pdfjs-dist/build/pdf.worker.min.mjs?url";
-GlobalWorkerOptions.workerSrc = workerSrc;
+
+// Try to import worker, with fallback
+try {
+  const workerSrc = new URL(
+    "pdfjs-dist/build/pdf.worker.min.mjs",
+    import.meta.url
+  ).toString();
+  GlobalWorkerOptions.workerSrc = workerSrc;
+} catch (e) {
+  console.warn("Failed to load PDF worker from URL, trying alternative...");
+  // Fallback: use CDN version
+  GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
+}
 
 // Parser now returns 4 buckets (Transfer, Test, Emory, Spring 2026)
 import { parseTranscript, type ParseResult } from "../utils/parseTranscript";
@@ -59,20 +70,25 @@ export default function TranscriptParserPage() {
 
   // ---- Extract all text from PDF (for parsing only) ----
   async function extractPdfText(file: File): Promise<string> {
-    const buf = await file.arrayBuffer();
-    const pdf: PDFDocumentProxy = await getDocument({ data: buf }).promise;
-    let all = "";
-    for (let p = 1; p <= pdf.numPages; p++) {
-      const page = await pdf.getPage(p);
-      const content = await page.getTextContent();
-      const items = content.items as any[];
-      const pageText = items
-        .map((it) => (typeof it?.str === "string" ? (it.str as string) : ""))
-        .join(" ");
-      all += (p > 1 ? "\n\n" : "") + pageText;
-    }
+    try {
+      const buf = await file.arrayBuffer();
+      const pdf: PDFDocumentProxy = await getDocument({ data: buf }).promise;
+      let all = "";
+      for (let p = 1; p <= pdf.numPages; p++) {
+        const page = await pdf.getPage(p);
+        const content = await page.getTextContent();
+        const items = content.items as any[];
+        const pageText = items
+          .map((it) => (typeof it?.str === "string" ? (it.str as string) : ""))
+          .join(" ");
+        all += (p > 1 ? "\n\n" : "") + pageText;
+      }
 
-    return all.trim();
+      return all.trim();
+    } catch (err) {
+      console.error("PDF extraction error:", err);
+      throw new Error("Failed to extract text from PDF");
+    }
   }
 
   // ---- POST separated buckets to backend ----
@@ -118,17 +134,49 @@ export default function TranscriptParserPage() {
   // Re-render preview & parse when selection changes (no auto-send)
   useEffect(() => {
     if (selected) {
-      const parsed = parseTranscript(selected.text);
-      setBuckets(parsed);
+      try {
+        const parsed = parseTranscript(selected.text);
+        
+        // Ensure parsed result is valid
+        if (!parsed) {
+          console.error("parseTranscript returned null/undefined");
+          setBuckets({
+            incoming_transfer_courses: [],
+            incoming_test_courses: [],
+            emory_courses: [],
+            spring_2026_courses: [],
+          });
+          setSelIncomingTransfer(new Set());
+          setSelIncomingTest(new Set());
+          setSelEmory(new Set());
+          setSelSpring2026(new Set());
+          return;
+        }
+        
+        setBuckets(parsed);
 
-      // start with all parsed courses selected
-      setSelIncomingTransfer(new Set(parsed.incoming_transfer_courses));
-      setSelIncomingTest(new Set(parsed.incoming_test_courses));
-      setSelEmory(new Set(parsed.emory_courses));
-      setSelSpring2026(new Set(parsed.spring_2026_courses));
+        // start with all parsed courses selected (with null checks)
+        setSelIncomingTransfer(new Set(parsed.incoming_transfer_courses || []));
+        setSelIncomingTest(new Set(parsed.incoming_test_courses || []));
+        setSelEmory(new Set(parsed.emory_courses || []));
+        setSelSpring2026(new Set(parsed.spring_2026_courses || []));
 
-      setPostedOk(null);
-      setPostError(null);
+        setPostedOk(null);
+        setPostError(null);
+      } catch (err) {
+        console.error("Error parsing transcript:", err);
+        setBuckets({
+          incoming_transfer_courses: [],
+          incoming_test_courses: [],
+          emory_courses: [],
+          spring_2026_courses: [],
+        });
+        setSelIncomingTransfer(new Set());
+        setSelIncomingTest(new Set());
+        setSelEmory(new Set());
+        setSelSpring2026(new Set());
+        setExtractError("Failed to parse transcript. Please try again.");
+      }
     } else {
       setBuckets(null);
       setSelIncomingTransfer(new Set());
@@ -180,7 +228,7 @@ export default function TranscriptParserPage() {
     } catch (err) {
       console.error(err);
       setExtractError(
-        "We couldn’t read that PDF. If it’s a scanned image, export a text-based PDF first."
+        "We couldn't read that PDF. If it's a scanned image, export a text-based PDF first."
       );
     } finally {
       setIsExtracting(false);
@@ -278,36 +326,36 @@ export default function TranscriptParserPage() {
     buckets
       ? Array.from(
           new Set([
-            ...buckets.incoming_transfer_courses,
+            ...(buckets.incoming_transfer_courses || []),
             ...selIncomingTransfer,
           ])
         )
-      : [];
+      : Array.from(selIncomingTransfer);
 
   const displayIncomingTest =
     buckets
       ? Array.from(
           new Set([
-            ...buckets.incoming_test_courses,
+            ...(buckets.incoming_test_courses || []),
             ...selIncomingTest,
           ])
         )
-      : [];
+      : Array.from(selIncomingTest);
 
   const displayEmory =
     buckets
-      ? Array.from(new Set([...buckets.emory_courses, ...selEmory]))
-      : [];
+      ? Array.from(new Set([...(buckets.emory_courses || []), ...selEmory]))
+      : Array.from(selEmory);
 
   const displaySpring2026 =
     buckets
       ? Array.from(
           new Set([
-            ...buckets.spring_2026_courses,
+            ...(buckets.spring_2026_courses || []),
             ...selSpring2026,
           ])
         )
-      : [];
+      : Array.from(selSpring2026);
 
   // --- Small UI helpers ---
   function Chip({
@@ -379,7 +427,7 @@ export default function TranscriptParserPage() {
         </motion.h1>
 
         <p className="mb-6 text-zinc-600">
-          Upload a <strong>.pdf</strong> transcript. We’ll extract{" "}
+          Upload a <strong>.pdf</strong> transcript. We'll extract{" "}
           <strong>course codes</strong> locally. Click codes to toggle validity
           (green = include, red = exclude), then submit to save.
         </p>
@@ -398,7 +446,7 @@ export default function TranscriptParserPage() {
             </p>
             {isExtracting && (
               <p className="text-xs text-zinc-600">
-                Extracting text from PDF…
+                Extracting text from PDF...
               </p>
             )}
           </label>
@@ -705,7 +753,7 @@ export default function TranscriptParserPage() {
                 {totalSelected}
               </span>{" "}
               total selected
-              {posting && <span className="ml-2 italic">• posting…</span>}
+              {posting && <span className="ml-2 italic">• posting...</span>}
               {postError && (
                 <span className="ml-2 text-rose-600">• {postError}</span>
               )}
@@ -772,5 +820,3 @@ export default function TranscriptParserPage() {
     </div>
   );
 }
-
-

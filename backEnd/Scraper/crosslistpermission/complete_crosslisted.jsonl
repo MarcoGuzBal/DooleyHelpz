@@ -1,0 +1,293 @@
+{"course": "AAS239", "cross_listed_with": ["HIST239"]}
+{"course": "AAS247", "cross_listed_with": ["SOC247"]}
+{"course": "AAS259", "cross_listed_with": ["POLS285"]}
+{"course": "AAS262", "cross_listed_with": ["ENG262"]}
+{"course": "AAS267W", "cross_listed_with": ["HIST267W"]}
+{"course": "AAS285", "cross_listed_with": ["SOC289"]}
+{"course": "AAS303", "cross_listed_with": ["MUS303"]}
+{"course": "AAS305", "cross_listed_with": ["MUS305"]}
+{"course": "AAS307", "cross_listed_with": ["MUS307"]}
+{"course": "AAS320R", "cross_listed_with": ["REL320R"]}
+{"course": "AAS346", "cross_listed_with": ["POLS346"]}
+{"course": "AAS347", "cross_listed_with": ["ANT347", "LING347"]}
+{"course": "AAS359", "cross_listed_with": ["ENG359"]}
+{"course": "AAS378", "cross_listed_with": ["ENG389"]}
+{"course": "AAS384", "cross_listed_with": ["HIST384"]}
+{"course": "AAS385", "cross_listed_with": ["AFS389", "ANT385", "CPLT389", "PHIL385", "WGS358"]}
+{"course": "AAS385W", "cross_listed_with": ["ENG348W", "WGS385W"]}
+{"course": "AFS190", "cross_listed_with": ["HIST190"]}
+{"course": "AFS221", "cross_listed_with": ["HIST221"]}
+{"course": "AFS270", "cross_listed_with": ["HIST241"]}
+{"course": "AFS270W", "cross_listed_with": ["ARTHIST289W"]}
+{"course": "AFS334", "cross_listed_with": ["POLS334"]}
+{"course": "AFS389", "cross_listed_with": ["AAS385", "ANT385", "FREN391R", "MESAS354", "PORT385"]}
+{"course": "AFS489W", "cross_listed_with": ["ECON412W"]}
+{"course": "AMST285", "cross_listed_with": ["CPLT202", "HIST232", "HIST285"]}
+{"course": "AMST321", "cross_listed_with": ["HIST359"]}
+{"course": "AMST385", "cross_listed_with": ["HIST349"]}
+{"course": "AMST385W", "cross_listed_with": ["HIST385W", "ITAL375W"]}
+{"course": "AMST489W", "cross_listed_with": ["HIST488RW"]}
+{"course": "ANCMED101", "cross_listed_with": ["JS180", "REL110"]}
+{"course": "ANT203", "cross_listed_with": ["LING201"]}
+{"course": "ANT205", "cross_listed_with": ["HLTH250", "SOC250"]}
+{"course": "ANT258", "cross_listed_with": ["JS258", "REL258"]}
+{"course": "ANT280R", "cross_listed_with": ["HIST296", "LACS270", "REL270"]}
+{"course": "ANT285", "cross_listed_with": ["HIST296", "LACS270", "REL270"]}
+{"course": "ANT307", "cross_listed_with": ["BIOL385"]}
+{"course": "ANT319", "cross_listed_with": ["NBB319", "PSYC319"]}
+{"course": "ANT337", "cross_listed_with": ["EAS337"]}
+{"course": "ANT346", "cross_listed_with": ["JPN346"]}
+{"course": "ANT347", "cross_listed_with": ["AAS347", "LING347"]}
+{"course": "ANT376W", "cross_listed_with": ["MUS376W"]}
+{"course": "ANT385", "cross_listed_with": ["AAS385", "AFS389", "JS370", "REL358R"]}
+{"course": "ANT385W", "cross_listed_with": ["BIOL385W"]}
+{"course": "ANT440", "cross_listed_with": ["BIOL442", "HLTH440"]}
+{"course": "ARTHIST222", "cross_listed_with": ["CL222"]}
+{"course": "ARTHIST289W", "cross_listed_with": ["AFS270W"]}
+{"course": "ARTHIST292", "cross_listed_with": ["EAS292"]}
+{"course": "ARTHIST319R", "cross_listed_with": ["CL329", "CL329R"]}
+{"course": "ARTHIST329", "cross_listed_with": ["CL329"]}
+{"course": "ARTHIST385", "cross_listed_with": ["CHN375"]}
+{"course": "ARTHIST385W", "cross_listed_with": ["IDS385W"]}
+{"course": "ARTHIST470RW", "cross_listed_with": ["CL487W"]}
+{"course": "BIOL212", "cross_listed_with": ["PHYS212"]}
+{"course": "BIOL247", "cross_listed_with": ["ENVS247"]}
+{"course": "BIOL360", "cross_listed_with": ["NBB301"]}
+{"course": "BIOL360L", "cross_listed_with": ["NBB301L"]}
+{"course": "BIOL371", "cross_listed_with": ["ENVS371"]}
+{"course": "BIOL372", "cross_listed_with": ["ENVS372"]}
+{"course": "BIOL385", "cross_listed_with": ["ANT307"]}
+{"course": "BIOL385W", "cross_listed_with": ["ANT385W"]}
+{"course": "BIOL442", "cross_listed_with": ["ANT440", "HLTH440"]}
+{"course": "CBSC370B", "cross_listed_with": ["ENVS370B", "POLS370B", "SOC370B"]}
+{"course": "CBSC370L", "cross_listed_with": ["ENVS370L", "POLS370L", "SOC370L"]}
+{"course": "CHN275", "cross_listed_with": ["WGS275"]}
+{"course": "CHN278", "cross_listed_with": ["HIST278"]}
+{"course": "CHN374", "cross_listed_with": ["MUS374"]}
+{"course": "CHN375", "cross_listed_with": ["ARTHIST385"]}
+{"course": "CL222", "cross_listed_with": ["ARTHIST222"]}
+{"course": "CL325W", "cross_listed_with": ["HIST325W"]}
+{"course": "CL329", "cross_listed_with": ["ARTHIST319R", "ARTHIST329"]}
+{"course": "CL329R", "cross_listed_with": ["ARTHIST319R"]}
+{"course": "CL487W", "cross_listed_with": ["ARTHIST470RW", "MESAS471"]}
+{"course": "CPLT202", "cross_listed_with": ["AMST285"]}
+{"course": "CPLT301W", "cross_listed_with": ["ENG345W", "MESAS370W"]}
+{"course": "CPLT389", "cross_listed_with": ["AAS385", "WGS358"]}
+{"course": "CPLT389W", "cross_listed_with": ["IDS385W", "RUSS374W"]}
+{"course": "CS329", "cross_listed_with": ["DATASCI329", "LING329"]}
+{"course": "CS463", "cross_listed_with": ["PHYS463"]}
+{"course": "DANC336", "cross_listed_with": ["HLTH369"]}
+{"course": "DANC454W", "cross_listed_with": ["WGS454W"]}
+{"course": "DATASCI302W", "cross_listed_with": ["ENGRD302W"]}
+{"course": "DATASCI329", "cross_listed_with": ["CS329", "LING329"]}
+{"course": "EAS212", "cross_listed_with": ["REL212"]}
+{"course": "EAS285", "cross_listed_with": ["LING285"]}
+{"course": "EAS292", "cross_listed_with": ["ARTHIST292"]}
+{"course": "EAS337", "cross_listed_with": ["ANT337"]}
+{"course": "EAS385W", "cross_listed_with": ["WGS385W"]}
+{"course": "ECON385", "cross_listed_with": ["MESAS354"]}
+{"course": "ECON412W", "cross_listed_with": ["AFS489W"]}
+{"course": "ECON425", "cross_listed_with": ["MATH425"]}
+{"course": "ECON470", "cross_listed_with": ["HLTH470"]}
+{"course": "ENG216", "cross_listed_with": ["THEA216"]}
+{"course": "ENG262", "cross_listed_with": ["AAS262"]}
+{"course": "ENG300W", "cross_listed_with": ["LING363W"]}
+{"course": "ENG342RW", "cross_listed_with": ["HIST396W"]}
+{"course": "ENG345W", "cross_listed_with": ["CPLT301W", "MESAS370W"]}
+{"course": "ENG348W", "cross_listed_with": ["AAS385W"]}
+{"course": "ENG359", "cross_listed_with": ["AAS359"]}
+{"course": "ENG385", "cross_listed_with": ["GER375"]}
+{"course": "ENG386", "cross_listed_with": ["HLTH385"]}
+{"course": "ENG389", "cross_listed_with": ["AAS378"]}
+{"course": "ENGCW375R", "cross_listed_with": ["THEA375R"]}
+{"course": "ENGCW378RW", "cross_listed_with": ["FILM378RW"]}
+{"course": "ENGCW379RW", "cross_listed_with": ["FILM379RW"]}
+{"course": "ENGCW389", "cross_listed_with": ["FILM385"]}
+{"course": "ENGRD302W", "cross_listed_with": ["DATASCI302W"]}
+{"course": "ENVS247", "cross_listed_with": ["BIOL247"]}
+{"course": "ENVS370B", "cross_listed_with": ["CBSC370B", "POLS370B", "SOC370B"]}
+{"course": "ENVS370L", "cross_listed_with": ["CBSC370L", "POLS370L", "SOC370L"]}
+{"course": "ENVS371", "cross_listed_with": ["BIOL371"]}
+{"course": "ENVS372", "cross_listed_with": ["BIOL372"]}
+{"course": "FILM265", "cross_listed_with": ["MESAS265"]}
+{"course": "FILM273W", "cross_listed_with": ["RUSS273W"]}
+{"course": "FILM286", "cross_listed_with": ["IDS285"]}
+{"course": "FILM378RW", "cross_listed_with": ["ENGCW378RW"]}
+{"course": "FILM379RW", "cross_listed_with": ["ENGCW379RW"]}
+{"course": "FILM385", "cross_listed_with": ["ENGCW389"]}
+{"course": "FREN391R", "cross_listed_with": ["AFS389"]}
+{"course": "GER375", "cross_listed_with": ["ENG385", "JS380"]}
+{"course": "HIST190", "cross_listed_with": ["AFS190", "IDS190", "MESAS190"]}
+{"course": "HIST200", "cross_listed_with": ["MESAS200"]}
+{"course": "HIST206", "cross_listed_with": ["MESAS202"]}
+{"course": "HIST208", "cross_listed_with": ["JS280"]}
+{"course": "HIST221", "cross_listed_with": ["AFS221"]}
+{"course": "HIST232", "cross_listed_with": ["AMST285"]}
+{"course": "HIST239", "cross_listed_with": ["AAS239"]}
+{"course": "HIST241", "cross_listed_with": ["AFS270"]}
+{"course": "HIST241W", "cross_listed_with": ["JS280W"]}
+{"course": "HIST254", "cross_listed_with": ["MESAS254"]}
+{"course": "HIST267W", "cross_listed_with": ["AAS267W"]}
+{"course": "HIST268", "cross_listed_with": ["JS268", "MESAS268", "POLS268"]}
+{"course": "HIST270", "cross_listed_with": ["JS270", "MESAS275"]}
+{"course": "HIST278", "cross_listed_with": ["CHN278"]}
+{"course": "HIST285", "cross_listed_with": ["AMST285", "MESAS270"]}
+{"course": "HIST296", "cross_listed_with": ["ANT280R", "ANT285", "JS271", "REL270"]}
+{"course": "HIST325W", "cross_listed_with": ["CL325W"]}
+{"course": "HIST329", "cross_listed_with": ["JS329"]}
+{"course": "HIST338", "cross_listed_with": ["JS338"]}
+{"course": "HIST349", "cross_listed_with": ["AMST385"]}
+{"course": "HIST359", "cross_listed_with": ["AMST321"]}
+{"course": "HIST361", "cross_listed_with": ["PORT385"]}
+{"course": "HIST363W", "cross_listed_with": ["LACS363W"]}
+{"course": "HIST384", "cross_listed_with": ["AAS384"]}
+{"course": "HIST385", "cross_listed_with": ["JS371", "REES375", "WGS385"]}
+{"course": "HIST385W", "cross_listed_with": ["AMST385W"]}
+{"course": "HIST396", "cross_listed_with": ["JS371", "MESAS370"]}
+{"course": "HIST396W", "cross_listed_with": ["ENG342RW", "WGS385W"]}
+{"course": "HIST423W", "cross_listed_with": ["REES423W"]}
+{"course": "HIST488RW", "cross_listed_with": ["AMST489W", "JS490RW"]}
+{"course": "HIST496W", "cross_listed_with": ["JS471W"]}
+{"course": "HLTH250", "cross_listed_with": ["ANT205", "SOC250"]}
+{"course": "HLTH369", "cross_listed_with": ["DANC336"]}
+{"course": "HLTH385", "cross_listed_with": ["ENG386", "REL358R", "THEA389"]}
+{"course": "HLTH440", "cross_listed_with": ["ANT440", "BIOL442"]}
+{"course": "HLTH470", "cross_listed_with": ["ECON470"]}
+{"course": "HLTH485", "cross_listed_with": ["NRSG482", "SOC489"]}
+{"course": "IDS190", "cross_listed_with": ["HIST190", "MESAS190"]}
+{"course": "IDS285", "cross_listed_with": ["FILM286"]}
+{"course": "IDS385W", "cross_listed_with": ["ARTHIST385W", "CPLT389W", "RUSS374W"]}
+{"course": "ITAL375W", "cross_listed_with": ["AMST385W"]}
+{"course": "JPN346", "cross_listed_with": ["ANT346"]}
+{"course": "JS180", "cross_listed_with": ["ANCMED101", "REL110"]}
+{"course": "JS190", "cross_listed_with": ["SPAN190"]}
+{"course": "JS258", "cross_listed_with": ["ANT258", "REL258"]}
+{"course": "JS268", "cross_listed_with": ["HIST268", "MESAS268", "POLS268"]}
+{"course": "JS270", "cross_listed_with": ["HIST270", "MESAS275"]}
+{"course": "JS271", "cross_listed_with": ["HIST296"]}
+{"course": "JS280", "cross_listed_with": ["HIST208", "MESAS208", "MESAS270"]}
+{"course": "JS280W", "cross_listed_with": ["HIST241W", "MESAS270W"]}
+{"course": "JS329", "cross_listed_with": ["HIST329"]}
+{"course": "JS338", "cross_listed_with": ["HIST338"]}
+{"course": "JS348", "cross_listed_with": ["MESAS348"]}
+{"course": "JS370", "cross_listed_with": ["ANT385", "MESAS370", "REL358R"]}
+{"course": "JS371", "cross_listed_with": ["HIST385", "HIST396", "WGS385"]}
+{"course": "JS380", "cross_listed_with": ["GER375"]}
+{"course": "JS471W", "cross_listed_with": ["HIST496W"]}
+{"course": "JS490RW", "cross_listed_with": ["HIST488RW"]}
+{"course": "LACS270", "cross_listed_with": ["ANT280R", "ANT285", "REL270"]}
+{"course": "LACS363W", "cross_listed_with": ["HIST363W"]}
+{"course": "LACS385", "cross_listed_with": ["POLS331"]}
+{"course": "LACS421W", "cross_listed_with": ["SPAN421W"]}
+{"course": "LACS490R", "cross_listed_with": ["SPAN485"]}
+{"course": "LACS490RW", "cross_listed_with": ["SPAN485W"]}
+{"course": "LING190", "cross_listed_with": ["SOC190"]}
+{"course": "LING201", "cross_listed_with": ["ANT203"]}
+{"course": "LING245W", "cross_listed_with": ["MESAS245W"]}
+{"course": "LING285", "cross_listed_with": ["EAS285"]}
+{"course": "LING303", "cross_listed_with": ["SPAN303"]}
+{"course": "LING304", "cross_listed_with": ["SPAN304"]}
+{"course": "LING316", "cross_listed_with": ["PSYC316"]}
+{"course": "LING329", "cross_listed_with": ["CS329", "DATASCI329"]}
+{"course": "LING347", "cross_listed_with": ["AAS347", "ANT347"]}
+{"course": "LING363W", "cross_listed_with": ["ENG300W"]}
+{"course": "LING413W", "cross_listed_with": ["SPAN413W"]}
+{"course": "LING446W", "cross_listed_with": ["SOC446W"]}
+{"course": "MATH425", "cross_listed_with": ["ECON425"]}
+{"course": "MESAS170", "cross_listed_with": ["REL170"]}
+{"course": "MESAS1701", "cross_listed_with": ["REL170"]}
+{"course": "MESAS190", "cross_listed_with": ["HIST190", "IDS190"]}
+{"course": "MESAS200", "cross_listed_with": ["HIST200"]}
+{"course": "MESAS202", "cross_listed_with": ["HIST206"]}
+{"course": "MESAS208", "cross_listed_with": ["JS280"]}
+{"course": "MESAS232", "cross_listed_with": ["REL232"]}
+{"course": "MESAS238", "cross_listed_with": ["POLS238"]}
+{"course": "MESAS245W", "cross_listed_with": ["LING245W"]}
+{"course": "MESAS254", "cross_listed_with": ["HIST254"]}
+{"course": "MESAS265", "cross_listed_with": ["FILM265"]}
+{"course": "MESAS268", "cross_listed_with": ["HIST268", "JS268", "POLS268"]}
+{"course": "MESAS270", "cross_listed_with": ["HIST285", "JS280"]}
+{"course": "MESAS270W", "cross_listed_with": ["JS280W"]}
+{"course": "MESAS275", "cross_listed_with": ["HIST270", "JS270"]}
+{"course": "MESAS338", "cross_listed_with": ["REL338"]}
+{"course": "MESAS348", "cross_listed_with": ["JS348"]}
+{"course": "MESAS354", "cross_listed_with": ["AFS389", "ECON385"]}
+{"course": "MESAS370", "cross_listed_with": ["HIST396", "JS370"]}
+{"course": "MESAS370W", "cross_listed_with": ["CPLT301W", "ENG345W"]}
+{"course": "MESAS378W", "cross_listed_with": ["WGS378W"]}
+{"course": "MESAS471", "cross_listed_with": ["CL487W"]}
+{"course": "MUS220", "cross_listed_with": ["NBB220"]}
+{"course": "MUS303", "cross_listed_with": ["AAS303"]}
+{"course": "MUS305", "cross_listed_with": ["AAS305"]}
+{"course": "MUS307", "cross_listed_with": ["AAS307"]}
+{"course": "MUS374", "cross_listed_with": ["CHN374"]}
+{"course": "MUS376W", "cross_listed_with": ["ANT376W"]}
+{"course": "NBB220", "cross_listed_with": ["MUS220"]}
+{"course": "NBB301", "cross_listed_with": ["BIOL360"]}
+{"course": "NBB301L", "cross_listed_with": ["BIOL360L"]}
+{"course": "NBB302", "cross_listed_with": ["PSYC353"]}
+{"course": "NBB319", "cross_listed_with": ["ANT319", "PSYC319"]}
+{"course": "NBB370", "cross_listed_with": ["PSYC302", "PSYC322"]}
+{"course": "NRSG482", "cross_listed_with": ["HLTH485"]}
+{"course": "PHIL190", "cross_listed_with": ["REL190"]}
+{"course": "PHIL385", "cross_listed_with": ["AAS385"]}
+{"course": "PHIL385W", "cross_listed_with": ["REL354RW"]}
+{"course": "PHYS125", "cross_listed_with": ["SUST125"]}
+{"course": "PHYS212", "cross_listed_with": ["BIOL212"]}
+{"course": "PHYS463", "cross_listed_with": ["CS463"]}
+{"course": "POLS238", "cross_listed_with": ["MESAS238"]}
+{"course": "POLS268", "cross_listed_with": ["HIST268", "JS268", "MESAS268"]}
+{"course": "POLS285", "cross_listed_with": ["AAS259"]}
+{"course": "POLS331", "cross_listed_with": ["LACS385"]}
+{"course": "POLS334", "cross_listed_with": ["AFS334"]}
+{"course": "POLS346", "cross_listed_with": ["AAS346"]}
+{"course": "POLS370B", "cross_listed_with": ["CBSC370B", "ENVS370B", "SOC370B"]}
+{"course": "POLS370L", "cross_listed_with": ["CBSC370L", "ENVS370L", "SOC370L"]}
+{"course": "PORT385", "cross_listed_with": ["AFS389", "HIST361"]}
+{"course": "PSYC302", "cross_listed_with": ["NBB370"]}
+{"course": "PSYC316", "cross_listed_with": ["LING316"]}
+{"course": "PSYC319", "cross_listed_with": ["ANT319", "NBB319"]}
+{"course": "PSYC322", "cross_listed_with": ["NBB370"]}
+{"course": "PSYC353", "cross_listed_with": ["NBB302"]}
+{"course": "REES375", "cross_listed_with": ["HIST385"]}
+{"course": "REES423W", "cross_listed_with": ["HIST423W"]}
+{"course": "REL110", "cross_listed_with": ["ANCMED101", "JS180"]}
+{"course": "REL170", "cross_listed_with": ["MESAS170", "MESAS1701"]}
+{"course": "REL190", "cross_listed_with": ["PHIL190"]}
+{"course": "REL212", "cross_listed_with": ["EAS212"]}
+{"course": "REL232", "cross_listed_with": ["MESAS232"]}
+{"course": "REL258", "cross_listed_with": ["ANT258", "JS258"]}
+{"course": "REL270", "cross_listed_with": ["ANT280R", "ANT285", "HIST296", "LACS270"]}
+{"course": "REL320R", "cross_listed_with": ["AAS320R"]}
+{"course": "REL338", "cross_listed_with": ["MESAS338"]}
+{"course": "REL354RW", "cross_listed_with": ["PHIL385W"]}
+{"course": "REL358R", "cross_listed_with": ["ANT385", "HLTH385", "JS370"]}
+{"course": "RUSS273W", "cross_listed_with": ["FILM273W"]}
+{"course": "RUSS374W", "cross_listed_with": ["CPLT389W", "IDS385W"]}
+{"course": "SOC190", "cross_listed_with": ["LING190"]}
+{"course": "SOC247", "cross_listed_with": ["AAS247"]}
+{"course": "SOC250", "cross_listed_with": ["ANT205", "HLTH250"]}
+{"course": "SOC289", "cross_listed_with": ["AAS285"]}
+{"course": "SOC370B", "cross_listed_with": ["CBSC370B", "ENVS370B", "POLS370B"]}
+{"course": "SOC370L", "cross_listed_with": ["CBSC370L", "ENVS370L", "POLS370L"]}
+{"course": "SOC446W", "cross_listed_with": ["LING446W"]}
+{"course": "SOC489", "cross_listed_with": ["HLTH485"]}
+{"course": "SPAN190", "cross_listed_with": ["JS190"]}
+{"course": "SPAN303", "cross_listed_with": ["LING303"]}
+{"course": "SPAN304", "cross_listed_with": ["LING304"]}
+{"course": "SPAN330", "cross_listed_with": ["THEA363"]}
+{"course": "SPAN413W", "cross_listed_with": ["LING413W"]}
+{"course": "SPAN421W", "cross_listed_with": ["LACS421W"]}
+{"course": "SPAN485", "cross_listed_with": ["LACS490R"]}
+{"course": "SPAN485W", "cross_listed_with": ["LACS490RW"]}
+{"course": "SUST125", "cross_listed_with": ["PHYS125"]}
+{"course": "THEA216", "cross_listed_with": ["ENG216"]}
+{"course": "THEA363", "cross_listed_with": ["SPAN330"]}
+{"course": "THEA375R", "cross_listed_with": ["ENGCW375R"]}
+{"course": "THEA389", "cross_listed_with": ["HLTH385"]}
+{"course": "WGS275", "cross_listed_with": ["CHN275"]}
+{"course": "WGS358", "cross_listed_with": ["AAS385", "CPLT389"]}
+{"course": "WGS378W", "cross_listed_with": ["MESAS378W"]}
+{"course": "WGS385", "cross_listed_with": ["HIST385", "JS371"]}
+{"course": "WGS385W", "cross_listed_with": ["AAS385W", "EAS385W", "HIST396W"]}
+{"course": "WGS454W", "cross_listed_with": ["DANC454W"]}

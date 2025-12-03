@@ -265,21 +265,21 @@ export default function DashboardPage() {
             </button>
           </div>
 
-          {/* Schedule Builder (no link yet) */}
+          {/* Schedule Builder - NOW WORKING */}
           <div className="flex flex-col justify-between rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
             <div>
               <h2 className="text-sm font-semibold text-emoryBlue">
                 Schedule Builder
               </h2>
               <p className="mt-1 text-xs text-zinc-600">
-                Soon you&apos;ll be able to generate and edit schedules directly from here.
+                Generate AI-powered schedules and export to your calendar.
               </p>
             </div>
             <button
-              className="mt-3 cursor-not-allowed rounded-xl bg-zinc-200 px-3 py-1.5 text-xs font-semibold text-zinc-500"
-              disabled
+              onClick={() => navigate("/schedule-builder")}
+              className="mt-3 rounded-xl bg-Gold px-3 py-1.5 text-xs font-semibold text-emoryBlue hover:bg-Gold/90"
             >
-              Coming soon
+              Build Schedule
             </button>
           </div>
         </section>

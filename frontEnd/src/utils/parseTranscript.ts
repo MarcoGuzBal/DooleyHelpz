@@ -3,8 +3,8 @@
 export type ParseResult = {
   incoming_transfer_courses: string[]; // from "Transfer Credits" → "... as DEPT NUM[SUF] ... T"
   incoming_test_courses: string[];     // from "Test Credits" → "... as DEPT NUM[SUF] ... T"
-  emory_courses: string[];             // from academic record before Spring 2026, filtered by grade
-  spring_2026_courses: string[];       // from "Spring 2026" onward (planned/future)
+  emory_courses: string[];             // from "Beginning of Academic Record", filtered by grade
+  spring_2026_courses: string[];       // planned / Spring 2026 courses (optional)
 };
 
 export function parseTranscript(rawText: string): ParseResult {
@@ -63,9 +63,8 @@ export function parseTranscript(rawText: string): ParseResult {
     academicPreSpring = academicSection.slice(0, offset);
     spring2026Section = academicSection.slice(offset);
   } else if (spring2026Idx >= 0) {
-    // Fallback: if for some reason Spring 2026 appears outside academic section,
-    // just treat everything from that anchor as the Spring 2026 section.
-    spring2026Section = text.slice(spring2026Idx);
+    // Found spring 2026 but no "Beginning of Academic Record" anchor — take from global
+   spring2026Section = text.slice(spring2026Idx);
   }
 
   // --- Patterns ---
@@ -157,8 +156,10 @@ export function parseTranscript(rawText: string): ParseResult {
   function extractSpring2026(section: string): string[] {
     if (!section) return [];
     const out = new Set<string>();
+    // use a fresh RegExp to avoid shared lastIndex state from other extractors
+    const re = new RegExp(codeRe.source, codeRe.flags);
     let m: RegExpExecArray | null;
-    while ((m = codeRe.exec(section)) !== null) {
+    while ((m = re.exec(section)) !== null) {
       const dept = m[1];
       const num  = m[2];
       const suf  = m[3] || "";
@@ -181,12 +182,9 @@ export function parseTranscript(rawText: string): ParseResult {
   let emory_courses = extractEmory(academicPreSpring)
     .filter((c) => !incomingAllSet.has(c)); // defensive de-dupe vs incoming
 
-  // Spring 2026 courses = academic record AT/AFTER Spring 2026 header
-  const spring_2026_courses = extractSpring2026(spring2026Section);
-
-  // Make sure Spring 2026 codes only live in their own bucket
-  const springSet = new Set(spring_2026_courses);
-  emory_courses = emory_courses.filter((c) => !springSet.has(c));
+  // No specific extraction implemented yet for Spring 2026 planned courses;
+  // provide an empty array so callers can safely reference the property.
+  const spring_2026_courses: string[] = extractSpring2026(spring2026Section);
 
   return {
     incoming_transfer_courses,

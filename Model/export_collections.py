@@ -1,9 +1,13 @@
 from pymongo import MongoClient
 import json, os
+from dotenv import load_dotenv
 from datetime import datetime
 
 # ====== CONFIGURATION ======
-MONGO_URI = "YOUR_MONGODB_URI_HERE"  # 👈 replace with your full URI
+load_dotenv()
+
+# Read URI from environment first, otherwise fall back to the current placeholder.
+MONGO_URI = os.environ.get("MONGO_URI") or os.environ.get("MONGODB_URI") or "YOUR_MONGODB_URI_HERE"
 DB_NAMES = ["DetailedCourses", "RateMyProfessors"]
 COLLECTIONS = [
     ("DetailedCourses", "BasicCourses"),
@@ -14,11 +18,10 @@ OUT_DIR = "mongo_exports"
 # ============================
 
 os.makedirs(OUT_DIR, exist_ok=True)
-import os
-from dotenv import load_dotenv
-load_dotenv(os.path.join(os.path.dirname(__file__), '../backEnd/.env'))
-uri = os.getenv("MONGODB_URI")
-client = MongoClient(uri)
+if not MONGO_URI or MONGO_URI == "YOUR_MONGODB_URI_HERE":
+    raise EnvironmentError("MONGO_URI or MONGODB_URI not set. Add it to your .env or environment to use this script safely.")
+
+client = MongoClient(MONGO_URI)
 
 for db_name, col_name in COLLECTIONS:
     db = client[db_name]

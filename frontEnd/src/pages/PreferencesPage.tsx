@@ -347,4 +347,3 @@ export default function PreferencesPage() {
     </form>
   );
 }
-
