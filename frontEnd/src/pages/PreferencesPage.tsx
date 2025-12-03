@@ -22,6 +22,8 @@ import { CSS } from "@dnd-kit/utilities";
 import applogo from "../assets/dooleyHelpzAppLogo.png";
 import mascot from "../assets/EHMascot.png";
 import { useNavigate } from "react-router-dom";
+import { api } from "../utils/api";
+import { getOrCreateSharedId } from "../utils/anonID";
 
 /* ------------------------ Helper Types ------------------------- */
 const DEGREE_TYPES = ["BS", "BA"] as const;
@@ -231,14 +233,21 @@ export default function PreferencesPage() {
 
     console.log("SUBMIT", payload);
 
-    fetch("http://localhost:5001/api/preferences", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    const sharedId = getOrCreateSharedId();
+    const payloadWithId = { ...payload, shared_id: sharedId };
 
-    setHasUnsavedChanges(false);
-    alert("Preferences saved!");
+    api.savePreferences(payloadWithId)
+      .then((res) => {
+        if (res.success) {
+          setHasUnsavedChanges(false);
+          alert("Preferences saved!");
+        } else {
+          alert("Failed to save preferences: " + res.error);
+        }
+      })
+      .catch((err) => {
+        alert("Error saving preferences: " + err.message);
+      });
   }
 
   /* --------------------------- Drag & Drop ------------------------- */

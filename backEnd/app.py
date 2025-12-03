@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 load_dotenv()
 uri = os.getenv("MONGODB_URI")
@@ -19,6 +19,7 @@ users_db = client["Users"]
 user_col = users_db['TestUsers']
 course_col = users_db['TestCourses']
 pref_col = users_db['TestPreferences']
+schedules_col = users_db['SavedSchedules']  # NEW: For storing saved schedules
 
 # Course data collections
 courses_db = client["DetailedCourses"]
@@ -33,6 +34,7 @@ rmp_db = client["RMP"]
 rmp_col = rmp_db["RMP"]
 
 # Import the integrated recommendation engine
+sys.path.insert(0, str(Path(__file__).parent / "FibHeap"))
 sys.path.insert(0, str(Path(__file__).parent))
 
 try:
@@ -40,8 +42,14 @@ try:
     RECO_ENGINE_AVAILABLE = True
     print("Loaded integrated recommendation engine with Fibonacci heap")
 except ImportError as e:
-    print(f"Could not load recommendation engine: {e}")
-    RECO_ENGINE_AVAILABLE = False
+    print(f"Could not load recommendation engine from FibHeap: {e}")
+    try:
+        from integrated_recommendation_engine import generate_schedule_for_user
+        RECO_ENGINE_AVAILABLE = True
+        print("Loaded integrated recommendation engine (fallback)")
+    except ImportError as e2:
+        print(f"Could not load recommendation engine: {e2}")
+        RECO_ENGINE_AVAILABLE = False
 
 # Cache for last submitted data
 last_userCourses = None
@@ -52,12 +60,16 @@ last_preferences = None
 def home():
     return jsonify({
         "message": "DooleyHelpz Backend API",
-        "version": "3.0 - Fibonacci Heap Edition",
+        "version": "3.1 - Fibonacci Heap Edition",
         "recommendation_engine": "available" if RECO_ENGINE_AVAILABLE else "unavailable",
         "endpoints": {
             "user_courses": "/api/userCourses (POST, GET)",
             "preferences": "/api/preferences (POST, GET)",
             "generate_schedule": "/api/generate-schedule (POST)",
+            "get_user_data": "/api/user-data/<shared_id> (GET)",
+            "save_schedule": "/api/save-schedule (POST)",
+            "get_saved_schedule": "/api/saved-schedule/<shared_id> (GET)",
+            "modify_schedule": "/api/modify-schedule (POST)",
             "health": "/api/health (GET)"
         }
     })
@@ -97,7 +109,6 @@ def userCourses():
 
     data = request.get_json(silent=True)
     last_userCourses = data if isinstance(data, dict) else {"value": data}
-
     
     try:
         shared_id = None
@@ -162,6 +173,249 @@ def viewUserPreferences():
     return {"message": "Last saved preferences", "preferences": last_preferences}, 200
 
 
+# NEW: Get all user data for a shared_id
+@app.route("/api/user-data/<int:shared_id>", methods=["GET"])
+def get_user_data(shared_id):
+    try:
+        # Get latest courses
+        user_courses = course_col.find_one(
+            {"shared_id": shared_id},
+            sort=[("_id", -1)]
+        )
+        
+        # Get latest preferences
+        user_prefs = pref_col.find_one(
+            {"shared_id": shared_id},
+            sort=[("_id", -1)]
+        )
+        
+        # Get saved schedule if any
+        saved_schedule = schedules_col.find_one(
+            {"shared_id": shared_id},
+            sort=[("_id", -1)]
+        )
+        
+        # Remove MongoDB _id fields for JSON serialization
+        if user_courses and "_id" in user_courses:
+            user_courses["_id"] = str(user_courses["_id"])
+        if user_prefs and "_id" in user_prefs:
+            user_prefs["_id"] = str(user_prefs["_id"])
+        if saved_schedule and "_id" in saved_schedule:
+            saved_schedule["_id"] = str(saved_schedule["_id"])
+        
+        return jsonify({
+            "success": True,
+            "has_courses": user_courses is not None,
+            "has_preferences": user_prefs is not None,
+            "has_saved_schedule": saved_schedule is not None,
+            "courses": user_courses,
+            "preferences": user_prefs,
+            "saved_schedule": saved_schedule
+        }), 200
+        
+    except Exception as e:
+        print(f"Error fetching user data: {e}")
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+
+# NEW: Save a selected schedule
+@app.route("/api/save-schedule", methods=["POST"])
+def save_schedule():
+    try:
+        data = request.get_json()
+        shared_id = data.get("shared_id")
+        schedule = data.get("schedule")
+        
+        if not shared_id or not schedule:
+            return jsonify({
+                "success": False,
+                "error": "shared_id and schedule required"
+            }), 400
+        
+        # Upsert - update if exists, insert if not
+        result = schedules_col.update_one(
+            {"shared_id": shared_id},
+            {"$set": {
+                "shared_id": shared_id,
+                "schedule": schedule,
+                "updated_at": __import__('datetime').datetime.utcnow()
+            }},
+            upsert=True
+        )
+        
+        return jsonify({
+            "success": True,
+            "message": "Schedule saved successfully",
+            "upserted": result.upserted_id is not None
+        }), 200
+        
+    except Exception as e:
+        print(f"Error saving schedule: {e}")
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+
+# NEW: Get saved schedule
+@app.route("/api/saved-schedule/<int:shared_id>", methods=["GET"])
+def get_saved_schedule(shared_id):
+    try:
+        saved_schedule = schedules_col.find_one(
+            {"shared_id": shared_id},
+            sort=[("_id", -1)]
+        )
+        
+        if saved_schedule:
+            saved_schedule["_id"] = str(saved_schedule["_id"])
+            return jsonify({
+                "success": True,
+                "schedule": saved_schedule.get("schedule")
+            }), 200
+        else:
+            return jsonify({
+                "success": False,
+                "error": "No saved schedule found"
+            }), 404
+            
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+
+# NEW: Modify schedule (add/remove courses and regenerate)
+@app.route("/api/modify-schedule", methods=["POST"])
+def modify_schedule():
+    if not RECO_ENGINE_AVAILABLE:
+        return jsonify({
+            "success": False,
+            "error": "Recommendation engine not available."
+        }), 500
+    
+    try:
+        data = request.get_json()
+        shared_id = data.get("shared_id")
+        action = data.get("action")  # "add" or "remove"
+        course_code = data.get("course_code")
+        priority_rank = data.get("priority_rank")  # For add action
+        current_schedule = data.get("current_schedule", [])
+        
+        if not shared_id or not action or not course_code:
+            return jsonify({
+                "success": False,
+                "error": "shared_id, action, and course_code required"
+            }), 400
+        
+        # Get user data
+        user_courses = course_col.find_one(
+            {"shared_id": shared_id},
+            sort=[("_id", -1)]
+        )
+        
+        user_prefs = pref_col.find_one(
+            {"shared_id": shared_id},
+            sort=[("_id", -1)]
+        )
+        
+        if not user_courses or not user_prefs:
+            return jsonify({
+                "success": False,
+                "error": "User data not found"
+            }), 404
+        
+        # Modify preferences to include locked courses
+        locked_courses = user_prefs.get("locked_courses", [])
+        removed_courses = user_prefs.get("removed_courses", [])
+        
+        if action == "add":
+            if course_code not in [c.get("code") for c in locked_courses]:
+                locked_courses.append({
+                    "code": course_code,
+                    "priority": priority_rank or 1
+                })
+            # Remove from removed list if present
+            removed_courses = [c for c in removed_courses if c != course_code]
+        elif action == "remove":
+            if course_code not in removed_courses:
+                removed_courses.append(course_code)
+            # Remove from locked list if present
+            locked_courses = [c for c in locked_courses if c.get("code") != course_code]
+        
+        # Update preferences
+        pref_col.update_one(
+            {"_id": user_prefs["_id"]},
+            {"$set": {
+                "locked_courses": locked_courses,
+                "removed_courses": removed_courses
+            }}
+        )
+        
+        # Regenerate schedule with modifications
+        result = generate_schedule_for_user(
+            shared_id=shared_id,
+            course_col=course_col,
+            pref_col=pref_col,
+            enriched_courses_col=enriched_courses_col,
+            rmp_col=rmp_col,
+            basic_courses_col=basic_courses_col,
+            num_recommendations=10
+        )
+        
+        return jsonify(result), 200 if result.get("success") else 400
+        
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+
+# NEW: Search courses (for adding to schedule)
+@app.route("/api/search-courses", methods=["GET"])
+def search_courses():
+    try:
+        query = request.args.get("q", "").strip()
+        limit = int(request.args.get("limit", 20))
+        
+        if not query:
+            return jsonify({
+                "success": True,
+                "courses": []
+            }), 200
+        
+        # Search by code or title
+        search_filter = {
+            "$or": [
+                {"code": {"$regex": query, "$options": "i"}},
+                {"title": {"$regex": query, "$options": "i"}}
+            ]
+        }
+        
+        courses = list(enriched_courses_col.find(
+            search_filter,
+            {"_id": 0, "code": 1, "title": 1, "credits": 1, "time": 1, "professor": 1, "ger": 1}
+        ).limit(limit))
+        
+        return jsonify({
+            "success": True,
+            "courses": courses,
+            "count": len(courses)
+        }), 200
+        
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+
 @app.route("/api/generate-schedule", methods=["POST"])
 def generate_schedule():
     if not RECO_ENGINE_AVAILABLE:
@@ -222,7 +476,8 @@ def internal_error(error):
 
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", "5001"))
+    # Use PORT env variable (Fly.io sets this)
+    port = int(os.getenv("PORT", "8080"))
     debug = os.getenv("FLASK_ENV", "development") == "development"
     
     print(f"\n{'='*60}")
@@ -234,9 +489,13 @@ if __name__ == "__main__":
     print(f"MongoDB: Connected")
     print(f"Recommendation Engine: {'Available' if RECO_ENGINE_AVAILABLE else 'Not Available'}")
     print(f"\nEndpoints:")
-    print(f"  POST /api/userCourses       - Upload transcript data")
+    print(f"  POST /api/userCourses        - Upload transcript data")
     print(f"  POST /api/preferences        - Set preferences")
     print(f"  POST /api/generate-schedule  - Generate recommendations")
+    print(f"  GET  /api/user-data/<id>     - Get all user data")
+    print(f"  POST /api/save-schedule      - Save selected schedule")
+    print(f"  POST /api/modify-schedule    - Add/remove courses")
+    print(f"  GET  /api/search-courses     - Search available courses")
     print(f"  GET  /api/health             - Health check")
     print(f"{'='*60}\n")
     
