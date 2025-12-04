@@ -68,7 +68,6 @@ GER_REQUIREMENTS = {
     "ETHN": 1, "CW": 2, "XA": 1
 }
 
-# GER urgency by year - courses due by end of that academic level
 GER_DUE_BY_YEAR = {
     "Freshman": {"ECS", "HLTH", "FS", "FW", "PE"},
     "Sophomore": {"HA", "NS", "QR", "SS"},
@@ -76,14 +75,15 @@ GER_DUE_BY_YEAR = {
     "Senior": {"CW", "XA"}
 }
 
-# Language courses for IC requirement tracking
 IC_LANGUAGE_PREFIXES = {
     "SPAN", "FREN", "GER", "ITAL", "PORT", "RUSS", "ARAB", "HEBR",
     "CHN", "JPN", "KRN", "LAT", "GRK", "SWAH", "HNDI", "TBT"
 }
 
-# Languages that are generally "closer" to English
 EASY_LANGUAGES = {"SPAN", "FREN", "ITAL", "PORT"}
+
+# Day mapping - used in multiple places
+DAY_MAP = {"M": "Monday", "T": "Tuesday", "W": "Wednesday", "Th": "Thursday", "F": "Friday"}
 
 
 def normalize_course_code(course_code: str) -> str:
@@ -91,8 +91,6 @@ def normalize_course_code(course_code: str) -> str:
         return course_code
 
     code = course_code.strip().upper().replace(" ", "")
-    
-    # Handle Oxford campus variants (PHYS_OX142 -> PHYS142)
     code = code.replace("_OX", "")
 
     if code.endswith("ZL"):
@@ -104,9 +102,6 @@ def normalize_course_code(course_code: str) -> str:
 
 
 def parse_credits(credits_value, default: int = 3) -> int:
-    """
-    Safely parse credits from various formats.
-    """
     if credits_value is None:
         return default
     
@@ -141,6 +136,23 @@ def get_course_number(course_code: str) -> Optional[int]:
     return None
 
 
+def get_department(course_code: str) -> str:
+    """Extract department code from a course code."""
+    if not course_code:
+        return ""
+    code = normalize_course_code(str(course_code))
+    m = re.match(r"^([A-Z]+?)(?=\d)", code)
+    if m:
+        return m.group(1)
+    dept = []
+    for ch in code:
+        if ch.isalpha():
+            dept.append(ch)
+        else:
+            break
+    return "".join(dept) if dept else ""
+
+
 class IntegratedRecommendationEngine:
 
     def __init__(self):
@@ -148,29 +160,44 @@ class IntegratedRecommendationEngine:
         self.suffixes = {"jr", "sr", "ii", "iii", "iv"}
         self.degrees = {"phd", "md", "msc", "ms", "mba", "edd", "dphil"}
         self.honorifics = {"dr", "prof", "professor"}
+        
+        # OPTIMIZATION: Caches for expensive operations
+        self._meeting_blocks_cache: Dict[str, List[Tuple[str, int, int]]] = {}
+        self._course_metadata_cache: Dict[str, Dict[str, Any]] = {}
 
-    def _get_department(self, course_code: str) -> str:
-        """Extract department code from a course code."""
-        if not course_code:
-            return ""
+    def _clear_caches(self):
+        """Clear all caches - call at start of each recommendation run."""
+        self._meeting_blocks_cache.clear()
+        self._course_metadata_cache.clear()
 
-        code = normalize_course_code(str(course_code))
-        m = re.match(r"^([A-Z]+?)(?=\d)", code)
-        if m:
-            return m.group(1)
-
-        dept = []
-        for ch in code:
-            if ch.isalpha():
-                dept.append(ch)
-            else:
-                break
-        return "".join(dept) if dept else ""
+    def _get_course_metadata(self, course: Dict) -> Dict[str, Any]:
+        """Get or compute cached metadata for a course."""
+        code = course.get("code") or ""
+        if not code:
+            return {"normalized_code": "", "department": "", "course_number": None}
+        
+        # Use object id as cache key since code might not be unique
+        cache_key = f"{code}_{id(course)}"
+        
+        if cache_key in self._course_metadata_cache:
+            return self._course_metadata_cache[cache_key]
+        
+        normalized = normalize_course_code(code)
+        dept = get_department(normalized)
+        num = get_course_number(normalized)
+        
+        metadata = {
+            "normalized_code": normalized,
+            "department": dept,
+            "course_number": num,
+        }
+        
+        self._course_metadata_cache[cache_key] = metadata
+        return metadata
 
     def _strip_accents(self, s: str) -> str:
         return "".join(
-            c
-            for c in unicodedata.normalize("NFKD", s)
+            c for c in unicodedata.normalize("NFKD", s)
             if not unicodedata.combining(c)
         )
 
@@ -188,21 +215,15 @@ class IntegratedRecommendationEngine:
             last = parts[0]
             first_and_more = parts[1]
             tokens = [
-                t
-                for t in first_and_more.split()
-                if t not in self.suffixes
-                and t not in self.degrees
-                and t not in self.honorifics
+                t for t in first_and_more.split()
+                if t not in self.suffixes and t not in self.degrees and t not in self.honorifics
             ]
             core = " ".join(tokens)
             n = f"{core} {last}".strip()
         else:
             tokens = [
-                t
-                for t in n.split()
-                if t not in self.suffixes
-                and t not in self.degrees
-                and t not in self.honorifics
+                t for t in n.split()
+                if t not in self.suffixes and t not in self.degrees and t not in self.honorifics
             ]
             n = " ".join(tokens)
         return n or None
@@ -254,8 +275,6 @@ class IntegratedRecommendationEngine:
 
         return None
 
-    # ========== PERMISSION CHECK (FIX 1) ==========
-    
     def _requires_permission(self, course: Dict) -> bool:
         """Check if course requires permission/consent to enroll."""
         if course.get("permission_required"):
@@ -280,33 +299,25 @@ class IntegratedRecommendationEngine:
 
     def _is_research_course(self, course: Dict) -> bool:
         """Check if course is a research/independent study course."""
-        code = (course.get("code") or "").upper().replace(" ", "")
+        meta = self._get_course_metadata(course)
+        code = meta["normalized_code"]
         title = (course.get("title") or "").lower()
         
         research_keywords = [
-            "independent study",
-            "directed study", 
-            "directed research",
-            "undergraduate research",
-            "honors research",
-            "thesis",
-            "special research",
+            "independent study", "directed study", "directed research",
+            "undergraduate research", "honors research", "thesis", "special research",
         ]
         if any(kw in title for kw in research_keywords):
             return True
         
         if code.endswith("R") and not code.endswith("RW"):
-            course_num = get_course_number(code)
+            course_num = meta["course_number"]
             if course_num:
-                if 395 <= course_num <= 399:
-                    return True
-                if 485 <= course_num <= 499:
+                if 395 <= course_num <= 399 or 485 <= course_num <= 499:
                     return True
         
         return False
 
-    # ========== CROSS-LISTING CHECK (FIX 2) ==========
-    
     def _is_cross_listed_duplicate(
         self, 
         course: Dict, 
@@ -314,7 +325,8 @@ class IntegratedRecommendationEngine:
         all_courses_map: Dict[str, Dict]
     ) -> bool:
         """Check if this course is cross-listed with any course already in schedule."""
-        code = normalize_course_code(course.get("code") or "")
+        meta = self._get_course_metadata(course)
+        code = meta["normalized_code"]
         
         cross_listed = course.get("cross_listed_with") or []
         for cross_code in cross_listed:
@@ -328,6 +340,7 @@ class IntegratedRecommendationEngine:
                 if code in [normalize_course_code(c) for c in sched_cross]:
                     return True
         
+        # Check by title + time (same course, different code)
         course_title = (course.get("title") or "").strip().lower()
         course_time = course.get("time") or ""
         
@@ -342,8 +355,6 @@ class IntegratedRecommendationEngine:
                         return True
         
         return False
-
-    # ========== TIME PARSING / CONSTRAINTS ==========
 
     def _time_to_minutes(self, time_str: str) -> int:
         if not time_str:
@@ -397,8 +408,6 @@ class IntegratedRecommendationEngine:
 
         return blocks
 
-    # === NEW helpers for days/times/blocks ===
-
     def _parse_days(self, day_str: str) -> List[str]:
         """Parse day string like 'TTh' or 'MWF' into list of day abbreviations."""
         if not day_str:
@@ -423,20 +432,16 @@ class IntegratedRecommendationEngine:
         if not time_str:
             return (0, 0)
         s = str(time_str).strip()
-        # Normalize '10am' -> '10:00am'
         s = re.sub(r'(?<![:\d])(\d{1,2})(am|pm)', r'\1:00\2', s, flags=re.IGNORECASE)
         m = re.match(
-            r'(\d{1,2}):(\d{2})\s*(am|pm)\s*-\s*'
-            r'(\d{1,2}):(\d{2})\s*(am|pm)',
-            s,
-            flags=re.IGNORECASE
+            r'(\d{1,2}):(\d{2})\s*(am|pm)\s*-\s*(\d{1,2}):(\d{2})\s*(am|pm)',
+            s, flags=re.IGNORECASE
         )
         if not m:
             return (0, 0)
         sh, sm, sap, eh, em, eap = m.groups()
         sh, sm, eh, em = int(sh), int(sm), int(eh), int(em)
-        sap = sap.lower()
-        eap = eap.lower()
+        sap, eap = sap.lower(), eap.lower()
         if sap == "pm" and sh != 12:
             sh += 12
         if sap == "am" and sh == 12:
@@ -448,28 +453,28 @@ class IntegratedRecommendationEngine:
         return (sh * 60 + sm, eh * 60 + em)
 
     def _extract_meeting_blocks(self, course: Dict) -> List[Tuple[str, int, int]]:
-        """Extract time blocks as (day_abbr, start_min, end_min)."""
+        """Extract time blocks as (day_abbr, start_min, end_min). CACHED."""
+        code = course.get("code") or ""
+        cache_key = f"{code}_{id(course)}"
+        
+        if cache_key in self._meeting_blocks_cache:
+            return self._meeting_blocks_cache[cache_key]
+        
         blocks: List[Tuple[str, int, int]] = []
 
-        meeting = course.get("meeting")
-        if not meeting:
-            meeting = course.get("meetings")
+        meeting = course.get("meeting") or course.get("meetings")
 
         def add_block(day_val, start_min, end_min):
-            if start_min is None or end_min is None:
+            if start_min is None or end_min is None or end_min <= start_min:
                 return
-            if end_min <= start_min:
-                return
-            days: List[str] = []
+            days_list: List[str] = []
             if isinstance(day_val, list):
                 for d in day_val:
                     if isinstance(d, str):
-                        days.extend(self._parse_days(d))
+                        days_list.extend(self._parse_days(d))
             elif isinstance(day_val, str):
-                days = self._parse_days(day_val)
-            if not days:
-                return
-            for d in days:
+                days_list = self._parse_days(day_val)
+            for d in days_list:
                 blocks.append((d, start_min, end_min))
 
         def handle_meeting_obj(mo: Dict):
@@ -513,6 +518,7 @@ class IntegratedRecommendationEngine:
                     for d in self._parse_days(day_part):
                         blocks.append((d, start_min, end_min))
 
+        self._meeting_blocks_cache[cache_key] = blocks
         return blocks
 
     def _has_time_conflict(self, course: Dict, unavailable_blocks: List[Tuple]) -> bool:
@@ -521,10 +527,8 @@ class IntegratedRecommendationEngine:
         if not course_blocks:
             return False
 
-        day_map = {"M": "Monday", "T": "Tuesday", "W": "Wednesday", "Th": "Thursday", "F": "Friday"}
-
         for day_abbr, start_min, end_min in course_blocks:
-            day_full = day_map.get(day_abbr, day_abbr)
+            day_full = DAY_MAP.get(day_abbr, day_abbr)
 
             for unavail_day, unavail_start, unavail_end in unavailable_blocks:
                 if day_full == unavail_day or day_abbr == unavail_day:
@@ -533,18 +537,15 @@ class IntegratedRecommendationEngine:
 
         return False
 
-    # ========== IC / LANGUAGE TRACKING (FIX 3) ==========
-
     def _get_ic_status(self, completed: Set[str]) -> Dict[str, Any]:
         """Properly track IC requirement status."""
         language_counts: Dict[str, int] = {}
         highest_completed: Dict[str, int] = {}
         
         for code in completed:
-            dept = self._get_department(code)
+            dept = get_department(code)
             if dept in IC_LANGUAGE_PREFIXES:
                 language_counts[dept] = language_counts.get(dept, 0) + 1
-                
                 num = get_course_number(code)
                 if num:
                     if dept not in highest_completed or num > highest_completed[dept]:
@@ -576,7 +577,7 @@ class IntegratedRecommendationEngine:
         ic_status: Dict[str, Any],
         year: str = "Freshman"
     ) -> Tuple[bool, int]:
-        dept = self._get_department(course_code)
+        dept = get_department(course_code)
         if dept not in IC_LANGUAGE_PREFIXES:
             return False, 0
 
@@ -604,9 +605,7 @@ class IntegratedRecommendationEngine:
             
             if course_num == 102:
                 if 101 <= their_highest < 102:
-                    # *** INCREASED PRIORITY for 102 continuation ***
-                    # This is critical - if student took 101, they MUST take 102
-                    priority = 100 if dept == best_language else 85  # Increased from 60/50
+                    priority = 100 if dept == best_language else 85
                     if is_easy_language:
                         priority += 10
                     return True, priority
@@ -635,8 +634,6 @@ class IntegratedRecommendationEngine:
             return True, base_priority
 
         return False, 0
-
-    # ========== GER TRACKING ==========
 
     def _get_ger_urgency(self, ger_tag: str, year: str) -> str:
         year_order = ["Freshman", "Sophomore", "Junior", "Senior"]
@@ -695,9 +692,7 @@ class IntegratedRecommendationEngine:
         for code in completed:
             gers = course_ger_map.get(code) or []
             for g in gers:
-                if not g:
-                    continue
-                if g == "IC":
+                if not g or g == "IC":
                     continue
                 if g in completed_gers:
                     completed_gers[g] += 1
@@ -714,8 +709,6 @@ class IntegratedRecommendationEngine:
                 needed_gers[cat] = req_count - completed_gers.get(cat, 0)
 
         return needed_gers
-
-    # ========== SCORING (FIX 4 - REBALANCED) ==========
 
     def _calculate_score(
         self,
@@ -740,6 +733,7 @@ class IntegratedRecommendationEngine:
         if self._is_research_course(course):
             return 0.0
         
+        # FIX: Get GERs once at the start
         course_gers = course.get("ger") or []
         if isinstance(course_gers, str):
             course_gers = [course_gers]
@@ -747,9 +741,14 @@ class IntegratedRecommendationEngine:
         if "FS" in course_gers and year != "Freshman":
             return 0.0
         
+        # Get cached metadata
+        meta = self._get_course_metadata(course)
+        course_dept = meta["department"]
+        course_num = meta["course_number"]
+        
         score = 0.0
         rating_factor = 1.0
-        course_dept = self._get_department(course_code)
+        
         has_major_unmet = bool(needed_must) or any(
             (group.get("choose", 0) > group.get("chosen", 0))
             for group in needed_electives
@@ -759,11 +758,8 @@ class IntegratedRecommendationEngine:
             return 0.0
 
         # 1. Major requirements - MUST courses are ABSOLUTE TOP PRIORITY
-        # Score must be higher than ANY combination of GERs + language bonuses
-        # GERs max out around 65 points each, language bonus is ~200
-        # So MUST needs to be 500+ to always win
         if course_code in needed_must:
-            score += 500.0  # MUST courses ALWAYS come first
+            score += 500.0
         else:
             for group in needed_electives:
                 courses = group.get("courses", set())
@@ -773,14 +769,10 @@ class IntegratedRecommendationEngine:
                     if choose and chosen >= choose:
                         score += 25.0
                     else:
-                        score += 120.0  # Major electives also important
+                        score += 120.0
                     break
 
-        # 2. GER requirements (excluding IC)
-        course_gers = course.get("ger") or []
-        if isinstance(course_gers, str):
-            course_gers = [course_gers]
-            
+        # 2. GER requirements (excluding IC) - use course_gers already parsed above
         gers_fulfilled = 0  
         for g in course_gers:
             if g == "IC":
@@ -813,9 +805,7 @@ class IntegratedRecommendationEngine:
         if ic_status and not ic_status.get("fulfilled", False):
             if course_dept in IC_LANGUAGE_PREFIXES:
                 is_valid, priority = self._is_valid_next_language_course(
-                    course_code,
-                    ic_status,
-                    year
+                    course_code, ic_status, year
                 )
                 
                 if is_valid:
@@ -833,12 +823,10 @@ class IntegratedRecommendationEngine:
                     score += ic_score + priority
                     ger_score_added = True
 
-        # *** CRITICAL FIX: Extra MASSIVE bonus for 102 when 101 is done ***
-        # This makes 102 continuation nearly mandatory - as important as a MUST course
+        # Extra MASSIVE bonus for 102 when 101 is done
         if ic_status and isinstance(ic_status, dict):
             highest_completed = ic_status.get("highest_completed", {})
             language_counts = ic_status.get("language_counts", {})
-            course_num = get_course_number(course_code)
 
             if (
                 course_dept in IC_LANGUAGE_PREFIXES
@@ -846,8 +834,6 @@ class IntegratedRecommendationEngine:
                 and highest_completed.get(course_dept) == 101
                 and language_counts.get(course_dept, 0) == 1
             ):
-                # Treat 102-after-101 as high priority but below MUST (500)
-                # ~350 total points ensures it beats GERs but not MUST courses
                 score += 250.0
 
         # 4. Professor rating
@@ -934,29 +920,29 @@ class IntegratedRecommendationEngine:
     ) -> float:
         synergy_bonus = 0.0
 
-        root_code = normalize_course_code(root_course.get("code") or "")
-        cand_code = normalize_course_code(candidate.get("code") or "")
+        root_meta = self._get_course_metadata(root_course)
+        cand_meta = self._get_course_metadata(candidate)
 
-        root_dept = self._get_department(root_code)
-        cand_dept = self._get_department(cand_code)
+        root_dept = root_meta["department"]
+        cand_dept = cand_meta["department"]
 
         if root_dept == cand_dept and root_dept:
             synergy_bonus += 3.0
 
-        root_level = "".join(filter(str.isdigit, root_code))
-        cand_level = "".join(filter(str.isdigit, cand_code))
-        if root_level and cand_level and root_level[0] == cand_level[0]:
-            synergy_bonus += 1.5
+        root_num = root_meta["course_number"]
+        cand_num = cand_meta["course_number"]
+        if root_num and cand_num:
+            root_level = str(root_num)[0] if root_num >= 100 else "0"
+            cand_level = str(cand_num)[0] if cand_num >= 100 else "0"
+            if root_level == cand_level:
+                synergy_bonus += 1.5
 
         return base_score + synergy_bonus
 
     def _get_course_blocks(self, course: Dict) -> List[Tuple]:
         """Get time blocks for a course as (day_full, start_min, end_min) tuples."""
         blocks = self._extract_meeting_blocks(course)
-        day_map = {"M": "Monday", "T": "Tuesday", "W": "Wednesday", "Th": "Thursday", "F": "Friday"}
-        return [(day_map.get(d, d), start, end) for d, start, end in blocks]
-
-    # ========== SCHEDULE BALANCE SCORING ==========
+        return [(DAY_MAP.get(d, d), start, end) for d, start, end in blocks]
 
     def _calculate_schedule_balance(self, schedule: List[Dict]) -> float:
         if len(schedule) < 2:
@@ -965,12 +951,10 @@ class IntegratedRecommendationEngine:
         day_courses: Dict[str, List[Tuple[int, int, str, int]]] = {}
         
         for course in schedule:
-            code = course.get("code", "")
-            
-            level = 100
-            nums = "".join(filter(str.isdigit, code))
-            if nums and len(nums) >= 1:
-                level = int(nums[0]) * 100
+            meta = self._get_course_metadata(course)
+            code = meta["normalized_code"]
+            course_num = meta["course_number"]
+            level = (course_num // 100 * 100) if course_num else 100
 
             blocks = self._extract_meeting_blocks(course)
             for day_abbr, start_min, end_min in blocks:
@@ -1018,8 +1002,6 @@ class IntegratedRecommendationEngine:
         modifier = 1.0 - total_penalty + total_bonus
         return max(0.85, min(1.15, modifier))
 
-    # ========== SCHEDULE BUILDING (CREDIT-BASED) ==========
-
     def _build_schedule_tree(
         self,
         root_course: Dict,
@@ -1039,23 +1021,15 @@ class IntegratedRecommendationEngine:
         max_credits: int = 19
     ) -> Tuple[float, List[Dict]]:
         
-        root_code = normalize_course_code(root_course.get("code", ""))
-        root_dept = self._get_department(root_code)
+        root_meta = self._get_course_metadata(root_course)
+        root_code = root_meta["normalized_code"]
+        root_dept = root_meta["department"]
 
         language_in_schedule = root_dept in IC_LANGUAGE_PREFIXES
 
         root_base_score = self._calculate_score(
-            root_course,
-            root_code,
-            needed_must,
-            needed_electives,
-            needed_gers,
-            interests,
-            time_pref,
-            completed,
-            rmp_index,
-            year,
-            ic_status,
+            root_course, root_code, needed_must, needed_electives, needed_gers,
+            interests, time_pref, completed, rmp_index, year, ic_status,
             language_already_in_schedule=False
         )
         root_course["recommendation_score"] = root_base_score
@@ -1064,7 +1038,6 @@ class IntegratedRecommendationEngine:
         current_schedule_codes = {root_code}
         
         total_credits = parse_credits(root_course.get("credits"))
-        
         department_counts = {root_dept: 1}
 
         schedule_blocks = list(unavailable_blocks)
@@ -1100,24 +1073,23 @@ class IntegratedRecommendationEngine:
                 if remaining_gers[g] <= 0:
                     del remaining_gers[g]
 
-        candidates: List[Tuple[float, float, Dict, str]] = []
-
-        # *** PRIORITY PASS: First, identify MUST courses that can fit ***
+        # Categorize candidates by priority
         must_course_candidates: List[Tuple[float, float, Dict, str]] = []
         lang_102_candidates: List[Tuple[float, float, Dict, str]] = []
         other_candidates: List[Tuple[float, float, Dict, str]] = []
 
         for course in all_courses:
-            code = normalize_course_code(course.get("code", ""))
+            meta = self._get_course_metadata(course)
+            code = meta["normalized_code"]
+            
             if not code or code in current_schedule_codes or code in completed:
                 continue
 
-            # For MUST courses, don't filter by time conflict yet - check later
+            cand_dept = meta["department"]
+            course_num = meta["course_number"]
+            
             is_must = code in remaining_must
             
-            # Also check if this is a 102-after-101 language course
-            cand_dept = self._get_department(code)
-            course_num = get_course_number(code)
             is_lang_102 = (
                 not language_in_schedule
                 and cand_dept in IC_LANGUAGE_PREFIXES
@@ -1128,7 +1100,6 @@ class IntegratedRecommendationEngine:
                 and ic_status.get("language_counts", {}).get(cand_dept, 0) == 1
             )
             
-            # Skip time conflict check for MUST and 102-after-101 courses
             if not is_must and not is_lang_102 and self._has_time_conflict(course, schedule_blocks):
                 continue
             
@@ -1136,17 +1107,8 @@ class IntegratedRecommendationEngine:
                 continue
 
             base_score = self._calculate_score(
-                course,
-                code,
-                remaining_must,
-                remaining_electives,
-                remaining_gers,
-                interests,
-                time_pref,
-                completed,
-                rmp_index,
-                year,
-                ic_status,
+                course, code, remaining_must, remaining_electives, remaining_gers,
+                interests, time_pref, completed, rmp_index, year, ic_status,
                 language_already_in_schedule=language_in_schedule
             )
             if base_score <= 0:
@@ -1154,64 +1116,28 @@ class IntegratedRecommendationEngine:
 
             final_score = self._calculate_contextual_score(course, root_course, base_score)
             
-            # Categorize candidates by priority (cand_dept and course_num already computed above)
             if is_must:
-                # MUST courses - highest priority
                 must_course_candidates.append((final_score, base_score, course, code))
-            elif (
-                not language_in_schedule
-                and cand_dept in IC_LANGUAGE_PREFIXES
-                and course_num == 102
-                and ic_status
-                and isinstance(ic_status, dict)
-                and ic_status.get("highest_completed", {}).get(cand_dept) == 101
-                and ic_status.get("language_counts", {}).get(cand_dept, 0) == 1
-            ):
-                # 102-after-101 language courses - second priority
+            elif is_lang_102:
                 lang_102_candidates.append((final_score, base_score, course, code))
             else:
                 other_candidates.append((final_score, base_score, course, code))
 
-        # Sort all lists by score
+        # Sort by score
         must_course_candidates.sort(key=lambda x: x[0], reverse=True)
         lang_102_candidates.sort(key=lambda x: x[0], reverse=True)
         other_candidates.sort(key=lambda x: x[0], reverse=True)
         
-        # === PHASE 1: Add ALL fitting MUST courses first ===
-        # MUST courses can override user's unavailable times if needed
-        for total_candidate_score, base_score, course, code in must_course_candidates:
-            # For MUST courses, only check conflict against OTHER COURSES already in schedule
-            # Not against unavailable_blocks (user needs this course!)
-            course_blocks = self._get_course_blocks(course)
-            has_course_conflict = False
+        # Helper to add course to schedule
+        def add_to_schedule(course: Dict, code: str, base_score: float, total_candidate_score: float) -> bool:
+            nonlocal total_credits, total_score, language_in_schedule
             
-            # Check only against courses already in schedule, not unavailable_blocks
-            for existing in schedule:
-                existing_blocks = self._get_course_blocks(existing)
-                for cb in course_blocks:
-                    for eb in existing_blocks:
-                        # Same day?
-                        if cb[0] == eb[0]:
-                            # Overlap?
-                            if not (cb[2] <= eb[1] or cb[1] >= eb[2]):
-                                has_course_conflict = True
-                                break
-                    if has_course_conflict:
-                        break
-                if has_course_conflict:
-                    break
-            
-            if has_course_conflict:
-                continue
-            
-            if self._is_cross_listed_duplicate(course, current_schedule_codes, all_courses_map):
-                continue
-
-            cand_dept = self._get_department(code)
+            cand_meta = self._get_course_metadata(course)
+            cand_dept = cand_meta["department"]
             course_credits = parse_credits(course.get("credits"))
             
             if total_credits + course_credits > max_credits:
-                continue
+                return False
 
             schedule.append(course)
             current_schedule_codes.add(code)
@@ -1244,62 +1170,43 @@ class IntegratedRecommendationEngine:
                     remaining_gers[g] -= 1
                     if remaining_gers[g] <= 0:
                         del remaining_gers[g]
+            
+            return True
 
-        # === PHASE 2: Add 102-after-101 language course if not already have language ===
-        # Language continuation can also override unavailable times (it's essentially required for IC)
+        def has_schedule_conflict(course: Dict) -> bool:
+            """Check conflict only against courses already in schedule."""
+            course_blocks = self._get_course_blocks(course)
+            for existing in schedule:
+                existing_blocks = self._get_course_blocks(existing)
+                for cb in course_blocks:
+                    for eb in existing_blocks:
+                        if cb[0] == eb[0]:  # Same day
+                            if not (cb[2] <= eb[1] or cb[1] >= eb[2]):  # Overlap
+                                return True
+            return False
+
+        # PHASE 1: Add MUST courses (can override unavailable times)
+        for total_candidate_score, base_score, course, code in must_course_candidates:
+            if has_schedule_conflict(course):
+                continue
+            if self._is_cross_listed_duplicate(course, current_schedule_codes, all_courses_map):
+                continue
+            add_to_schedule(course, code, base_score, total_candidate_score)
+
+        # PHASE 2: Add 102-after-101 language course
         if not language_in_schedule:
             for total_candidate_score, base_score, course, code in lang_102_candidates:
-                # Only check conflict against OTHER COURSES already in schedule
-                course_blocks = self._get_course_blocks(course)
-                has_course_conflict = False
-                
-                for existing in schedule:
-                    existing_blocks = self._get_course_blocks(existing)
-                    for cb in course_blocks:
-                        for eb in existing_blocks:
-                            if cb[0] == eb[0]:
-                                if not (cb[2] <= eb[1] or cb[1] >= eb[2]):
-                                    has_course_conflict = True
-                                    break
-                        if has_course_conflict:
-                            break
-                    if has_course_conflict:
-                        break
-                
-                if has_course_conflict:
+                if has_schedule_conflict(course):
                     continue
-                    
                 if self._is_cross_listed_duplicate(course, current_schedule_codes, all_courses_map):
                     continue
+                if add_to_schedule(course, code, base_score, total_candidate_score):
+                    break  # Only add one language course
 
-                cand_dept = self._get_department(code)
-                course_credits = parse_credits(course.get("credits"))
-                
-                if total_credits + course_credits > max_credits:
-                    continue
-
-                schedule.append(course)
-                current_schedule_codes.add(code)
-                course["recommendation_score"] = base_score
-                total_credits += course_credits
-                
-                department_counts[cand_dept] = department_counts.get(cand_dept, 0) + 1
-                language_in_schedule = True
-                
-                total_score += total_candidate_score
-
-                new_blocks = self._get_course_blocks(course)
-                if new_blocks:
-                    schedule_blocks.extend(new_blocks)
-                
-                break  # Only add one language course
-
-        # Now use other candidates for remaining slots
-        candidates = other_candidates
-
+        # PHASE 3: Fill with other candidates
         backup_candidates = []
         
-        for total_candidate_score, base_score, course, code in candidates:
+        for total_candidate_score, base_score, course, code in other_candidates:
             if total_credits >= target_credits:
                 break
 
@@ -1309,7 +1216,8 @@ class IntegratedRecommendationEngine:
             if self._is_cross_listed_duplicate(course, current_schedule_codes, all_courses_map):
                 continue
 
-            cand_dept = self._get_department(code)
+            cand_meta = self._get_course_metadata(course)
+            cand_dept = cand_meta["department"]
             
             if cand_dept in IC_LANGUAGE_PREFIXES and language_in_schedule:
                 continue
@@ -1335,43 +1243,8 @@ class IntegratedRecommendationEngine:
                 backup_candidates.append((total_candidate_score, base_score, course, code))
                 continue
 
-            course_credits = parse_credits(course.get("credits"))
-            
-            if total_credits + course_credits > max_credits:
+            if not add_to_schedule(course, code, base_score, total_candidate_score):
                 backup_candidates.append((total_candidate_score, base_score, course, code))
-                continue
-
-            schedule.append(course)
-            current_schedule_codes.add(code)
-            course["recommendation_score"] = base_score
-            total_credits += course_credits
-            
-            department_counts[cand_dept] = department_counts.get(cand_dept, 0) + 1
-            
-            if cand_dept in IC_LANGUAGE_PREFIXES:
-                language_in_schedule = True
-            
-            total_score += total_candidate_score
-
-            new_blocks = self._get_course_blocks(course)
-            if new_blocks:
-                schedule_blocks.extend(new_blocks)
-
-            if code in remaining_must:
-                remaining_must.remove(code)
-
-            for group in remaining_electives:
-                if code in group["courses"] and group["chosen"] < group["choose"]:
-                    group["chosen"] += 1
-
-            course_gers = course.get("ger") or []
-            if isinstance(course_gers, str):
-                course_gers = [course_gers]
-            for g in course_gers:
-                if g in remaining_gers:
-                    remaining_gers[g] -= 1
-                    if remaining_gers[g] <= 0:
-                        del remaining_gers[g]
 
         # Fill remaining from backup
         if total_credits < target_credits:
@@ -1379,7 +1252,8 @@ class IntegratedRecommendationEngine:
                 if total_credits >= target_credits:
                     break
                 
-                cand_dept = self._get_department(code)
+                cand_meta = self._get_course_metadata(course)
+                cand_dept = cand_meta["department"]
                 
                 if cand_dept in IC_LANGUAGE_PREFIXES and language_in_schedule:
                     continue
@@ -1390,33 +1264,12 @@ class IntegratedRecommendationEngine:
                 if self._is_cross_listed_duplicate(course, current_schedule_codes, all_courses_map):
                     continue
 
-                course_credits = parse_credits(course.get("credits"))
-                
-                if total_credits + course_credits > max_credits:
-                    continue
-
-                schedule.append(course)
-                current_schedule_codes.add(code)
-                course["recommendation_score"] = base_score
-                total_credits += course_credits
-                
-                department_counts[cand_dept] = department_counts.get(cand_dept, 0) + 1
-                
-                if cand_dept in IC_LANGUAGE_PREFIXES:
-                    language_in_schedule = True
-                
-                total_score += total_candidate_score
-                
-                new_blocks = self._get_course_blocks(course)
-                if new_blocks:
-                    schedule_blocks.extend(new_blocks)
+                add_to_schedule(course, code, base_score, total_candidate_score)
 
         balance_modifier = self._calculate_schedule_balance(schedule)
         total_score *= balance_modifier
 
         return total_score, schedule
-
-    # ========== REQUIREMENT ACCOUNTING ==========
 
     def _get_remaining_requirements(
         self,
@@ -1457,8 +1310,6 @@ class IntegratedRecommendationEngine:
 
         return needed_must, needed_electives
 
-    # ========== TOP-LEVEL ENTRY ==========
-
     def generate_recommendations(
         self,
         user_courses: Dict,
@@ -1470,6 +1321,9 @@ class IntegratedRecommendationEngine:
     ) -> List[Dict]:
         
         try:
+            # Clear caches at start of each run
+            self._clear_caches()
+            
             if not user_courses or not isinstance(user_courses, dict):
                 return []
             if not user_prefs or not isinstance(user_prefs, dict):
@@ -1493,14 +1347,8 @@ class IntegratedRecommendationEngine:
             completed: Set[str] = set()
             
             course_field_mappings = [
-                "incoming_transfer_courses",
-                "incoming_test_courses", 
-                "emory_courses",
-                "transfer_courses",
-                "test_courses",
-                "Transfer",
-                "Test", 
-                "Emory"
+                "incoming_transfer_courses", "incoming_test_courses", "emory_courses",
+                "transfer_courses", "test_courses", "Transfer", "Test", "Emory"
             ]
             
             for field_name in course_field_mappings:
@@ -1553,35 +1401,28 @@ class IntegratedRecommendationEngine:
                 interests = []
 
             potential_roots: List[Dict] = []
-            must_course_roots: List[Dict] = []  # Track MUST courses separately
 
             for course in all_courses:
                 if not course or not isinstance(course, dict):
                     continue
                     
-                course_code = normalize_course_code(course.get("code") or "")
-                if not course_code:
+                meta = self._get_course_metadata(course)
+                course_code = meta["normalized_code"]
+                course_dept = meta["department"]
+                course_num = meta["course_number"]
+                
+                if not course_code or course_code in completed:
                     continue
 
-                if course_code in completed:
-                    continue
-
-                # Check if this is a MUST course
                 is_must_course = course_code in needed_must
                 
-                # Check if this is a 102-after-101 language course
-                course_dept = self._get_department(course_code)
-                course_num = get_course_number(course_code)
                 is_lang_102 = (
                     course_dept in IC_LANGUAGE_PREFIXES
                     and course_num == 102
-                    and ic_status
-                    and isinstance(ic_status, dict)
                     and ic_status.get("highest_completed", {}).get(course_dept) == 101
                     and ic_status.get("language_counts", {}).get(course_dept, 0) == 1
                 )
                 
-                # For MUST courses and 102-after-101 language, ignore unavailable times
                 has_conflict = self._has_time_conflict(course, unavailable_blocks)
                 
                 if has_conflict and not is_must_course and not is_lang_102:
@@ -1589,17 +1430,8 @@ class IntegratedRecommendationEngine:
 
                 try:
                     score = self._calculate_score(
-                        course,
-                        course_code,
-                        needed_must,
-                        needed_electives,
-                        needed_gers,
-                        interests,
-                        time_pref,
-                        completed,
-                        rmp_index,
-                        year,
-                        ic_status,
+                        course, course_code, needed_must, needed_electives, needed_gers,
+                        interests, time_pref, completed, rmp_index, year, ic_status,
                         language_already_in_schedule=False
                     )
 
@@ -1615,6 +1447,7 @@ class IntegratedRecommendationEngine:
 
             potential_roots.sort(key=lambda x: x.get("recommendation_score") or 0, reverse=True)
             
+            # Deduplicate roots
             seen_codes: Set[str] = set()
             seen_title_times: Set[str] = set()
             deduplicated_roots: List[Dict] = []
@@ -1662,21 +1495,10 @@ class IntegratedRecommendationEngine:
             for root in top_roots:
                 try:
                     total_score, schedule = self._build_schedule_tree(
-                        root,
-                        all_courses,
-                        all_courses_map,
-                        unavailable_blocks,
-                        completed,
-                        needed_must,
-                        needed_electives,
-                        needed_gers,
-                        interests,
-                        time_pref,
-                        rmp_index,
-                        year,
-                        ic_status,
-                        target_credits,
-                        max_credits
+                        root, all_courses, all_courses_map, unavailable_blocks,
+                        completed, needed_must, needed_electives, needed_gers,
+                        interests, time_pref, rmp_index, year, ic_status,
+                        target_credits, max_credits
                     )
 
                     if needed_must:
@@ -1688,7 +1510,7 @@ class IntegratedRecommendationEngine:
                         if num_must_covered > 0:
                             total_score = (total_score or 0) + num_must_covered * 120.0
 
-                    # *** NEW: Schedule-level bonus for including 102 when 101 is done ***
+                    # Schedule-level bonus for including 102 when 101 is done
                     if ic_status and isinstance(ic_status, dict):
                         highest_completed = ic_status.get("highest_completed", {})
                         language_counts = ic_status.get("language_counts", {})
@@ -1698,15 +1520,11 @@ class IntegratedRecommendationEngine:
                             for c in (schedule or [])
                         }
                         
-                        # Check if student has unfinished 101 sequence
                         for lang, count in language_counts.items():
                             if count == 1 and highest_completed.get(lang) == 101:
-                                # Student has 101 in this language, check if 102 is in schedule
                                 expected_102 = f"{lang}102"
                                 if expected_102 in schedule_codes:
-                                    # Bonus for including the continuation course
                                     total_score = (total_score or 0) + 100.0
-                                # No penalty for not including - course-level scoring handles priority
 
                     total_credits = sum(parse_credits(c.get("credits")) for c in schedule)
 
@@ -1724,16 +1542,12 @@ class IntegratedRecommendationEngine:
 
             raw_recommendations = heap.extract_top_k(num_recommendations * 4) or []
             
+            # Deduplicate schedules
             seen_schedules: Set[frozenset] = set()
             recommendations: List[Dict] = []
             
             for rec in raw_recommendations:
                 courses = rec.get("courses") or []
-                
-                course_codes = frozenset(
-                    normalize_course_code(c.get("code") or "")
-                    for c in courses
-                )
                 
                 title_time_sig = frozenset(
                     f"{(c.get('title') or '').strip().lower()}|{(c.get('time') or '').strip()}"
@@ -1747,10 +1561,15 @@ class IntegratedRecommendationEngine:
                 
                 current_lang = None
                 for c in courses:
-                    dept = normalize_course_code(c.get("code") or "")[:4].rstrip("0123456789")
+                    dept = get_department(c.get("code") or "")
                     if dept in IC_LANGUAGE_PREFIXES:
                         current_lang = dept
                         break
+                
+                course_codes = frozenset(
+                    normalize_course_code(c.get("code") or "")
+                    for c in courses
+                )
                 
                 for existing in recommendations:
                     existing_courses = existing.get("courses") or []
@@ -1761,7 +1580,7 @@ class IntegratedRecommendationEngine:
                     
                     existing_lang = None
                     for c in existing_courses:
-                        dept = normalize_course_code(c.get("code") or "")[:4].rstrip("0123456789")
+                        dept = get_department(c.get("code") or "")
                         if dept in IC_LANGUAGE_PREFIXES:
                             existing_lang = dept
                             break

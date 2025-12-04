@@ -7,8 +7,6 @@ import { api } from "../utils/api";
 import applogo from "../assets/dooleyHelpzAppLogo.png";
 import mascot from "../assets/EHMascot.png";
 
-type RecommendedClass = string;
-
 type ScheduleMeeting = {
   day: "Mon" | "Tue" | "Wed" | "Thu" | "Fri";
   course: string;
@@ -17,12 +15,13 @@ type ScheduleMeeting = {
   end: string;
 };
 
-const exampleRecommended: RecommendedClass[] = [
+// Dummy/Example data - shown when user hasn't uploaded anything yet
+const DUMMY_COURSES: string[] = [
   "CS 253", "CS 224", "MATH 221", "QTM 100", "CHEM 150",
   "CS 334", "CS 326", "MATH 250", "CS 255", "CS 370",
 ];
 
-const exampleSchedule: ScheduleMeeting[] = [
+const DUMMY_SCHEDULE: ScheduleMeeting[] = [
   { day: "Mon", course: "CS 253", section: "Sec 1", start: "09:00", end: "10:15" },
   { day: "Mon", course: "MATH 221", section: "Sec 2", start: "13:00", end: "14:15" },
   { day: "Tue", course: "CS 224", section: "Sec 1", start: "11:30", end: "12:45" },
@@ -104,7 +103,9 @@ function SchedulePreview({ meetings, isExample }: { meetings: ScheduleMeeting[];
       <div className="mb-3 flex items-center justify-between">
         <h3 className="text-sm font-semibold text-emoryBlue">Weekly view</h3>
         {isExample && (
-          <p className="text-xs text-zinc-500">Example schedule - build one to see yours.</p>
+          <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-medium text-amber-700">
+            Example
+          </span>
         )}
       </div>
       <div className="grid grid-cols-[3rem_repeat(5,1fr)] gap-2 text-xs">
@@ -134,10 +135,15 @@ function SchedulePreview({ meetings, isExample }: { meetings: ScheduleMeeting[];
               return (
                 <div
                   key={`${m.course}-${m.section}-${i}`}
-                  className="absolute left-1 right-1 overflow-hidden rounded-lg border border-emoryBlue/30 bg-emoryBlue/10 px-1.5 py-1 text-[10px] shadow-sm"
+                  className={`absolute left-1 right-1 overflow-hidden rounded-lg border px-1.5 py-1 text-[10px] shadow-sm ${isExample
+                      ? "border-zinc-300 bg-zinc-100"
+                      : "border-emoryBlue/30 bg-emoryBlue/10"
+                    }`}
                   style={{ top: `${top}%`, height: `${height}%` }}
                 >
-                  <div className="font-semibold text-emoryBlue leading-tight">{m.course} – {m.section}</div>
+                  <div className={`font-semibold leading-tight ${isExample ? "text-zinc-600" : "text-emoryBlue"}`}>
+                    {m.course} – {m.section}
+                  </div>
                   <div className="mt-0.5 text-[9px] text-zinc-700">{m.start}–{m.end}</div>
                 </div>
               );
@@ -167,19 +173,36 @@ export default function DashboardPage() {
 
         if (result.success && result.data) {
           const data = result.data;
-          setHasTranscript(data.has_courses);
-          setHasPreferences(data.has_preferences);
+          setHasTranscript(data.has_courses === true);
+          setHasPreferences(data.has_preferences === true);
 
+          // Extract courses from transcript data
           if (data.courses) {
             const allCourses: string[] = [];
-            if (data.courses.incoming_transfer_courses) allCourses.push(...data.courses.incoming_transfer_courses);
-            if (data.courses.incoming_test_courses) allCourses.push(...data.courses.incoming_test_courses);
-            if (data.courses.emory_courses) allCourses.push(...data.courses.emory_courses);
-            if (data.courses.spring_2026_courses) allCourses.push(...data.courses.spring_2026_courses);
-            setUserCourses(allCourses);
+            const courseData = data.courses;
+
+            // Handle different course array fields
+            if (Array.isArray(courseData.incoming_transfer_courses)) {
+              allCourses.push(...courseData.incoming_transfer_courses);
+            }
+            if (Array.isArray(courseData.incoming_test_courses)) {
+              allCourses.push(...courseData.incoming_test_courses);
+            }
+            if (Array.isArray(courseData.emory_courses)) {
+              allCourses.push(...courseData.emory_courses);
+            }
+            if (Array.isArray(courseData.spring_2026_courses)) {
+              allCourses.push(...courseData.spring_2026_courses);
+            }
+
+            // Only set if we actually have courses
+            if (allCourses.length > 0) {
+              setUserCourses(allCourses);
+            }
           }
 
-          if (data.has_saved_schedule && data.saved_schedule) {
+          // Get saved schedule if exists
+          if (data.has_saved_schedule && data.saved_schedule?.schedule) {
             setSavedSchedule(data.saved_schedule);
           }
         }
@@ -192,14 +215,19 @@ export default function DashboardPage() {
     fetchUserData();
   }, []);
 
+  // Convert saved schedule to meetings format
   const scheduleFromBackend: ScheduleMeeting[] = savedSchedule?.schedule?.courses
-    ? savedSchedule.schedule.courses.flatMap((course: any) => parseTimeToMeetings(course.code, course.time))
+    ? savedSchedule.schedule.courses.flatMap((course: any) =>
+      parseTimeToMeetings(course.code || course.normalized_code, course.time)
+    )
     : [];
 
-  const recommended = userCourses.length > 0 ? userCourses : exampleRecommended;
-  const isExampleRecommendations = userCourses.length === 0;
-  const schedule = scheduleFromBackend.length > 0 ? scheduleFromBackend : exampleSchedule;
-  const isExampleSchedule = scheduleFromBackend.length === 0;
+  // Determine what to display - use real data if available, otherwise dummy data
+  const hasRealCourses = userCourses.length > 0;
+  const hasRealSchedule = scheduleFromBackend.length > 0;
+
+  const displayCourses = hasRealCourses ? userCourses : DUMMY_COURSES;
+  const displaySchedule = hasRealSchedule ? scheduleFromBackend : DUMMY_SCHEDULE;
 
   const handleLogout = async () => {
     await auth.signOut();
@@ -232,19 +260,29 @@ export default function DashboardPage() {
           </div>
         ) : (
           <>
-            <section className="mb-8 grid items-center gap-6 rounded-3xl border border-zinc-200 bg-linear-to-tr from-emoryBlue/5 via-white to-paleGold/20 p-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+            {/* Welcome Section */}
+            <section className="mb-8 grid items-center gap-6 rounded-3xl border border-zinc-200 bg-gradient-to-tr from-emoryBlue/5 via-white to-amber-50 p-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
               <div>
-                <h1 className="text-2xl font-bold text-emoryBlue md:text-3xl">Welcome, {user?.email || "Guest"}!</h1>
+                <h1 className="text-2xl font-bold text-emoryBlue md:text-3xl">
+                  Welcome, {user?.email?.split("@")[0] || "Guest"}!
+                </h1>
                 <p className="mt-2 text-sm text-zinc-600">
                   This dashboard pulls together your transcript, preferences, and schedules so you can plan calmer semesters.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${hasTranscript ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"}`}>
+                  <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${hasTranscript ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"
+                    }`}>
                     {hasTranscript ? "✓ Transcript uploaded" : "⚠ No transcript"}
                   </span>
-                  <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${hasPreferences ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"}`}>
+                  <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${hasPreferences ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"
+                    }`}>
                     {hasPreferences ? "✓ Preferences set" : "⚠ No preferences"}
                   </span>
+                  {hasRealSchedule && (
+                    <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700">
+                      ✓ Schedule saved
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="flex justify-center md:justify-end">
@@ -252,14 +290,20 @@ export default function DashboardPage() {
               </div>
             </section>
 
+            {/* Action Cards */}
             <section className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3">
               <div className="flex flex-col justify-between rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
                 <div>
                   <h2 className="text-sm font-semibold text-emoryBlue">Update Transcript</h2>
                   <p className="mt-1 text-xs text-zinc-600">Upload your latest Emory transcript PDF.</p>
-                  {hasTranscript && <p className="mt-2 text-xs text-green-600">✓ {userCourses.length} courses loaded</p>}
+                  {hasTranscript && (
+                    <p className="mt-2 text-xs text-green-600">✓ {userCourses.length} courses loaded</p>
+                  )}
                 </div>
-                <button onClick={() => navigate("/droptranscript")} className="mt-3 rounded-xl bg-emoryBlue px-3 py-1.5 text-xs font-semibold text-white hover:bg-emoryBlue/90">
+                <button
+                  onClick={() => navigate("/droptranscript")}
+                  className="mt-3 rounded-xl bg-emoryBlue px-3 py-1.5 text-xs font-semibold text-white hover:bg-emoryBlue/90"
+                >
                   {hasTranscript ? "Update Transcript" : "Upload Transcript"}
                 </button>
               </div>
@@ -268,9 +312,14 @@ export default function DashboardPage() {
                 <div>
                   <h2 className="text-sm font-semibold text-emoryBlue">Preferences</h2>
                   <p className="mt-1 text-xs text-zinc-600">Set your major, workload, and time constraints.</p>
-                  {hasPreferences && <p className="mt-2 text-xs text-green-600">✓ Preferences saved</p>}
+                  {hasPreferences && (
+                    <p className="mt-2 text-xs text-green-600">✓ Preferences saved</p>
+                  )}
                 </div>
-                <button onClick={() => navigate("/preferences")} className="mt-3 rounded-xl bg-emoryBlue px-3 py-1.5 text-xs font-semibold text-white hover:bg-emoryBlue/90">
+                <button
+                  onClick={() => navigate("/preferences")}
+                  className="mt-3 rounded-xl bg-emoryBlue px-3 py-1.5 text-xs font-semibold text-white hover:bg-emoryBlue/90"
+                >
                   {hasPreferences ? "Update Preferences" : "Set Preferences"}
                 </button>
               </div>
@@ -281,41 +330,84 @@ export default function DashboardPage() {
                   <p className="mt-1 text-xs text-zinc-600">Generate AI-powered schedules.</p>
                   {(!hasTranscript || !hasPreferences) && (
                     <p className="mt-2 text-xs text-amber-600">
-                      ⚠ {!hasTranscript && !hasPreferences ? "Upload transcript & set preferences" : !hasTranscript ? "Upload transcript first" : "Set preferences first"}
+                      ⚠ {!hasTranscript && !hasPreferences
+                        ? "Upload transcript & set preferences first"
+                        : !hasTranscript
+                          ? "Upload transcript first"
+                          : "Set preferences first"}
                     </p>
                   )}
                 </div>
                 <button
                   onClick={() => navigate("/schedule-builder")}
                   disabled={!hasTranscript || !hasPreferences}
-                  className={`mt-3 rounded-xl px-3 py-1.5 text-xs font-semibold transition-colors ${hasTranscript && hasPreferences ? "bg-Gold text-emoryBlue hover:bg-Gold/90" : "bg-zinc-200 text-zinc-500 cursor-not-allowed"}`}
+                  className={`mt-3 rounded-xl px-3 py-1.5 text-xs font-semibold transition-colors ${hasTranscript && hasPreferences
+                      ? "bg-Gold text-emoryBlue hover:bg-Gold/90"
+                      : "bg-zinc-200 text-zinc-500 cursor-not-allowed"
+                    }`}
                 >
                   Build Schedule
                 </button>
               </div>
             </section>
 
+            {/* Data Display Section */}
             <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+              {/* Courses Card */}
               <div className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
                 <div className="mb-3 flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-emoryBlue">{isExampleRecommendations ? "Example Classes" : "Your Completed Courses"}</h2>
-                  {isExampleRecommendations && <span className="text-xs text-zinc-500">Upload transcript to see yours</span>}
+                  <h2 className="text-lg font-semibold text-emoryBlue">
+                    {hasRealCourses ? "Your Completed Courses" : "Example Courses"}
+                  </h2>
+                  {!hasRealCourses && (
+                    <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-medium text-amber-700">
+                      Example
+                    </span>
+                  )}
                 </div>
+                {!hasRealCourses && (
+                  <p className="mb-3 text-xs text-zinc-500">
+                    Upload your transcript to see your actual courses here.
+                  </p>
+                )}
                 <div className="flex flex-wrap gap-2 text-sm max-h-64 overflow-y-auto">
-                  {recommended.map((code, i) => (
-                    <span key={`${code}-${i}`} className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-emoryBlue hover:bg-paleGold/20">
+                  {displayCourses.map((code, i) => (
+                    <span
+                      key={`${code}-${i}`}
+                      className={`rounded-full border px-3 py-1 text-xs font-medium ${hasRealCourses
+                          ? "border-zinc-200 bg-zinc-50 text-emoryBlue hover:bg-emoryBlue/5"
+                          : "border-zinc-200 bg-zinc-100 text-zinc-500"
+                        }`}
+                    >
                       {code}
                     </span>
                   ))}
                 </div>
+                {hasRealCourses && (
+                  <p className="mt-3 text-xs text-zinc-500">
+                    {userCourses.length} courses from your transcript
+                  </p>
+                )}
               </div>
 
+              {/* Schedule Card */}
               <div className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
                 <div className="mb-3 flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-emoryBlue">Most Recently Built Schedule</h2>
-                  {isExampleSchedule && <span className="text-xs text-zinc-500">Example - build one to see yours</span>}
+                  <h2 className="text-lg font-semibold text-emoryBlue">
+                    {hasRealSchedule ? "Your Saved Schedule" : "Example Schedule"}
+                  </h2>
+                  {!hasRealSchedule && (
+                    <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-medium text-amber-700">
+                      Example
+                    </span>
+                  )}
                 </div>
-                <SchedulePreview meetings={schedule} isExample={isExampleSchedule} />
+                {!hasRealSchedule && (
+                  <p className="mb-3 text-xs text-zinc-500">
+                    Build and save a schedule to see it here.
+                  </p>
+                )}
+                <SchedulePreview meetings={displaySchedule} isExample={!hasRealSchedule} />
               </div>
             </section>
           </>

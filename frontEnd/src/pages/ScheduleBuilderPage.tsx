@@ -1,4 +1,3 @@
-// src/pages/ScheduleBuilderPage.tsx
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -258,12 +257,10 @@ function CourseDetailRow({ course, onRemove, canRemove = true }: { course: Cours
   );
 }
 
-function AddCourseModal({ isOpen, onClose, onAddCourse, currentCourses }: { isOpen: boolean; onClose: () => void; onAddCourse: (code: string, priority: number) => void; currentCourses: Course[] }) {
+function AddCourseModal({ isOpen, onClose, onAddCourse, currentCourses }: { isOpen: boolean; onClose: () => void; onAddCourse: (course: Course) => void; currentCourses: Course[] }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searching, setSearching] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState<any | null>(null);
-  const [priorityRank, setPriorityRank] = useState(1);
 
   async function handleSearch() {
     if (!searchQuery.trim()) return;
@@ -272,19 +269,31 @@ function AddCourseModal({ isOpen, onClose, onAddCourse, currentCourses }: { isOp
       const res = await fetch(`${API_URL}/api/search-courses?q=${encodeURIComponent(searchQuery)}&limit=20`);
       const data = await res.json();
       if (data.success && data.courses) {
-        const currentCodes = new Set(currentCourses.map(c => c.code.toUpperCase()));
-        setSearchResults(data.courses.filter((c: any) => !currentCodes.has(c.code?.toUpperCase())));
+        const currentCodes = new Set(currentCourses.map(c => (c.code || "").toUpperCase()));
+        setSearchResults(data.courses.filter((c: any) => !currentCodes.has((c.code || "").toUpperCase())));
       }
     } catch (err) { console.error("Search failed:", err); }
     finally { setSearching(false); }
   }
 
-  function handleConfirmAdd() {
-    if (selectedCourse) {
-      onAddCourse(selectedCourse.code, priorityRank);
-      onClose();
-      setSelectedCourse(null); setSearchQuery(""); setSearchResults([]); setPriorityRank(1);
-    }
+  function handleSelectCourse(course: any) {
+    // Convert search result to Course type and add locally
+    const newCourse: Course = {
+      code: course.code || "",
+      title: course.title || "",
+      professor: course.professor || "TBA",
+      credits: course.credits || 3,
+      time: course.time || "TBA",
+      meeting: course.meeting || [],
+      rmp: course.rmp || null,
+      score: 50, // Default score for manually added courses
+      ger: course.ger || null,
+      normalized_code: (course.code || "").toUpperCase().replace(/\s+/g, ""),
+    };
+    onAddCourse(newCourse);
+    onClose();
+    setSearchQuery("");
+    setSearchResults([]);
   }
 
   if (!isOpen) return null;
@@ -298,40 +307,39 @@ function AddCourseModal({ isOpen, onClose, onAddCourse, currentCourses }: { isOp
         </div>
         <div className="p-4">
           <div className="flex gap-2 mb-4">
-            <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSearch()} placeholder="Search by course code or name..." className="flex-1 rounded-lg border border-zinc-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emoryBlue" />
-            <button onClick={handleSearch} disabled={searching} className="px-4 py-2 bg-emoryBlue text-white rounded-lg text-sm font-medium hover:bg-emoryBlue/90 disabled:opacity-50"><Search className="h-4 w-4" /></button>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+              placeholder="Search by course code or name..."
+              className="flex-1 rounded-lg border border-zinc-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emoryBlue"
+            />
+            <button onClick={handleSearch} disabled={searching} className="px-4 py-2 bg-emoryBlue text-white rounded-lg text-sm font-medium hover:bg-emoryBlue/90 disabled:opacity-50">
+              <Search className="h-4 w-4" />
+            </button>
           </div>
-          {!selectedCourse && (
-            <div className="max-h-60 overflow-y-auto space-y-2">
-              {searching && <p className="text-sm text-zinc-500 text-center py-4">Searching...</p>}
-              {!searching && searchResults.length === 0 && searchQuery && <p className="text-sm text-zinc-500 text-center py-4">No courses found</p>}
-              {searchResults.map((course, idx) => (
-                <button key={idx} onClick={() => setSelectedCourse(course)} className="w-full text-left p-3 rounded-lg border border-zinc-200 hover:border-emoryBlue hover:bg-emoryBlue/5 transition-colors">
+          <div className="max-h-80 overflow-y-auto space-y-2">
+            {searching && <p className="text-sm text-zinc-500 text-center py-4">Searching...</p>}
+            {!searching && searchResults.length === 0 && searchQuery && <p className="text-sm text-zinc-500 text-center py-4">No courses found</p>}
+            {searchResults.map((course, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleSelectCourse(course)}
+                className="w-full text-left p-3 rounded-lg border border-zinc-200 hover:border-emoryBlue hover:bg-emoryBlue/5 transition-colors"
+              >
+                <div className="flex items-center justify-between">
                   <div className="font-medium text-emoryBlue">{course.code}</div>
-                  <div className="text-sm text-zinc-600 truncate">{course.title}</div>
-                  <div className="text-xs text-zinc-400">{course.time || "TBA"}</div>
-                </button>
-              ))}
-            </div>
-          )}
-          {selectedCourse && (
-            <div className="space-y-4">
-              <div className="p-3 rounded-lg bg-emoryBlue/5 border border-emoryBlue/20">
-                <div className="font-medium text-emoryBlue">{selectedCourse.code}</div>
-                <div className="text-sm text-zinc-600">{selectedCourse.title}</div>
-                <div className="text-xs text-zinc-500 mt-1">{selectedCourse.time || "TBA"}</div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-zinc-700 mb-2">Priority Rank (1 = highest)</label>
-                <p className="text-xs text-zinc-500 mb-2">Higher priority courses are kept when rebuilding schedules.</p>
-                <input type="number" min={1} max={10} value={priorityRank} onChange={(e) => setPriorityRank(Math.max(1, Math.min(10, parseInt(e.target.value) || 1)))} className="w-20 rounded-lg border border-zinc-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emoryBlue" />
-              </div>
-              <div className="flex gap-2">
-                <button onClick={() => setSelectedCourse(null)} className="flex-1 py-2 border border-zinc-300 rounded-lg text-sm font-medium text-zinc-700 hover:bg-zinc-50">Back</button>
-                <button onClick={handleConfirmAdd} className="flex-1 py-2 bg-emoryBlue text-white rounded-lg text-sm font-medium hover:bg-emoryBlue/90">Add Course</button>
-              </div>
-            </div>
-          )}
+                  <div className="text-xs text-zinc-500">{course.credits || 3} cr</div>
+                </div>
+                <div className="text-sm text-zinc-600 truncate">{course.title}</div>
+                <div className="text-xs text-zinc-400 mt-1">{course.time || "TBA"} • {course.professor || "TBA"}</div>
+              </button>
+            ))}
+          </div>
+          <p className="mt-4 text-xs text-zinc-500 text-center">
+            Click a course to add it to your schedule
+          </p>
         </div>
       </div>
     </div>
@@ -354,6 +362,18 @@ function ScheduleCard({ schedule, index, isSelected, onSelect }: { schedule: Sch
   );
 }
 
+// Helper to recalculate schedule totals
+function recalculateSchedule(schedule: Schedule): Schedule {
+  const totalCredits = schedule.courses.reduce((sum, c) => sum + (parseFloat(String(c.credits)) || 3), 0);
+  const totalScore = schedule.courses.reduce((sum, c) => sum + (c.score || 0), 0);
+  return {
+    ...schedule,
+    total_credits: totalCredits,
+    total_score: totalScore,
+    course_count: schedule.courses.length,
+  };
+}
+
 export default function ScheduleBuilderPage() {
   const [schedules, setSchedules] = useState<Schedule[]>([]);
   const [selectedIdx, setSelectedIdx] = useState<number>(0);
@@ -362,7 +382,6 @@ export default function ScheduleBuilderPage() {
   const [generated, setGenerated] = useState(false);
   const [showOptionsDrawer, setShowOptionsDrawer] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [modifying, setModifying] = useState(false);
 
   const selectedSchedule = schedules[selectedIdx] || null;
   const calendarBlocks = selectedSchedule ? coursesToCalendarBlocks(selectedSchedule.courses) : [];
@@ -371,126 +390,220 @@ export default function ScheduleBuilderPage() {
     setLoading(true); setError(null);
     try {
       const sharedId = getOrCreateSharedId();
-      const res = await fetch(`${API_URL}/api/generate-schedule`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ shared_id: sharedId, num_recommendations: 10 }) });
+      const res = await fetch(`${API_URL}/api/generate-schedule`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ shared_id: sharedId, num_recommendations: 10 })
+      });
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error || "Failed to generate schedules");
-      setSchedules(data.schedules || []); setSelectedIdx(0); setGenerated(true);
-    } catch (err: any) { setError(err.message || "Something went wrong"); setSchedules([]); }
+      setSchedules(data.schedules || []);
+      setSelectedIdx(0);
+      setGenerated(true);
+    } catch (err: any) {
+      setError(err.message || "Something went wrong");
+      setSchedules([]);
+    }
     finally { setLoading(false); }
   }
 
-  async function handleRemoveCourse(courseCode: string) {
+  // LOCAL remove - no backend call, just update state
+  function handleRemoveCourse(courseCode: string) {
     if (!selectedSchedule) return;
+    if (selectedSchedule.courses.length <= 1) {
+      alert("Cannot remove the last course. A schedule must have at least one course.");
+      return;
+    }
+
     const confirmed = window.confirm(`Remove ${courseCode} from this schedule?`);
     if (!confirmed) return;
 
-    // Just remove locally for now
+    // Remove course locally
     const updatedCourses = selectedSchedule.courses.filter(c => c.code !== courseCode);
+    const updatedSchedule = recalculateSchedule({ ...selectedSchedule, courses: updatedCourses });
+
     const updatedSchedules = [...schedules];
-    updatedSchedules[selectedIdx] = { ...selectedSchedule, courses: updatedCourses, total_credits: updatedCourses.reduce((sum, c) => sum + (parseInt(String(c.credits)) || 3), 0), course_count: updatedCourses.length };
+    updatedSchedules[selectedIdx] = updatedSchedule;
     setSchedules(updatedSchedules);
   }
 
-  async function handleAddCourse(courseCode: string, priorityRank: number) {
+  // LOCAL add - no backend call, just update state
+  function handleAddCourse(newCourse: Course) {
     if (!selectedSchedule) return;
-    setModifying(true);
-    try {
-      const sharedId = getOrCreateSharedId();
-      const res = await fetch(`${API_URL}/api/modify-schedule`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ shared_id: sharedId, action: "add", course_code: courseCode, priority_rank: priorityRank, current_schedule: selectedSchedule.courses }) });
-      const data = await res.json();
-      if (data.success && data.schedules && data.schedules.length > 0) {
-        setSchedules(data.schedules); setSelectedIdx(0);
-      } else {
-        // Fallback: fetch course and add locally
-        const searchRes = await fetch(`${API_URL}/api/search-courses?q=${encodeURIComponent(courseCode)}&limit=1`);
-        const searchData = await searchRes.json();
-        if (searchData.success && searchData.courses && searchData.courses.length > 0) {
-          const newCourse = { ...searchData.courses[0], score: priorityRank * 10, normalized_code: courseCode };
-          const updatedCourses = [...selectedSchedule.courses, newCourse];
-          const updatedSchedules = [...schedules];
-          updatedSchedules[selectedIdx] = { ...selectedSchedule, courses: updatedCourses, total_credits: updatedCourses.reduce((sum, c) => sum + (parseInt(String(c.credits)) || 3), 0), course_count: updatedCourses.length };
-          setSchedules(updatedSchedules);
-        }
-      }
-    } catch (err) { console.error("Failed to add course:", err); alert("Failed to add course. Please try again."); }
-    finally { setModifying(false); }
+
+    // Check if course already exists
+    const exists = selectedSchedule.courses.some(
+      c => c.code.toUpperCase() === newCourse.code.toUpperCase()
+    );
+    if (exists) {
+      alert(`${newCourse.code} is already in this schedule.`);
+      return;
+    }
+
+    // Add course locally
+    const updatedCourses = [...selectedSchedule.courses, newCourse];
+    const updatedSchedule = recalculateSchedule({ ...selectedSchedule, courses: updatedCourses });
+
+    const updatedSchedules = [...schedules];
+    updatedSchedules[selectedIdx] = updatedSchedule;
+    setSchedules(updatedSchedules);
   }
 
   async function handleSaveSchedule() {
     if (!selectedSchedule) return;
     try {
       const sharedId = getOrCreateSharedId();
-      const res = await fetch(`${API_URL}/api/save-schedule`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ shared_id: sharedId, schedule: selectedSchedule }) });
+      const res = await fetch(`${API_URL}/api/save-schedule`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ shared_id: sharedId, schedule: selectedSchedule })
+      });
       const data = await res.json();
-      if (data.success) { alert("Schedule saved!"); } else { alert("Failed to save: " + (data.error || "Unknown error")); }
-    } catch (err) { console.error("Failed to save:", err); alert("Failed to save. Please try again."); }
+      if (data.success) {
+        alert("Schedule saved successfully!");
+      } else {
+        alert("Failed to save: " + (data.error || "Unknown error"));
+      }
+    } catch (err) {
+      console.error("Failed to save:", err);
+      alert("Failed to save. Please try again.");
+    }
   }
 
   useEffect(() => { fetchSchedules(); }, []);
 
-  function handleExportICS() { if (!selectedSchedule) return; downloadICS(selectedSchedule.courses, `DooleyHelpz_Schedule_${selectedIdx + 1}`); }
+  function handleExportICS() {
+    if (!selectedSchedule) return;
+    downloadICS(selectedSchedule.courses, `DooleyHelpz_Schedule_${selectedIdx + 1}`);
+  }
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900 pb-20">
       <header className="border-b border-zinc-200 bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-          <Link to="/dashboard" className="flex items-center gap-2"><div className="flex h-9 w-9 items-center justify-center rounded-xl bg-Gold"><img src={applogo} alt="DooleyHelpz" className="h-6 w-6 object-contain" /></div><span className="text-lg font-semibold text-emoryBlue">DooleyHelpz</span></Link>
-          <Link to="/dashboard" className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm text-zinc-600 hover:bg-zinc-100"><ChevronLeft className="h-4 w-4" />Dashboard</Link>
+          <Link to="/dashboard" className="flex items-center gap-2">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-Gold">
+              <img src={applogo} alt="DooleyHelpz" className="h-6 w-6 object-contain" />
+            </div>
+            <span className="text-lg font-semibold text-emoryBlue">DooleyHelpz</span>
+          </Link>
+          <Link to="/dashboard" className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm text-zinc-600 hover:bg-zinc-100">
+            <ChevronLeft className="h-4 w-4" />Dashboard
+          </Link>
         </div>
       </header>
 
       <main className="mx-auto max-w-7xl px-4 py-6">
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-emoryBlue flex items-center gap-2"><CalendarDays className="h-7 w-7" />Schedule Builder</h1>
+            <h1 className="text-2xl font-bold text-emoryBlue flex items-center gap-2">
+              <CalendarDays className="h-7 w-7" />Schedule Builder
+            </h1>
             <p className="text-sm text-zinc-600 mt-1">Optimized schedules based on your transcript and preferences</p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
-            <button onClick={fetchSchedules} disabled={loading} className="flex items-center gap-2 rounded-xl border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 disabled:opacity-50"><RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />Regenerate</button>
+            <button onClick={fetchSchedules} disabled={loading} className="flex items-center gap-2 rounded-xl border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 disabled:opacity-50">
+              <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />Regenerate
+            </button>
             {selectedSchedule && (
               <>
-                <button onClick={() => setShowAddModal(true)} disabled={modifying} className="flex items-center gap-2 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 hover:bg-emerald-100 disabled:opacity-50"><Plus className="h-4 w-4" />Add</button>
-                <button onClick={handleSaveSchedule} className="flex items-center gap-2 rounded-xl border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50"><CheckCircle2 className="h-4 w-4" />Save</button>
-                <button onClick={handleExportICS} className="flex items-center gap-2 rounded-xl bg-emoryBlue px-4 py-2 text-sm font-semibold text-white hover:bg-emoryBlue/90"><Download className="h-4 w-4" />Export</button>
+                <button onClick={() => setShowAddModal(true)} className="flex items-center gap-2 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 hover:bg-emerald-100">
+                  <Plus className="h-4 w-4" />Add Course
+                </button>
+                <button onClick={handleSaveSchedule} className="flex items-center gap-2 rounded-xl border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50">
+                  <CheckCircle2 className="h-4 w-4" />Save
+                </button>
+                <button onClick={handleExportICS} className="flex items-center gap-2 rounded-xl bg-emoryBlue px-4 py-2 text-sm font-semibold text-white hover:bg-emoryBlue/90">
+                  <Download className="h-4 w-4" />Export
+                </button>
               </>
             )}
           </div>
         </div>
 
-        {error && <div className="mb-6 flex items-center gap-2 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-rose-700"><AlertCircle className="h-5 w-5" /><span>{error}</span></div>}
-        {loading && <div className="flex flex-col items-center justify-center py-20"><RefreshCw className="h-10 w-10 animate-spin text-emoryBlue" /><p className="mt-4 text-zinc-600">Generating your schedules...</p></div>}
-        {modifying && <div className="mb-4 flex items-center gap-2 text-sm text-zinc-600"><RefreshCw className="h-4 w-4 animate-spin" />Updating...</div>}
+        {error && (
+          <div className="mb-6 flex items-center gap-2 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-rose-700">
+            <AlertCircle className="h-5 w-5" /><span>{error}</span>
+          </div>
+        )}
+
+        {loading && (
+          <div className="flex flex-col items-center justify-center py-20">
+            <RefreshCw className="h-10 w-10 animate-spin text-emoryBlue" />
+            <p className="mt-4 text-zinc-600">Generating your schedules...</p>
+          </div>
+        )}
+
         {!loading && generated && schedules.length === 0 && !error && (
-          <div className="flex flex-col items-center justify-center py-20 text-center"><BookOpen className="h-12 w-12 text-zinc-300" /><h2 className="mt-4 text-lg font-semibold text-zinc-700">No schedules generated</h2><p className="mt-2 text-sm text-zinc-500 max-w-md">Make sure you've uploaded your transcript and set preferences.</p><div className="mt-4 flex gap-3"><Link to="/droptranscript" className="rounded-lg bg-emoryBlue px-4 py-2 text-sm font-medium text-white hover:bg-emoryBlue/90">Upload Transcript</Link><Link to="/preferences" className="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50">Set Preferences</Link></div></div>
+          <div className="flex flex-col items-center justify-center py-20 text-center">
+            <BookOpen className="h-12 w-12 text-zinc-300" />
+            <h2 className="mt-4 text-lg font-semibold text-zinc-700">No schedules generated</h2>
+            <p className="mt-2 text-sm text-zinc-500 max-w-md">Make sure you've uploaded your transcript and set preferences.</p>
+            <div className="mt-4 flex gap-3">
+              <Link to="/droptranscript" className="rounded-lg bg-emoryBlue px-4 py-2 text-sm font-medium text-white hover:bg-emoryBlue/90">Upload Transcript</Link>
+              <Link to="/preferences" className="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50">Set Preferences</Link>
+            </div>
+          </div>
         )}
 
         {!loading && schedules.length > 0 && (
           <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
             <div className="space-y-3">
               <h2 className="text-sm font-semibold text-zinc-700 uppercase tracking-wide">{schedules.length} Schedule Options</h2>
-              <div className="space-y-3 max-h-[calc(100vh-280px)] overflow-y-auto pr-2">{schedules.map((schedule, idx) => <ScheduleCard key={idx} schedule={schedule} index={idx} isSelected={idx === selectedIdx} onSelect={() => setSelectedIdx(idx)} />)}</div>
+              <div className="space-y-3 max-h-[calc(100vh-280px)] overflow-y-auto pr-2">
+                {schedules.map((schedule, idx) => (
+                  <ScheduleCard key={idx} schedule={schedule} index={idx} isSelected={idx === selectedIdx} onSelect={() => setSelectedIdx(idx)} />
+                ))}
+              </div>
             </div>
+
             {selectedSchedule && (
               <div className="space-y-6">
                 <div>
                   <div className="mb-3 flex items-center justify-between">
                     <h2 className="text-lg font-semibold text-emoryBlue">Weekly View</h2>
                     <div className="flex items-center gap-2">
-                      <button onClick={() => setSelectedIdx(Math.max(0, selectedIdx - 1))} disabled={selectedIdx === 0} className="rounded-lg p-1.5 hover:bg-zinc-100 disabled:opacity-30"><ChevronLeft className="h-5 w-5" /></button>
+                      <button onClick={() => setSelectedIdx(Math.max(0, selectedIdx - 1))} disabled={selectedIdx === 0} className="rounded-lg p-1.5 hover:bg-zinc-100 disabled:opacity-30">
+                        <ChevronLeft className="h-5 w-5" />
+                      </button>
                       <span className="text-sm text-zinc-600">{selectedIdx + 1} / {schedules.length}</span>
-                      <button onClick={() => setSelectedIdx(Math.min(schedules.length - 1, selectedIdx + 1))} disabled={selectedIdx === schedules.length - 1} className="rounded-lg p-1.5 hover:bg-zinc-100 disabled:opacity-30"><ChevronRight className="h-5 w-5" /></button>
+                      <button onClick={() => setSelectedIdx(Math.min(schedules.length - 1, selectedIdx + 1))} disabled={selectedIdx === schedules.length - 1} className="rounded-lg p-1.5 hover:bg-zinc-100 disabled:opacity-30">
+                        <ChevronRight className="h-5 w-5" />
+                      </button>
                     </div>
                   </div>
                   <WeeklyCalendar blocks={calendarBlocks} />
                 </div>
+
                 <div>
-                  <div className="mb-3 flex items-center justify-between"><h2 className="text-lg font-semibold text-emoryBlue">Courses ({selectedSchedule.courses.length})</h2><p className="text-xs text-zinc-500">Hover to remove</p></div>
-                  <div className="space-y-2">{selectedSchedule.courses.map((course, idx) => <CourseDetailRow key={`${course.code}-${idx}`} course={course} onRemove={() => handleRemoveCourse(course.code)} canRemove={selectedSchedule.courses.length > 1} />)}</div>
+                  <div className="mb-3 flex items-center justify-between">
+                    <h2 className="text-lg font-semibold text-emoryBlue">Courses ({selectedSchedule.courses.length})</h2>
+                    <p className="text-xs text-zinc-500">Hover to remove</p>
+                  </div>
+                  <div className="space-y-2">
+                    {selectedSchedule.courses.map((course, idx) => (
+                      <CourseDetailRow
+                        key={`${course.code}-${idx}`}
+                        course={course}
+                        onRemove={() => handleRemoveCourse(course.code)}
+                        canRemove={selectedSchedule.courses.length > 1}
+                      />
+                    ))}
+                  </div>
                   <div className="mt-4 rounded-lg bg-emoryBlue/5 border border-emoryBlue/20 p-4">
                     <div className="grid grid-cols-3 gap-4 text-center">
-                      <div><p className="text-2xl font-bold text-emoryBlue">{selectedSchedule.total_credits}</p><p className="text-xs text-zinc-600">Credits</p></div>
-                      <div><p className="text-2xl font-bold text-emoryBlue">{selectedSchedule.courses.length}</p><p className="text-xs text-zinc-600">Courses</p></div>
-                      <div><p className="text-2xl font-bold text-amber-600">{selectedSchedule.total_score.toFixed(0)}</p><p className="text-xs text-zinc-600">Score</p></div>
+                      <div>
+                        <p className="text-2xl font-bold text-emoryBlue">{selectedSchedule.total_credits}</p>
+                        <p className="text-xs text-zinc-600">Credits</p>
+                      </div>
+                      <div>
+                        <p className="text-2xl font-bold text-emoryBlue">{selectedSchedule.courses.length}</p>
+                        <p className="text-xs text-zinc-600">Courses</p>
+                      </div>
+                      <div>
+                        <p className="text-2xl font-bold text-amber-600">{selectedSchedule.total_score.toFixed(0)}</p>
+                        <p className="text-xs text-zinc-600">Score</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -500,8 +613,22 @@ export default function ScheduleBuilderPage() {
         )}
       </main>
 
-      {schedules.length > 0 && <ScheduleOptionsDrawer schedules={schedules} selectedIdx={selectedIdx} onSelect={setSelectedIdx} isOpen={showOptionsDrawer} onToggle={() => setShowOptionsDrawer(!showOptionsDrawer)} />}
-      <AddCourseModal isOpen={showAddModal} onClose={() => setShowAddModal(false)} onAddCourse={handleAddCourse} currentCourses={selectedSchedule?.courses || []} />
+      {schedules.length > 0 && (
+        <ScheduleOptionsDrawer
+          schedules={schedules}
+          selectedIdx={selectedIdx}
+          onSelect={setSelectedIdx}
+          isOpen={showOptionsDrawer}
+          onToggle={() => setShowOptionsDrawer(!showOptionsDrawer)}
+        />
+      )}
+
+      <AddCourseModal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        onAddCourse={handleAddCourse}
+        currentCourses={selectedSchedule?.courses || []}
+      />
     </div>
   );
 }
