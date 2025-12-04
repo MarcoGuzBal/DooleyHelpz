@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { auth } from "../firebase";
 import { getOrCreateSharedId } from "../utils/anonID";
 import { api } from "../utils/api";
@@ -164,69 +164,93 @@ export default function DashboardPage() {
   const [savedSchedule, setSavedSchedule] = useState<any>(null);
   const [hasTranscript, setHasTranscript] = useState(false);
   const [hasPreferences, setHasPreferences] = useState(false);
-  const [fetchError, setFetchError] = useState<string | null>(null);
+  // Only show error for actual network/server errors, not for "no data yet"
+  const [networkError, setNetworkError] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function fetchUserData() {
-      try {
-        const sharedId = getOrCreateSharedId();
-        console.log("Fetching data for sharedId:", sharedId);
+  const fetchUserData = useCallback(async () => {
+    setLoading(true);
+    setNetworkError(null);
+    
+    try {
+      const sharedId = getOrCreateSharedId();
+      console.log("Dashboard: Fetching data for sharedId:", sharedId);
+      
+      const result = await api.getUserData(sharedId);
+      console.log("Dashboard: API result:", result);
+
+      if (result.success && result.data) {
+        const data = result.data;
         
-        const result = await api.getUserData(sharedId);
-        console.log("API result:", result);
+        // These flags from the API tell us if data exists
+        // This is NOT an error - it's expected for new users
+        setHasTranscript(data.has_courses === true);
+        setHasPreferences(data.has_preferences === true);
 
-        if (result.success && result.data) {
-          const data = result.data;
-          console.log("Data received:", data);
-          
-          setHasTranscript(data.has_courses === true);
-          setHasPreferences(data.has_preferences === true);
+        // Extract courses from transcript data
+        if (data.courses) {
+          const allCourses: string[] = [];
+          const courseData = data.courses;
 
-          // Extract courses from transcript data
-          if (data.courses) {
-            const allCourses: string[] = [];
-            const courseData = data.courses;
-
-            // Handle different course array fields
-            if (Array.isArray(courseData.incoming_transfer_courses)) {
-              allCourses.push(...courseData.incoming_transfer_courses);
-            }
-            if (Array.isArray(courseData.incoming_test_courses)) {
-              allCourses.push(...courseData.incoming_test_courses);
-            }
-            if (Array.isArray(courseData.emory_courses)) {
-              allCourses.push(...courseData.emory_courses);
-            }
-            if (Array.isArray(courseData.spring_2026_courses)) {
-              allCourses.push(...courseData.spring_2026_courses);
-            }
-
-            // Only set if we actually have courses
-            if (allCourses.length > 0) {
-              setUserCourses(allCourses);
-            }
+          if (Array.isArray(courseData.incoming_transfer_courses)) {
+            allCourses.push(...courseData.incoming_transfer_courses);
+          }
+          if (Array.isArray(courseData.incoming_test_courses)) {
+            allCourses.push(...courseData.incoming_test_courses);
+          }
+          if (Array.isArray(courseData.emory_courses)) {
+            allCourses.push(...courseData.emory_courses);
+          }
+          if (Array.isArray(courseData.spring_2026_courses)) {
+            allCourses.push(...courseData.spring_2026_courses);
           }
 
-          // Get saved schedule if exists
-          if (data.has_saved_schedule && data.saved_schedule?.schedule) {
-            setSavedSchedule(data.saved_schedule);
+          if (allCourses.length > 0) {
+            setUserCourses(allCourses);
+          } else {
+            setUserCourses([]);
           }
-          
-          setFetchError(null);
         } else {
-          // API call returned but with error
-          console.error("API returned error:", result.error);
-          setFetchError(result.error || "Failed to fetch user data");
+          setUserCourses([]);
         }
-      } catch (err) {
-        console.error("Failed to fetch user data:", err);
-        setFetchError(err instanceof Error ? err.message : "Network error");
-      } finally {
-        setLoading(false);
+
+        // Get saved schedule if exists
+        if (data.has_saved_schedule && data.saved_schedule?.schedule) {
+          setSavedSchedule(data.saved_schedule);
+        } else {
+          setSavedSchedule(null);
+        }
+        
+        // Clear any previous network error since we got a response
+        setNetworkError(null);
+      } else if (result.error) {
+        // This is an actual error (network issue, server error, etc.)
+        console.error("Dashboard: API error:", result.error);
+        setNetworkError(result.error);
       }
+    } catch (err) {
+      // Network error - couldn't reach the server at all
+      console.error("Dashboard: Network error:", err);
+      setNetworkError(err instanceof Error ? err.message : "Could not connect to server");
+    } finally {
+      setLoading(false);
     }
-    fetchUserData();
   }, []);
+
+  // Fetch data on mount
+  useEffect(() => {
+    fetchUserData();
+  }, [fetchUserData]);
+
+  // Re-fetch when window gains focus (user might have just uploaded transcript)
+  useEffect(() => {
+    const handleFocus = () => {
+      console.log("Dashboard: Window focused, re-fetching data...");
+      fetchUserData();
+    };
+
+    window.addEventListener("focus", handleFocus);
+    return () => window.removeEventListener("focus", handleFocus);
+  }, [fetchUserData]);
 
   // Convert saved schedule to meetings format
   const scheduleFromBackend: ScheduleMeeting[] = savedSchedule?.schedule?.courses
@@ -235,7 +259,7 @@ export default function DashboardPage() {
     )
     : [];
 
-  // Determine what to display - use real data if available, otherwise dummy data
+  // Determine what to display
   const hasRealCourses = userCourses.length > 0;
   const hasRealSchedule = scheduleFromBackend.length > 0;
 
@@ -245,6 +269,11 @@ export default function DashboardPage() {
   const handleLogout = async () => {
     await auth.signOut();
     navigate("/");
+  };
+
+  // Manual refresh button handler
+  const handleRefresh = () => {
+    fetchUserData();
   };
 
   return (
@@ -259,6 +288,13 @@ export default function DashboardPage() {
           </div>
           <div className="flex items-center gap-3">
             {user && <span className="hidden text-xs text-zinc-600 sm:inline">{user.email}</span>}
+            <button 
+              onClick={handleRefresh}
+              className="rounded-xl border border-zinc-300 px-3 py-1.5 text-xs font-semibold text-zinc-600 hover:bg-zinc-50"
+              title="Refresh data"
+            >
+              ↻ Refresh
+            </button>
             <button onClick={handleLogout} className="rounded-xl bg-emoryBlue px-3 py-1.5 text-xs font-semibold text-white hover:bg-emoryBlue/90">
               Logout
             </button>
@@ -273,15 +309,21 @@ export default function DashboardPage() {
           </div>
         ) : (
           <>
-            {/* Error Display */}
-            {fetchError && (
+            {/* Only show error for actual network/server errors */}
+            {networkError && (
               <div className="mb-4 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3">
                 <p className="text-sm text-rose-700">
-                  <strong>Error loading data:</strong> {fetchError}
+                  <strong>Connection error:</strong> {networkError}
                 </p>
                 <p className="mt-1 text-xs text-rose-600">
-                  Try refreshing the page or re-uploading your transcript.
+                  Check your internet connection or try again later.
                 </p>
+                <button 
+                  onClick={handleRefresh}
+                  className="mt-2 rounded bg-rose-100 px-3 py-1 text-xs font-medium text-rose-700 hover:bg-rose-200"
+                >
+                  Try Again
+                </button>
               </div>
             )}
 

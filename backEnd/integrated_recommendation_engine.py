@@ -1619,6 +1619,131 @@ def generate_schedule_for_user(
 ) -> Dict:
 
     try:
+        try:
+            int_id = int(shared_id)
+            shared_id_query = {"$or": [{"shared_id": int_id}, {"shared_id": str(int_id)}]}
+        except (ValueError, TypeError):
+            shared_id_query = {"shared_id": shared_id}
+
+        user_courses = course_col.find_one(
+            shared_id_query,
+            sort=[("_id", -1)]
+        )
+
+        user_prefs = pref_col.find_one(
+            shared_id_query,
+            sort=[("_id", -1)]
+        )
+
+        if not user_courses or not user_prefs:
+            return {
+                "success": False,
+                "error": "Missing data. Please complete transcript upload and preferences.",
+                "has_courses": user_courses is not None,
+                "has_preferences": user_prefs is not None,
+            }
+
+        all_courses = list(enriched_courses_col.find({}))
+
+        ger_lookup: Dict[str, List[str]] = {}
+        if basic_courses_col is not None:
+            basic_docs = list(basic_courses_col.find({}, {"code": 1, "ger": 1}))
+            for doc in basic_docs:
+                code = normalize_course_code(doc.get("code") or "")
+                if not code:
+                    continue
+                ger = doc.get("ger") or []
+                if isinstance(ger, str):
+                    ger = [ger]
+                elif not isinstance(ger, list):
+                    ger = []
+                ger_lookup[code] = ger
+
+        rmp_index: Dict[str, Any] = {}
+        if rmp_col is not None:
+            engine_tmp = IntegratedRecommendationEngine()
+            rmp_docs = list(
+                rmp_col.find({}, {"name": 1, "rating": 1, "num_ratings": 1, "department": 1})
+            )
+            for doc in rmp_docs:
+                name = doc.get("name")
+                norm_name = engine_tmp._normalize_name(name)
+                if not norm_name:
+                    continue
+                rmp_index[norm_name] = doc
+                for k in engine_tmp._first_last_keys(norm_name):
+                    if k not in rmp_index:
+                        rmp_index[k] = doc
+
+        engine = IntegratedRecommendationEngine()
+        recommendations = engine.generate_recommendations(
+            user_courses=user_courses,
+            user_prefs=user_prefs,
+            all_courses=all_courses,
+            rmp_index=rmp_index,
+            num_recommendations=num_recommendations,
+            ger_lookup=ger_lookup if basic_courses_col is not None else None
+        )
+
+        formatted_schedules = []
+        for schedule_obj in recommendations:
+            root = schedule_obj.get("root_course") or {}
+            courses = schedule_obj.get("courses") or []
+
+            formatted_courses = []
+            for course in courses:
+                if not course:
+                    continue
+                formatted_courses.append({
+                    "code": course.get("code"),
+                    "title": course.get("title"),
+                    "professor": course.get("professor"),
+                    "credits": course.get("credits"),
+                    "time": course.get("time"),
+                    "meeting": course.get("meeting"),
+                    "rmp": course.get("rmp"),
+                    "score": round(course.get("recommendation_score") or 0, 2),
+                    "ger": course.get("ger"),
+                    "normalized_code": normalize_course_code(course.get("code") or ""),
+                })
+
+            formatted_schedules.append({
+                "root_course_code": root.get("code"),
+                "total_score": round(schedule_obj.get("total_score") or 0, 2),
+                "courses": formatted_courses,
+                "course_count": schedule_obj.get("course_count") or len(formatted_courses),
+                "total_credits": schedule_obj.get("total_credits") or sum(
+                    parse_credits(c.get("credits")) for c in formatted_courses
+                ),
+            })
+
+        return {
+            "success": True,
+            "schedules": formatted_schedules,
+            "count": len(formatted_schedules),
+            "metadata": {
+                "degree_type": user_prefs.get("degreeType"),
+                "year": user_prefs.get("year"),
+                "interests": user_prefs.get("interests"),
+                "total_courses_processed": len(all_courses),
+                "target_credits": user_prefs.get("preferredCredits") or 15,
+            },
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "error": str(e),
+        }def generate_schedule_for_user(
+    shared_id: int,
+    course_col,
+    pref_col,
+    enriched_courses_col,
+    rmp_col=None,
+    basic_courses_col=None,
+    num_recommendations: int = 15
+) -> Dict:
+
+    try:
         #query both int and string versions of shared_id - look here again, I swear if this doesn't fix it I am going to break my laptop
         try:
             int_id = int(shared_id)

@@ -15,9 +15,10 @@ import DashboardPage from "./pages/DashboardPage";
 import DropTranscript from "./components/DropTranscript";
 import PreferencesPage from "./pages/PreferencesPage";
 import ScheduleBuilderPage from "./pages/ScheduleBuilderPage";
-import SustainibilityPage from "./pages/SustainabilityPage";
+// function Protected() { return <Outlet /> }
 
 export default function App() {
+// import ScheduleBattle from "./pages/ScheduleBattle";
 
   // Will work on logout later
   // async function handleLogout() {
@@ -30,7 +31,6 @@ export default function App() {
     <AuthProvider>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/sustainability" element={<SustainibilityPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/dashboard" element={<DashboardPage />}/>
@@ -49,4 +49,3 @@ export default function App() {
     </AuthProvider>   
   );
 }
-

@@ -1,33 +1,48 @@
 // Get the API URL - detect production vs development
 const getApiUrl = (): string => {
-  // 1. Priority: Use environment variable if set (works for local .env AND Vercel env vars)
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
+  // 1. Priority: Use environment variable if set
+  const envUrl = import.meta.env.VITE_API_URL;
+  
+  if (envUrl) {
+    // Clean the URL - remove any extra spaces or trailing content
+    const cleanUrl = envUrl.trim().split(' ')[0];
+    console.log("API URL from env:", cleanUrl);
+    return cleanUrl;
   }
 
-  // 2. Fallback: Auto-detect production environment if no env var is set
+  // 2. Fallback: Auto-detect production environment
   if (typeof window !== 'undefined') {
     const hostname = window.location.hostname;
-    // If on Vercel or any non-localhost, use Fly.io backend as default
     if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
-      return 'https://dooley-devs.fly.dev';
+      const prodUrl = 'https://dooley-devs.fly.dev';
+      console.log("API URL (production fallback):", prodUrl);
+      return prodUrl;
     }
   }
 
   // 3. Default: Localhost
-  return 'http://localhost:5002';
+  console.log("API URL (localhost default):", 'http://localhost:8080');
+  return 'http://localhost:8080';
 };
 
 export const API_URL = getApiUrl();
+
+// Log the URL at startup for debugging
+console.log("=== API Configuration ===");
+console.log("Final API_URL:", API_URL);
+console.log("Raw VITE_API_URL:", import.meta.env.VITE_API_URL);
+console.log("========================");
 
 // Helper function to make API calls with proper error handling
 export async function apiCall<T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<{ success: boolean; data?: T; error?: string }> {
+  const url = `${API_URL}${endpoint}`;
+  
+  console.log(`API Call: ${options.method || 'GET'} ${url}`);
+  
   try {
-    const url = `${API_URL}${endpoint}`;
-
     const response = await fetch(url, {
       ...options,
       headers: {
@@ -36,9 +51,12 @@ export async function apiCall<T>(
       },
     });
 
+    console.log(`API Response: ${response.status} ${response.statusText}`);
+
     const data = await response.json();
 
     if (!response.ok) {
+      console.error("API Error Response:", data);
       return {
         success: false,
         error: data.error || `HTTP ${response.status}`,
@@ -50,10 +68,24 @@ export async function apiCall<T>(
       data,
     };
   } catch (error) {
-    console.error(`API call to ${endpoint} failed:`, error);
+    // More detailed error logging
+    console.error(`API call to ${url} failed:`, error);
+    
+    let errorMessage = "Network error";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+      
+      // Provide more helpful messages for common errors
+      if (error.message.includes("NetworkError") || error.message.includes("Failed to fetch")) {
+        errorMessage = `Cannot connect to server at ${API_URL}. Check if the backend is running.`;
+      } else if (error.message.includes("CORS")) {
+        errorMessage = `CORS error - the backend at ${API_URL} is not allowing requests from this origin.`;
+      }
+    }
+    
     return {
       success: false,
-      error: error instanceof Error ? error.message : "Network error",
+      error: errorMessage,
     };
   }
 }
