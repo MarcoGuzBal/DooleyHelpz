@@ -164,15 +164,21 @@ export default function DashboardPage() {
   const [savedSchedule, setSavedSchedule] = useState<any>(null);
   const [hasTranscript, setHasTranscript] = useState(false);
   const [hasPreferences, setHasPreferences] = useState(false);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchUserData() {
       try {
         const sharedId = getOrCreateSharedId();
+        console.log("Fetching data for sharedId:", sharedId);
+        
         const result = await api.getUserData(sharedId);
+        console.log("API result:", result);
 
         if (result.success && result.data) {
           const data = result.data;
+          console.log("Data received:", data);
+          
           setHasTranscript(data.has_courses === true);
           setHasPreferences(data.has_preferences === true);
 
@@ -205,9 +211,16 @@ export default function DashboardPage() {
           if (data.has_saved_schedule && data.saved_schedule?.schedule) {
             setSavedSchedule(data.saved_schedule);
           }
+          
+          setFetchError(null);
+        } else {
+          // API call returned but with error
+          console.error("API returned error:", result.error);
+          setFetchError(result.error || "Failed to fetch user data");
         }
       } catch (err) {
         console.error("Failed to fetch user data:", err);
+        setFetchError(err instanceof Error ? err.message : "Network error");
       } finally {
         setLoading(false);
       }
@@ -260,6 +273,18 @@ export default function DashboardPage() {
           </div>
         ) : (
           <>
+            {/* Error Display */}
+            {fetchError && (
+              <div className="mb-4 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3">
+                <p className="text-sm text-rose-700">
+                  <strong>Error loading data:</strong> {fetchError}
+                </p>
+                <p className="mt-1 text-xs text-rose-600">
+                  Try refreshing the page or re-uploading your transcript.
+                </p>
+              </div>
+            )}
+
             {/* Welcome Section */}
             <section className="mb-8 grid items-center gap-6 rounded-3xl border border-zinc-200 bg-gradient-to-tr from-emoryBlue/5 via-white to-amber-50 p-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
               <div>

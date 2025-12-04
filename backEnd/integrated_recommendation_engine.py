@@ -1608,7 +1608,6 @@ class IntegratedRecommendationEngine:
         except Exception:
             return []
 
-
 def generate_schedule_for_user(
     shared_id: int,
     course_col,
@@ -1620,13 +1619,20 @@ def generate_schedule_for_user(
 ) -> Dict:
 
     try:
+        #query both int and string versions of shared_id - look here again, I swear if this doesn't fix it I am going to break my laptop
+        try:
+            int_id = int(shared_id)
+            shared_id_query = {"$or": [{"shared_id": int_id}, {"shared_id": str(int_id)}]}
+        except (ValueError, TypeError):
+            shared_id_query = {"shared_id": shared_id}
+
         user_courses = course_col.find_one(
-            {"shared_id": shared_id},
+            shared_id_query,
             sort=[("_id", -1)]
         )
 
         user_prefs = pref_col.find_one(
-            {"shared_id": shared_id},
+            shared_id_query,
             sort=[("_id", -1)]
         )
 

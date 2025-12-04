@@ -56,6 +56,23 @@ last_userCourses = None
 last_preferences = None
 
 
+# Helper function to normalize shared_id for consistent querying
+def get_shared_id_query(shared_id):
+    try:
+        int_id = int(shared_id)
+        return {"$or": [{"shared_id": int_id}, {"shared_id": str(int_id)}]}
+    except (ValueError, TypeError):
+        return {"shared_id": shared_id}
+
+
+# Helper function to normalize shared_id for storage (always store as int)
+def normalize_shared_id(shared_id):
+    try:
+        return int(shared_id)
+    except (ValueError, TypeError):
+        return shared_id
+
+
 @app.route("/")
 def home():
     return jsonify({
@@ -108,6 +125,10 @@ def userCourses():
         return {"error": "Send JSON (Content-Type: application/json)."}, 400
 
     data = request.get_json(silent=True)
+    
+    if isinstance(data, dict) and "shared_id" in data:
+        data["shared_id"] = normalize_shared_id(data["shared_id"])
+    
     last_userCourses = data if isinstance(data, dict) else {"value": data}
     
     try:
@@ -146,6 +167,9 @@ def userPreferences():
     data = request.get_json(silent=True)
     print("Received preferences:", data)
     
+    if isinstance(data, dict) and "shared_id" in data:
+        data["shared_id"] = normalize_shared_id(data["shared_id"])
+    
     try:
         shared_id = None
         if isinstance(data, dict):
@@ -173,25 +197,27 @@ def viewUserPreferences():
     return {"message": "Last saved preferences", "preferences": last_preferences}, 200
 
 
-# NEW: Get all user data for a shared_id
 @app.route("/api/user-data/<int:shared_id>", methods=["GET"])
 def get_user_data(shared_id):
     try:
+        # Use helper to query both int and string versions of shared_id
+        shared_id_query = get_shared_id_query(shared_id)
+        
         # Get latest courses
         user_courses = course_col.find_one(
-            {"shared_id": shared_id},
+            shared_id_query,
             sort=[("_id", -1)]
         )
         
         # Get latest preferences
         user_prefs = pref_col.find_one(
-            {"shared_id": shared_id},
+            shared_id_query,
             sort=[("_id", -1)]
         )
         
         # Get saved schedule if any
         saved_schedule = schedules_col.find_one(
-            {"shared_id": shared_id},
+            shared_id_query,
             sort=[("_id", -1)]
         )
         
@@ -235,9 +261,13 @@ def save_schedule():
                 "error": "shared_id and schedule required"
             }), 400
         
+        # Normalize shared_id
+        shared_id = normalize_shared_id(shared_id)
+        shared_id_query = get_shared_id_query(shared_id)
+        
         # Upsert - update if exists, insert if not
         result = schedules_col.update_one(
-            {"shared_id": shared_id},
+            shared_id_query,
             {"$set": {
                 "shared_id": shared_id,
                 "schedule": schedule,
@@ -264,8 +294,10 @@ def save_schedule():
 @app.route("/api/saved-schedule/<int:shared_id>", methods=["GET"])
 def get_saved_schedule(shared_id):
     try:
+        shared_id_query = get_shared_id_query(shared_id)
+        
         saved_schedule = schedules_col.find_one(
-            {"shared_id": shared_id},
+            shared_id_query,
             sort=[("_id", -1)]
         )
         
@@ -311,14 +343,18 @@ def modify_schedule():
                 "error": "shared_id, action, and course_code required"
             }), 400
         
+        # Normalize shared_id and create query
+        shared_id = normalize_shared_id(shared_id)
+        shared_id_query = get_shared_id_query(shared_id)
+        
         # Get user data
         user_courses = course_col.find_one(
-            {"shared_id": shared_id},
+            shared_id_query,
             sort=[("_id", -1)]
         )
         
         user_prefs = pref_col.find_one(
-            {"shared_id": shared_id},
+            shared_id_query,
             sort=[("_id", -1)]
         )
         
@@ -434,6 +470,9 @@ def generate_schedule():
                 "success": False,
                 "error": "shared_id required"
             }), 400
+        
+        # Normalize shared_id
+        shared_id = normalize_shared_id(shared_id)
         
         result = generate_schedule_for_user(
             shared_id=shared_id,
