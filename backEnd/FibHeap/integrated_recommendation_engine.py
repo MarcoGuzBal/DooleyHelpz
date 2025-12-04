@@ -334,6 +334,8 @@ def generate_schedule_for_user(shared_id: int,
                                course_col, 
                                pref_col, 
                                enriched_courses_col,
+                               rmp_col=None,
+                               basic_courses_col=None,
                                num_recommendations: int = 15) -> Dict:
     """
     Flask-compatible function to generate recommendations
@@ -343,6 +345,8 @@ def generate_schedule_for_user(shared_id: int,
         course_col: MongoDB collection for user courses
         pref_col: MongoDB collection for user preferences
         enriched_courses_col: MongoDB collection for course catalog
+        rmp_col: MongoDB collection for RMP (optional)
+        basic_courses_col: MongoDB collection for basic courses (optional)
         num_recommendations: How many courses to recommend
     
     Returns:
@@ -381,7 +385,25 @@ def generate_schedule_for_user(shared_id: int,
     
     # Format for frontend
     formatted = []
+    total_score = 0
+    total_credits = 0
+    
     for rec in recommendations:
+        score = round(rec.get("recommendation_score", 0), 2)
+        total_score += score
+        
+        # Parse credits (handle "3-4" or "3")
+        try:
+            creds = rec.get("credits", 0)
+            if isinstance(creds, str):
+                if "-" in creds:
+                    creds = float(creds.split("-")[0])
+                else:
+                    creds = float(creds)
+            total_credits += creds
+        except:
+            pass
+            
         formatted.append({
             "code": rec.get("code"),
             "title": rec.get("title"),
@@ -390,13 +412,26 @@ def generate_schedule_for_user(shared_id: int,
             "time": rec.get("time"),
             "meeting": rec.get("meeting"),
             "rmp": rec.get("rmp"),
-            "score": round(rec.get("recommendation_score", 0), 2),
-            "ger": rec.get("ger")
+            "score": score,
+            "ger": rec.get("ger"),
+            "normalized_code": rec.get("normalized_code")
         })
+    
+    # Create a single "Recommended Schedule" containing all top courses
+    # This is a temporary fix to satisfy the frontend's expectation of "schedules"
+    # In a real schedule builder, we would generate multiple non-conflicting schedules.
+    schedules = [{
+        "root_course_code": "Top Recommendations",
+        "total_score": round(total_score, 2),
+        "courses": formatted,
+        "course_count": len(formatted),
+        "total_credits": total_credits
+    }]
     
     return {
         "success": True,
-        "recommendations": formatted,
+        "recommendations": formatted, # Keep for backward compatibility if needed
+        "schedules": schedules,       # Added for ScheduleBuilderPage.tsx
         "count": len(formatted),
         "metadata": {
             "degree_type": user_prefs.get("degreeType"),

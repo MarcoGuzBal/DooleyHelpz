@@ -1,11 +1,25 @@
 // src/utils/api.ts
 // Centralized API configuration
 
-// In production (Vercel), this should be set to your Fly.io URL
-// e.g., https://dooley-devs.fly.dev
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+// Get the API URL - detect production vs development
+const getApiUrl = (): string => {
+  const envUrl = import.meta.env.VITE_API_URL;
 
-export { API_URL };
+  // In browser, check if we're on a production domain
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+
+    // If on Vercel or any non-localhost, use Fly.io backend
+    if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
+      return 'https://dooley-devs.fly.dev';
+    }
+  }
+
+  // Development - use env var or default to localhost
+  return envUrl || 'http://localhost:8080';
+};
+
+export const API_URL = getApiUrl();
 
 // Helper function to make API calls with proper error handling
 export async function apiCall<T>(
