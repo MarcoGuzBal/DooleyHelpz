@@ -450,25 +450,35 @@ export default function ScheduleBuilderPage() {
   }
 
   async function handleSaveSchedule() {
-    if (!selectedSchedule) return;
-    try {
-      const sharedId = getOrCreateSharedId();
-      const res = await fetch(`${API_URL}/api/save-schedule`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ shared_id: sharedId, schedule: selectedSchedule })
-      });
-      const data = await res.json();
-      if (data.success) {
-        alert("Schedule saved successfully!");
-      } else {
-        alert("Failed to save: " + (data.error || "Unknown error"));
-      }
-    } catch (err) {
-      console.error("Failed to save:", err);
-      alert("Failed to save. Please try again.");
+  if (!schedules.length) return;
+
+  try {
+    const sharedId = getOrCreateSharedId();
+
+    const payload = {
+      shared_id: sharedId,
+      schedules,          // all 10 schedules
+      selected_index: selectedIdx,  // which one the user currently has selected
+    };
+
+    const res = await fetch(`${API_URL}/api/save-schedule`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      alert("Schedules saved successfully!");
+    } else {
+      alert("Failed to save: " + (data.error || "Unknown error"));
     }
+  } catch (err) {
+    console.error("Failed to save:", err);
+    alert("Failed to save. Please try again.");
   }
+}
+
 
   useEffect(() => { fetchSchedules(); }, []);
 
