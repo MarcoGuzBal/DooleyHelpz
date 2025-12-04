@@ -7,7 +7,15 @@ import sys
 from pathlib import Path
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+# CORS configuration - allow all origins for API routes
+# Using supports_credentials and explicit methods to ensure OPTIONS preflight works
+CORS(app, resources={
+    r"/api/*": {
+        "origins": "*",
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
+})
 
 load_dotenv()
 uri = os.getenv("MONGODB_URI")
@@ -58,6 +66,7 @@ last_preferences = None
 
 # Helper function to normalize shared_id for consistent querying
 def get_shared_id_query(shared_id):
+    """Return a query that matches shared_id as both int and string."""
     try:
         int_id = int(shared_id)
         return {"$or": [{"shared_id": int_id}, {"shared_id": str(int_id)}]}
@@ -67,6 +76,7 @@ def get_shared_id_query(shared_id):
 
 # Helper function to normalize shared_id for storage (always store as int)
 def normalize_shared_id(shared_id):
+    """Convert shared_id to int for consistent storage."""
     try:
         return int(shared_id)
     except (ValueError, TypeError):
@@ -126,6 +136,7 @@ def userCourses():
 
     data = request.get_json(silent=True)
     
+    # Normalize shared_id to int for consistent storage
     if isinstance(data, dict) and "shared_id" in data:
         data["shared_id"] = normalize_shared_id(data["shared_id"])
     
@@ -167,6 +178,7 @@ def userPreferences():
     data = request.get_json(silent=True)
     print("Received preferences:", data)
     
+    # Normalize shared_id to int for consistent storage
     if isinstance(data, dict) and "shared_id" in data:
         data["shared_id"] = normalize_shared_id(data["shared_id"])
     
@@ -197,8 +209,14 @@ def viewUserPreferences():
     return {"message": "Last saved preferences", "preferences": last_preferences}, 200
 
 
-@app.route("/api/user-data/<int:shared_id>", methods=["GET"])
+# NEW: Get all user data for a shared_id
+@app.route("/api/user-data/<int:shared_id>", methods=["GET", "OPTIONS"])
 def get_user_data(shared_id):
+    # Handle CORS preflight
+    if request.method == "OPTIONS":
+        response = app.make_default_options_response()
+        return response
+    
     try:
         # Use helper to query both int and string versions of shared_id
         shared_id_query = get_shared_id_query(shared_id)
@@ -291,8 +309,13 @@ def save_schedule():
 
 
 # NEW: Get saved schedule
-@app.route("/api/saved-schedule/<int:shared_id>", methods=["GET"])
+@app.route("/api/saved-schedule/<int:shared_id>", methods=["GET", "OPTIONS"])
 def get_saved_schedule(shared_id):
+    # Handle CORS preflight
+    if request.method == "OPTIONS":
+        response = app.make_default_options_response()
+        return response
+    
     try:
         shared_id_query = get_shared_id_query(shared_id)
         

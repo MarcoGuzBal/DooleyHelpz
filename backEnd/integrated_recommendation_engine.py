@@ -129,7 +129,6 @@ def parse_credits(credits_value, default: int = 3) -> int:
 
 
 def get_course_number(course_code: str) -> Optional[int]:
-    """Extract the numeric part of a course code (e.g., 'SPAN302W' -> 302)."""
     nums = "".join(filter(str.isdigit, course_code))
     if nums:
         return int(nums[:3]) if len(nums) >= 3 else int(nums)
@@ -137,7 +136,6 @@ def get_course_number(course_code: str) -> Optional[int]:
 
 
 def get_department(course_code: str) -> str:
-    """Extract department code from a course code."""
     if not course_code:
         return ""
     code = normalize_course_code(str(course_code))
@@ -280,22 +278,79 @@ class IntegratedRecommendationEngine:
         if course.get("permission_required"):
             return True
         
-        notes = (course.get("requirements") or {}).get("notes") or ""
-        if not notes:
-            return False
+        # Check requirement_sentence field (this is where the data actually lives!)
+        req_sentence = course.get("requirement_sentence") or ""
+        req_sentence_lower = req_sentence.lower()
         
+        # Also check requirements.notes for backward compatibility
+        notes = (course.get("requirements") or {}).get("notes") or ""
         notes_lower = notes.lower()
+        
+        combined_text = req_sentence_lower + " " + notes_lower
+        
         permission_phrases = [
             "permission of the department required",
+            "permission required prior to enrollment",
             "permission required",
             "consent required",
             "department consent",
             "instructor consent",
             "permission of instructor",
             "open only to students admitted",
+            "reserved for students in the bba program",  # Business school only
+            "reserved for students in the bsn",  # Nursing only
+            "bba & specstubus students allowed",  # Business only
+            "bsn students only",  # Nursing only
+            "student cannot self-register",
         ]
         
-        return any(phrase in notes_lower for phrase in permission_phrases)
+        return any(phrase in combined_text for phrase in permission_phrases)
+
+    def _is_restricted_course_type(self, course: Dict) -> bool:
+
+        course_type = (course.get("type") or "").upper()
+        
+        # Clinical courses should never be recommended to non-clinical students
+        if course_type == "CLN":
+            return True
+        
+        # Supervised and Thesis courses typically need special arrangements
+        if course_type in ("SUP", "THE"):
+            return True
+        
+        # Check for program-specific courses based on title and requirement_sentence
+        title = (course.get("title") or "").lower()
+        req_sentence = (course.get("requirement_sentence") or "").lower()
+        combined = title + " " + req_sentence
+        
+        # Filter out nursing school courses
+        if "nursing" in combined or ": bsn" in combined:
+            return True
+        
+        # Filter out clinical clerkship/internship courses
+        if "clinical clerkship" in combined or "clinical internship" in combined:
+            return True
+        
+        return False
+
+    def _has_valid_schedule_time(self, course: Dict) -> bool:
+        schedule_loc = course.get("schedule_location")
+        
+        # No schedule location = can't verify no conflicts
+        if not schedule_loc:
+            return False
+        
+        schedule_str = str(schedule_loc).strip().lower()
+        
+        # TBA means time not determined yet
+        if schedule_str == "tba" or schedule_str == "null" or "tba" in schedule_str:
+            return False
+        
+        # Try to extract meeting blocks - if we can't parse time, it's not valid
+        blocks = self._extract_meeting_blocks(course)
+        
+        # If no parseable blocks, we can't check conflicts
+        return len(blocks) > 0
 
     def _is_research_course(self, course: Dict) -> bool:
         """Check if course is a research/independent study course."""
@@ -667,7 +722,6 @@ class IntegratedRecommendationEngine:
         year: str = "Freshman",
         ger_lookup: Dict[str, List[str]] = None
     ) -> Dict[str, int]:
-        """Calculate which GER categories still need credits."""
         completed_gers = {k: 0 for k in ger_reqs}
 
         course_ger_map: Dict[str, List[str]] = {}
@@ -733,6 +787,10 @@ class IntegratedRecommendationEngine:
         if self._is_research_course(course):
             return 0.0
         
+        # NEW: Filter out restricted course types (Clinical, Supervised, Thesis)
+        if self._is_restricted_course_type(course):
+            return 0.0
+        
         # FIX: Get GERs once at the start
         course_gers = course.get("ger") or []
         if isinstance(course_gers, str):
@@ -779,6 +837,20 @@ class IntegratedRecommendationEngine:
                 continue
             if g in needed_gers and needed_gers[g] > 0:
                 urgency = self._get_ger_urgency(g, year)
+                
+                # SPECIAL CASE: XA (Experiential Activity) should be fulfilled through
+                # internships/research, not random classes. Only prioritize for seniors.
+                if g == "XA":
+                    if year == "Senior":
+                        # Seniors can get a small boost for XA courses
+                        base = 15.0
+                    else:
+                        # Non-seniors should basically ignore XA for course selection
+                        # They should do internships/research to fulfill this
+                        base = 2.0
+                    score += base
+                    gers_fulfilled += 1
+                    continue
 
                 ger_weight = 1.0
                 if has_major_unmet and urgency in ("upcoming", "future"):
@@ -1138,6 +1210,11 @@ class IntegratedRecommendationEngine:
             
             if total_credits + course_credits > max_credits:
                 return False
+            
+            # IMPORTANT: Double-check for time conflicts before adding
+            # This catches any edge cases that might slip through earlier checks
+            if has_schedule_conflict(course):
+                return False
 
             schedule.append(course)
             current_schedule_codes.add(code)
@@ -1176,6 +1253,9 @@ class IntegratedRecommendationEngine:
         def has_schedule_conflict(course: Dict) -> bool:
             """Check conflict only against courses already in schedule."""
             course_blocks = self._get_course_blocks(course)
+            if not course_blocks:
+                # No time info means we can't detect conflicts - be cautious
+                return False
             for existing in schedule:
                 existing_blocks = self._get_course_blocks(existing)
                 for cb in course_blocks:
@@ -1619,132 +1699,6 @@ def generate_schedule_for_user(
 ) -> Dict:
 
     try:
-        try:
-            int_id = int(shared_id)
-            shared_id_query = {"$or": [{"shared_id": int_id}, {"shared_id": str(int_id)}]}
-        except (ValueError, TypeError):
-            shared_id_query = {"shared_id": shared_id}
-
-        user_courses = course_col.find_one(
-            shared_id_query,
-            sort=[("_id", -1)]
-        )
-
-        user_prefs = pref_col.find_one(
-            shared_id_query,
-            sort=[("_id", -1)]
-        )
-
-        if not user_courses or not user_prefs:
-            return {
-                "success": False,
-                "error": "Missing data. Please complete transcript upload and preferences.",
-                "has_courses": user_courses is not None,
-                "has_preferences": user_prefs is not None,
-            }
-
-        all_courses = list(enriched_courses_col.find({}))
-
-        ger_lookup: Dict[str, List[str]] = {}
-        if basic_courses_col is not None:
-            basic_docs = list(basic_courses_col.find({}, {"code": 1, "ger": 1}))
-            for doc in basic_docs:
-                code = normalize_course_code(doc.get("code") or "")
-                if not code:
-                    continue
-                ger = doc.get("ger") or []
-                if isinstance(ger, str):
-                    ger = [ger]
-                elif not isinstance(ger, list):
-                    ger = []
-                ger_lookup[code] = ger
-
-        rmp_index: Dict[str, Any] = {}
-        if rmp_col is not None:
-            engine_tmp = IntegratedRecommendationEngine()
-            rmp_docs = list(
-                rmp_col.find({}, {"name": 1, "rating": 1, "num_ratings": 1, "department": 1})
-            )
-            for doc in rmp_docs:
-                name = doc.get("name")
-                norm_name = engine_tmp._normalize_name(name)
-                if not norm_name:
-                    continue
-                rmp_index[norm_name] = doc
-                for k in engine_tmp._first_last_keys(norm_name):
-                    if k not in rmp_index:
-                        rmp_index[k] = doc
-
-        engine = IntegratedRecommendationEngine()
-        recommendations = engine.generate_recommendations(
-            user_courses=user_courses,
-            user_prefs=user_prefs,
-            all_courses=all_courses,
-            rmp_index=rmp_index,
-            num_recommendations=num_recommendations,
-            ger_lookup=ger_lookup if basic_courses_col is not None else None
-        )
-
-        formatted_schedules = []
-        for schedule_obj in recommendations:
-            root = schedule_obj.get("root_course") or {}
-            courses = schedule_obj.get("courses") or []
-
-            formatted_courses = []
-            for course in courses:
-                if not course:
-                    continue
-                formatted_courses.append({
-                    "code": course.get("code"),
-                    "title": course.get("title"),
-                    "professor": course.get("professor"),
-                    "credits": course.get("credits"),
-                    "time": course.get("time"),
-                    "meeting": course.get("meeting"),
-                    "rmp": course.get("rmp"),
-                    "score": round(course.get("recommendation_score") or 0, 2),
-                    "ger": course.get("ger"),
-                    "normalized_code": normalize_course_code(course.get("code") or ""),
-                })
-
-            formatted_schedules.append({
-                "root_course_code": root.get("code"),
-                "total_score": round(schedule_obj.get("total_score") or 0, 2),
-                "courses": formatted_courses,
-                "course_count": schedule_obj.get("course_count") or len(formatted_courses),
-                "total_credits": schedule_obj.get("total_credits") or sum(
-                    parse_credits(c.get("credits")) for c in formatted_courses
-                ),
-            })
-
-        return {
-            "success": True,
-            "schedules": formatted_schedules,
-            "count": len(formatted_schedules),
-            "metadata": {
-                "degree_type": user_prefs.get("degreeType"),
-                "year": user_prefs.get("year"),
-                "interests": user_prefs.get("interests"),
-                "total_courses_processed": len(all_courses),
-                "target_credits": user_prefs.get("preferredCredits") or 15,
-            },
-        }
-    except Exception as e:
-        return {
-            "success": False,
-            "error": str(e),
-        }def generate_schedule_for_user(
-    shared_id: int,
-    course_col,
-    pref_col,
-    enriched_courses_col,
-    rmp_col=None,
-    basic_courses_col=None,
-    num_recommendations: int = 15
-) -> Dict:
-
-    try:
-        #query both int and string versions of shared_id - look here again, I swear if this doesn't fix it I am going to break my laptop
         try:
             int_id = int(shared_id)
             shared_id_query = {"$or": [{"shared_id": int_id}, {"shared_id": str(int_id)}]}

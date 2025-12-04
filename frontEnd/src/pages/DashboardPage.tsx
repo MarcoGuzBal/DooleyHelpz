@@ -339,11 +339,11 @@ export default function DashboardPage() {
                 <div className="mt-4 flex flex-wrap gap-2">
                   <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${hasTranscript ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"
                     }`}>
-                    {hasTranscript ? "✓ Transcript uploaded" : "⚠ No transcript"}
+                    {hasTranscript ? "Transcript uploaded" : "No transcript"}
                   </span>
                   <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${hasPreferences ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"
                     }`}>
-                    {hasPreferences ? "✓ Preferences set" : "⚠ No preferences"}
+                    {hasPreferences ? "Preferences set" : "No preferences"}
                   </span>
                   {hasRealSchedule && (
                     <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700">
@@ -397,7 +397,7 @@ export default function DashboardPage() {
                   <p className="mt-1 text-xs text-zinc-600">Generate AI-powered schedules.</p>
                   {(!hasTranscript || !hasPreferences) && (
                     <p className="mt-2 text-xs text-amber-600">
-                      ⚠ {!hasTranscript && !hasPreferences
+                       {!hasTranscript && !hasPreferences
                         ? "Upload transcript & set preferences first"
                         : !hasTranscript
                           ? "Upload transcript first"
