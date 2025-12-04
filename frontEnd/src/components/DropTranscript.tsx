@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Upload, FileText, Clock, CheckCircle2, AlertCircle, Send } from "lucide-react";
 import { Link } from "react-router-dom";
 import { getOrCreateSharedId } from "../utils/anonID";
+import { api } from "../utils/api";
 
 // Logo
 import applogo from "../assets/dooleyHelpzAppLogo.png";
@@ -31,7 +32,7 @@ try {
 // Parser now returns 4 buckets (Transfer, Test, Emory, Spring 2026)
 import { parseTranscript, type ParseResult } from "../utils/parseTranscript";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001";
+
 
 type UploadedItem = {
   name: string;
@@ -106,22 +107,17 @@ export default function TranscriptParserPage() {
 
       const idToSend = shared_id ?? getOrCreateSharedId();
 
-      const res = await fetch(`${API_URL}/api/userCourses`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          incoming_transfer_courses,
-          incoming_test_courses,
-          emory_courses,
-          spring_2026_courses,
-          shared_id: idToSend,
-        }),
+      const result = await api.uploadCourses({
+        incoming_transfer_courses,
+        incoming_test_courses,
+        emory_courses,
+        spring_2026_courses,
+        shared_id: idToSend,
       });
 
-      setPostedOk(res.ok);
-      if (!res.ok) {
-        const text = await res.text().catch(() => "");
-        throw new Error(text || `Backend responded ${res.status}`);
+      setPostedOk(result.success);
+      if (!result.success) {
+        throw new Error(result.error || "Failed to upload courses");
       }
     } catch (err: any) {
       setPostedOk(false);
@@ -136,7 +132,7 @@ export default function TranscriptParserPage() {
     if (selected) {
       try {
         const parsed = parseTranscript(selected.text);
-        
+
         // Ensure parsed result is valid
         if (!parsed) {
           console.error("parseTranscript returned null/undefined");
@@ -152,7 +148,7 @@ export default function TranscriptParserPage() {
           setSelSpring2026(new Set());
           return;
         }
-        
+
         setBuckets(parsed);
 
         // start with all parsed courses selected (with null checks)
@@ -325,21 +321,21 @@ export default function TranscriptParserPage() {
   const displayIncomingTransfer =
     buckets
       ? Array.from(
-          new Set([
-            ...(buckets.incoming_transfer_courses || []),
-            ...selIncomingTransfer,
-          ])
-        )
+        new Set([
+          ...(buckets.incoming_transfer_courses || []),
+          ...selIncomingTransfer,
+        ])
+      )
       : Array.from(selIncomingTransfer);
 
   const displayIncomingTest =
     buckets
       ? Array.from(
-          new Set([
-            ...(buckets.incoming_test_courses || []),
-            ...selIncomingTest,
-          ])
-        )
+        new Set([
+          ...(buckets.incoming_test_courses || []),
+          ...selIncomingTest,
+        ])
+      )
       : Array.from(selIncomingTest);
 
   const displayEmory =
@@ -350,11 +346,11 @@ export default function TranscriptParserPage() {
   const displaySpring2026 =
     buckets
       ? Array.from(
-          new Set([
-            ...(buckets.spring_2026_courses || []),
-            ...selSpring2026,
-          ])
-        )
+        new Set([
+          ...(buckets.spring_2026_courses || []),
+          ...selSpring2026,
+        ])
+      )
       : Array.from(selSpring2026);
 
   // --- Small UI helpers ---
@@ -782,10 +778,10 @@ export default function TranscriptParserPage() {
               className={
                 "inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold shadow-sm " +
                 (posting ||
-                (!selIncomingTransfer.size &&
-                  !selIncomingTest.size &&
-                  !selEmory.size &&
-                  !selSpring2026.size)
+                  (!selIncomingTransfer.size &&
+                    !selIncomingTest.size &&
+                    !selEmory.size &&
+                    !selSpring2026.size)
                   ? "cursor-not-allowed bg-zinc-200 text-zinc-500"
                   : "bg-emoryBlue text-white hover:bg-emoryBlue/90")
               }
