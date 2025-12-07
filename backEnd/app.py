@@ -5,6 +5,7 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 import sys
 from pathlib import Path
+import re
 
 app = Flask(__name__)
 # CORS configuration - allow all origins for API routes
@@ -263,11 +264,18 @@ def get_user_data(uid):
             sort=[("_id", -1)]
         )
         
-        # Get saved schedule if any
-        saved_schedule = schedules_col.find_one(
+        # Get saved schedules from UserSchedules collection (new format with multiple schedules)
+        saved_schedule = user_schedules_col.find_one(
             uid_query,
             sort=[("_id", -1)]
         )
+        
+        # Fallback to old SavedSchedules collection if not found
+        if not saved_schedule:
+            saved_schedule = schedules_col.find_one(
+                uid_query,
+                sort=[("_id", -1)]
+            )
         
         # Remove MongoDB _id fields for JSON serialization
         if user_courses and "_id" in user_courses:
@@ -329,7 +337,8 @@ def save_schedule():
         return jsonify({
             "success": True,
             "message": "Schedules saved successfully",
-            "upserted": result.upserted_id is not None
+            "upserted": result.upserted_id is not None,
+            "schedules_count": len(schedules) if isinstance(schedules, list) else 0
         }), 200
         
     except Exception as e:
@@ -352,16 +361,27 @@ def get_saved_schedule(uid):
         uid = normalize_uid(uid)
         uid_query = get_uid_query(uid)
         
-        saved_schedule = schedules_col.find_one(
+        # Try new UserSchedules collection first
+        saved_schedule = user_schedules_col.find_one(
             uid_query,
             sort=[("_id", -1)]
         )
+        
+        # Fallback to old SavedSchedules
+        if not saved_schedule:
+            saved_schedule = schedules_col.find_one(
+                uid_query,
+                sort=[("_id", -1)]
+            )
         
         if saved_schedule:
             saved_schedule["_id"] = str(saved_schedule["_id"])
             return jsonify({
                 "success": True,
-                "schedule": saved_schedule.get("schedule")
+                "schedules": saved_schedule.get("schedules"),
+                "selected_index": saved_schedule.get("selected_index", 0),
+                # Backward compatibility
+                "schedule": saved_schedule.get("schedule") or (saved_schedule.get("schedules") or [None])[0]
             }), 200
         else:
             return jsonify({
@@ -414,29 +434,32 @@ def modify_schedule():
             sort=[("_id", -1)]
         )
         
-        if not user_courses or not user_prefs:
+        if not user_prefs:
             return jsonify({
                 "success": False,
-                "error": "User data not found"
+                "error": "User preferences not found"
             }), 404
         
         # Modify preferences to include locked courses
         locked_courses = user_prefs.get("locked_courses", [])
         removed_courses = user_prefs.get("removed_courses", [])
         
+        # Normalize course code
+        course_code_normalized = course_code.upper().replace(" ", "")
+        
         if action == "add":
-            if course_code not in [c.get("code") for c in locked_courses]:
+            if course_code_normalized not in [c.get("code", "").upper().replace(" ", "") for c in locked_courses]:
                 locked_courses.append({
-                    "code": course_code,
+                    "code": course_code_normalized,
                     "priority": priority_rank or 1
                 })
             # Remove from removed list if present
-            removed_courses = [c for c in removed_courses if c != course_code]
+            removed_courses = [c for c in removed_courses if c.upper().replace(" ", "") != course_code_normalized]
         elif action == "remove":
-            if course_code not in removed_courses:
-                removed_courses.append(course_code)
+            if course_code_normalized not in [c.upper().replace(" ", "") for c in removed_courses]:
+                removed_courses.append(course_code_normalized)
             # Remove from locked list if present
-            locked_courses = [c for c in locked_courses if c.get("code") != course_code]
+            locked_courses = [c for c in locked_courses if c.get("code", "").upper().replace(" ", "") != course_code_normalized]
         
         # Update preferences
         pref_col.update_one(
@@ -469,7 +492,7 @@ def modify_schedule():
         }), 500
 
 
-# NEW: Search courses (for adding to schedule)
+# NEW: Search courses (for adding to schedule) - with whitespace handling
 @app.route("/api/search-courses", methods=["GET"])
 def search_courses():
     try:
@@ -482,17 +505,27 @@ def search_courses():
                 "courses": []
             }), 200
         
-        # Search by code or title
+        # Normalize query - remove extra spaces and handle "CS 350" -> "CS350" pattern
+        query_normalized = re.sub(r'\s+', '', query).upper()
+        query_with_space = re.sub(r'([A-Z]+)\s*(\d+)', r'\1 \2', query.upper()).strip()
+        
+        # Search by code or title with multiple patterns
         search_filter = {
             "$or": [
-                {"code": {"$regex": query, "$options": "i"}},
-                {"title": {"$regex": query, "$options": "i"}}
+                # Match normalized code (no spaces)
+                {"code": {"$regex": query_normalized, "$options": "i"}},
+                # Match with optional space between letters and numbers
+                {"code": {"$regex": query_with_space, "$options": "i"}},
+                # Match original query in title
+                {"title": {"$regex": query, "$options": "i"}},
+                # Match normalized in title
+                {"title": {"$regex": query_normalized, "$options": "i"}}
             ]
         }
         
         courses = list(enriched_courses_col.find(
             search_filter,
-            {"_id": 0, "code": 1, "title": 1, "credits": 1, "time": 1, "professor": 1, "ger": 1}
+            {"_id": 0, "code": 1, "title": 1, "credits": 1, "time": 1, "professor": 1, "ger": 1, "meeting": 1}
         ).limit(limit))
         
         return jsonify({

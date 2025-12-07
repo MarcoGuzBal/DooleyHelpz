@@ -14,7 +14,7 @@ import DashboardPage from "./pages/DashboardPage";
 import DropTranscript from "./components/DropTranscript";
 import PreferencesPage from "./pages/PreferencesPage";
 import ScheduleBuilderPage from "./pages/ScheduleBuilderPage";
-
+import SustainabilityPage from "./pages/SustainabilityPage";
 export default function App() {
 // import ScheduleBattle from "./pages/ScheduleBattle";
 
@@ -31,7 +31,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
-          
+          <Route path="/sustainability" element={<SustainabilityPage />} />         
           {/* Protected routes - require authentication */}
           <Route element={<RequireAuth><Outlet /></RequireAuth>}>
             <Route path="/dashboard" element={<DashboardPage />}/>

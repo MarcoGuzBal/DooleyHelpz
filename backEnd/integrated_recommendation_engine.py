@@ -421,6 +421,7 @@ class IntegratedRecommendationEngine:
         return 0
 
     def _parse_time_unavailable(self, time_unavailable: List[Dict]) -> List[Tuple]:
+        """Parse HARD unavailable blocks - courses during these times are completely excluded."""
         blocks: List[Tuple] = []
         if not time_unavailable:
             return blocks
@@ -558,6 +559,7 @@ class IntegratedRecommendationEngine:
         return blocks
 
     def _has_time_conflict(self, course: Dict, unavailable_blocks: List[Tuple]) -> bool:
+        """Check if course conflicts with HARD unavailable blocks."""
         course_blocks = self._extract_meeting_blocks(course)
         if not course_blocks:
             return False
@@ -567,9 +569,50 @@ class IntegratedRecommendationEngine:
 
             for unavail_day, unavail_start, unavail_end in unavailable_blocks:
                 if day_full == unavail_day or day_abbr == unavail_day:
-                    if not (end_min <= unavail_start or start_min >= unavail_end):
+                    # FIXED: Proper overlap check - two intervals overlap if:
+                    # start1 < end2 AND start2 < end1
+                    if start_min < unavail_end and unavail_start < end_min:
                         return True
 
+        return False
+
+    def _is_outside_preferred_time(
+        self, 
+        course: Dict, 
+        earliest_minutes: int, 
+        latest_minutes: int
+    ) -> bool:
+        """Check if course is outside the preferred earliest/latest time window."""
+        course_blocks = self._extract_meeting_blocks(course)
+        if not course_blocks:
+            return False  # No time info, don't penalize
+        
+        for day_abbr, start_min, end_min in course_blocks:
+            # Course starts before earliest or ends after latest
+            if start_min < earliest_minutes or end_min > latest_minutes:
+                return True
+        
+        return False
+
+    def _check_courses_overlap(self, course1: Dict, course2: Dict) -> bool:
+        """Check if two courses have overlapping times."""
+        blocks1 = self._extract_meeting_blocks(course1)
+        blocks2 = self._extract_meeting_blocks(course2)
+        
+        if not blocks1 or not blocks2:
+            return False
+        
+        for day1, start1, end1 in blocks1:
+            for day2, start2, end2 in blocks2:
+                # Same day check
+                day1_full = DAY_MAP.get(day1, day1)
+                day2_full = DAY_MAP.get(day2, day2)
+                
+                if day1_full == day2_full or day1 == day2:
+                    # Overlap check: start1 < end2 AND start2 < end1
+                    if start1 < end2 and start2 < end1:
+                        return True
+        
         return False
 
     def _get_ic_status(self, completed: Set[str]) -> Dict[str, Any]:
@@ -751,8 +794,17 @@ class IntegratedRecommendationEngine:
         rmp_index: Dict[str, Any] = None,
         year: str = "Freshman",
         ic_status: Dict[str, Any] = None,
-        language_already_in_schedule: bool = False
+        language_already_in_schedule: bool = False,
+        earliest_minutes: int = 0,
+        latest_minutes: int = 1440,
+        is_outside_time_pref: bool = False,
+        locked_courses: Set[str] = None,
+        removed_courses: Set[str] = None
     ) -> float:
+        # Check if course was removed by user
+        if removed_courses and course_code in removed_courses:
+            return 0.0
+        
         if self._requires_permission(course):
             return 0.0
         
@@ -778,6 +830,10 @@ class IntegratedRecommendationEngine:
         
         score = 0.0
         rating_factor = 1.0
+        
+        # Boost locked/added courses significantly
+        if locked_courses and course_code in locked_courses:
+            score += 600.0  # Very high boost for user-added courses
         
         has_major_unmet = bool(needed_must) or any(
             (group.get("choose", 0) > group.get("chosen", 0))
@@ -913,6 +969,11 @@ class IntegratedRecommendationEngine:
                 if pref_start <= start_min <= pref_end:
                     score += 5.0
 
+        # Apply penalty for courses outside preferred time window (soft constraint)
+        if is_outside_time_pref:
+            score *= 0.85  # 15% penalty but still included
+            course["_outside_preferred_time"] = True
+
         prereqs = course.get("prerequisites")
         if prereqs is None:
             requirements = course.get("requirements") or {}
@@ -1045,7 +1106,11 @@ class IntegratedRecommendationEngine:
         year: str = "Freshman",
         ic_status: Dict[str, Any] = None,
         target_credits: int = 15,
-        max_credits: int = 19
+        max_credits: int = 19,
+        earliest_minutes: int = 0,
+        latest_minutes: int = 1440,
+        locked_courses: Set[str] = None,
+        removed_courses: Set[str] = None
     ) -> Tuple[float, List[Dict]]:
         
         root_meta = self._get_course_metadata(root_course)
@@ -1053,11 +1118,18 @@ class IntegratedRecommendationEngine:
         root_dept = root_meta["department"]
 
         language_in_schedule = root_dept in IC_LANGUAGE_PREFIXES
+        
+        is_root_outside_time = self._is_outside_preferred_time(root_course, earliest_minutes, latest_minutes)
 
         root_base_score = self._calculate_score(
             root_course, root_code, needed_must, needed_electives, needed_gers,
             interests, time_pref, completed, rmp_index, year, ic_status,
-            language_already_in_schedule=False
+            language_already_in_schedule=False,
+            earliest_minutes=earliest_minutes,
+            latest_minutes=latest_minutes,
+            is_outside_time_pref=is_root_outside_time,
+            locked_courses=locked_courses,
+            removed_courses=removed_courses
         )
         root_course["recommendation_score"] = root_base_score
 
@@ -1116,11 +1188,16 @@ class IntegratedRecommendationEngine:
             
             if not code or code in current_schedule_codes or code in completed:
                 continue
+            
+            # Skip removed courses
+            if removed_courses and code in removed_courses:
+                continue
 
             cand_dept = meta["department"]
             course_num = meta["course_number"]
             
             is_must = code in remaining_must
+            is_locked = locked_courses and code in locked_courses
             
             is_lang_102 = (
                 not language_in_schedule
@@ -1129,7 +1206,14 @@ class IntegratedRecommendationEngine:
                 and highest_completed_map.get(cand_dept, 0) >= 101
             )
             
-            if not is_must and not is_lang_102 and self._has_time_conflict(course, schedule_blocks):
+            # Check HARD time conflict (unavailable blocks)
+            has_hard_conflict = self._has_time_conflict(course, schedule_blocks)
+            
+            # Check soft time preference
+            is_outside_pref = self._is_outside_preferred_time(course, earliest_minutes, latest_minutes)
+            
+            # Skip if hard conflict (unless must course or locked)
+            if has_hard_conflict and not is_must and not is_lang_102 and not is_locked:
                 continue
             
             if self._is_cross_listed_duplicate(course, current_schedule_codes, all_courses_map):
@@ -1138,14 +1222,19 @@ class IntegratedRecommendationEngine:
             base_score = self._calculate_score(
                 course, code, remaining_must, remaining_electives, remaining_gers,
                 interests, time_pref, completed, rmp_index, year, ic_status,
-                language_already_in_schedule=language_in_schedule
+                language_already_in_schedule=language_in_schedule,
+                earliest_minutes=earliest_minutes,
+                latest_minutes=latest_minutes,
+                is_outside_time_pref=is_outside_pref,
+                locked_courses=locked_courses,
+                removed_courses=removed_courses
             )
             if base_score <= 0:
                 continue
 
             final_score = self._calculate_contextual_score(course, root_course, base_score)
             
-            if is_must:
+            if is_must or is_locked:
                 must_course_candidates.append((final_score, base_score, course, code))
             elif is_lang_102:
                 lang_102_candidates.append((final_score, base_score, course, code))
@@ -1204,6 +1293,7 @@ class IntegratedRecommendationEngine:
             return True
 
         def has_schedule_conflict(course: Dict) -> bool:
+            """Check if course overlaps with any course already in schedule."""
             course_blocks = self._get_course_blocks(course)
             if not course_blocks:
                 return False
@@ -1211,8 +1301,10 @@ class IntegratedRecommendationEngine:
                 existing_blocks = self._get_course_blocks(existing)
                 for cb in course_blocks:
                     for eb in existing_blocks:
-                        if cb[0] == eb[0]:
-                            if not (cb[2] <= eb[1] or cb[1] >= eb[2]):
+                        if cb[0] == eb[0]:  # Same day
+                            # FIXED: Proper overlap check
+                            # Two intervals [s1, e1] and [s2, e2] overlap if s1 < e2 AND s2 < e1
+                            if cb[1] < eb[2] and eb[1] < cb[2]:
                                 return True
             return False
 
@@ -1355,12 +1447,21 @@ class IntegratedRecommendationEngine:
         try:
             self._clear_caches()
             
-            if not user_courses or not isinstance(user_courses, dict):
-                return []
             if not user_prefs or not isinstance(user_prefs, dict):
                 return []
             if not all_courses or not isinstance(all_courses, list):
                 return []
+            
+            # Handle freshman with no courses
+            year = str(user_prefs.get("year") or "Freshman")
+            if year not in ["Freshman", "Sophomore", "Junior", "Senior"]:
+                year = "Freshman"
+            
+            # Allow empty courses for freshmen
+            if not user_courses or not isinstance(user_courses, dict):
+                if year != "Freshman":
+                    return []  # Non-freshmen must have courses
+                user_courses = {}  # Empty courses for freshman
             
             unique_courses_map = {}
             all_courses_map = {}
@@ -1400,10 +1501,6 @@ class IntegratedRecommendationEngine:
             if not ic_status or not isinstance(ic_status, dict):
                 ic_status = {"fulfilled": False, "language_counts": {}, "best_language": None, "highest_completed": {}}
 
-            year = str(user_prefs.get("year") or "Freshman")
-            if year not in ["Freshman", "Sophomore", "Junior", "Senior"]:
-                year = "Freshman"
-
             raw_credits = user_prefs.get("preferredCredits")
             if raw_credits is None:
                 target_credits = 15
@@ -1421,15 +1518,40 @@ class IntegratedRecommendationEngine:
 
             needed_gers = self._get_remaining_gers(completed, all_courses, GER_REQUIREMENTS, ic_status, year, ger_lookup)
 
+            # Parse HARD unavailable blocks (complete exclusion)
             time_unavailable = user_prefs.get("timeUnavailable")
             if not isinstance(time_unavailable, list):
                 time_unavailable = []
             unavailable_blocks = self._parse_time_unavailable(time_unavailable)
+            
+            # Parse SOFT time preferences (earliest/latest - penalty but still included)
+            earliest_class = user_prefs.get("earliestClass") or "07:00"
+            latest_class = user_prefs.get("latestClass") or "21:00"
+            earliest_minutes = self._time_to_minutes(earliest_class)
+            latest_minutes = self._time_to_minutes(latest_class)
+            
             time_pref = user_prefs.get("timePreference")
 
             interests = user_prefs.get("interests")
             if not isinstance(interests, list):
                 interests = []
+
+            # Get locked (user-added) and removed courses
+            locked_courses_list = user_prefs.get("locked_courses") or []
+            locked_courses = set()
+            for item in locked_courses_list:
+                if isinstance(item, dict):
+                    code = item.get("code")
+                    if code:
+                        locked_courses.add(normalize_course_code(code))
+                elif isinstance(item, str):
+                    locked_courses.add(normalize_course_code(item))
+            
+            removed_courses = set()
+            removed_list = user_prefs.get("removed_courses") or []
+            for code in removed_list:
+                if code:
+                    removed_courses.add(normalize_course_code(str(code)))
 
             potential_roots: List[Dict] = []
 
@@ -1450,8 +1572,13 @@ class IntegratedRecommendationEngine:
                 
                 if not course_code or course_code in completed:
                     continue
+                
+                # Skip removed courses
+                if course_code in removed_courses:
+                    continue
 
                 is_must_course = course_code in needed_must
+                is_locked = course_code in locked_courses
                 
                 is_lang_102 = (
                     course_dept in IC_LANGUAGE_PREFIXES
@@ -1459,16 +1586,23 @@ class IntegratedRecommendationEngine:
                     and highest_completed_map.get(course_dept, 0) >= 101
                 )
                 
-                has_conflict = self._has_time_conflict(course, unavailable_blocks)
+                has_hard_conflict = self._has_time_conflict(course, unavailable_blocks)
+                is_outside_pref = self._is_outside_preferred_time(course, earliest_minutes, latest_minutes)
                 
-                if has_conflict and not is_must_course and not is_lang_102:
+                # Skip if hard conflict (unless must/locked/lang102)
+                if has_hard_conflict and not is_must_course and not is_lang_102 and not is_locked:
                     continue
 
                 try:
                     score = self._calculate_score(
                         course, course_code, needed_must, needed_electives, needed_gers,
                         interests, time_pref, completed, rmp_index, year, ic_status,
-                        language_already_in_schedule=False
+                        language_already_in_schedule=False,
+                        earliest_minutes=earliest_minutes,
+                        latest_minutes=latest_minutes,
+                        is_outside_time_pref=is_outside_pref,
+                        locked_courses=locked_courses,
+                        removed_courses=removed_courses
                     )
 
                     if score > 0:
@@ -1533,7 +1667,9 @@ class IntegratedRecommendationEngine:
                         root, all_courses, all_courses_map, unavailable_blocks,
                         completed, needed_must, needed_electives, needed_gers,
                         interests, time_pref, rmp_index, year, ic_status,
-                        target_credits, max_credits
+                        target_credits, max_credits,
+                        earliest_minutes, latest_minutes,
+                        locked_courses, removed_courses
                     )
 
                     if needed_must:
@@ -1664,12 +1800,22 @@ def generate_schedule_for_user(
             sort=[("_id", -1)]
         )
 
-        if not user_courses or not user_prefs:
+        if not user_prefs:
             return {
                 "success": False,
-                "error": "Missing data. Please complete transcript upload and preferences.",
+                "error": "Missing preferences. Please complete preferences setup.",
                 "has_courses": user_courses is not None,
-                "has_preferences": user_prefs is not None,
+                "has_preferences": False,
+            }
+        
+        # Check if non-freshman without courses
+        year = user_prefs.get("year") or "Freshman"
+        if year != "Freshman" and not user_courses:
+            return {
+                "success": False,
+                "error": "Non-freshman students must upload their transcript first.",
+                "has_courses": False,
+                "has_preferences": True,
             }
 
         all_courses = list(enriched_courses_col.find({}))
@@ -1706,7 +1852,7 @@ def generate_schedule_for_user(
 
         engine = IntegratedRecommendationEngine()
         recommendations = engine.generate_recommendations(
-            user_courses=user_courses,
+            user_courses=user_courses or {},  # Allow empty for freshmen
             user_prefs=user_prefs,
             all_courses=all_courses,
             rmp_index=rmp_index,
@@ -1734,6 +1880,7 @@ def generate_schedule_for_user(
                     "score": round(course.get("recommendation_score") or 0, 2),
                     "ger": course.get("ger"),
                     "normalized_code": normalize_course_code(course.get("code") or ""),
+                    "outside_preferred_time": course.get("_outside_preferred_time", False),
                 })
 
             formatted_schedules.append({

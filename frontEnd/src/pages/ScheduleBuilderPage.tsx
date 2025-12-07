@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import {
   CalendarDays, Download, RefreshCw, CheckCircle2, AlertCircle,
   ChevronLeft, ChevronRight, Star, Clock, BookOpen, GraduationCap,
-  Plus, X, Search, List, ChevronDown, ChevronUp, Trash2,
+  Plus, X, Search, List, ChevronDown, ChevronUp, Trash2, AlertTriangle,
 } from "lucide-react";
 import { auth } from "../firebase";
 import { API_URL } from "../utils/api";
@@ -20,6 +20,8 @@ type Course = {
   score: number;
   ger: string | string[] | null;
   normalized_code: string;
+  outside_preferred_time?: boolean;
+  user_added?: boolean;  // Track if user added this course
 };
 
 type Schedule = {
@@ -39,6 +41,8 @@ type CalendarBlock = {
   start: string;
   end: string;
   color: string;
+  outside_preferred_time?: boolean;
+  user_added?: boolean;
 };
 
 const DAYS: CalendarBlock["day"][] = ["Mon", "Tue", "Wed", "Thu", "Fri"];
@@ -55,6 +59,9 @@ const COURSE_COLORS = [
   "bg-cyan-100 border-cyan-300 text-cyan-800",
   "bg-orange-100 border-orange-300 text-orange-800",
 ];
+
+// User-added course color (translucent)
+const USER_ADDED_COLOR = "bg-gray-100/60 border-gray-400 border-dashed text-gray-700";
 
 function parseTimeString(timeStr: string): { start: string; end: string } | null {
   if (!timeStr) return null;
@@ -100,10 +107,77 @@ function minutesFromStart(time: string): number {
   return (h - START_HOUR) * 60 + m;
 }
 
+function timeToMinutes(time: string): number {
+  const [h, m] = time.split(":").map(Number);
+  return h * 60 + m;
+}
+
+// Parse course time into blocks for overlap checking
+function getCourseTimeBlocks(course: Course): Array<{ day: string; start: number; end: number }> {
+  const blocks: Array<{ day: string; start: number; end: number }> = [];
+  
+  if (course.meeting && Array.isArray(course.meeting) && course.meeting.length > 0) {
+    course.meeting.forEach((m) => {
+      if (!m.day || !m.time) return;
+      const days = parseDays(m.day);
+      const times = parseTimeString(m.time);
+      if (days.length && times) {
+        const startMin = timeToMinutes(times.start);
+        const endMin = timeToMinutes(times.end);
+        days.forEach((day) => {
+          blocks.push({ day, start: startMin, end: endMin });
+        });
+      }
+    });
+  } else if (course.time) {
+    const firstSpaceIdx = course.time.indexOf(" ");
+    if (firstSpaceIdx !== -1) {
+      const dayPart = course.time.slice(0, firstSpaceIdx);
+      const timePart = course.time.slice(firstSpaceIdx + 1);
+      const days = parseDays(dayPart);
+      const times = parseTimeString(timePart);
+      if (days.length && times) {
+        const startMin = timeToMinutes(times.start);
+        const endMin = timeToMinutes(times.end);
+        days.forEach((day) => {
+          blocks.push({ day, start: startMin, end: endMin });
+        });
+      }
+    }
+  }
+  
+  return blocks;
+}
+
+// Check if two courses have overlapping times
+function coursesOverlap(course1: Course, course2: Course): boolean {
+  const blocks1 = getCourseTimeBlocks(course1);
+  const blocks2 = getCourseTimeBlocks(course2);
+  
+  for (const b1 of blocks1) {
+    for (const b2 of blocks2) {
+      // Same day and time overlap check
+      if (b1.day === b2.day) {
+        // Overlap if start1 < end2 AND start2 < end1
+        if (b1.start < b2.end && b2.start < b1.end) {
+          return true;
+        }
+      }
+    }
+  }
+  
+  return false;
+}
+
+// Find which courses a new course overlaps with
+function findOverlappingCourses(newCourse: Course, existingCourses: Course[]): Course[] {
+  return existingCourses.filter(existing => coursesOverlap(newCourse, existing));
+}
+
 function coursesToCalendarBlocks(courses: Course[]): CalendarBlock[] {
   const blocks: CalendarBlock[] = [];
   courses.forEach((course, idx) => {
-    const color = COURSE_COLORS[idx % COURSE_COLORS.length];
+    const color = course.user_added ? USER_ADDED_COLOR : COURSE_COLORS[idx % COURSE_COLORS.length];
     if (course.meeting && Array.isArray(course.meeting) && course.meeting.length > 0) {
       course.meeting.forEach((m) => {
         if (!m.day || !m.time) return;
@@ -111,7 +185,18 @@ function coursesToCalendarBlocks(courses: Course[]): CalendarBlock[] {
         const times = parseTimeString(m.time);
         if (days.length && times) {
           days.forEach((day) => {
-            blocks.push({ day, course: course.code, title: course.title, professor: course.professor || "", location: m.location || "", start: times.start, end: times.end, color });
+            blocks.push({ 
+              day, 
+              course: course.code, 
+              title: course.title, 
+              professor: course.professor || "", 
+              location: m.location || "", 
+              start: times.start, 
+              end: times.end, 
+              color,
+              outside_preferred_time: course.outside_preferred_time,
+              user_added: course.user_added
+            });
           });
         }
       });
@@ -124,7 +209,18 @@ function coursesToCalendarBlocks(courses: Course[]): CalendarBlock[] {
       const times = parseTimeString(timePart);
       if (days.length && times) {
         days.forEach((day) => {
-          blocks.push({ day, course: course.code, title: course.title, professor: course.professor || "", location: "", start: times.start, end: times.end, color });
+          blocks.push({ 
+            day, 
+            course: course.code, 
+            title: course.title, 
+            professor: course.professor || "", 
+            location: "", 
+            start: times.start, 
+            end: times.end, 
+            color,
+            outside_preferred_time: course.outside_preferred_time,
+            user_added: course.user_added
+          });
         });
       }
     }
@@ -141,22 +237,51 @@ function formatTime12(time24: string): string {
 
 function generateICS(courses: Course[], scheduleName: string): string {
   const lines: string[] = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//DooleyHelpz//EN", "CALSCALE:GREGORIAN", "METHOD:PUBLISH", `X-WR-CALNAME:${scheduleName}`];
-  const semesterStart = new Date("2026-01-12");
+  
+  // Spring 2026 semester - starting on Monday January 12th
+  const semesterStart = new Date("2026-01-12");  // This is a Monday
   const semesterEnd = new Date("2026-04-24");
+  
+  // Day offsets from Monday (which is our semesterStart)
   const dayOffsets: Record<string, number> = { Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4 };
+  
   const blocks = coursesToCalendarBlocks(courses);
   blocks.forEach((block, idx) => {
-    const dayOffset = dayOffsets[block.day] || 0;
+    const dayOffset = dayOffsets[block.day];
+    if (dayOffset === undefined) return;
+    
+    // Calculate the first occurrence of this day in the semester
     const firstOccurrence = new Date(semesterStart);
     firstOccurrence.setDate(firstOccurrence.getDate() + dayOffset);
+    
     const [startH, startM] = block.start.split(":").map(Number);
     const [endH, endM] = block.end.split(":").map(Number);
-    const dtstart = new Date(firstOccurrence); dtstart.setHours(startH, startM, 0, 0);
-    const dtend = new Date(firstOccurrence); dtend.setHours(endH, endM, 0, 0);
+    
+    const dtstart = new Date(firstOccurrence); 
+    dtstart.setHours(startH, startM, 0, 0);
+    
+    const dtend = new Date(firstOccurrence); 
+    dtend.setHours(endH, endM, 0, 0);
+    
     const formatDateLocal = (d: Date) => `${d.getFullYear()}${(d.getMonth() + 1).toString().padStart(2, "0")}${d.getDate().toString().padStart(2, "0")}T${d.getHours().toString().padStart(2, "0")}${d.getMinutes().toString().padStart(2, "0")}00`;
     const formatDate = (d: Date) => d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-    const rruleDay = ["MO", "TU", "WE", "TH", "FR"][dayOffset];
-    lines.push("BEGIN:VEVENT", `UID:${Date.now()}-${idx}@dooleyhelpz`, `DTSTAMP:${formatDate(new Date())}`, `DTSTART;TZID=America/New_York:${formatDateLocal(dtstart)}`, `DTEND;TZID=America/New_York:${formatDateLocal(dtend)}`, `RRULE:FREQ=WEEKLY;BYDAY=${rruleDay};UNTIL=${formatDate(semesterEnd)}`, `SUMMARY:${block.course} - ${block.title}`, `DESCRIPTION:Professor: ${block.professor || "TBA"}`, block.location ? `LOCATION:${block.location}` : "", "END:VEVENT");
+    
+    // Map day to iCal day abbreviation
+    const rruleDays: Record<string, string> = { Mon: "MO", Tue: "TU", Wed: "WE", Thu: "TH", Fri: "FR" };
+    const rruleDay = rruleDays[block.day];
+    
+    lines.push(
+      "BEGIN:VEVENT",
+      `UID:${Date.now()}-${idx}-${Math.random().toString(36).substr(2, 9)}@dooleyhelpz`,
+      `DTSTAMP:${formatDate(new Date())}`,
+      `DTSTART;TZID=America/New_York:${formatDateLocal(dtstart)}`,
+      `DTEND;TZID=America/New_York:${formatDateLocal(dtend)}`,
+      `RRULE:FREQ=WEEKLY;BYDAY=${rruleDay};UNTIL=${formatDate(semesterEnd)}`,
+      `SUMMARY:${block.course} - ${block.title}`,
+      `DESCRIPTION:Professor: ${block.professor || "TBA"}`,
+      block.location ? `LOCATION:${block.location}` : "",
+      "END:VEVENT"
+    );
   });
   lines.push("END:VCALENDAR");
   return lines.filter(l => l).join("\r\n");
@@ -166,13 +291,19 @@ function downloadICS(courses: Course[], scheduleName: string) {
   const ics = generateICS(courses, scheduleName);
   const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement("a"); a.href = url; a.download = `${scheduleName.replace(/\s+/g, "_")}.ics`;
-  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+  const a = document.createElement("a"); 
+  a.href = url; 
+  a.download = `${scheduleName.replace(/\s+/g, "_")}.ics`;
+  document.body.appendChild(a); 
+  a.click(); 
+  document.body.removeChild(a); 
+  URL.revokeObjectURL(url);
 }
 
 function WeeklyCalendar({ blocks }: { blocks: CalendarBlock[] }) {
   const byDay: Record<CalendarBlock["day"], CalendarBlock[]> = { Mon: [], Tue: [], Wed: [], Thu: [], Fri: [] };
   blocks.forEach((b) => byDay[b.day].push(b));
+  
   return (
     <div className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
       <div className="grid grid-cols-[3.5rem_repeat(5,1fr)] gap-1 text-xs">
@@ -192,9 +323,23 @@ function WeeklyCalendar({ blocks }: { blocks: CalendarBlock[] }) {
               const endMin = minutesFromStart(block.end);
               const top = (startMin / TOTAL_MINUTES) * 100;
               const height = ((endMin - startMin) / TOTAL_MINUTES) * 100;
+              
+              // Add indicators for special states
+              const hasTimeWarning = block.outside_preferred_time;
+              const isUserAdded = block.user_added;
+              
               return (
-                <div key={`${block.course}-${i}`} className={`absolute left-0.5 right-0.5 overflow-hidden rounded-lg border px-1.5 py-1 shadow-sm cursor-pointer hover:shadow-md transition-shadow ${block.color}`} style={{ top: `${top}%`, height: `${height}%`, minHeight: "2.5rem" }} title={`${block.course}: ${block.title}\n${block.professor || "TBA"}\n${formatTime12(block.start)}-${formatTime12(block.end)}`}>
-                  <div className="font-semibold text-[11px] leading-tight truncate">{block.course}</div>
+                <div 
+                  key={`${block.course}-${i}`} 
+                  className={`absolute left-0.5 right-0.5 overflow-hidden rounded-lg border px-1.5 py-1 shadow-sm cursor-pointer hover:shadow-md transition-shadow ${block.color} ${isUserAdded ? 'opacity-70' : ''}`} 
+                  style={{ top: `${top}%`, height: `${height}%`, minHeight: "2.5rem" }} 
+                  title={`${block.course}: ${block.title}\n${block.professor || "TBA"}\n${formatTime12(block.start)}-${formatTime12(block.end)}${hasTimeWarning ? '\n⚠️ Outside preferred time' : ''}${isUserAdded ? '\n📌 User added' : ''}`}
+                >
+                  <div className="flex items-center gap-1">
+                    <span className="font-semibold text-[11px] leading-tight truncate">{block.course}</span>
+                    {hasTimeWarning && <AlertTriangle className="h-3 w-3 text-amber-600 flex-shrink-0" />}
+                    {isUserAdded && <span className="text-[9px]">📌</span>}
+                  </div>
                   <div className="text-[9px] opacity-70">{formatTime12(block.start)}-{formatTime12(block.end)}</div>
                 </div>
               );
@@ -233,11 +378,16 @@ function ScheduleOptionsDrawer({ schedules, selectedIdx, onSelect, isOpen, onTog
 
 function CourseDetailRow({ course, onRemove, canRemove = true }: { course: Course; onRemove?: () => void; canRemove?: boolean }) {
   const gers = course.ger ? (Array.isArray(course.ger) ? course.ger : [course.ger]) : [];
+  const isUserAdded = course.user_added;
+  const isOutsideTime = course.outside_preferred_time;
+  
   return (
-    <div className="flex items-center justify-between rounded-lg border border-zinc-100 bg-zinc-50 px-3 py-2 group">
+    <div className={`flex items-center justify-between rounded-lg border px-3 py-2 group ${isUserAdded ? 'border-dashed border-gray-400 bg-gray-50/60' : 'border-zinc-100 bg-zinc-50'}`}>
       <div className="flex-1">
         <div className="flex items-center gap-2">
           <span className="font-semibold text-emoryBlue">{course.code}</span>
+          {isUserAdded && <span className="rounded bg-gray-200 px-1.5 py-0.5 text-[10px] font-medium text-gray-600">📌 Added</span>}
+          {isOutsideTime && <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 flex items-center gap-0.5"><AlertTriangle className="h-3 w-3" /> Outside pref.</span>}
           {gers.map((g) => <span key={g} className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700">{g}</span>)}
         </div>
         <p className="text-sm text-zinc-600 truncate max-w-md">{course.title}</p>
@@ -257,27 +407,39 @@ function CourseDetailRow({ course, onRemove, canRemove = true }: { course: Cours
   );
 }
 
-function AddCourseModal({ isOpen, onClose, onAddCourse, currentCourses }: { isOpen: boolean; onClose: () => void; onAddCourse: (course: Course) => void; currentCourses: Course[] }) {
+function AddCourseModal({ 
+  isOpen, 
+  onClose, 
+  onAddCourse, 
+  currentCourses 
+}: { 
+  isOpen: boolean; 
+  onClose: () => void; 
+  onAddCourse: (course: Course) => void; 
+  currentCourses: Course[];
+}) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searching, setSearching] = useState(false);
+  const [overlapWarning, setOverlapWarning] = useState<{ course: any; overlaps: Course[] } | null>(null);
 
   async function handleSearch() {
     if (!searchQuery.trim()) return;
     setSearching(true);
+    setOverlapWarning(null);
     try {
       const res = await fetch(`${API_URL}/api/search-courses?q=${encodeURIComponent(searchQuery)}&limit=20`);
       const data = await res.json();
       if (data.success && data.courses) {
-        const currentCodes = new Set(currentCourses.map(c => (c.code || "").toUpperCase()));
-        setSearchResults(data.courses.filter((c: any) => !currentCodes.has((c.code || "").toUpperCase())));
+        const currentCodes = new Set(currentCourses.map(c => (c.code || "").toUpperCase().replace(/\s+/g, "")));
+        setSearchResults(data.courses.filter((c: any) => !currentCodes.has((c.code || "").toUpperCase().replace(/\s+/g, ""))));
       }
     } catch (err) { console.error("Search failed:", err); }
     finally { setSearching(false); }
   }
 
-  function handleSelectCourse(course: any) {
-    // Convert search result to Course type and add locally
+  function checkOverlapAndSelect(course: any) {
+    // Convert to Course type for overlap checking
     const newCourse: Course = {
       code: course.code || "",
       title: course.title || "",
@@ -286,14 +448,39 @@ function AddCourseModal({ isOpen, onClose, onAddCourse, currentCourses }: { isOp
       time: course.time || "TBA",
       meeting: course.meeting || [],
       rmp: course.rmp || null,
-      score: 50, // Default score for manually added courses
+      score: 50,
       ger: course.ger || null,
       normalized_code: (course.code || "").toUpperCase().replace(/\s+/g, ""),
+    };
+    
+    const overlappingCourses = findOverlappingCourses(newCourse, currentCourses);
+    
+    if (overlappingCourses.length > 0) {
+      setOverlapWarning({ course, overlaps: overlappingCourses });
+    } else {
+      handleConfirmAdd(course);
+    }
+  }
+
+  function handleConfirmAdd(course: any) {
+    const newCourse: Course = {
+      code: course.code || "",
+      title: course.title || "",
+      professor: course.professor || "TBA",
+      credits: course.credits || 3,
+      time: course.time || "TBA",
+      meeting: course.meeting || [],
+      rmp: course.rmp || null,
+      score: 50,
+      ger: course.ger || null,
+      normalized_code: (course.code || "").toUpperCase().replace(/\s+/g, ""),
+      user_added: true,  // Mark as user-added
     };
     onAddCourse(newCourse);
     onClose();
     setSearchQuery("");
     setSearchResults([]);
+    setOverlapWarning(null);
   }
 
   if (!isOpen) return null;
@@ -303,44 +490,81 @@ function AddCourseModal({ isOpen, onClose, onAddCourse, currentCourses }: { isOp
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg mx-4 max-h-[80vh] overflow-hidden">
         <div className="p-4 border-b border-zinc-200 flex items-center justify-between">
           <h2 className="text-lg font-semibold text-emoryBlue">Add Course</h2>
-          <button onClick={onClose} className="p-1 hover:bg-zinc-100 rounded-lg"><X className="h-5 w-5" /></button>
+          <button onClick={() => { onClose(); setOverlapWarning(null); }} className="p-1 hover:bg-zinc-100 rounded-lg"><X className="h-5 w-5" /></button>
         </div>
-        <div className="p-4">
-          <div className="flex gap-2 mb-4">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-              placeholder="Search by course code or name..."
-              className="flex-1 rounded-lg border border-zinc-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emoryBlue"
-            />
-            <button onClick={handleSearch} disabled={searching} className="px-4 py-2 bg-emoryBlue text-white rounded-lg text-sm font-medium hover:bg-emoryBlue/90 disabled:opacity-50">
-              <Search className="h-4 w-4" />
-            </button>
-          </div>
-          <div className="max-h-80 overflow-y-auto space-y-2">
-            {searching && <p className="text-sm text-zinc-500 text-center py-4">Searching...</p>}
-            {!searching && searchResults.length === 0 && searchQuery && <p className="text-sm text-zinc-500 text-center py-4">No courses found</p>}
-            {searchResults.map((course, idx) => (
+        
+        {overlapWarning ? (
+          <div className="p-4">
+            <div className="flex items-center gap-2 text-amber-700 mb-3">
+              <AlertTriangle className="h-5 w-5" />
+              <span className="font-semibold">Time Conflict Detected</span>
+            </div>
+            <p className="text-sm text-zinc-600 mb-3">
+              <strong>{overlapWarning.course.code}</strong> overlaps with:
+            </p>
+            <ul className="space-y-1 mb-4">
+              {overlapWarning.overlaps.map((c, i) => (
+                <li key={i} className="text-sm text-zinc-700 bg-amber-50 rounded px-2 py-1">
+                  • {c.code} ({c.time})
+                </li>
+              ))}
+            </ul>
+            <p className="text-sm text-zinc-500 mb-4">
+              Adding this course will create a scheduling conflict. Are you sure you want to add it anyway?
+            </p>
+            <div className="flex gap-2">
               <button
-                key={idx}
-                onClick={() => handleSelectCourse(course)}
-                className="w-full text-left p-3 rounded-lg border border-zinc-200 hover:border-emoryBlue hover:bg-emoryBlue/5 transition-colors"
+                onClick={() => setOverlapWarning(null)}
+                className="flex-1 px-4 py-2 border border-zinc-300 rounded-lg text-sm font-medium text-zinc-700 hover:bg-zinc-50"
               >
-                <div className="flex items-center justify-between">
-                  <div className="font-medium text-emoryBlue">{course.code}</div>
-                  <div className="text-xs text-zinc-500">{course.credits || 3} cr</div>
-                </div>
-                <div className="text-sm text-zinc-600 truncate">{course.title}</div>
-                <div className="text-xs text-zinc-400 mt-1">{course.time || "TBA"} • {course.professor || "TBA"}</div>
+                Cancel
               </button>
-            ))}
+              <button
+                onClick={() => handleConfirmAdd(overlapWarning.course)}
+                className="flex-1 px-4 py-2 bg-amber-500 text-white rounded-lg text-sm font-medium hover:bg-amber-600"
+              >
+                Add Anyway
+              </button>
+            </div>
           </div>
-          <p className="mt-4 text-xs text-zinc-500 text-center">
-            Click a course to add it to your schedule
-          </p>
-        </div>
+        ) : (
+          <div className="p-4">
+            <div className="flex gap-2 mb-4">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                placeholder="Search by course code or name (e.g., CS 350 or CS350)..."
+                className="flex-1 rounded-lg border border-zinc-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emoryBlue"
+              />
+              <button onClick={handleSearch} disabled={searching} className="px-4 py-2 bg-emoryBlue text-white rounded-lg text-sm font-medium hover:bg-emoryBlue/90 disabled:opacity-50">
+                <Search className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="max-h-80 overflow-y-auto space-y-2">
+              {searching && <p className="text-sm text-zinc-500 text-center py-4">Searching...</p>}
+              {!searching && searchResults.length === 0 && searchQuery && <p className="text-sm text-zinc-500 text-center py-4">No courses found</p>}
+              {searchResults.map((course, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => checkOverlapAndSelect(course)}
+                  className="w-full text-left p-3 rounded-lg border border-zinc-200 hover:border-emoryBlue hover:bg-emoryBlue/5 transition-colors"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="font-medium text-emoryBlue">{course.code}</div>
+                    <div className="text-xs text-zinc-500">{course.credits || 3} cr</div>
+                  </div>
+                  <div className="text-sm text-zinc-600 truncate">{course.title}</div>
+                  <div className="text-xs text-zinc-400 mt-1">{course.time || "TBA"} • {course.professor || "TBA"}</div>
+                </button>
+              ))}
+            </div>
+            <p className="mt-4 text-xs text-zinc-500 text-center">
+              Click a course to add it to your schedule. User-added courses appear translucent.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -382,15 +606,40 @@ export default function ScheduleBuilderPage() {
   const [generated, setGenerated] = useState(false);
   const [showOptionsDrawer, setShowOptionsDrawer] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
+  
+  // Track user modifications
+  const [removedCourses, setRemovedCourses] = useState<Set<string>>(new Set());
+  const [addedCourses, setAddedCourses] = useState<Map<string, Course>>(new Map());
 
   const selectedSchedule = schedules[selectedIdx] || null;
   const calendarBlocks = selectedSchedule ? coursesToCalendarBlocks(selectedSchedule.courses) : [];
 
-  async function fetchSchedules() {
-    setLoading(true); setError(null);
+  const fetchSchedules = useCallback(async () => {
+    setLoading(true); 
+    setError(null);
     try {
       const uid = auth.currentUser?.uid;
       if (!uid) throw new Error("Not signed in");
+      
+      // Send removed and added courses to backend for consideration
+      const lockedCourses = Array.from(addedCourses.entries()).map(([code, course], idx) => ({
+        code,
+        priority: idx + 1  // Priority based on order added
+      }));
+      
+      // Update preferences with locked/removed courses
+      if (removedCourses.size > 0 || addedCourses.size > 0) {
+        await fetch(`${API_URL}/api/preferences`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            uid,
+            locked_courses: lockedCourses,
+            removed_courses: Array.from(removedCourses)
+          })
+        });
+      }
+      
       const res = await fetch(`${API_URL}/api/generate-schedule`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -398,7 +647,17 @@ export default function ScheduleBuilderPage() {
       });
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error || "Failed to generate schedules");
-      setSchedules(data.schedules || []);
+      
+      // Mark added courses in the returned schedules
+      const schedulesWithMarkers = (data.schedules || []).map((schedule: Schedule) => ({
+        ...schedule,
+        courses: schedule.courses.map(course => ({
+          ...course,
+          user_added: addedCourses.has(course.normalized_code || course.code.toUpperCase().replace(/\s+/g, ""))
+        }))
+      }));
+      
+      setSchedules(schedulesWithMarkers);
       setSelectedIdx(0);
       setGenerated(true);
     } catch (err: any) {
@@ -406,9 +665,9 @@ export default function ScheduleBuilderPage() {
       setSchedules([]);
     }
     finally { setLoading(false); }
-  }
+  }, [removedCourses, addedCourses]);
 
-  // LOCAL remove - no backend call, just update state
+  // LOCAL remove - track removed courses
   function handleRemoveCourse(courseCode: string) {
     if (!selectedSchedule) return;
     if (selectedSchedule.courses.length <= 1) {
@@ -416,11 +675,25 @@ export default function ScheduleBuilderPage() {
       return;
     }
 
-    const confirmed = window.confirm(`Remove ${courseCode} from this schedule?`);
+    const confirmed = window.confirm(`Remove ${courseCode} from this schedule?\n\nThis course won't appear in regenerated schedules unless you add it back manually.`);
     if (!confirmed) return;
 
+    const normalizedCode = courseCode.toUpperCase().replace(/\s+/g, "");
+    
+    // Track as removed so it won't come back on regenerate
+    setRemovedCourses(prev => new Set(prev).add(normalizedCode));
+    
+    // Remove from added courses if it was user-added
+    setAddedCourses(prev => {
+      const newMap = new Map(prev);
+      newMap.delete(normalizedCode);
+      return newMap;
+    });
+
     // Remove course locally
-    const updatedCourses = selectedSchedule.courses.filter(c => c.code !== courseCode);
+    const updatedCourses = selectedSchedule.courses.filter(c => 
+      (c.normalized_code || c.code.toUpperCase().replace(/\s+/g, "")) !== normalizedCode
+    );
     const updatedSchedule = recalculateSchedule({ ...selectedSchedule, courses: updatedCourses });
 
     const updatedSchedules = [...schedules];
@@ -428,18 +701,30 @@ export default function ScheduleBuilderPage() {
     setSchedules(updatedSchedules);
   }
 
-  // LOCAL add - no backend call, just update state
+  // LOCAL add - track added courses
   function handleAddCourse(newCourse: Course) {
     if (!selectedSchedule) return;
 
+    const normalizedCode = newCourse.normalized_code || newCourse.code.toUpperCase().replace(/\s+/g, "");
+    
     // Check if course already exists
     const exists = selectedSchedule.courses.some(
-      c => c.code.toUpperCase() === newCourse.code.toUpperCase()
+      c => (c.normalized_code || c.code.toUpperCase().replace(/\s+/g, "")) === normalizedCode
     );
     if (exists) {
       alert(`${newCourse.code} is already in this schedule.`);
       return;
     }
+
+    // Track as added (will be boosted on regenerate)
+    setAddedCourses(prev => new Map(prev).set(normalizedCode, newCourse));
+    
+    // Remove from removed courses if it was previously removed
+    setRemovedCourses(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(normalizedCode);
+      return newSet;
+    });
 
     // Add course locally
     const updatedCourses = [...selectedSchedule.courses, newCourse];
@@ -451,36 +736,35 @@ export default function ScheduleBuilderPage() {
   }
 
   async function handleSaveSchedule() {
-  if (!schedules.length) return;
+    if (!schedules.length) return;
 
-  try {
-    const uid = auth.currentUser?.uid;
-    if (!uid) throw new Error("Not signed in");
+    try {
+      const uid = auth.currentUser?.uid;
+      if (!uid) throw new Error("Not signed in");
 
-    const payload = {
-      uid: uid,
-      schedules,          // all 10 schedules
-      selected_index: selectedIdx,  // which one the user currently has selected
-    };
+      const payload = {
+        uid: uid,
+        schedules,          // all 10 schedules
+        selected_index: selectedIdx,  // which one the user currently has selected
+      };
 
-    const res = await fetch(`${API_URL}/api/save-schedule`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+      const res = await fetch(`${API_URL}/api/save-schedule`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-    const data = await res.json();
-    if (data.success) {
-      alert("Schedules saved successfully!");
-    } else {
-      alert("Failed to save: " + (data.error || "Unknown error"));
+      const data = await res.json();
+      if (data.success) {
+        alert("Schedules saved successfully!");
+      } else {
+        alert("Failed to save: " + (data.error || "Unknown error"));
+      }
+    } catch (err) {
+      console.error("Failed to save:", err);
+      alert("Failed to save. Please try again.");
     }
-  } catch (err) {
-    console.error("Failed to save:", err);
-    alert("Failed to save. Please try again.");
   }
-}
-
 
   useEffect(() => { fetchSchedules(); }, []);
 
@@ -512,6 +796,13 @@ export default function ScheduleBuilderPage() {
               <CalendarDays className="h-7 w-7" />Schedule Builder
             </h1>
             <p className="text-sm text-zinc-600 mt-1">Optimized schedules based on your transcript and preferences</p>
+            {(removedCourses.size > 0 || addedCourses.size > 0) && (
+              <p className="text-xs text-amber-600 mt-1">
+                {removedCourses.size > 0 && `${removedCourses.size} course(s) excluded`}
+                {removedCourses.size > 0 && addedCourses.size > 0 && " • "}
+                {addedCourses.size > 0 && `${addedCourses.size} course(s) boosted`}
+              </p>
+            )}
           </div>
           <div className="flex items-center gap-2 flex-wrap">
             <button onClick={fetchSchedules} disabled={loading} className="flex items-center gap-2 rounded-xl border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 disabled:opacity-50">
@@ -585,6 +876,18 @@ export default function ScheduleBuilderPage() {
                     </div>
                   </div>
                   <WeeklyCalendar blocks={calendarBlocks} />
+                  
+                  {/* Legend */}
+                  <div className="mt-3 flex flex-wrap gap-3 text-xs text-zinc-500">
+                    <div className="flex items-center gap-1">
+                      <div className="w-3 h-3 rounded border-dashed border border-gray-400 bg-gray-100/60"></div>
+                      <span>User added</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <AlertTriangle className="h-3 w-3 text-amber-600" />
+                      <span>Outside preferred time</span>
+                    </div>
+                  </div>
                 </div>
 
                 <div>
