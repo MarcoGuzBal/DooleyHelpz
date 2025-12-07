@@ -1,0 +1,1145 @@
+[
+    {
+        "shared_id": "000001",
+        "degreeType": "BA",
+        "year": "Freshman",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2029"
+        },
+        "preferredCredits": 15,
+        "interests": [
+            "AI/ML"
+        ],
+        "timePreference": [
+            "08:00",
+            "16:00"
+        ],
+        "timeUnavailable": [
+            {
+                "day": "Monday",
+                "start": "08:00",
+                "end": "09:00"
+            }
+        ],
+        "priorityOrder": [
+            "GER_REQUIREMENTS",
+            "PROFESSOR_RATING",
+            "MAJOR_REQUIREMENTS",
+            "INTERESTS",
+            "TIME_PREFERENCE"
+        ]
+    },
+    {
+        "shared_id": "000002",
+        "degreeType": "BA",
+        "year": "Freshman",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2029"
+        },
+        "preferredCredits": 17,
+        "interests": [
+            "Data Science"
+        ],
+        "timePreference": [
+            "10:00",
+            "20:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "PROFESSOR_RATING",
+            "MAJOR_REQUIREMENTS",
+            "INTERESTS",
+            "GER_REQUIREMENTS",
+            "TIME_PREFERENCE"
+        ]
+    },
+    {
+        "shared_id": "000003",
+        "degreeType": "BA",
+        "year": "Freshman",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2029"
+        },
+        "preferredCredits": 14,
+        "interests": [],
+        "timePreference": [
+            "11:00",
+            "15:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "GER_REQUIREMENTS",
+            "TIME_PREFERENCE",
+            "PROFESSOR_RATING",
+            "INTERESTS",
+            "MAJOR_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000004",
+        "degreeType": "BA",
+        "year": "Freshman",
+        "expectedGraduation": {
+            "semester": "Spring",
+            "year": "2029"
+        },
+        "preferredCredits": 18,
+        "interests": [
+            "Robotics"
+        ],
+        "timePreference": [
+            "09:00",
+            "18:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "MAJOR_REQUIREMENTS",
+            "INTERESTS",
+            "GER_REQUIREMENTS",
+            "TIME_PREFERENCE",
+            "PROFESSOR_RATING"
+        ]
+    },
+    {
+        "shared_id": "000005",
+        "degreeType": "BA",
+        "year": "Freshman",
+        "expectedGraduation": {
+            "semester": "Spring",
+            "year": "2029"
+        },
+        "preferredCredits": 17,
+        "interests": [
+            "Robotics",
+            "AI/ML",
+            "Software Engineering"
+        ],
+        "timePreference": [
+            "10:00",
+            "15:00"
+        ],
+        "timeUnavailable": [
+            {
+                "day": "Wednesday",
+                "start": "09:00",
+                "end": "11:00"
+            },
+            {
+                "day": "Friday",
+                "start": "11:00",
+                "end": "13:00"
+            }
+        ],
+        "priorityOrder": [
+            "MAJOR_REQUIREMENTS",
+            "PROFESSOR_RATING",
+            "TIME_PREFERENCE",
+            "INTERESTS",
+            "GER_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000006",
+        "degreeType": "BS",
+        "year": "Freshman",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2029"
+        },
+        "preferredCredits": 15,
+        "interests": [],
+        "timePreference": [
+            "10:00",
+            "17:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "INTERESTS",
+            "GER_REQUIREMENTS",
+            "MAJOR_REQUIREMENTS",
+            "TIME_PREFERENCE",
+            "PROFESSOR_RATING"
+        ]
+    },
+    {
+        "shared_id": "000007",
+        "degreeType": "BA",
+        "year": "Freshman",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2029"
+        },
+        "preferredCredits": 17,
+        "interests": [
+            "Robotics"
+        ],
+        "timePreference": [
+            "09:00",
+            "14:00"
+        ],
+        "timeUnavailable": [
+            {
+                "day": "Friday",
+                "start": "16:00",
+                "end": "19:00"
+            },
+            {
+                "day": "Friday",
+                "start": "14:00",
+                "end": "18:00"
+            }
+        ],
+        "priorityOrder": [
+            "INTERESTS",
+            "GER_REQUIREMENTS",
+            "PROFESSOR_RATING",
+            "TIME_PREFERENCE",
+            "MAJOR_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000008",
+        "degreeType": "BA",
+        "year": "Freshman",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2029"
+        },
+        "preferredCredits": 15,
+        "interests": [
+            "Software Engineering",
+            "Robotics",
+            "Data Science"
+        ],
+        "timePreference": [
+            "08:00",
+            "15:00"
+        ],
+        "timeUnavailable": [
+            {
+                "day": "Friday",
+                "start": "15:00",
+                "end": "18:00"
+            }
+        ],
+        "priorityOrder": [
+            "TIME_PREFERENCE",
+            "GER_REQUIREMENTS",
+            "MAJOR_REQUIREMENTS",
+            "PROFESSOR_RATING",
+            "INTERESTS"
+        ]
+    },
+    {
+        "shared_id": "000009",
+        "degreeType": "BS",
+        "year": "Freshman",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2029"
+        },
+        "preferredCredits": 16,
+        "interests": [
+            "Software Engineering",
+            "Data Science"
+        ],
+        "timePreference": [
+            "08:00",
+            "17:00"
+        ],
+        "timeUnavailable": [
+            {
+                "day": "Wednesday",
+                "start": "16:00",
+                "end": "18:00"
+            },
+            {
+                "day": "Friday",
+                "start": "09:00",
+                "end": "12:00"
+            }
+        ],
+        "priorityOrder": [
+            "MAJOR_REQUIREMENTS",
+            "GER_REQUIREMENTS",
+            "PROFESSOR_RATING",
+            "TIME_PREFERENCE",
+            "INTERESTS"
+        ]
+    },
+    {
+        "shared_id": "000010",
+        "degreeType": "BA",
+        "year": "Freshman",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2029"
+        },
+        "preferredCredits": 18,
+        "interests": [],
+        "timePreference": [
+            "10:00",
+            "17:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "GER_REQUIREMENTS",
+            "INTERESTS",
+            "TIME_PREFERENCE",
+            "MAJOR_REQUIREMENTS",
+            "PROFESSOR_RATING"
+        ]
+    },
+    {
+        "shared_id": "000011",
+        "degreeType": "BA",
+        "year": "Sophomore",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2028"
+        },
+        "preferredCredits": 14,
+        "interests": [],
+        "timePreference": [
+            "11:00",
+            "21:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "MAJOR_REQUIREMENTS",
+            "GER_REQUIREMENTS",
+            "PROFESSOR_RATING",
+            "TIME_PREFERENCE",
+            "INTERESTS"
+        ]
+    },
+    {
+        "shared_id": "000012",
+        "degreeType": "BA",
+        "year": "Sophomore",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2028"
+        },
+        "preferredCredits": 17,
+        "interests": [
+            "Software Engineering"
+        ],
+        "timePreference": [
+            "10:00",
+            "17:00"
+        ],
+        "timeUnavailable": [
+            {
+                "day": "Wednesday",
+                "start": "15:00",
+                "end": "19:00"
+            },
+            {
+                "day": "Monday",
+                "start": "11:00",
+                "end": "13:00"
+            }
+        ],
+        "priorityOrder": [
+            "TIME_PREFERENCE",
+            "GER_REQUIREMENTS",
+            "INTERESTS",
+            "MAJOR_REQUIREMENTS",
+            "PROFESSOR_RATING"
+        ]
+    },
+    {
+        "shared_id": "000013",
+        "degreeType": "BA",
+        "year": "Sophomore",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2028"
+        },
+        "preferredCredits": 14,
+        "interests": [
+            "AI/ML"
+        ],
+        "timePreference": [
+            "08:00",
+            "18:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "INTERESTS",
+            "MAJOR_REQUIREMENTS",
+            "GER_REQUIREMENTS",
+            "TIME_PREFERENCE",
+            "PROFESSOR_RATING"
+        ]
+    },
+    {
+        "shared_id": "000014",
+        "degreeType": "BA",
+        "year": "Sophomore",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2028"
+        },
+        "preferredCredits": 18,
+        "interests": [
+            "Data Science",
+            "AI/ML"
+        ],
+        "timePreference": [
+            "11:00",
+            "21:00"
+        ],
+        "timeUnavailable": [
+            {
+                "day": "Tuesday",
+                "start": "09:00",
+                "end": "10:00"
+            }
+        ],
+        "priorityOrder": [
+            "PROFESSOR_RATING",
+            "INTERESTS",
+            "TIME_PREFERENCE",
+            "MAJOR_REQUIREMENTS",
+            "GER_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000015",
+        "degreeType": "BS",
+        "year": "Sophomore",
+        "expectedGraduation": {
+            "semester": "Spring",
+            "year": "2028"
+        },
+        "preferredCredits": 12,
+        "interests": [],
+        "timePreference": [
+            "11:00",
+            "20:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "GER_REQUIREMENTS",
+            "MAJOR_REQUIREMENTS",
+            "INTERESTS",
+            "TIME_PREFERENCE",
+            "PROFESSOR_RATING"
+        ]
+    },
+    {
+        "shared_id": "000016",
+        "degreeType": "BS",
+        "year": "Sophomore",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2028"
+        },
+        "preferredCredits": 17,
+        "interests": [
+            "AI/ML"
+        ],
+        "timePreference": [
+            "11:00",
+            "21:00"
+        ],
+        "timeUnavailable": [
+            {
+                "day": "Monday",
+                "start": "08:00",
+                "end": "09:00"
+            }
+        ],
+        "priorityOrder": [
+            "MAJOR_REQUIREMENTS",
+            "GER_REQUIREMENTS",
+            "INTERESTS",
+            "TIME_PREFERENCE",
+            "PROFESSOR_RATING"
+        ]
+    },
+    {
+        "shared_id": "000017",
+        "degreeType": "BS",
+        "year": "Sophomore",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2028"
+        },
+        "preferredCredits": 14,
+        "interests": [
+            "Data Science"
+        ],
+        "timePreference": [
+            "08:00",
+            "15:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "PROFESSOR_RATING",
+            "INTERESTS",
+            "TIME_PREFERENCE",
+            "MAJOR_REQUIREMENTS",
+            "GER_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000018",
+        "degreeType": "BA",
+        "year": "Sophomore",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2028"
+        },
+        "preferredCredits": 14,
+        "interests": [
+            "AI/ML",
+            "Robotics"
+        ],
+        "timePreference": [
+            "10:00",
+            "14:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "TIME_PREFERENCE",
+            "PROFESSOR_RATING",
+            "MAJOR_REQUIREMENTS",
+            "GER_REQUIREMENTS",
+            "INTERESTS"
+        ]
+    },
+    {
+        "shared_id": "000019",
+        "degreeType": "BA",
+        "year": "Sophomore",
+        "expectedGraduation": {
+            "semester": "Spring",
+            "year": "2028"
+        },
+        "preferredCredits": 12,
+        "interests": [],
+        "timePreference": [
+            "08:00",
+            "17:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "TIME_PREFERENCE",
+            "INTERESTS",
+            "MAJOR_REQUIREMENTS",
+            "PROFESSOR_RATING",
+            "GER_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000020",
+        "degreeType": "BA",
+        "year": "Sophomore",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2028"
+        },
+        "preferredCredits": 18,
+        "interests": [
+            "Robotics",
+            "Software Engineering"
+        ],
+        "timePreference": [
+            "09:00",
+            "18:00"
+        ],
+        "timeUnavailable": [
+            {
+                "day": "Wednesday",
+                "start": "11:00",
+                "end": "14:00"
+            },
+            {
+                "day": "Thursday",
+                "start": "10:00",
+                "end": "13:00"
+            }
+        ],
+        "priorityOrder": [
+            "TIME_PREFERENCE",
+            "INTERESTS",
+            "PROFESSOR_RATING",
+            "MAJOR_REQUIREMENTS",
+            "GER_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000021",
+        "degreeType": "BS",
+        "year": "Junior",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2027"
+        },
+        "preferredCredits": 14,
+        "interests": [],
+        "timePreference": [
+            "09:00",
+            "17:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "INTERESTS",
+            "GER_REQUIREMENTS",
+            "PROFESSOR_RATING",
+            "MAJOR_REQUIREMENTS",
+            "TIME_PREFERENCE"
+        ]
+    },
+    {
+        "shared_id": "000022",
+        "degreeType": "BS",
+        "year": "Junior",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2027"
+        },
+        "preferredCredits": 18,
+        "interests": [
+            "Robotics",
+            "Data Science",
+            "AI/ML"
+        ],
+        "timePreference": [
+            "10:00",
+            "19:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "INTERESTS",
+            "GER_REQUIREMENTS",
+            "PROFESSOR_RATING",
+            "MAJOR_REQUIREMENTS",
+            "TIME_PREFERENCE"
+        ]
+    },
+    {
+        "shared_id": "000023",
+        "degreeType": "BA",
+        "year": "Junior",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2027"
+        },
+        "preferredCredits": 16,
+        "interests": [
+            "Robotics"
+        ],
+        "timePreference": [
+            "11:00",
+            "17:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "MAJOR_REQUIREMENTS",
+            "INTERESTS",
+            "TIME_PREFERENCE",
+            "GER_REQUIREMENTS",
+            "PROFESSOR_RATING"
+        ]
+    },
+    {
+        "shared_id": "000024",
+        "degreeType": "BA",
+        "year": "Junior",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2027"
+        },
+        "preferredCredits": 16,
+        "interests": [
+            "Data Science"
+        ],
+        "timePreference": [
+            "11:00",
+            "19:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "TIME_PREFERENCE",
+            "GER_REQUIREMENTS",
+            "MAJOR_REQUIREMENTS",
+            "INTERESTS",
+            "PROFESSOR_RATING"
+        ]
+    },
+    {
+        "shared_id": "000025",
+        "degreeType": "BA",
+        "year": "Junior",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2027"
+        },
+        "preferredCredits": 15,
+        "interests": [
+            "Software Engineering",
+            "AI/ML"
+        ],
+        "timePreference": [
+            "10:00",
+            "16:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "GER_REQUIREMENTS",
+            "PROFESSOR_RATING",
+            "INTERESTS",
+            "TIME_PREFERENCE",
+            "MAJOR_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000026",
+        "degreeType": "BA",
+        "year": "Junior",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2027"
+        },
+        "preferredCredits": 17,
+        "interests": [
+            "Software Engineering",
+            "AI/ML"
+        ],
+        "timePreference": [
+            "09:00",
+            "19:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "MAJOR_REQUIREMENTS",
+            "TIME_PREFERENCE",
+            "INTERESTS",
+            "PROFESSOR_RATING",
+            "GER_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000027",
+        "degreeType": "BS",
+        "year": "Junior",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2027"
+        },
+        "preferredCredits": 15,
+        "interests": [
+            "Software Engineering"
+        ],
+        "timePreference": [
+            "08:00",
+            "15:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "MAJOR_REQUIREMENTS",
+            "INTERESTS",
+            "PROFESSOR_RATING",
+            "TIME_PREFERENCE",
+            "GER_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000028",
+        "degreeType": "BS",
+        "year": "Junior",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2027"
+        },
+        "preferredCredits": 15,
+        "interests": [
+            "AI/ML"
+        ],
+        "timePreference": [
+            "09:00",
+            "16:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "GER_REQUIREMENTS",
+            "INTERESTS",
+            "TIME_PREFERENCE",
+            "PROFESSOR_RATING",
+            "MAJOR_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000029",
+        "degreeType": "BS",
+        "year": "Junior",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2027"
+        },
+        "preferredCredits": 16,
+        "interests": [],
+        "timePreference": [
+            "08:00",
+            "14:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "TIME_PREFERENCE",
+            "GER_REQUIREMENTS",
+            "PROFESSOR_RATING",
+            "MAJOR_REQUIREMENTS",
+            "INTERESTS"
+        ]
+    },
+    {
+        "shared_id": "000030",
+        "degreeType": "BS",
+        "year": "Junior",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2027"
+        },
+        "preferredCredits": 17,
+        "interests": [
+            "AI/ML",
+            "Software Engineering"
+        ],
+        "timePreference": [
+            "09:00",
+            "15:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "TIME_PREFERENCE",
+            "INTERESTS",
+            "MAJOR_REQUIREMENTS",
+            "PROFESSOR_RATING",
+            "GER_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000031",
+        "degreeType": "BS",
+        "year": "Senior",
+        "expectedGraduation": {
+            "semester": "Spring",
+            "year": "2026"
+        },
+        "preferredCredits": 16,
+        "interests": [
+            "Robotics",
+            "Data Science"
+        ],
+        "timePreference": [
+            "08:00",
+            "17:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "PROFESSOR_RATING",
+            "TIME_PREFERENCE",
+            "GER_REQUIREMENTS",
+            "MAJOR_REQUIREMENTS",
+            "INTERESTS"
+        ]
+    },
+    {
+        "shared_id": "000032",
+        "degreeType": "BS",
+        "year": "Senior",
+        "expectedGraduation": {
+            "semester": "Spring",
+            "year": "2026"
+        },
+        "preferredCredits": 16,
+        "interests": [
+            "Software Engineering",
+            "AI/ML"
+        ],
+        "timePreference": [
+            "11:00",
+            "20:00"
+        ],
+        "timeUnavailable": [
+            {
+                "day": "Tuesday",
+                "start": "17:00",
+                "end": "20:00"
+            }
+        ],
+        "priorityOrder": [
+            "INTERESTS",
+            "MAJOR_REQUIREMENTS",
+            "TIME_PREFERENCE",
+            "PROFESSOR_RATING",
+            "GER_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000033",
+        "degreeType": "BA",
+        "year": "Senior",
+        "expectedGraduation": {
+            "semester": "Spring",
+            "year": "2026"
+        },
+        "preferredCredits": 18,
+        "interests": [
+            "Robotics",
+            "Software Engineering"
+        ],
+        "timePreference": [
+            "11:00",
+            "18:00"
+        ],
+        "timeUnavailable": [
+            {
+                "day": "Tuesday",
+                "start": "16:00",
+                "end": "20:00"
+            },
+            {
+                "day": "Tuesday",
+                "start": "09:00",
+                "end": "12:00"
+            }
+        ],
+        "priorityOrder": [
+            "TIME_PREFERENCE",
+            "GER_REQUIREMENTS",
+            "PROFESSOR_RATING",
+            "MAJOR_REQUIREMENTS",
+            "INTERESTS"
+        ]
+    },
+    {
+        "shared_id": "000034",
+        "degreeType": "BS",
+        "year": "Senior",
+        "expectedGraduation": {
+            "semester": "Spring",
+            "year": "2026"
+        },
+        "preferredCredits": 15,
+        "interests": [
+            "AI/ML"
+        ],
+        "timePreference": [
+            "08:00",
+            "13:00"
+        ],
+        "timeUnavailable": [
+            {
+                "day": "Friday",
+                "start": "09:00",
+                "end": "13:00"
+            }
+        ],
+        "priorityOrder": [
+            "PROFESSOR_RATING",
+            "INTERESTS",
+            "MAJOR_REQUIREMENTS",
+            "TIME_PREFERENCE",
+            "GER_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000035",
+        "degreeType": "BS",
+        "year": "Senior",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2026"
+        },
+        "preferredCredits": 15,
+        "interests": [
+            "AI/ML",
+            "Data Science",
+            "Software Engineering"
+        ],
+        "timePreference": [
+            "09:00",
+            "14:00"
+        ],
+        "timeUnavailable": [
+            {
+                "day": "Friday",
+                "start": "15:00",
+                "end": "16:00"
+            },
+            {
+                "day": "Friday",
+                "start": "11:00",
+                "end": "12:00"
+            }
+        ],
+        "priorityOrder": [
+            "PROFESSOR_RATING",
+            "MAJOR_REQUIREMENTS",
+            "INTERESTS",
+            "TIME_PREFERENCE",
+            "GER_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000036",
+        "degreeType": "BS",
+        "year": "Senior",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2026"
+        },
+        "preferredCredits": 18,
+        "interests": [
+            "Data Science",
+            "AI/ML"
+        ],
+        "timePreference": [
+            "11:00",
+            "18:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "PROFESSOR_RATING",
+            "INTERESTS",
+            "GER_REQUIREMENTS",
+            "MAJOR_REQUIREMENTS",
+            "TIME_PREFERENCE"
+        ]
+    },
+    {
+        "shared_id": "000037",
+        "degreeType": "BA",
+        "year": "Senior",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2026"
+        },
+        "preferredCredits": 14,
+        "interests": [
+            "Robotics",
+            "AI/ML",
+            "Software Engineering"
+        ],
+        "timePreference": [
+            "10:00",
+            "16:00"
+        ],
+        "timeUnavailable": [
+            {
+                "day": "Monday",
+                "start": "10:00",
+                "end": "12:00"
+            }
+        ],
+        "priorityOrder": [
+            "INTERESTS",
+            "PROFESSOR_RATING",
+            "MAJOR_REQUIREMENTS",
+            "GER_REQUIREMENTS",
+            "TIME_PREFERENCE"
+        ]
+    },
+    {
+        "shared_id": "000038",
+        "degreeType": "BA",
+        "year": "Senior",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2026"
+        },
+        "preferredCredits": 13,
+        "interests": [
+            "Data Science"
+        ],
+        "timePreference": [
+            "11:00",
+            "15:00"
+        ],
+        "timeUnavailable": [],
+        "priorityOrder": [
+            "TIME_PREFERENCE",
+            "PROFESSOR_RATING",
+            "MAJOR_REQUIREMENTS",
+            "INTERESTS",
+            "GER_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000039",
+        "degreeType": "BS",
+        "year": "Senior",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2026"
+        },
+        "preferredCredits": 16,
+        "interests": [
+            "Data Science"
+        ],
+        "timePreference": [
+            "11:00",
+            "19:00"
+        ],
+        "timeUnavailable": [
+            {
+                "day": "Friday",
+                "start": "17:00",
+                "end": "19:00"
+            },
+            {
+                "day": "Thursday",
+                "start": "11:00",
+                "end": "14:00"
+            }
+        ],
+        "priorityOrder": [
+            "MAJOR_REQUIREMENTS",
+            "TIME_PREFERENCE",
+            "PROFESSOR_RATING",
+            "INTERESTS",
+            "GER_REQUIREMENTS"
+        ]
+    },
+    {
+        "shared_id": "000040",
+        "degreeType": "BS",
+        "year": "Senior",
+        "expectedGraduation": {
+            "semester": "Fall",
+            "year": "2026"
+        },
+        "preferredCredits": 17,
+        "interests": [
+            "Software Engineering",
+            "Data Science",
+            "AI/ML"
+        ],
+        "timePreference": [
+            "08:00",
+            "15:00"
+        ],
+        "timeUnavailable": [
+            {
+                "day": "Friday",
+                "start": "08:00",
+                "end": "09:00"
+            }
+        ],
+        "priorityOrder": [
+            "MAJOR_REQUIREMENTS",
+            "PROFESSOR_RATING",
+            "INTERESTS",
+            "TIME_PREFERENCE",
+            "GER_REQUIREMENTS"
+        ]
+    }
+]

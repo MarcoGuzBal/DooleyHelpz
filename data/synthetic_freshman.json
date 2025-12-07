@@ -1,0 +1,86 @@
+[
+  {
+    "shared_id": "000001",
+    "emory_courses": [],
+    "incoming_test_courses": ["ENGRD101", "ITAL102", "MATH111", "MATH112Z"],
+    "incoming_transfer_courses": []
+  },
+  {
+    "shared_id": "000002",
+    "emory_courses": [],
+    "incoming_test_courses": [],
+    "incoming_transfer_courses": []
+  },
+  {
+    "shared_id": "000003",
+    "emory_courses": [],
+    "incoming_test_courses": [],
+    "incoming_transfer_courses": []
+  },
+  {
+    "shared_id": "000004",
+    "emory_courses": [],
+    "incoming_test_courses": [
+      "ENGRD101",
+      "FILM101",
+      "LAT102",
+      "MATH111",
+      "PHYS142"
+    ],
+    "incoming_transfer_courses": []
+  },
+  {
+    "shared_id": "000005",
+    "emory_courses": [],
+    "incoming_test_courses": [
+      "ARAB102",
+      "BIOL141",
+      "CHEM150",
+      "CHEM150L",
+      "CS170",
+      "MATH111",
+      "PHYS141",
+      "PSYC111"
+    ],
+    "incoming_transfer_courses": []
+  },
+  {
+    "shared_id": "000006",
+    "emory_courses": [],
+    "incoming_test_courses": [],
+    "incoming_transfer_courses": []
+  },
+  {
+    "shared_id": "000007",
+    "emory_courses": [],
+    "incoming_test_courses": ["BIOL141", "MATH111", "MATH112Z"],
+    "incoming_transfer_courses": []
+  },
+  {
+    "shared_id": "000008",
+    "emory_courses": [],
+    "incoming_test_courses": ["ECON101", "GRK102", "MATH111", "PHYS151"],
+    "incoming_transfer_courses": []
+  },
+  {
+    "shared_id": "000009",
+    "emory_courses": [],
+    "incoming_test_courses": [
+      "ARTHIST101",
+      "ARTVIS103",
+      "ECON112",
+      "MATH111",
+      "MATH112Z",
+      "MUS121",
+      "PHYS142",
+      "PHYS151"
+    ],
+    "incoming_transfer_courses": []
+  },
+  {
+    "shared_id": "000010",
+    "emory_courses": [],
+    "incoming_test_courses": [],
+    "incoming_transfer_courses": []
+  }
+]
