@@ -8,14 +8,12 @@ from pathlib import Path
 
 app = Flask(__name__)
 # CORS configuration - allow all origins for API routes
-# Using supports_credentials and explicit methods to ensure OPTIONS preflight works
-CORS(app, resources={
-    r"/api/*": {
-        "origins": "*",
-        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        "allow_headers": ["Content-Type", "Authorization"]
-    }
-})
+CORS(app, 
+     resources={r"/api/*": {"origins": "*"}},
+     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+     allow_headers=["Content-Type", "Authorization"],
+     expose_headers=["Content-Type"],
+     supports_credentials=False)
 
 load_dotenv()
 uri = os.getenv("MONGODB_URI")
@@ -24,10 +22,11 @@ client = MongoClient(uri)
 
 # User data collections
 users_db = client["Users"]
-user_col = users_db['TestUsers']
+user_col = users_db['Users']
 course_col = users_db['TestCourses']
-pref_col = users_db['TestPreferences']
+pref_col = users_db['UserPreferences']
 schedules_col = users_db['SavedSchedules']  # NEW: For storing saved schedules
+user_schedules_col = users_db['UserSchedules']  # NEW: For storing user-generated schedules
 
 # Course data collections
 courses_db = client["DetailedCourses"]
@@ -64,23 +63,43 @@ last_userCourses = None
 last_preferences = None
 
 
-# Helper function to normalize shared_id for consistent querying
-def get_shared_id_query(shared_id):
-    """Return a query that matches shared_id as both int and string."""
-    try:
-        int_id = int(shared_id)
-        return {"$or": [{"shared_id": int_id}, {"shared_id": str(int_id)}]}
-    except (ValueError, TypeError):
-        return {"shared_id": shared_id}
+# Helper function to normalize uid (already a string, just return it)
+def normalize_uid(uid):
+    """Ensure uid is a string."""
+    return str(uid) if uid else None
 
 
-# Helper function to normalize shared_id for storage (always store as int)
-def normalize_shared_id(shared_id):
-    """Convert shared_id to int for consistent storage."""
-    try:
-        return int(shared_id)
-    except (ValueError, TypeError):
-        return shared_id
+# Helper function to create uid query
+def get_uid_query(uid):
+    """Return a query that matches uid."""
+    if not uid:
+        return {}
+    return {"uid": uid}
+
+
+# Handle CORS for all requests
+@app.before_request
+def handle_cors():
+    """Handle CORS preflight requests and set headers."""
+    if request.method == "OPTIONS":
+        response = jsonify({"status": "ok"})
+        response.status_code = 200
+    else:
+        response = None
+    
+    # If not an OPTIONS request, return None to let the route handle it
+    # The after_request will add CORS headers to all responses
+    return response
+
+
+@app.after_request
+def after_request(response):
+    """Add CORS headers to all responses."""
+    # Use set instead of add to replace existing headers
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+    return response
 
 
 @app.route("/")
@@ -136,23 +155,23 @@ def userCourses():
 
     data = request.get_json(silent=True)
     
-    # Normalize shared_id to int for consistent storage
-    if isinstance(data, dict) and "shared_id" in data:
-        data["shared_id"] = normalize_shared_id(data["shared_id"])
+    # Normalize uid (Firebase UID from client)
+    if isinstance(data, dict) and "uid" in data:
+        data["uid"] = normalize_uid(data["uid"])
     
     last_userCourses = data if isinstance(data, dict) else {"value": data}
     
     try:
-        shared_id = None
+        uid = None
         if isinstance(data, dict):
-            shared_id = data.get("shared_id")
+            uid = data.get("uid")
 
         result = course_col.insert_one(last_userCourses)
         
         return {
             "message": "Courses received successfully!",
             "received_fields": list(data.keys()) if isinstance(data, dict) else [],
-            "shared_id": shared_id,
+            "uid": uid,
             "inserted_id": str(result.inserted_id)
         }, 200
         
@@ -178,28 +197,39 @@ def userPreferences():
     data = request.get_json(silent=True)
     print("Received preferences:", data)
     
-    # Normalize shared_id to int for consistent storage
-    if isinstance(data, dict) and "shared_id" in data:
-        data["shared_id"] = normalize_shared_id(data["shared_id"])
+    # Normalize uid (Firebase UID from client)
+    if isinstance(data, dict) and "uid" in data:
+        data["uid"] = normalize_uid(data["uid"])
     
     try:
-        shared_id = None
+        uid = None
         if isinstance(data, dict):
-            shared_id = data.get("shared_id")
+            uid = data.get("uid")
 
-        result = pref_col.insert_one(data)
+        # Use update_one with upsert=True to support both insert and update
+        result = pref_col.update_one(
+            {"uid": uid},
+            {"$set": data},
+            upsert=True
+        )
         last_preferences = data if isinstance(data, dict) else {"value": data}
         
-        return {
-            "message": "Preferences received successfully!",
+        response = {
+            "success": True,
+            "message": "Preferences saved successfully!",
             "received_fields": list(data.keys()) if isinstance(data, dict) else [],
-            "shared_id": shared_id,
-            "inserted_id": str(result.inserted_id)
-        }, 200
+            "uid": uid
+        }
+        if result.upserted_id:
+            response["upserted"] = str(result.upserted_id)
+        else:
+            response["modified_count"] = result.modified_count
+        
+        return response, 200
         
     except Exception as e:
         print(f"Error saving preferences: {e}")
-        return {"error": "Failed to save data"}, 500
+        return {"success": False, "error": "Failed to save data"}, 500
 
 
 @app.route("/api/preferences", methods=["GET"])
@@ -209,33 +239,33 @@ def viewUserPreferences():
     return {"message": "Last saved preferences", "preferences": last_preferences}, 200
 
 
-# NEW: Get all user data for a shared_id
-@app.route("/api/user-data/<int:shared_id>", methods=["GET", "OPTIONS"])
-def get_user_data(shared_id):
+# Get all user data for a Firebase UID
+@app.route("/api/user-data/<uid>", methods=["GET", "OPTIONS"])
+def get_user_data(uid):
     # Handle CORS preflight
     if request.method == "OPTIONS":
         response = app.make_default_options_response()
         return response
     
     try:
-        # Use helper to query both int and string versions of shared_id
-        shared_id_query = get_shared_id_query(shared_id)
+        uid = normalize_uid(uid)
+        uid_query = get_uid_query(uid)
         
         # Get latest courses
         user_courses = course_col.find_one(
-            shared_id_query,
+            uid_query,
             sort=[("_id", -1)]
         )
         
         # Get latest preferences
         user_prefs = pref_col.find_one(
-            shared_id_query,
+            uid_query,
             sort=[("_id", -1)]
         )
         
         # Get saved schedule if any
         saved_schedule = schedules_col.find_one(
-            shared_id_query,
+            uid_query,
             sort=[("_id", -1)]
         )
         
@@ -265,30 +295,32 @@ def get_user_data(shared_id):
         }), 500
 
 
-# NEW: Save a selected schedule
+# Save a selected schedule
 @app.route("/api/save-schedule", methods=["POST"])
 def save_schedule():
     try:
         data = request.get_json()
-        shared_id = data.get("shared_id")
-        schedule = data.get("schedule")
+        uid = data.get("uid")
+        schedules = data.get("schedules")
+        selected_index = data.get("selected_index", 0)
         
-        if not shared_id or not schedule:
+        if not uid or schedules is None:
             return jsonify({
                 "success": False,
-                "error": "shared_id and schedule required"
+                "error": "uid and schedules required"
             }), 400
         
-        # Normalize shared_id
-        shared_id = normalize_shared_id(shared_id)
-        shared_id_query = get_shared_id_query(shared_id)
+        # Normalize uid
+        uid = normalize_uid(uid)
+        uid_query = get_uid_query(uid)
         
-        # Upsert - update if exists, insert if not
-        result = schedules_col.update_one(
-            shared_id_query,
+        # Upsert - update if exists, insert if not to UserSchedules collection
+        result = user_schedules_col.update_one(
+            uid_query,
             {"$set": {
-                "shared_id": shared_id,
-                "schedule": schedule,
+                "uid": uid,
+                "schedules": schedules,
+                "selected_index": selected_index,
                 "updated_at": __import__('datetime').datetime.utcnow()
             }},
             upsert=True
@@ -296,7 +328,7 @@ def save_schedule():
         
         return jsonify({
             "success": True,
-            "message": "Schedule saved successfully",
+            "message": "Schedules saved successfully",
             "upserted": result.upserted_id is not None
         }), 200
         
@@ -308,19 +340,20 @@ def save_schedule():
         }), 500
 
 
-# NEW: Get saved schedule
-@app.route("/api/saved-schedule/<int:shared_id>", methods=["GET", "OPTIONS"])
-def get_saved_schedule(shared_id):
+# Get saved schedule
+@app.route("/api/saved-schedule/<uid>", methods=["GET", "OPTIONS"])
+def get_saved_schedule(uid):
     # Handle CORS preflight
     if request.method == "OPTIONS":
         response = app.make_default_options_response()
         return response
     
     try:
-        shared_id_query = get_shared_id_query(shared_id)
+        uid = normalize_uid(uid)
+        uid_query = get_uid_query(uid)
         
         saved_schedule = schedules_col.find_one(
-            shared_id_query,
+            uid_query,
             sort=[("_id", -1)]
         )
         
@@ -343,7 +376,7 @@ def get_saved_schedule(shared_id):
         }), 500
 
 
-# NEW: Modify schedule (add/remove courses and regenerate)
+# Modify schedule (add/remove courses and regenerate)
 @app.route("/api/modify-schedule", methods=["POST"])
 def modify_schedule():
     if not RECO_ENGINE_AVAILABLE:
@@ -354,30 +387,30 @@ def modify_schedule():
     
     try:
         data = request.get_json()
-        shared_id = data.get("shared_id")
+        uid = data.get("uid")
         action = data.get("action")  # "add" or "remove"
         course_code = data.get("course_code")
         priority_rank = data.get("priority_rank")  # For add action
         current_schedule = data.get("current_schedule", [])
         
-        if not shared_id or not action or not course_code:
+        if not uid or not action or not course_code:
             return jsonify({
                 "success": False,
-                "error": "shared_id, action, and course_code required"
+                "error": "uid, action, and course_code required"
             }), 400
         
-        # Normalize shared_id and create query
-        shared_id = normalize_shared_id(shared_id)
-        shared_id_query = get_shared_id_query(shared_id)
+        # Normalize uid and create query
+        uid = normalize_uid(uid)
+        uid_query = get_uid_query(uid)
         
         # Get user data
         user_courses = course_col.find_one(
-            shared_id_query,
+            uid_query,
             sort=[("_id", -1)]
         )
         
         user_prefs = pref_col.find_one(
-            shared_id_query,
+            uid_query,
             sort=[("_id", -1)]
         )
         
@@ -416,7 +449,7 @@ def modify_schedule():
         
         # Regenerate schedule with modifications
         result = generate_schedule_for_user(
-            shared_id=shared_id,
+            uid=uid,
             course_col=course_col,
             pref_col=pref_col,
             enriched_courses_col=enriched_courses_col,
@@ -485,20 +518,20 @@ def generate_schedule():
     
     try:
         data = request.get_json()
-        shared_id = data.get("shared_id")
+        uid = data.get("uid")
         num_recommendations = data.get("num_recommendations", 10)
         
-        if not shared_id:
+        if not uid:
             return jsonify({
                 "success": False,
-                "error": "shared_id required"
+                "error": "uid required"
             }), 400
         
-        # Normalize shared_id
-        shared_id = normalize_shared_id(shared_id)
+        # Normalize uid
+        uid = normalize_uid(uid)
         
         result = generate_schedule_for_user(
-            shared_id=shared_id,
+            uid=uid,
             course_col=course_col,
             pref_col=pref_col,
             enriched_courses_col=enriched_courses_col,
@@ -515,6 +548,61 @@ def generate_schedule():
     except Exception as e:
         import traceback
         traceback.print_exc()
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+
+# Register user UID in MongoDB when they sign up
+@app.route("/api/register-user", methods=["POST"])
+def register_user():
+    """
+    Save user information to MongoDB Users collection when they register.
+    Called from frontend after Firebase registration is successful.
+    """
+    try:
+        data = request.get_json()
+        uid = data.get("uid")
+        
+        if not uid:
+            return jsonify({
+                "success": False,
+                "error": "uid is required"
+            }), 400
+        
+        # Normalize uid
+        uid = normalize_uid(uid)
+        
+        # Check if user already exists
+        existing_user = user_col.find_one({"uid": uid})
+        
+        if existing_user:
+            # User already registered, just return success
+            return jsonify({
+                "success": True,
+                "message": "User already registered",
+                "uid": uid
+            }), 200
+        
+        # Create new user document
+        user_doc = {
+            "uid": uid,
+            "created_at": __import__('datetime').datetime.utcnow(),
+            "updated_at": __import__('datetime').datetime.utcnow()
+        }
+        
+        result = user_col.insert_one(user_doc)
+        
+        return jsonify({
+            "success": True,
+            "message": "User registered successfully",
+            "uid": uid,
+            "user_id": str(result.inserted_id)
+        }), 201
+        
+    except Exception as e:
+        print(f"Error registering user: {e}")
         return jsonify({
             "success": False,
             "error": str(e)

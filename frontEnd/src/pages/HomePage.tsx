@@ -115,7 +115,7 @@ const Pill = ({ children }: { children: React.ReactNode }) => (
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-paleGold/10 to-white">
+    <div className="min-h-screen bg-linear-to-b from-white via-paleGold/10 to-white">
       {/* Top bar */}
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2">
@@ -304,7 +304,7 @@ export default function HomePage() {
 
       {/* CTA */}
       <section id="cta" className="mx-auto max-w-6xl px-4 pb-16">
-        <div className="rounded-3xl border border-zinc-200 bg-gradient-to-tr from-emoryBlue/5 via-white to-paleGold/20 p-8 text-center shadow-sm">
+        <div className="rounded-3xl border border-zinc-200 bg-linear-to-tr from-emoryBlue/5 via-white to-paleGold/20 p-8 text-center shadow-sm">
           <h3 className="text-2xl font-semibold text-emoryBlue">
             Ready to plan a calmer semester?
           </h3>

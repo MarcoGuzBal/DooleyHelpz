@@ -1,23 +1,21 @@
 // Get the API URL - detect production vs development
 const getApiUrl = (): string => {
-  // 1. Priority: Use environment variable if set
+  // 1. Always use localhost for development (http://localhost:5173)
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      const devUrl = 'http://localhost:8080';
+      console.log("API URL (localhost development):", devUrl);
+      return devUrl;
+    }
+  }
+
+  // 2. Priority: Use environment variable if set (for production)
   const envUrl = import.meta.env.VITE_API_URL;
-  
   if (envUrl) {
-    // Clean the URL - remove any extra spaces or trailing content
     const cleanUrl = envUrl.trim().split(' ')[0];
     console.log("API URL from env:", cleanUrl);
     return cleanUrl;
-  }
-
-  // 2. Fallback: Auto-detect production environment
-  if (typeof window !== 'undefined') {
-    const hostname = window.location.hostname;
-    if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
-      const prodUrl = 'https://dooley-devs.fly.dev';
-      console.log("API URL (production fallback):", prodUrl);
-      return prodUrl;
-    }
   }
 
   // 3. Default: Localhost
@@ -92,8 +90,8 @@ export async function apiCall<T>(
 
 // Typed API functions
 export const api = {
-  // Get user data
-  getUserData: async (sharedId: number) => {
+  // Get user data by Firebase UID
+  getUserData: async (uid: string) => {
     return apiCall<{
       success: boolean;
       has_courses: boolean;
@@ -102,7 +100,7 @@ export const api = {
       courses: any;
       preferences: any;
       saved_schedule: any;
-    }>(`/api/user-data/${sharedId}`);
+    }>(`/api/user-data/${uid}`);
   },
 
   // Upload courses
@@ -122,7 +120,7 @@ export const api = {
   },
 
   // Generate schedule
-  generateSchedule: async (sharedId: number, numRecommendations = 10) => {
+  generateSchedule: async (uid: string, numRecommendations = 10) => {
     return apiCall<{
       success: boolean;
       schedules: any[];
@@ -131,34 +129,34 @@ export const api = {
     }>(`/api/generate-schedule`, {
       method: "POST",
       body: JSON.stringify({
-        shared_id: sharedId,
+        uid: uid,
         num_recommendations: numRecommendations,
       }),
     });
   },
 
   // Save schedule
-  saveSchedule: async (sharedId: number, schedule: any) => {
+  saveSchedule: async (uid: string, schedule: any) => {
     return apiCall(`/api/save-schedule`, {
       method: "POST",
       body: JSON.stringify({
-        shared_id: sharedId,
+        uid: uid,
         schedule,
       }),
     });
   },
 
   // Get saved schedule
-  getSavedSchedule: async (sharedId: number) => {
+  getSavedSchedule: async (uid: string) => {
     return apiCall<{
       success: boolean;
       schedule: any;
-    }>(`/api/saved-schedule/${sharedId}`);
+    }>(`/api/saved-schedule/${uid}`);
   },
 
   // Modify schedule (add/remove course)
   modifySchedule: async (
-    sharedId: number,
+    uid: string,
     action: "add" | "remove",
     courseCode: string,
     priorityRank?: number,
@@ -167,7 +165,7 @@ export const api = {
     return apiCall(`/api/modify-schedule`, {
       method: "POST",
       body: JSON.stringify({
-        shared_id: sharedId,
+        uid: uid,
         action,
         course_code: courseCode,
         priority_rank: priorityRank,
@@ -192,5 +190,18 @@ export const api = {
       mongodb: string;
       recommendation_engine: string;
     }>(`/api/health`);
+  },
+
+  // Register user (save UID to backend after Firebase signup)
+  registerUser: async (uid: string, email: string) => {
+    return apiCall<{
+      success: boolean;
+      message: string;
+      uid: string;
+      user_id: string;
+    }>(`/api/register-user`, {
+      method: "POST",
+      body: JSON.stringify({ uid, email }),
+    });
   },
 };

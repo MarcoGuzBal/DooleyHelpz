@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import { auth } from "../firebase";
-import { getOrCreateSharedId } from "../utils/anonID";
 import { api } from "../utils/api";
 
 import applogo from "../assets/dooleyHelpzAppLogo.png";
@@ -239,10 +238,9 @@ export default function DashboardPage() {
     setNetworkError(null);
 
     try {
-      const sharedId = getOrCreateSharedId();
-      console.log("Dashboard: Fetching data for sharedId:", sharedId);
+      const uid = auth.currentUser?.uid; if (!uid) throw new Error("Not signed in");
 
-      const result = await api.getUserData(sharedId);
+      const result = await api.getUserData(uid);
       console.log("Dashboard: API result:", result);
 
       if (result.success && result.data) {
@@ -428,7 +426,7 @@ export default function DashboardPage() {
             )}
 
             {/* Welcome Section */}
-            <section className="mb-8 grid items-center gap-6 rounded-3xl border border-zinc-200 bg-gradient-to-tr from-emoryBlue/5 via-white to-amber-50 p-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+            <section className="mb-8 grid items-center gap-6 rounded-3xl border border-zinc-200 bg-linear-to-tr from-emoryBlue/5 via-white to-amber-50 p-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
               <div>
                 <h1 className="text-2xl font-bold text-emoryBlue md:text-3xl">
                   Welcome, {user?.email?.split("@")[0] || "Guest"}!

@@ -5,7 +5,7 @@ import {
   ChevronLeft, ChevronRight, Star, Clock, BookOpen, GraduationCap,
   Plus, X, Search, List, ChevronDown, ChevronUp, Trash2,
 } from "lucide-react";
-import { getOrCreateSharedId } from "../utils/anonID";
+import { auth } from "../firebase";
 import { API_URL } from "../utils/api";
 import applogo from "../assets/dooleyHelpzAppLogo.png";
 
@@ -389,11 +389,12 @@ export default function ScheduleBuilderPage() {
   async function fetchSchedules() {
     setLoading(true); setError(null);
     try {
-      const sharedId = getOrCreateSharedId();
+      const uid = auth.currentUser?.uid;
+      if (!uid) throw new Error("Not signed in");
       const res = await fetch(`${API_URL}/api/generate-schedule`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ shared_id: sharedId, num_recommendations: 10 })
+        body: JSON.stringify({ uid: uid, num_recommendations: 10 })
       });
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error || "Failed to generate schedules");
@@ -453,10 +454,11 @@ export default function ScheduleBuilderPage() {
   if (!schedules.length) return;
 
   try {
-    const sharedId = getOrCreateSharedId();
+    const uid = auth.currentUser?.uid;
+    if (!uid) throw new Error("Not signed in");
 
     const payload = {
-      shared_id: sharedId,
+      uid: uid,
       schedules,          // all 10 schedules
       selected_index: selectedIdx,  // which one the user currently has selected
     };

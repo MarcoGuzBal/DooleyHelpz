@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Upload, FileText, Clock, CheckCircle2, AlertCircle, Send } from "lucide-react";
 import { Link } from "react-router-dom";
-import { getOrCreateSharedId } from "../utils/anonID";
 import { api } from "../utils/api";
 
 // Logo
@@ -31,6 +30,7 @@ try {
 
 // Parser now returns 4 buckets (Transfer, Test, Emory, Spring 2026)
 import { parseTranscript, type ParseResult } from "../utils/parseTranscript";
+import { auth } from "../firebase";
 
 
 
@@ -98,21 +98,21 @@ export default function TranscriptParserPage() {
     incoming_test_courses: string[],
     emory_courses: string[],
     spring_2026_courses: string[],
-    shared_id?: number
+    _uid?: number
   ) {
     try {
       setPosting(true);
       setPostedOk(null);
       setPostError(null);
 
-      const idToSend = shared_id ?? getOrCreateSharedId();
+      const uid = auth.currentUser?.uid; if (!uid) throw new Error("Not signed in");
 
       const result = await api.uploadCourses({
         incoming_transfer_courses,
         incoming_test_courses,
         emory_courses,
         spring_2026_courses,
-        shared_id: idToSend,
+        uid: uid,
       });
 
       setPostedOk(result.success);
@@ -306,14 +306,13 @@ export default function TranscriptParserPage() {
       setPostError("No courses selected.");
       return;
     }
-    const shared_id = getOrCreateSharedId();
+    const uid = auth.currentUser?.uid; if (!uid) throw new Error("Not signed in");
 
     sendToBackendSeparated(
       incoming_transfer_courses,
       incoming_test_courses,
       emory_courses,
       spring_2026_courses,
-      shared_id
     );
   }
 

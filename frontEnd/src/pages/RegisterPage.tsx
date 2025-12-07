@@ -65,8 +65,28 @@ export default function RegisterPage() {
   async function onSubmit(values: FormData) {
     setServerError(null);
     try {
-      await createUserWithEmailAndPassword(auth, values.email, values.password);
-      // User is signed in on success; send them to dashboard (or login if you prefer)
+      const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+      
+      // Get the Firebase UID
+      const uid = userCredential.user.uid;
+      
+      // Save user to backend MongoDB Users collection (always localhost for dev)
+      const registerResponse = await fetch(
+        'http://localhost:8080/api/register-user',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            uid: uid,
+          })
+        }
+      );
+      
+      if (!registerResponse.ok) {
+        console.warn('Failed to register user on backend, but Firebase auth succeeded');
+      }
+      
+      // User is signed in on success; send them to dashboard
       navigate("/dashboard", { replace: true });
     } catch (err: any) {
       setServerError(mapFirebase(err?.code));

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   DndContext,
   closestCenter,
@@ -23,7 +23,7 @@ import applogo from "../assets/dooleyHelpzAppLogo.png";
 import mascot from "../assets/EHMascot.png";
 import { useNavigate } from "react-router-dom";
 import { api } from "../utils/api";
-import { getOrCreateSharedId } from "../utils/anonID";
+import { auth } from "../firebase";
 
 /* ------------------------ Helper Types ------------------------- */
 const DEGREE_TYPES = ["BS", "BA"] as const;
@@ -79,7 +79,7 @@ type PreferencesPayload = {
  * 52 => 20:00
  */
 const EARLIEST_HOUR = 7; // 7:00
-const LATEST_HOUR = 20; // 20:00 (8 PM)
+const LATEST_HOUR = 21; // 21:00 (8 PM)
 const MINUTES_STEP = 15;
 
 const TOTAL_STEPS =
@@ -100,6 +100,15 @@ function indexTo24hString(idx: number): string {
   const hh = h.toString().padStart(2, "0");
   const mm = m.toString().padStart(2, "0");
   return `${hh}:${mm}`;
+}
+
+function timeStringToIndex(timeStr: string): number {
+  // Convert "07:00" -> index
+  const [hh, mm] = timeStr.split(":").map(Number);
+  const totalMinutes = hh * 60 + mm;
+  const minutesFromStart = totalMinutes - EARLIEST_HOUR * 60;
+  const idx = minutesFromStart / MINUTES_STEP;
+  return Math.round(idx);
 }
 
 function formatLabel(idx: number): string {
@@ -177,6 +186,32 @@ export default function PreferencesPage() {
     TIME_INDICES[TIME_INDICES.length - 1] // 20:00
   );
 
+  /* ----------------------- Load Preferences on Mount --------------- */
+  useEffect(() => {
+    const uid = auth.currentUser?.uid;
+    if (!uid) return;
+
+    api.getUserData(uid).then((res) => {
+      if (res.success && res.data && res.data.preferences) {
+        const prefs = res.data.preferences;
+        if (prefs.degreeType) setDegreeType(prefs.degreeType);
+        if (prefs.year) setYear(prefs.year);
+        if (prefs.expectedGraduation) {
+          setGradTerm(prefs.expectedGraduation.term);
+          setGradYear(prefs.expectedGraduation.year);
+        }
+        if (prefs.preferredCredits) setPreferredCredits(String(prefs.preferredCredits));
+        if (prefs.interests) setInterestList(prefs.interests);
+        if (prefs.timeUnavailable) setUnavailable(prefs.timeUnavailable);
+        if (prefs.priorityOrder) setPriorityOrder(prefs.priorityOrder);
+        if (prefs.earliestClass) setEarliestIndex(timeStringToIndex(prefs.earliestClass));
+        if (prefs.latestClass) setLatestIndex(timeStringToIndex(prefs.latestClass));
+      }
+    }).catch((err) => {
+      console.error("Error loading preferences:", err);
+    });
+  }, []);
+
   /* ----------------------- Utility Functions --------------------- */
 
   function toggleInterest(i: Interests) {
@@ -233,8 +268,9 @@ export default function PreferencesPage() {
 
     console.log("SUBMIT", payload);
 
-    const sharedId = getOrCreateSharedId();
-    const payloadWithId = { ...payload, shared_id: sharedId };
+    const uid = auth.currentUser?.uid; if (!uid) throw new Error("Not signed in");
+    
+    const payloadWithId = { ...payload, uid: uid};
 
     api.savePreferences(payloadWithId)
       .then((res) => {
@@ -313,7 +349,7 @@ export default function PreferencesPage() {
       {/* Main Content */}
       <main className="mx-auto max-w-6xl px-4 py-8">
         {/* Intro / Mascot */}
-        <section className="mb-8 flex flex-col gap-4 rounded-2xl border border-zinc-200 bg-gradient-to-tr from-emoryBlue/5 via-white to-paleGold/20 p-6 md:flex-row md:items-center md:justify-between">
+        <section className="mb-8 flex flex-col gap-4 rounded-2xl border border-zinc-200 bg-linear-to-tr from-emoryBlue/5 via-white to-paleGold/20 p-6 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-2xl font-bold text-emoryBlue md:text-3xl">
               Update Your Preferences
@@ -518,7 +554,7 @@ export default function PreferencesPage() {
               <div className="mt-2">
                 <div className="flex items-center justify-between text-xs text-zinc-500">
                   <span>7:00 AM</span>
-                  <span>8:00 PM</span>
+                  <span>9:00 PM</span>
                 </div>
                 <input
                   type="range"

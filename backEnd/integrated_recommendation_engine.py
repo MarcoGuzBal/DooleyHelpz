@@ -1642,7 +1642,7 @@ class IntegratedRecommendationEngine:
 
 
 def generate_schedule_for_user(
-    shared_id: int,
+    uid: str,
     course_col,
     pref_col,
     enriched_courses_col,
@@ -1652,19 +1652,15 @@ def generate_schedule_for_user(
 ) -> Dict:
 
     try:
-        try:
-            int_id = int(shared_id)
-            shared_id_query = {"$or": [{"shared_id": int_id}, {"shared_id": str(int_id)}]}
-        except (ValueError, TypeError):
-            shared_id_query = {"shared_id": shared_id}
+        uid_query = {"uid": uid}
 
         user_courses = course_col.find_one(
-            shared_id_query,
+            uid_query,
             sort=[("_id", -1)]
         )
 
         user_prefs = pref_col.find_one(
-            shared_id_query,
+            uid_query,
             sort=[("_id", -1)]
         )
 
