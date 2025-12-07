@@ -343,13 +343,28 @@ export default function DashboardPage() {
       })
     : [];
 
+  // Example schedule with the same color palette used in ScheduleBuilder
+  const exampleColorMap = new Map<string, string>();
+  const exampleSchedule: ScheduleMeeting[] = DUMMY_SCHEDULE.map((m) => {
+    if (!exampleColorMap.has(m.course)) {
+      const color =
+        COURSE_COLORS[exampleColorMap.size % COURSE_COLORS.length] ||
+        COURSE_COLORS[0];
+      exampleColorMap.set(m.course, color);
+    }
+    return {
+      ...m,
+      colorClass: exampleColorMap.get(m.course),
+    };
+  });
+
   // Determine what to display
   const hasRealCourses = userCourses.length > 0;
   const hasRealSchedule =
     savedSchedules.length > 0 && scheduleFromBackend.length > 0;
 
   const displayCourses = hasRealCourses ? userCourses : DUMMY_COURSES;
-  const displaySchedule = hasRealSchedule ? scheduleFromBackend : DUMMY_SCHEDULE;
+  const displaySchedule = hasRealSchedule ? scheduleFromBackend : exampleSchedule;
 
   const handleLogout = async () => {
     await auth.signOut();

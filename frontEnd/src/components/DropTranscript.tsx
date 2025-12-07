@@ -1,4 +1,4 @@
-// src/pages/TranscriptParserPage.tsx
+﻿// src/pages/TranscriptParserPage.tsx
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Upload, FileText, Clock, CheckCircle2, AlertCircle, Send } from "lucide-react";

@@ -17,10 +17,10 @@ type Course = {
   time: string;
   meeting?: { day: string; time: string; location: string }[];
   rmp?: { rating: number; num_ratings: number } | null;
-  score: number;
+  score?: number;
   ger: string | string[] | null;
   normalized_code: string;
-  outside_preferred_time?: boolean;
+  outside_preferred_time?: boolean; // rename in UI to "Outside preferences"
   user_added?: boolean;  // Track if user added this course
 };
 
@@ -41,7 +41,7 @@ type CalendarBlock = {
   start: string;
   end: string;
   color: string;
-  outside_preferred_time?: boolean;
+  outside_preferred_time?: boolean; // rename in UI to "Outside preferences"
   user_added?: boolean;
 };
 
@@ -366,7 +366,6 @@ function ScheduleOptionsDrawer({ schedules, selectedIdx, onSelect, isOpen, onTog
               <button key={idx} onClick={() => onSelect(idx)} className={`p-3 rounded-lg border-2 text-center transition-all ${idx === selectedIdx ? "border-emoryBlue bg-emoryBlue/5" : "border-zinc-200 hover:border-zinc-300 bg-white"}`}>
                 <div className="text-lg font-bold text-emoryBlue">#{idx + 1}</div>
                 <div className="text-xs text-zinc-500">{schedule.total_credits} cr</div>
-                <div className="flex items-center justify-center gap-1 mt-1"><Star className="h-3 w-3 text-amber-500" /><span className="text-xs text-amber-600">{schedule.total_score.toFixed(0)}</span></div>
               </button>
             ))}
           </div>
@@ -387,7 +386,7 @@ function CourseDetailRow({ course, onRemove, canRemove = true }: { course: Cours
         <div className="flex items-center gap-2">
           <span className="font-semibold text-emoryBlue">{course.code}</span>
           {isUserAdded && <span className="rounded bg-gray-200 px-1.5 py-0.5 text-[10px] font-medium text-gray-600">📌 Added</span>}
-          {isOutsideTime && <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 flex items-center gap-0.5"><AlertTriangle className="h-3 w-3" /> Outside pref.</span>}
+          {isOutsideTime && <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 flex items-center gap-0.5"><AlertTriangle className="h-3 w-3" /> Outside preferences</span>}
           {gers.map((g) => <span key={g} className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700">{g}</span>)}
         </div>
         <p className="text-sm text-zinc-600 truncate max-w-md">{course.title}</p>
@@ -577,7 +576,6 @@ function ScheduleCard({ schedule, index, isSelected, onSelect }: { schedule: Sch
     <div onClick={onSelect} className={`cursor-pointer rounded-xl border-2 p-4 transition-all hover:shadow-md ${isSelected ? "border-emoryBlue bg-emoryBlue/5 shadow-md" : "border-zinc-200 bg-white hover:border-zinc-300"}`}>
       <div className="flex items-start justify-between mb-3">
         <div><h3 className="font-semibold text-emoryBlue">Schedule {index + 1}</h3><p className="text-xs text-zinc-500">{schedule.course_count} courses • {schedule.total_credits} credits</p></div>
-        <div className="flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5"><Star className="h-3 w-3 text-amber-600" /><span className="text-xs font-medium text-amber-700">{schedule.total_score.toFixed(0)}</span></div>
       </div>
       <div className="space-y-1.5">{schedule.courses.slice(0, 5).map((course, i) => <div key={`${course.code}-${i}`} className="flex items-center justify-between text-xs"><span className="font-medium text-zinc-800 truncate max-w-[140px]">{course.code}</span><span className="text-zinc-500">{course.credits} cr</span></div>)}{schedule.courses.length > 5 && <p className="text-xs text-zinc-400 italic">+{schedule.courses.length - 5} more...</p>}</div>
       {gersInSchedule.size > 0 && <div className="mt-3 flex flex-wrap gap-1">{Array.from(gersInSchedule).map((ger) => <span key={ger} className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700">{ger}</span>)}</div>}
@@ -885,7 +883,7 @@ export default function ScheduleBuilderPage() {
                     </div>
                     <div className="flex items-center gap-1">
                       <AlertTriangle className="h-3 w-3 text-amber-600" />
-                      <span>Outside preferred time</span>
+                      <span>Outside preferences</span>
                     </div>
                   </div>
                 </div>
@@ -906,7 +904,7 @@ export default function ScheduleBuilderPage() {
                     ))}
                   </div>
                   <div className="mt-4 rounded-lg bg-emoryBlue/5 border border-emoryBlue/20 p-4">
-                    <div className="grid grid-cols-3 gap-4 text-center">
+                    <div className="grid grid-cols-2 gap-4 text-center">
                       <div>
                         <p className="text-2xl font-bold text-emoryBlue">{selectedSchedule.total_credits}</p>
                         <p className="text-xs text-zinc-600">Credits</p>
@@ -914,10 +912,6 @@ export default function ScheduleBuilderPage() {
                       <div>
                         <p className="text-2xl font-bold text-emoryBlue">{selectedSchedule.courses.length}</p>
                         <p className="text-xs text-zinc-600">Courses</p>
-                      </div>
-                      <div>
-                        <p className="text-2xl font-bold text-amber-600">{selectedSchedule.total_score.toFixed(0)}</p>
-                        <p className="text-xs text-zinc-600">Score</p>
                       </div>
                     </div>
                   </div>
