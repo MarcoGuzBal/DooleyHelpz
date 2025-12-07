@@ -620,7 +620,7 @@ export default function ScheduleBuilderPage() {
       if (!uid) throw new Error("Not signed in");
       
       // Send removed and added courses to backend for consideration
-      const lockedCourses = Array.from(addedCourses.entries()).map(([code, course], idx) => ({
+      const lockedCourses = Array.from(addedCourses.entries()).map(([code], idx) => ({
         code,
         priority: idx + 1  // Priority based on order added
       }));
