@@ -135,7 +135,19 @@ export const api = {
     });
   },
 
-  // Save schedule
+  // Save ALL schedule recommendations + selected index (multi-schedule)
+  saveSchedules: async (uid: string, schedules: any[], selectedIndex: number) => {
+    return apiCall(`/api/save-schedule`, {
+      method: "POST",
+      body: JSON.stringify({
+        uid: uid,
+        schedules,
+        selected_index: selectedIndex,
+      }),
+    });
+  },
+
+  // Save single schedule (legacy/backwards compatible)
   saveSchedule: async (uid: string, schedule: any) => {
     return apiCall(`/api/save-schedule`, {
       method: "POST",
@@ -150,7 +162,11 @@ export const api = {
   getSavedSchedule: async (uid: string) => {
     return apiCall<{
       success: boolean;
-      schedule: any;
+      // backend may return either shape during migration
+      schedule?: any;
+      schedules?: any[];
+      selected_index?: number;
+      saved_schedule?: any;
     }>(`/api/saved-schedule/${uid}`);
   },
 

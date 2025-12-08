@@ -6,7 +6,7 @@ import {
   Plus, X, Search, List, ChevronDown, ChevronUp, Trash2, AlertTriangle,
 } from "lucide-react";
 import { auth } from "../firebase";
-import { API_URL } from "../utils/api";
+import { API_URL, api } from "../utils/api";
 import applogo from "../assets/dooleyHelpzAppLogo.png";
 
 type Course = {
@@ -767,23 +767,12 @@ export default function ScheduleBuilderPage() {
       const uid = auth.currentUser?.uid;
       if (!uid) throw new Error("Not signed in");
 
-      const payload = {
-        uid: uid,
-        schedules,          // all 10 schedules
-        selected_index: selectedIdx,  // which one the user currently has selected
-      };
+      const res = await api.saveSchedules(uid, schedules, selectedIdx);
 
-      const res = await fetch(`${API_URL}/api/save-schedule`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-      if (data.success) {
+      if (res.success) {
         alert("Schedules saved successfully!");
       } else {
-        alert("Failed to save: " + (data.error || "Unknown error"));
+        alert("Failed to save: " + (res.error || "Unknown error"));
       }
     } catch (err) {
       console.error("Failed to save:", err);
