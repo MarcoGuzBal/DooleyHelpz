@@ -44,8 +44,10 @@ const COURSE_COLORS = [
 
 const DAYS: ScheduleMeeting["day"][] = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 const START_HOUR = 8;
-const END_HOUR = 19;
+const END_HOUR = 21;
 const TOTAL_MINUTES = (END_HOUR - START_HOUR) * 60;
+const HOUR_HEIGHT_PX = 40;
+const CALENDAR_HEIGHT = (END_HOUR - START_HOUR) * HOUR_HEIGHT_PX;
 
 function minutesFromStart(time: string): number {
   const [h, m] = time.split(":").map(Number);
@@ -146,7 +148,7 @@ function SchedulePreview({
         <h3 className="text-sm font-semibold text-emoryBlue">Weekly view</h3>
       </div>
       <div className="grid grid-cols-[3rem_repeat(5,1fr)] gap-2 text-xs">
-        <div className="relative h-[440px]">
+        <div className="relative" style={{ height: CALENDAR_HEIGHT }}>
           {Array.from({ length: END_HOUR - START_HOUR + 1 }).map((_, idx) => {
             const hour = START_HOUR + idx;
             const top = (idx / (END_HOUR - START_HOUR)) * 100;
@@ -164,7 +166,8 @@ function SchedulePreview({
         {DAYS.map((day) => (
           <div
             key={day}
-            className="relative h-[440px] border-l border-zinc-100"
+            className="relative border-l border-zinc-100"
+            style={{ height: CALENDAR_HEIGHT }}
           >
             <div className="mb-1 text-center text-[11px] font-semibold text-emoryBlue">
               {day}
