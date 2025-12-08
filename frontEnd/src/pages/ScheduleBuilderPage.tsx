@@ -260,9 +260,8 @@ function formatTime12(time24: string): string {
 function generateICS(courses: Course[], scheduleName: string): string {
   const lines: string[] = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//DooleyHelpz//EN", "CALSCALE:GREGORIAN", "METHOD:PUBLISH", `X-WR-CALNAME:${scheduleName}`];
   
-  // Spring 2026 semester - starting on Monday January 12th
-  const semesterStart = new Date("2026-01-12");  // This is a Monday
-  const semesterEnd = new Date("2026-04-24");
+  const semesterStart = new Date(2026, 0, 12);  // January 12, 2026 (Monday) - month is 0-indexed
+  const semesterEnd = new Date(2026, 3, 24);    // April 24, 2026 - month is 0-indexed (3 = April)
   
   // Day offsets from Monday (which is our semesterStart)
   const dayOffsets: Record<string, number> = { Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4 };
