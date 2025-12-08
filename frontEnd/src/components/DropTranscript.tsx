@@ -105,7 +105,12 @@ export default function TranscriptParserPage() {
       setPostedOk(null);
       setPostError(null);
 
-      const uid = auth.currentUser?.uid; if (!uid) throw new Error("Not signed in");
+      const uid = auth.currentUser?.uid;
+      if (!uid) {
+        setPostedOk(false);
+        setPostError("Not signed in");
+        return;
+      }
 
       const result = await api.uploadCourses({
         incoming_transfer_courses,
@@ -438,6 +443,10 @@ export default function TranscriptParserPage() {
               Click to choose{" "}
               <span className="font-semibold">PDF transcript</span> (you can
               select multiple)
+            </p>
+            <p className="text-xs text-zinc-500 max-w-md">
+              If you're a freshman, just drop in any PDF and manually add a fake
+              course code like "1" so you can move forward.
             </p>
             {isExtracting && (
               <p className="text-xs text-zinc-600">

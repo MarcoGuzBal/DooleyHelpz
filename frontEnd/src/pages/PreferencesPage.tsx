@@ -42,8 +42,6 @@ const DAYS = [
   "Wednesday",
   "Thursday",
   "Friday",
-  "Saturday",
-  "Sunday",
 ] as const;
 type Days = (typeof DAYS)[number];
 
@@ -79,7 +77,7 @@ type PreferencesPayload = {
  * 52 => 20:00
  */
 const EARLIEST_HOUR = 7; // 7:00
-const LATEST_HOUR = 21; // 21:00 (8 PM)
+const LATEST_HOUR = 21; // 21:00 (9 PM)
 const MINUTES_STEP = 15;
 
 const TOTAL_STEPS =
@@ -224,8 +222,14 @@ export default function PreferencesPage() {
   }
 
   function addBlock() {
-    if (!tempStart || !tempEnd) return;
-    if (tempStart >= tempEnd) return;
+    if (!tempStart || !tempEnd) {
+      alert("Please pick a start and end time.");
+      return;
+    }
+    if (tempStart >= tempEnd) {
+      alert("End time must be after start time.");
+      return;
+    }
 
     setUnavailable([
       ...unavailable,

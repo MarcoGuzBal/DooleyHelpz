@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import {
   CalendarDays, Download, RefreshCw, CheckCircle2, AlertCircle,
@@ -47,7 +47,7 @@ type CalendarBlock = {
 
 const DAYS: CalendarBlock["day"][] = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 const START_HOUR = 8;
-const END_HOUR = 21;
+const END_HOUR = 23; // Extend view to 11:00 PM
 const TOTAL_MINUTES = (END_HOUR - START_HOUR) * 60;
 
 const COURSE_COLORS = [
@@ -59,6 +59,27 @@ const COURSE_COLORS = [
   "bg-cyan-100 border-cyan-300 text-cyan-800",
   "bg-orange-100 border-orange-300 text-orange-800",
 ];
+
+const MAJOR_MUST = new Set<string>([
+  "MATH111", "MATH112", "MATH221",
+  "CS170", "CS171", "CS224", "CS253",
+  "CS255", "CS326", "CS350",
+]);
+
+const formatGer = (ger: string) => (ger === "MQR" ? "MAJOR" : ger);
+
+function getCourseTags(course: Course): string[] {
+  const rawGers = course.ger ? (Array.isArray(course.ger) ? course.ger : [course.ger]) : [];
+  const tags = new Set<string>();
+  rawGers.forEach((g) => tags.add(formatGer(g)));
+
+  const normalizedCode = (course.normalized_code || course.code || "").toUpperCase().replace(/\s+/g, "");
+  if (MAJOR_MUST.has(normalizedCode)) {
+    tags.add("MAJOR");
+  }
+
+  return Array.from(tags);
+}
 
 // User-added course color (translucent)
 const USER_ADDED_COLOR = "bg-gray-100/60 border-gray-400 border-dashed text-gray-700";
@@ -84,17 +105,18 @@ function parseTimeString(timeStr: string): { start: string; end: string } | null
 function parseDays(dayStr: string): CalendarBlock["day"][] {
   if (!dayStr) return [];
   const days: CalendarBlock["day"][] = [];
-  const cleaned = dayStr.replace(/\s/g, "");
+  const cleaned = dayStr.replace(/\s/g, "").toUpperCase();
   let i = 0;
   while (i < cleaned.length) {
     const twoChar = cleaned.slice(i, i + 2);
-    if (twoChar === "Th") { days.push("Thu"); i += 2; }
-    else if (twoChar === "Tu") { days.push("Tue"); i += 2; }
+    if (twoChar === "TH") { days.push("Thu"); i += 2; }
+    else if (twoChar === "TU") { days.push("Tue"); i += 2; }
     else {
       const char = cleaned[i];
       if (char === "M") days.push("Mon");
       else if (char === "T") days.push("Tue");
       else if (char === "W") days.push("Wed");
+      else if (char === "R") days.push("Thu"); // Handle R for Thursday
       else if (char === "F") days.push("Fri");
       i++;
     }
@@ -276,7 +298,7 @@ function generateICS(courses: Course[], scheduleName: string): string {
       `DTSTAMP:${formatDate(new Date())}`,
       `DTSTART;TZID=America/New_York:${formatDateLocal(dtstart)}`,
       `DTEND;TZID=America/New_York:${formatDateLocal(dtend)}`,
-      `RRULE:FREQ=WEEKLY;BYDAY=${rruleDay};UNTIL=${formatDate(semesterEnd)}`,
+      `RRULE:FREQ=WEEKLY;BYDAY=${rruleDay};WKST=MO;UNTIL=${formatDate(semesterEnd)}`,
       `SUMMARY:${block.course} - ${block.title}`,
       `DESCRIPTION:Professor: ${block.professor || "TBA"}`,
       block.location ? `LOCATION:${block.location}` : "",
@@ -333,12 +355,12 @@ function WeeklyCalendar({ blocks }: { blocks: CalendarBlock[] }) {
                   key={`${block.course}-${i}`} 
                   className={`absolute left-0.5 right-0.5 overflow-hidden rounded-lg border px-1.5 py-1 shadow-sm cursor-pointer hover:shadow-md transition-shadow ${block.color} ${isUserAdded ? 'opacity-70' : ''}`} 
                   style={{ top: `${top}%`, height: `${height}%`, minHeight: "2.5rem" }} 
-                  title={`${block.course}: ${block.title}\n${block.professor || "TBA"}\n${formatTime12(block.start)}-${formatTime12(block.end)}${hasTimeWarning ? '\n⚠️ Outside preferred time' : ''}${isUserAdded ? '\n📌 User added' : ''}`}
+                  title={`${block.course}: ${block.title}\n${block.professor || "TBA"}\n${formatTime12(block.start)}-${formatTime12(block.end)}${hasTimeWarning ? '\nOutside preferred time' : ''}${isUserAdded ? '\nUser added' : ''}`}
                 >
                   <div className="flex items-center gap-1">
                     <span className="font-semibold text-[11px] leading-tight truncate">{block.course}</span>
                     {hasTimeWarning && <AlertTriangle className="h-3 w-3 text-amber-600 flex-shrink-0" />}
-                    {isUserAdded && <span className="text-[9px]">📌</span>}
+                    {isUserAdded && <span className="text-[9px]">UA</span>}
                   </div>
                   <div className="text-[9px] opacity-70">{formatTime12(block.start)}-{formatTime12(block.end)}</div>
                 </div>
@@ -376,7 +398,7 @@ function ScheduleOptionsDrawer({ schedules, selectedIdx, onSelect, isOpen, onTog
 }
 
 function CourseDetailRow({ course, onRemove, canRemove = true }: { course: Course; onRemove?: () => void; canRemove?: boolean }) {
-  const gers = course.ger ? (Array.isArray(course.ger) ? course.ger : [course.ger]) : [];
+  const gers = getCourseTags(course);
   const isUserAdded = course.user_added;
   const isOutsideTime = course.outside_preferred_time;
   
@@ -385,7 +407,7 @@ function CourseDetailRow({ course, onRemove, canRemove = true }: { course: Cours
       <div className="flex-1">
         <div className="flex items-center gap-2">
           <span className="font-semibold text-emoryBlue">{course.code}</span>
-          {isUserAdded && <span className="rounded bg-gray-200 px-1.5 py-0.5 text-[10px] font-medium text-gray-600">📌 Added</span>}
+          {isUserAdded && <span className="rounded bg-gray-200 px-1.5 py-0.5 text-[10px] font-medium text-gray-600">User added</span>}
           {isOutsideTime && <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 flex items-center gap-0.5"><AlertTriangle className="h-3 w-3" /> Outside preferences</span>}
           {gers.map((g) => <span key={g} className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700">{g}</span>)}
         </div>
@@ -571,7 +593,9 @@ function AddCourseModal({
 
 function ScheduleCard({ schedule, index, isSelected, onSelect }: { schedule: Schedule; index: number; isSelected: boolean; onSelect: () => void }) {
   const gersInSchedule = new Set<string>();
-  schedule.courses.forEach((c) => { if (c.ger) { (Array.isArray(c.ger) ? c.ger : [c.ger]).forEach((g) => gersInSchedule.add(g)); } });
+  schedule.courses.forEach((c) => {
+    getCourseTags(c).forEach((g) => gersInSchedule.add(g));
+  });
   return (
     <div onClick={onSelect} className={`cursor-pointer rounded-xl border-2 p-4 transition-all hover:shadow-md ${isSelected ? "border-emoryBlue bg-emoryBlue/5 shadow-md" : "border-zinc-200 bg-white hover:border-zinc-300"}`}>
       <div className="flex items-start justify-between mb-3">
@@ -611,6 +635,10 @@ export default function ScheduleBuilderPage() {
 
   const selectedSchedule = schedules[selectedIdx] || null;
   const calendarBlocks = selectedSchedule ? coursesToCalendarBlocks(selectedSchedule.courses) : [];
+  const addedCourseCodes = Array.from(addedCourses.values())
+    .map((c) => (c.code || c.normalized_code || "").toString().toUpperCase())
+    .filter(Boolean);
+  const removedCourseCodes = Array.from(removedCourses).map((c) => c.toUpperCase());
 
   const fetchSchedules = useCallback(async () => {
     setLoading(true); 
@@ -764,7 +792,7 @@ export default function ScheduleBuilderPage() {
     }
   }
 
-  useEffect(() => { fetchSchedules(); }, []);
+  useEffect(() => { fetchSchedules(); }, [fetchSchedules]);
 
   function handleExportICS() {
     if (!selectedSchedule) return;
@@ -795,11 +823,31 @@ export default function ScheduleBuilderPage() {
             </h1>
             <p className="text-sm text-zinc-600 mt-1">Optimized schedules based on your transcript and preferences</p>
             {(removedCourses.size > 0 || addedCourses.size > 0) && (
-              <p className="text-xs text-amber-600 mt-1">
-                {removedCourses.size > 0 && `${removedCourses.size} course(s) excluded`}
-                {removedCourses.size > 0 && addedCourses.size > 0 && " • "}
-                {addedCourses.size > 0 && `${addedCourses.size} course(s) boosted`}
-              </p>
+              <div className="relative inline-block group mt-1 text-xs text-amber-600">
+                <span>
+                  {removedCourses.size > 0 && `${removedCourses.size} course(s) excluded`}
+                  {removedCourses.size > 0 && addedCourses.size > 0 && " \u2022 "}
+                  {addedCourses.size > 0 && `${addedCourses.size} course(s) boosted`}
+                </span>
+                <div className="pointer-events-none absolute left-0 mt-1 hidden w-72 rounded-lg border border-amber-200 bg-white p-3 text-[11px] text-zinc-700 shadow-lg group-hover:block z-20">
+                  {removedCourseCodes.length > 0 && (
+                    <div className="mb-2">
+                      <p className="font-semibold text-amber-700">Excluded</p>
+                      <p className="mt-1 break-words">
+                        {removedCourseCodes.join(", ")}
+                      </p>
+                    </div>
+                  )}
+                  {addedCourseCodes.length > 0 && (
+                    <div>
+                      <p className="font-semibold text-emerald-700">Boosted</p>
+                      <p className="mt-1 break-words">
+                        {addedCourseCodes.join(", ")}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
             )}
           </div>
           <div className="flex items-center gap-2 flex-wrap">
@@ -838,8 +886,8 @@ export default function ScheduleBuilderPage() {
         {!loading && generated && schedules.length === 0 && !error && (
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <BookOpen className="h-12 w-12 text-zinc-300" />
-            <h2 className="mt-4 text-lg font-semibold text-zinc-700">No schedules generated</h2>
-            <p className="mt-2 text-sm text-zinc-500 max-w-md">Make sure you've uploaded your transcript and set preferences.</p>
+            <h2 className="mt-4 text-lg font-semibold text-zinc-700">Schedule not possible with current settings</h2>
+            <p className="mt-2 text-sm text-zinc-500 max-w-md">We couldn't build any options. Try loosening time availability or preferences, then regenerate.</p>
             <div className="mt-4 flex gap-3">
               <Link to="/droptranscript" className="rounded-lg bg-emoryBlue px-4 py-2 text-sm font-medium text-white hover:bg-emoryBlue/90">Upload Transcript</Link>
               <Link to="/preferences" className="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50">Set Preferences</Link>
@@ -883,7 +931,7 @@ export default function ScheduleBuilderPage() {
                     </div>
                     <div className="flex items-center gap-1">
                       <AlertTriangle className="h-3 w-3 text-amber-600" />
-                      <span>Outside preferences</span>
+                      <span>Outside preferences (based on your preferred times and internal calculations)</span>
                     </div>
                   </div>
                 </div>
