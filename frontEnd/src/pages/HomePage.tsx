@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 
 import applogo from "../assets/dooleyHelpzAppLogo.png";
 import mascot from "../assets/EHMascot.png";
+import demoVideo from "../assets/DooleyHelpzDemo.mp4";
 
 // Mock schedule data
 const mockWeek = [
@@ -236,6 +237,34 @@ export default function HomePage() {
             </motion.div>
           </div>
         </div>
+      </section>
+
+      {/* Demo Video Section */}
+      <section className="mx-auto max-w-6xl px-4 py-12">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="text-center"
+        >
+          <h2 className="text-2xl font-semibold text-emoryBlue md:text-3xl">
+            See DooleyHelpz in action
+          </h2>
+          <p className="mt-2 text-zinc-600">
+            Watch how easy it is to build your perfect schedule
+          </p>
+          <div className="mt-8 overflow-hidden rounded-2xl border border-zinc-200 shadow-lg">
+            <video
+              controls
+              className="w-full"
+              poster=""
+            >
+              <source src={demoVideo} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </motion.div>
       </section>
 
       {/* Features */}
