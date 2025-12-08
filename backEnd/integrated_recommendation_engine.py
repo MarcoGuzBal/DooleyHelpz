@@ -440,7 +440,7 @@ class IntegratedRecommendationEngine:
 
             start_min = self._time_to_minutes(start)
             end_min = self._time_to_minutes(end)
-            if start_min == end_min:
+            if start_min >= end_min:
                 continue
 
             for day in days:
@@ -453,16 +453,23 @@ class IntegratedRecommendationEngine:
             return []
         days: List[str] = []
         cleaned = str(day_str).replace(" ", "")
+        cleaned_upper = cleaned.upper()
         i = 0
-        while i < len(cleaned):
-            two = cleaned[i:i+2]
-            if two == "Th":
+        while i < len(cleaned_upper):
+            two = cleaned_upper[i:i+2]
+            if two == "TH":
                 days.append("Th")
                 i += 2
                 continue
-            ch = cleaned[i]
+            if two == "TU":
+                days.append("T")
+                i += 2
+                continue
+            ch = cleaned_upper[i]
             if ch in "MTWF":
                 days.append(ch)
+            elif ch == "R":  # Common Thursday shorthand
+                days.append("Th")
             i += 1
         return days
 
@@ -488,7 +495,11 @@ class IntegratedRecommendationEngine:
             eh += 12
         if eap == "am" and eh == 12:
             eh = 0
-        return (sh * 60 + sm, eh * 60 + em)
+        start_min = sh * 60 + sm
+        end_min = eh * 60 + em
+        if end_min <= start_min:
+            return (0, 0)
+        return (start_min, end_min)
 
     def _extract_meeting_blocks(self, course: Dict) -> List[Tuple[str, int, int]]:
         code = course.get("code") or ""
@@ -1212,8 +1223,8 @@ class IntegratedRecommendationEngine:
             # Check soft time preference
             is_outside_pref = self._is_outside_preferred_time(course, earliest_minutes, latest_minutes)
             
-            # Skip if hard conflict (unless must course or locked)
-            if has_hard_conflict and not is_must and not is_lang_102 and not is_locked:
+            # Skip any course that violates hard unavailable blocks
+            if has_hard_conflict:
                 continue
             
             if self._is_cross_listed_duplicate(course, current_schedule_codes, all_courses_map):
@@ -1589,8 +1600,8 @@ class IntegratedRecommendationEngine:
                 has_hard_conflict = self._has_time_conflict(course, unavailable_blocks)
                 is_outside_pref = self._is_outside_preferred_time(course, earliest_minutes, latest_minutes)
                 
-                # Skip if hard conflict (unless must/locked/lang102)
-                if has_hard_conflict and not is_must_course and not is_lang_102 and not is_locked:
+                # Skip any course that violates hard unavailable blocks
+                if has_hard_conflict:
                     continue
 
                 try:
