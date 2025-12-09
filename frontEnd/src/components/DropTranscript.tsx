@@ -592,13 +592,15 @@ export default function DropTranscript() {
         );
       }
     } else if (existenceStatus === false) {
-      // Course doesn't exist in MongoDB - show warning glow (ORANGE)
-      chipStyle = "border-orange-400 bg-orange-50 text-orange-800 ring-2 ring-orange-300 ring-opacity-50";
+      // Course doesn't exist in MongoDB - keep warning icon but allow deselect state to show red
       statusIndicator = (
         <span className="ml-1 text-orange-600" title="Course not found in database">
           <AlertTriangle className="h-3 w-3 inline" />
         </span>
       );
+      chipStyle = isSelected
+        ? "border-orange-400 bg-orange-50 text-orange-800 ring-2 ring-orange-300 ring-opacity-50"
+        : "border-rose-300 bg-rose-50 text-rose-700 ring-2 ring-orange-200 ring-opacity-60 hover:bg-rose-100";
     } else if (isSelected) {
       // Course exists and is selected
       if (hasMissingPrereqs) {
