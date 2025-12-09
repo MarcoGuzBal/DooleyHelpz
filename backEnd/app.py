@@ -541,6 +541,77 @@ def search_courses():
         }), 500
 
 
+@app.route("/api/course-prereqs", methods=["GET"])
+def course_prereqs():
+    """
+    Fetch prerequisite groups for a list of course codes.
+    Each code returns a list of OR-groups (AND between groups, OR within group).
+    Example: {"CS350": [["CS253"], ["CS255"]]} means CS253 AND CS255 (one from each group).
+    """
+    try:
+        codes_param = request.args.get("codes", "")
+        if not codes_param:
+            return jsonify({"success": True, "prereqs": {}}), 200
+
+        codes = [c.strip() for c in codes_param.split(",") if c.strip()]
+        normalized_codes = [normalize_uid(c).upper().replace(" ", "") for c in codes]
+
+        prereq_map = {}
+        exists_map = {}
+
+        for original, norm in zip(codes, normalized_codes):
+            # Attempt to split into dept + number for a tighter regex
+            m = re.match(r"([A-Z]+)\s*([0-9A-Z]+)", norm, re.IGNORECASE)
+            regex = norm
+            if m:
+                dept, num = m.groups()
+                regex = f"^{dept}\\s*{num}$"
+
+            # Prefer detailed (current term) data, fall back to basic catalog
+            doc = enriched_courses_col.find_one(
+                {"code": {"$regex": regex, "$options": "i"}},
+                {"_id": 0, "code": 1, "prerequisites": 1, "requirements": 1}
+            )
+            if not doc:
+                doc = basic_courses_col.find_one(
+                    {"code": {"$regex": regex, "$options": "i"}},
+                    {"_id": 0, "code": 1, "prerequisites": 1, "requirements": 1}
+                )
+
+            prereqs = []
+            exists_map[norm] = bool(doc)
+            if doc:
+                prereqs = doc.get("prerequisites")
+                if prereqs is None:
+                    reqs = doc.get("requirements") or {}
+                    prereqs = reqs.get("prereq")
+                if not prereqs:
+                    prereqs = []
+
+            # Ensure list-of-lists shape
+            cleaned = []
+            if isinstance(prereqs, list):
+                for group in prereqs:
+                    if not group:
+                        continue
+                    if isinstance(group, (list, tuple)):
+                        cleaned.append([str(x) for x in group if x])
+                    else:
+                        cleaned.append([str(group)])
+            elif isinstance(prereqs, (str, int)):
+                cleaned = [[str(prereqs)]]
+
+            prereq_map[norm] = cleaned if cleaned else [[]]
+
+        return jsonify({"success": True, "prereqs": prereq_map, "exists": exists_map}), 200
+    
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+
 @app.route("/api/generate-schedule", methods=["POST"])
 def generate_schedule():
     if not RECO_ENGINE_AVAILABLE:

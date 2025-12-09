@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import { auth } from "../firebase";
 import { api } from "../utils/api";
@@ -383,7 +383,7 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-white text-zinc-900">
       <header className="border-b border-zinc-200 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-          <div className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-Gold">
               <img
                 src={applogo}
@@ -394,7 +394,7 @@ export default function DashboardPage() {
             <span className="text-lg font-semibold text-emoryBlue">
               DooleyHelpz
             </span>
-          </div>
+          </Link>
           <div className="flex items-center gap-3">
             {user && (
               <span className="hidden text-xs text-zinc-600 sm:inline">

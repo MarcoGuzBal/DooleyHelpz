@@ -4,6 +4,7 @@ import {
   CalendarDays, Download, RefreshCw, CheckCircle2, AlertCircle,
   ChevronLeft, ChevronRight, Star, Clock, BookOpen, GraduationCap,
   Plus, X, Search, List, ChevronDown, ChevronUp, Trash2, AlertTriangle,
+  Info,
 } from "lucide-react";
 import { auth } from "../firebase";
 import { API_URL, api } from "../utils/api";
@@ -20,8 +21,9 @@ type Course = {
   score?: number;
   ger: string | string[] | null;
   normalized_code: string;
-  outside_preferred_time?: boolean; // rename in UI to "Outside preferences"
-  user_added?: boolean;  // Track if user added this course
+  outside_preferred_time?: boolean;
+  user_added?: boolean;
+  hard_time_conflict?: boolean;
 };
 
 type Schedule = {
@@ -41,13 +43,20 @@ type CalendarBlock = {
   start: string;
   end: string;
   color: string;
-  outside_preferred_time?: boolean; // rename in UI to "Outside preferences"
+  outside_preferred_time?: boolean;
   user_added?: boolean;
+  hard_time_conflict?: boolean;
+};
+
+type TimeUnavailableBlock = {
+  day: string;
+  start: string;
+  end: string;
 };
 
 const DAYS: CalendarBlock["day"][] = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 const START_HOUR = 8;
-const END_HOUR = 23; // Extend view to 11:00 PM
+const END_HOUR = 23;
 const TOTAL_MINUTES = (END_HOUR - START_HOUR) * 60;
 
 const COURSE_COLORS = [
@@ -81,8 +90,8 @@ function getCourseTags(course: Course): string[] {
   return Array.from(tags);
 }
 
-// User-added course color (translucent)
 const USER_ADDED_COLOR = "bg-gray-100/60 border-gray-400 border-dashed text-gray-700";
+const HARD_CONFLICT_COLOR = "bg-red-100 border-red-400 text-red-800";
 
 function parseTimeString(timeStr: string): { start: string; end: string } | null {
   if (!timeStr) return null;
@@ -102,27 +111,60 @@ function parseTimeString(timeStr: string): { start: string; end: string } | null
   return { start: `${startHour.toString().padStart(2, "0")}:${startMin}`, end: `${endHour.toString().padStart(2, "0")}:${endMin}` };
 }
 
+// Improved day parsing to handle all formats correctly
 function parseDays(dayStr: string): CalendarBlock["day"][] {
   if (!dayStr) return [];
   const days: CalendarBlock["day"][] = [];
-  const cleaned = dayStr.replace(/\s/g, "").toUpperCase();
+  const cleaned = dayStr.replace(/\s/g, "");
   let i = 0;
+  
   while (i < cleaned.length) {
-    const twoChar = cleaned.slice(i, i + 2);
-    if (twoChar === "TH") { days.push("Thu"); i += 2; }
-    else if (twoChar === "TU") { days.push("Tue"); i += 2; }
-    else {
-      const char = cleaned[i];
+    const remaining = cleaned.slice(i).toUpperCase();
+    
+    // Check for two-character codes first
+    if (remaining.startsWith("TH")) {
+      days.push("Thu");
+      i += 2;
+    } else if (remaining.startsWith("TU")) {
+      days.push("Tue");
+      i += 2;
+    } else {
+      // Single character codes
+      const char = remaining[0];
       if (char === "M") days.push("Mon");
-      else if (char === "T") days.push("Tue");
+      else if (char === "T") days.push("Tue"); // Single T = Tuesday
       else if (char === "W") days.push("Wed");
-      else if (char === "R") days.push("Thu"); // Handle R for Thursday
+      else if (char === "R") days.push("Thu"); // R = Thursday (alternative notation)
       else if (char === "F") days.push("Fri");
       i++;
     }
   }
-  return days;
+  
+  return [...new Set(days)]; // Remove duplicates
 }
+
+// Map short day names to full day names used in preferences
+const DAY_MAP: Record<string, string> = {
+  "Mon": "Monday",
+  "Tue": "Tuesday", 
+  "Wed": "Wednesday",
+  "Thu": "Thursday",
+  "Fri": "Friday",
+  "Monday": "Monday",
+  "Tuesday": "Tuesday",
+  "Wednesday": "Wednesday",
+  "Thursday": "Thursday",
+  "Friday": "Friday",
+};
+
+// Reverse map for converting full names to short
+const DAY_MAP_REVERSE: Record<string, string> = {
+  "Monday": "Mon",
+  "Tuesday": "Tue",
+  "Wednesday": "Wed",
+  "Thursday": "Thu",
+  "Friday": "Fri",
+};
 
 function minutesFromStart(time: string): number {
   const [h, m] = time.split(":").map(Number);
@@ -151,7 +193,7 @@ function getCourseTimeBlocks(course: Course): Array<{ day: string; start: number
         });
       }
     });
-  } else if (course.time) {
+  } else if (course.time && course.time !== "TBA") {
     const firstSpaceIdx = course.time.indexOf(" ");
     if (firstSpaceIdx !== -1) {
       const dayPart = course.time.slice(0, firstSpaceIdx);
@@ -178,9 +220,7 @@ function coursesOverlap(course1: Course, course2: Course): boolean {
   
   for (const b1 of blocks1) {
     for (const b2 of blocks2) {
-      // Same day and time overlap check
       if (b1.day === b2.day) {
-        // Overlap if start1 < end2 AND start2 < end1
         if (b1.start < b2.end && b2.start < b1.end) {
           return true;
         }
@@ -191,15 +231,56 @@ function coursesOverlap(course1: Course, course2: Course): boolean {
   return false;
 }
 
-// Find which courses a new course overlaps with
 function findOverlappingCourses(newCourse: Course, existingCourses: Course[]): Course[] {
   return existingCourses.filter(existing => coursesOverlap(newCourse, existing));
+}
+
+// Check if a course conflicts with time unavailable blocks
+function checkHardTimeConflict(course: Course, timeUnavailable: TimeUnavailableBlock[]): boolean {
+  if (!timeUnavailable || timeUnavailable.length === 0) return false;
+  
+  const courseBlocks = getCourseTimeBlocks(course);
+  if (courseBlocks.length === 0) return false; // TBA courses don't conflict
+  
+  for (const courseBlock of courseBlocks) {
+    const courseDayFull = DAY_MAP[courseBlock.day] || courseBlock.day;
+    const courseDayShort = DAY_MAP_REVERSE[courseBlock.day] || courseBlock.day;
+    
+    for (const unavail of timeUnavailable) {
+      const unavailDayFull = DAY_MAP[unavail.day] || unavail.day;
+      const unavailDayShort = DAY_MAP_REVERSE[unavail.day] || unavail.day;
+      
+      // Check if same day (compare both full and short names)
+      const sameDay = 
+        courseDayFull === unavailDayFull ||
+        courseDayFull === unavail.day ||
+        courseBlock.day === unavailDayFull ||
+        courseBlock.day === unavail.day ||
+        courseDayShort === unavailDayShort;
+      
+      if (sameDay) {
+        const unavailStart = timeToMinutes(unavail.start);
+        const unavailEnd = timeToMinutes(unavail.end);
+        
+        // Overlap check: start1 < end2 AND start2 < end1
+        if (courseBlock.start < unavailEnd && unavailStart < courseBlock.end) {
+          console.log(`CONFLICT DETECTED: ${course.code} on ${courseBlock.day} (${courseBlock.start}-${courseBlock.end}) conflicts with unavailable ${unavail.day} (${unavailStart}-${unavailEnd})`);
+          return true;
+        }
+      }
+    }
+  }
+  
+  return false;
 }
 
 function coursesToCalendarBlocks(courses: Course[]): CalendarBlock[] {
   const blocks: CalendarBlock[] = [];
   courses.forEach((course, idx) => {
-    const color = course.user_added ? USER_ADDED_COLOR : COURSE_COLORS[idx % COURSE_COLORS.length];
+    let color = course.user_added ? USER_ADDED_COLOR : COURSE_COLORS[idx % COURSE_COLORS.length];
+    if (course.hard_time_conflict) {
+      color = HARD_CONFLICT_COLOR;
+    }
     if (course.meeting && Array.isArray(course.meeting) && course.meeting.length > 0) {
       course.meeting.forEach((m) => {
         if (!m.day || !m.time) return;
@@ -217,12 +298,13 @@ function coursesToCalendarBlocks(courses: Course[]): CalendarBlock[] {
               end: times.end, 
               color,
               outside_preferred_time: course.outside_preferred_time,
-              user_added: course.user_added
+              user_added: course.user_added,
+              hard_time_conflict: course.hard_time_conflict
             });
           });
         }
       });
-    } else if (course.time) {
+    } else if (course.time && course.time !== "TBA") {
       const firstSpaceIdx = course.time.indexOf(" ");
       if (firstSpaceIdx === -1) return;
       const dayPart = course.time.slice(0, firstSpaceIdx);
@@ -241,7 +323,8 @@ function coursesToCalendarBlocks(courses: Course[]): CalendarBlock[] {
             end: times.end, 
             color,
             outside_preferred_time: course.outside_preferred_time,
-            user_added: course.user_added
+            user_added: course.user_added,
+            hard_time_conflict: course.hard_time_conflict
           });
         });
       }
@@ -260,10 +343,9 @@ function formatTime12(time24: string): string {
 function generateICS(courses: Course[], scheduleName: string): string {
   const lines: string[] = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//DooleyHelpz//EN", "CALSCALE:GREGORIAN", "METHOD:PUBLISH", `X-WR-CALNAME:${scheduleName}`];
   
-  const semesterStart = new Date(2026, 0, 12);  // January 12, 2026 (Monday) - month is 0-indexed
-  const semesterEnd = new Date(2026, 3, 24);    // April 24, 2026 - month is 0-indexed (3 = April)
+  const semesterStart = new Date(2026, 0, 12);
+  const semesterEnd = new Date(2026, 3, 24);
   
-  // Day offsets from Monday (which is our semesterStart)
   const dayOffsets: Record<string, number> = { Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4 };
   
   const blocks = coursesToCalendarBlocks(courses);
@@ -271,7 +353,6 @@ function generateICS(courses: Course[], scheduleName: string): string {
     const dayOffset = dayOffsets[block.day];
     if (dayOffset === undefined) return;
     
-    // Calculate the first occurrence of this day in the semester
     const firstOccurrence = new Date(semesterStart);
     firstOccurrence.setDate(firstOccurrence.getDate() + dayOffset);
     
@@ -287,7 +368,6 @@ function generateICS(courses: Course[], scheduleName: string): string {
     const formatDateLocal = (d: Date) => `${d.getFullYear()}${(d.getMonth() + 1).toString().padStart(2, "0")}${d.getDate().toString().padStart(2, "0")}T${d.getHours().toString().padStart(2, "0")}${d.getMinutes().toString().padStart(2, "0")}00`;
     const formatDate = (d: Date) => d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
     
-    // Map day to iCal day abbreviation
     const rruleDays: Record<string, string> = { Mon: "MO", Tue: "TU", Wed: "WE", Thu: "TH", Fri: "FR" };
     const rruleDay = rruleDays[block.day];
     
@@ -321,9 +401,18 @@ function downloadICS(courses: Course[], scheduleName: string) {
   URL.revokeObjectURL(url);
 }
 
-function WeeklyCalendar({ blocks }: { blocks: CalendarBlock[] }) {
+function WeeklyCalendar({ blocks, timeUnavailable }: { blocks: CalendarBlock[]; timeUnavailable: TimeUnavailableBlock[] }) {
   const byDay: Record<CalendarBlock["day"], CalendarBlock[]> = { Mon: [], Tue: [], Wed: [], Thu: [], Fri: [] };
   blocks.forEach((b) => byDay[b.day].push(b));
+  
+  // Get unavailable blocks per day for display
+  const unavailByDay: Record<CalendarBlock["day"], TimeUnavailableBlock[]> = { Mon: [], Tue: [], Wed: [], Thu: [], Fri: [] };
+  timeUnavailable.forEach((u) => {
+    const shortDay = DAY_MAP_REVERSE[u.day] || u.day;
+    if (shortDay in unavailByDay) {
+      unavailByDay[shortDay as CalendarBlock["day"]].push(u);
+    }
+  });
   
   return (
     <div className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
@@ -339,26 +428,47 @@ function WeeklyCalendar({ blocks }: { blocks: CalendarBlock[] }) {
           <div key={day} className="relative h-[520px] border-l border-zinc-100">
             <div className="sticky top-0 z-10 mb-1 bg-white pb-1 text-center text-xs font-semibold text-emoryBlue">{day}</div>
             {Array.from({ length: END_HOUR - START_HOUR + 1 }).map((_, idx) => <div key={idx} className="absolute left-0 right-0 border-t border-dashed border-zinc-100" style={{ top: `${(idx / (END_HOUR - START_HOUR)) * 100}%` }} />)}
+            
+            {/* Render unavailable time blocks */}
+            {unavailByDay[day].map((u, i) => {
+              const startMin = timeToMinutes(u.start) - START_HOUR * 60;
+              const endMin = timeToMinutes(u.end) - START_HOUR * 60;
+              if (startMin < 0 || endMin < 0) return null;
+              const top = (startMin / TOTAL_MINUTES) * 100;
+              const height = ((endMin - startMin) / TOTAL_MINUTES) * 100;
+              return (
+                <div
+                  key={`unavail-${day}-${i}`}
+                  className="absolute left-0 right-0 bg-red-50/50 border-l-2 border-red-300"
+                  style={{ top: `${Math.max(0, top)}%`, height: `${Math.min(height, 100 - top)}%` }}
+                  title="Time unavailable"
+                />
+              );
+            })}
+            
             {byDay[day].map((block, i) => {
               const startMin = minutesFromStart(block.start);
               const endMin = minutesFromStart(block.end);
-              const top = (startMin / TOTAL_MINUTES) * 100;
-              const height = ((endMin - startMin) / TOTAL_MINUTES) * 100;
+              const rawTop = (startMin / TOTAL_MINUTES) * 100;
+              const rawHeight = ((endMin - startMin) / TOTAL_MINUTES) * 100;
+              const top = Math.max(rawTop, 2);
+              const height = Math.max(Math.min(rawHeight, 100 - top), 6);
               
-              // Add indicators for special states
               const hasTimeWarning = block.outside_preferred_time;
               const isUserAdded = block.user_added;
+              const hasHardConflict = block.hard_time_conflict;
               
               return (
                 <div 
                   key={`${block.course}-${i}`} 
-                  className={`absolute left-0.5 right-0.5 overflow-hidden rounded-lg border px-1.5 py-1 shadow-sm cursor-pointer hover:shadow-md transition-shadow ${block.color} ${isUserAdded ? 'opacity-70' : ''}`} 
+                  className={`absolute left-0.5 right-0.5 overflow-hidden rounded-lg border px-1.5 py-1 shadow-sm cursor-pointer hover:shadow-md transition-shadow ${block.color} ${isUserAdded ? 'opacity-70' : ''} z-10`} 
                   style={{ top: `${top}%`, height: `${height}%`, minHeight: "2.5rem" }} 
-                  title={`${block.course}: ${block.title}\n${block.professor || "TBA"}\n${formatTime12(block.start)}-${formatTime12(block.end)}${hasTimeWarning ? '\nOutside preferred time' : ''}${isUserAdded ? '\nUser added' : ''}`}
+                  title={`${block.course}: ${block.title}\n${block.professor || "TBA"}\n${formatTime12(block.start)}-${formatTime12(block.end)}${hasTimeWarning ? '\nOutside preferred time' : ''}${isUserAdded ? '\nUser added' : ''}${hasHardConflict ? '\n⚠️ CONFLICTS WITH YOUR UNAVAILABLE TIME' : ''}`}
                 >
                   <div className="flex items-center gap-1">
                     <span className="font-semibold text-[11px] leading-tight truncate">{block.course}</span>
-                    {hasTimeWarning && <AlertTriangle className="h-3 w-3 text-amber-600 flex-shrink-0" />}
+                    {hasHardConflict && <X className="h-3 w-3 text-red-600 flex-shrink-0" />}
+                    {hasTimeWarning && !hasHardConflict && <AlertTriangle className="h-3 w-3 text-amber-600 flex-shrink-0" />}
                     {isUserAdded && <span className="text-[9px]">UA</span>}
                   </div>
                   <div className="text-[9px] opacity-70">{formatTime12(block.start)}-{formatTime12(block.end)}</div>
@@ -400,14 +510,16 @@ function CourseDetailRow({ course, onRemove, canRemove = true }: { course: Cours
   const gers = getCourseTags(course);
   const isUserAdded = course.user_added;
   const isOutsideTime = course.outside_preferred_time;
+  const hasHardConflict = course.hard_time_conflict;
   
   return (
-    <div className={`flex items-center justify-between rounded-lg border px-3 py-2 group ${isUserAdded ? 'border-dashed border-gray-400 bg-gray-50/60' : 'border-zinc-100 bg-zinc-50'}`}>
+    <div className={`flex items-center justify-between rounded-lg border px-3 py-2 group ${hasHardConflict ? 'border-red-400 bg-red-50' : isUserAdded ? 'border-dashed border-gray-400 bg-gray-50/60' : 'border-zinc-100 bg-zinc-50'}`}>
       <div className="flex-1">
         <div className="flex items-center gap-2">
           <span className="font-semibold text-emoryBlue">{course.code}</span>
+          {hasHardConflict && <span className="rounded bg-red-100 px-1.5 py-0.5 text-[10px] font-medium text-red-700 flex items-center gap-0.5"><X className="h-3 w-3" /> Time conflict!</span>}
           {isUserAdded && <span className="rounded bg-gray-200 px-1.5 py-0.5 text-[10px] font-medium text-gray-600">User added</span>}
-          {isOutsideTime && <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 flex items-center gap-0.5"><AlertTriangle className="h-3 w-3" /> Outside preferences</span>}
+          {isOutsideTime && !hasHardConflict && <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 flex items-center gap-0.5"><AlertTriangle className="h-3 w-3" /> Outside preferences</span>}
           {gers.map((g) => <span key={g} className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700">{g}</span>)}
         </div>
         <p className="text-sm text-zinc-600 truncate max-w-md">{course.title}</p>
@@ -431,17 +543,19 @@ function AddCourseModal({
   isOpen, 
   onClose, 
   onAddCourse, 
-  currentCourses 
+  currentCourses,
+  timeUnavailable
 }: { 
   isOpen: boolean; 
   onClose: () => void; 
   onAddCourse: (course: Course) => void; 
   currentCourses: Course[];
+  timeUnavailable: TimeUnavailableBlock[];
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searching, setSearching] = useState(false);
-  const [overlapWarning, setOverlapWarning] = useState<{ course: any; overlaps: Course[] } | null>(null);
+  const [overlapWarning, setOverlapWarning] = useState<{ course: any; overlaps: Course[]; isHardConflict: boolean } | null>(null);
 
   async function handleSearch() {
     if (!searchQuery.trim()) return;
@@ -459,7 +573,6 @@ function AddCourseModal({
   }
 
   function checkOverlapAndSelect(course: any) {
-    // Convert to Course type for overlap checking
     const newCourse: Course = {
       code: course.code || "",
       title: course.title || "",
@@ -473,16 +586,17 @@ function AddCourseModal({
       normalized_code: (course.code || "").toUpperCase().replace(/\s+/g, ""),
     };
     
+    const hasHardConflict = checkHardTimeConflict(newCourse, timeUnavailable);
     const overlappingCourses = findOverlappingCourses(newCourse, currentCourses);
     
-    if (overlappingCourses.length > 0) {
-      setOverlapWarning({ course, overlaps: overlappingCourses });
+    if (hasHardConflict || overlappingCourses.length > 0) {
+      setOverlapWarning({ course, overlaps: overlappingCourses, isHardConflict: hasHardConflict });
     } else {
-      handleConfirmAdd(course);
+      handleConfirmAdd(course, false);
     }
   }
 
-  function handleConfirmAdd(course: any) {
+  function handleConfirmAdd(course: any, hasHardConflict: boolean) {
     const newCourse: Course = {
       code: course.code || "",
       title: course.title || "",
@@ -494,7 +608,8 @@ function AddCourseModal({
       score: 50,
       ger: course.ger || null,
       normalized_code: (course.code || "").toUpperCase().replace(/\s+/g, ""),
-      user_added: true,  // Mark as user-added
+      user_added: true,
+      hard_time_conflict: hasHardConflict,
     };
     onAddCourse(newCourse);
     onClose();
@@ -515,22 +630,38 @@ function AddCourseModal({
         
         {overlapWarning ? (
           <div className="p-4">
-            <div className="flex items-center gap-2 text-amber-700 mb-3">
-              <AlertTriangle className="h-5 w-5" />
-              <span className="font-semibold">Time Conflict Detected</span>
+            <div className={`flex items-center gap-2 mb-3 ${overlapWarning.isHardConflict ? 'text-red-700' : 'text-amber-700'}`}>
+              {overlapWarning.isHardConflict ? <X className="h-5 w-5" /> : <AlertTriangle className="h-5 w-5" />}
+              <span className="font-semibold">{overlapWarning.isHardConflict ? 'Conflicts With Your Unavailable Time!' : 'Time Conflict Detected'}</span>
             </div>
-            <p className="text-sm text-zinc-600 mb-3">
-              <strong>{overlapWarning.course.code}</strong> overlaps with:
-            </p>
-            <ul className="space-y-1 mb-4">
-              {overlapWarning.overlaps.map((c, i) => (
-                <li key={i} className="text-sm text-zinc-700 bg-amber-50 rounded px-2 py-1">
-                  • {c.code} ({c.time})
-                </li>
-              ))}
-            </ul>
+            
+            {overlapWarning.isHardConflict && (
+              <div className="mb-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-sm text-red-700">
+                  <strong>{overlapWarning.course.code}</strong> ({overlapWarning.course.time}) conflicts with your "Time Unavailable" settings. This course will be marked as having a hard conflict.
+                </p>
+              </div>
+            )}
+            
+            {overlapWarning.overlaps.length > 0 && (
+              <>
+                <p className="text-sm text-zinc-600 mb-3">
+                  <strong>{overlapWarning.course.code}</strong> overlaps with:
+                </p>
+                <ul className="space-y-1 mb-4">
+                  {overlapWarning.overlaps.map((c, i) => (
+                    <li key={i} className="text-sm text-zinc-700 bg-amber-50 rounded px-2 py-1">
+                      • {c.code} ({c.time})
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            
             <p className="text-sm text-zinc-500 mb-4">
-              Adding this course will create a scheduling conflict. Are you sure you want to add it anyway?
+              {overlapWarning.isHardConflict 
+                ? "Adding this course will create a conflict with your blocked time. Are you sure?"
+                : "Adding this course will create a scheduling conflict. Are you sure you want to add it anyway?"}
             </p>
             <div className="flex gap-2">
               <button
@@ -540,8 +671,8 @@ function AddCourseModal({
                 Cancel
               </button>
               <button
-                onClick={() => handleConfirmAdd(overlapWarning.course)}
-                className="flex-1 px-4 py-2 bg-amber-500 text-white rounded-lg text-sm font-medium hover:bg-amber-600"
+                onClick={() => handleConfirmAdd(overlapWarning.course, overlapWarning.isHardConflict)}
+                className={`flex-1 px-4 py-2 text-white rounded-lg text-sm font-medium ${overlapWarning.isHardConflict ? 'bg-red-500 hover:bg-red-600' : 'bg-amber-500 hover:bg-amber-600'}`}
               >
                 Add Anyway
               </button>
@@ -565,20 +696,39 @@ function AddCourseModal({
             <div className="max-h-80 overflow-y-auto space-y-2">
               {searching && <p className="text-sm text-zinc-500 text-center py-4">Searching...</p>}
               {!searching && searchResults.length === 0 && searchQuery && <p className="text-sm text-zinc-500 text-center py-4">No courses found</p>}
-              {searchResults.map((course, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => checkOverlapAndSelect(course)}
-                  className="w-full text-left p-3 rounded-lg border border-zinc-200 hover:border-emoryBlue hover:bg-emoryBlue/5 transition-colors"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="font-medium text-emoryBlue">{course.code}</div>
-                    <div className="text-xs text-zinc-500">{course.credits || 3} cr</div>
-                  </div>
-                  <div className="text-sm text-zinc-600 truncate">{course.title}</div>
-                  <div className="text-xs text-zinc-400 mt-1">{course.time || "TBA"} • {course.professor || "TBA"}</div>
-                </button>
-              ))}
+              {searchResults.map((course, idx) => {
+                const tempCourse: Course = {
+                  code: course.code || "",
+                  title: course.title || "",
+                  professor: course.professor || "TBA",
+                  credits: course.credits || 3,
+                  time: course.time || "TBA",
+                  meeting: course.meeting || [],
+                  rmp: null,
+                  score: 0,
+                  ger: null,
+                  normalized_code: (course.code || "").toUpperCase().replace(/\s+/g, ""),
+                };
+                const hasConflict = checkHardTimeConflict(tempCourse, timeUnavailable);
+                
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => checkOverlapAndSelect(course)}
+                    className={`w-full text-left p-3 rounded-lg border transition-colors ${hasConflict ? 'border-red-300 hover:border-red-400 bg-red-50' : 'border-zinc-200 hover:border-emoryBlue hover:bg-emoryBlue/5'}`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium text-emoryBlue">{course.code}</span>
+                        {hasConflict && <span className="text-[10px] text-red-600 font-medium">⚠️ Time conflict</span>}
+                      </div>
+                      <div className="text-xs text-zinc-500">{course.credits || 3} cr</div>
+                    </div>
+                    <div className="text-sm text-zinc-600 truncate">{course.title}</div>
+                    <div className="text-xs text-zinc-400 mt-1">{course.time || "TBA"} • {course.professor || "TBA"}</div>
+                  </button>
+                );
+              })}
             </div>
             <p className="mt-4 text-xs text-zinc-500 text-center">
               Click a course to add it to your schedule. User-added courses appear translucent.
@@ -590,24 +740,77 @@ function AddCourseModal({
   );
 }
 
-function ScheduleCard({ schedule, index, isSelected, onSelect }: { schedule: Schedule; index: number; isSelected: boolean; onSelect: () => void }) {
+// NEW: Regenerate reminder popup
+function RegenerateReminderPopup({ isOpen, onClose, onRegenerate, addedCount, removedCount }: { 
+  isOpen: boolean; 
+  onClose: () => void;
+  onRegenerate: () => void;
+  addedCount: number;
+  removedCount: number;
+}) {
+  if (!isOpen) return null;
+  
+  return (
+    <div className="fixed bottom-24 right-4 z-40 bg-white rounded-xl shadow-lg border border-amber-200 p-4 max-w-sm animate-in slide-in-from-bottom-4">
+      <div className="flex items-start gap-3">
+        <div className="flex-shrink-0 p-2 bg-amber-100 rounded-lg">
+          <Info className="h-5 w-5 text-amber-600" />
+        </div>
+        <div className="flex-1">
+          <h4 className="font-semibold text-zinc-800 text-sm">Schedule Modified</h4>
+          <p className="text-xs text-zinc-600 mt-1">
+            You've {addedCount > 0 ? `added ${addedCount} course${addedCount > 1 ? 's' : ''}` : ''}
+            {addedCount > 0 && removedCount > 0 ? ' and ' : ''}
+            {removedCount > 0 ? `removed ${removedCount} course${removedCount > 1 ? 's' : ''}` : ''}.
+            Regenerate to see optimized schedules with your changes.
+          </p>
+          <div className="flex gap-2 mt-3">
+            <button
+              onClick={onClose}
+              className="px-3 py-1.5 text-xs font-medium text-zinc-600 hover:bg-zinc-100 rounded-lg"
+            >
+              Later
+            </button>
+            <button
+              onClick={() => { onRegenerate(); onClose(); }}
+              className="px-3 py-1.5 text-xs font-medium text-white bg-emoryBlue hover:bg-emoryBlue/90 rounded-lg flex items-center gap-1"
+            >
+              <RefreshCw className="h-3 w-3" />
+              Regenerate
+            </button>
+          </div>
+        </div>
+        <button onClick={onClose} className="p-1 hover:bg-zinc-100 rounded">
+          <X className="h-4 w-4 text-zinc-400" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function ScheduleCard({ schedule, index, isSelected, onSelect, hasHardConflicts }: { schedule: Schedule; index: number; isSelected: boolean; onSelect: () => void; hasHardConflicts: boolean }) {
   const gersInSchedule = new Set<string>();
   schedule.courses.forEach((c) => {
     getCourseTags(c).forEach((g) => gersInSchedule.add(g));
   });
   return (
-    <div onClick={onSelect} className={`cursor-pointer rounded-xl border-2 p-4 transition-all hover:shadow-md ${isSelected ? "border-emoryBlue bg-emoryBlue/5 shadow-md" : "border-zinc-200 bg-white hover:border-zinc-300"}`}>
+    <div onClick={onSelect} className={`cursor-pointer rounded-xl border-2 p-4 transition-all hover:shadow-md ${hasHardConflicts ? 'border-red-300 bg-red-50' : isSelected ? "border-emoryBlue bg-emoryBlue/5 shadow-md" : "border-zinc-200 bg-white hover:border-zinc-300"}`}>
       <div className="flex items-start justify-between mb-3">
-        <div><h3 className="font-semibold text-emoryBlue">Schedule {index + 1}</h3><p className="text-xs text-zinc-500">{schedule.course_count} courses • {schedule.total_credits} credits</p></div>
+        <div>
+          <div className="flex items-center gap-2">
+            <h3 className="font-semibold text-emoryBlue">Schedule {index + 1}</h3>
+            {hasHardConflicts && <span className="text-[10px] text-red-600">⚠️</span>}
+          </div>
+          <p className="text-xs text-zinc-500">{schedule.course_count} courses • {schedule.total_credits} credits</p>
+        </div>
       </div>
-      <div className="space-y-1.5">{schedule.courses.slice(0, 5).map((course, i) => <div key={`${course.code}-${i}`} className="flex items-center justify-between text-xs"><span className="font-medium text-zinc-800 truncate max-w-[140px]">{course.code}</span><span className="text-zinc-500">{course.credits} cr</span></div>)}{schedule.courses.length > 5 && <p className="text-xs text-zinc-400 italic">+{schedule.courses.length - 5} more...</p>}</div>
+      <div className="space-y-1.5">{schedule.courses.slice(0, 5).map((course, i) => <div key={`${course.code}-${i}`} className={`flex items-center justify-between text-xs ${course.hard_time_conflict ? 'text-red-600' : ''}`}><span className="font-medium text-zinc-800 truncate max-w-[140px]">{course.code}</span><span className="text-zinc-500">{course.credits} cr</span></div>)}{schedule.courses.length > 5 && <p className="text-xs text-zinc-400 italic">+{schedule.courses.length - 5} more...</p>}</div>
       {gersInSchedule.size > 0 && <div className="mt-3 flex flex-wrap gap-1">{Array.from(gersInSchedule).map((ger) => <span key={ger} className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700">{ger}</span>)}</div>}
       {isSelected && <div className="mt-3 flex items-center gap-1 text-xs text-emoryBlue"><CheckCircle2 className="h-3.5 w-3.5" />Selected</div>}
     </div>
   );
 }
 
-// Helper to recalculate schedule totals
 function recalculateSchedule(schedule: Schedule): Schedule {
   const totalCredits = schedule.courses.reduce((sum, c) => sum + (parseFloat(String(c.credits)) || 3), 0);
   const totalScore = schedule.courses.reduce((sum, c) => sum + (c.score || 0), 0);
@@ -628,9 +831,15 @@ export default function ScheduleBuilderPage() {
   const [showOptionsDrawer, setShowOptionsDrawer] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   
-  // Track user modifications
   const [removedCourses, setRemovedCourses] = useState<Set<string>>(new Set());
   const [addedCourses, setAddedCourses] = useState<Map<string, Course>>(new Map());
+  
+  const [timeUnavailable, setTimeUnavailable] = useState<TimeUnavailableBlock[]>([]);
+  const [allSchedulesHaveConflicts, setAllSchedulesHaveConflicts] = useState(false);
+  
+  // NEW: Track if user has pending modifications
+  const [showRegenerateReminder, setShowRegenerateReminder] = useState(false);
+  const [pendingModifications, setPendingModifications] = useState({ added: 0, removed: 0 });
 
   const selectedSchedule = schedules[selectedIdx] || null;
   const calendarBlocks = selectedSchedule ? coursesToCalendarBlocks(selectedSchedule.courses) : [];
@@ -639,20 +848,43 @@ export default function ScheduleBuilderPage() {
     .filter(Boolean);
   const removedCourseCodes = Array.from(removedCourses).map((c) => c.toUpperCase());
 
+  const fetchUserPreferences = useCallback(async () => {
+    try {
+      const uid = auth.currentUser?.uid;
+      if (!uid) return;
+      
+      const result = await api.getUserData(uid);
+      if (result.success && result.data?.preferences?.timeUnavailable) {
+        console.log("Loaded time unavailable:", result.data.preferences.timeUnavailable);
+        setTimeUnavailable(result.data.preferences.timeUnavailable);
+      }
+    } catch (err) {
+      console.error("Failed to fetch preferences:", err);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchUserPreferences();
+  }, [fetchUserPreferences]);
+
   const fetchSchedules = useCallback(async () => {
     setLoading(true); 
     setError(null);
+    setAllSchedulesHaveConflicts(false);
+    setShowRegenerateReminder(false);
+    setPendingModifications({ added: 0, removed: 0 });
+    
     try {
       const uid = auth.currentUser?.uid;
       if (!uid) throw new Error("Not signed in");
       
-      // Send removed and added courses to backend for consideration
+      await fetchUserPreferences();
+      
       const lockedCourses = Array.from(addedCourses.entries()).map(([code], idx) => ({
         code,
-        priority: idx + 1  // Priority based on order added
+        priority: idx + 1
       }));
       
-      // Update preferences with locked/removed courses
       if (removedCourses.size > 0 || addedCourses.size > 0) {
         await fetch(`${API_URL}/api/preferences`, {
           method: "POST",
@@ -673,26 +905,63 @@ export default function ScheduleBuilderPage() {
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error || "Failed to generate schedules");
       
-      // Mark added courses in the returned schedules
-      const schedulesWithMarkers = (data.schedules || []).map((schedule: Schedule) => ({
-        ...schedule,
-        courses: schedule.courses.map(course => ({
-          ...course,
-          user_added: addedCourses.has(course.normalized_code || course.code.toUpperCase().replace(/\s+/g, ""))
-        }))
-      }));
+      const userDataRes = await api.getUserData(uid);
+      const currentTimeUnavailable = userDataRes.success && userDataRes.data?.preferences?.timeUnavailable 
+        ? userDataRes.data.preferences.timeUnavailable 
+        : timeUnavailable;
       
-      setSchedules(schedulesWithMarkers);
-      setSelectedIdx(0);
-      setGenerated(true);
+      console.log("Checking schedules against time unavailable:", currentTimeUnavailable);
+      
+      // Frontend validation - check each schedule for hard time conflicts
+      const schedulesWithMarkers = (data.schedules || []).map((schedule: Schedule) => {
+        const coursesWithFlags = schedule.courses.map(course => {
+          const hasHardConflict = checkHardTimeConflict(course, currentTimeUnavailable);
+          if (hasHardConflict) {
+            console.log(`Course ${course.code} (${course.time}) has hard conflict`);
+          }
+          return {
+            ...course,
+            user_added: addedCourses.has(course.normalized_code || course.code.toUpperCase().replace(/\s+/g, "")),
+            hard_time_conflict: hasHardConflict
+          };
+        });
+        return {
+          ...schedule,
+          courses: coursesWithFlags
+        };
+      });
+      
+      // Filter out schedules that have ANY hard conflicts
+      const validSchedules = schedulesWithMarkers.filter((schedule: Schedule) => 
+        !schedule.courses.some(course => course.hard_time_conflict)
+      );
+      
+      const allHaveConflicts = schedulesWithMarkers.length > 0 && validSchedules.length === 0;
+      
+      if (validSchedules.length === 0) {
+        setAllSchedulesHaveConflicts(allHaveConflicts);
+        // Do not surface conflicted schedules; direct user to Preferences
+        setSchedules([]);
+        setError(
+          allHaveConflicts
+            ? "All generated schedules conflict with your unavailable times. Please adjust Preferences to continue."
+            : "No schedules could be generated."
+        );
+        setSelectedIdx(0);
+        setGenerated(true);
+        return;
+      } else {
+        setSchedules(validSchedules);
+        setSelectedIdx(0);
+        setGenerated(true);
+      }
     } catch (err: any) {
       setError(err.message || "Something went wrong");
       setSchedules([]);
     }
     finally { setLoading(false); }
-  }, [removedCourses, addedCourses]);
+  }, [removedCourses, addedCourses, fetchUserPreferences, timeUnavailable]);
 
-  // LOCAL remove - track removed courses
   function handleRemoveCourse(courseCode: string) {
     if (!selectedSchedule) return;
     if (selectedSchedule.courses.length <= 1) {
@@ -705,17 +974,14 @@ export default function ScheduleBuilderPage() {
 
     const normalizedCode = courseCode.toUpperCase().replace(/\s+/g, "");
     
-    // Track as removed so it won't come back on regenerate
     setRemovedCourses(prev => new Set(prev).add(normalizedCode));
     
-    // Remove from added courses if it was user-added
     setAddedCourses(prev => {
       const newMap = new Map(prev);
       newMap.delete(normalizedCode);
       return newMap;
     });
 
-    // Remove course locally
     const updatedCourses = selectedSchedule.courses.filter(c => 
       (c.normalized_code || c.code.toUpperCase().replace(/\s+/g, "")) !== normalizedCode
     );
@@ -724,15 +990,23 @@ export default function ScheduleBuilderPage() {
     const updatedSchedules = [...schedules];
     updatedSchedules[selectedIdx] = updatedSchedule;
     setSchedules(updatedSchedules);
+    
+    // Show regenerate reminder
+    setPendingModifications(prev => ({ ...prev, removed: prev.removed + 1 }));
+    setShowRegenerateReminder(true);
+    
+    const stillAllHaveConflicts = updatedSchedules.every(schedule => 
+      schedule.courses.some(course => course.hard_time_conflict)
+    );
+    setAllSchedulesHaveConflicts(stillAllHaveConflicts);
   }
 
-  // LOCAL add - track added courses
+  // LOCAL add - NO auto-regenerate, just add locally and show reminder
   function handleAddCourse(newCourse: Course) {
     if (!selectedSchedule) return;
 
     const normalizedCode = newCourse.normalized_code || newCourse.code.toUpperCase().replace(/\s+/g, "");
     
-    // Check if course already exists
     const exists = selectedSchedule.courses.some(
       c => (c.normalized_code || c.code.toUpperCase().replace(/\s+/g, "")) === normalizedCode
     );
@@ -741,27 +1015,40 @@ export default function ScheduleBuilderPage() {
       return;
     }
 
-    // Track as added (will be boosted on regenerate)
     setAddedCourses(prev => new Map(prev).set(normalizedCode, newCourse));
     
-    // Remove from removed courses if it was previously removed
     setRemovedCourses(prev => {
       const newSet = new Set(prev);
       newSet.delete(normalizedCode);
       return newSet;
     });
 
-    // Add course locally
     const updatedCourses = [...selectedSchedule.courses, newCourse];
     const updatedSchedule = recalculateSchedule({ ...selectedSchedule, courses: updatedCourses });
 
     const updatedSchedules = [...schedules];
     updatedSchedules[selectedIdx] = updatedSchedule;
     setSchedules(updatedSchedules);
+    
+    // Show regenerate reminder popup
+    setPendingModifications(prev => ({ ...prev, added: prev.added + 1 }));
+    setShowRegenerateReminder(true);
+    
+    if (newCourse.hard_time_conflict) {
+      setAllSchedulesHaveConflicts(updatedSchedules.every(schedule => 
+        schedule.courses.some(course => course.hard_time_conflict)
+      ));
+    }
   }
 
   async function handleSaveSchedule() {
     if (!schedules.length) return;
+    
+    const hasConflicts = selectedSchedule?.courses.some(c => c.hard_time_conflict);
+    if (hasConflicts) {
+      const confirmed = window.confirm("This schedule has courses that conflict with your unavailable times. Are you sure you want to save it?");
+      if (!confirmed) return;
+    }
 
     try {
       const uid = auth.currentUser?.uid;
@@ -780,12 +1067,24 @@ export default function ScheduleBuilderPage() {
     }
   }
 
-  useEffect(() => { fetchSchedules(); }, [fetchSchedules]);
+  useEffect(() => {
+    fetchSchedules();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function handleExportICS() {
     if (!selectedSchedule) return;
+    
+    const hasConflicts = selectedSchedule.courses.some(c => c.hard_time_conflict);
+    if (hasConflicts) {
+      const confirmed = window.confirm("This schedule has courses that conflict with your unavailable times. Are you sure you want to export it?");
+      if (!confirmed) return;
+    }
+    
     downloadICS(selectedSchedule.courses, `DooleyHelpz_Schedule_${selectedIdx + 1}`);
   }
+
+  const selectedHasConflicts = selectedSchedule?.courses.some(c => c.hard_time_conflict) || false;
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900 pb-20">
@@ -814,7 +1113,7 @@ export default function ScheduleBuilderPage() {
               <div className="relative inline-block group mt-1 text-xs text-amber-600">
                 <span>
                   {removedCourses.size > 0 && `${removedCourses.size} course(s) excluded`}
-                  {removedCourses.size > 0 && addedCourses.size > 0 && " \u2022 "}
+                  {removedCourses.size > 0 && addedCourses.size > 0 && " • "}
                   {addedCourses.size > 0 && `${addedCourses.size} course(s) boosted`}
                 </span>
                 <div className="pointer-events-none absolute left-0 mt-1 hidden w-72 rounded-lg border border-amber-200 bg-white p-3 text-[11px] text-zinc-700 shadow-lg group-hover:block z-20">
@@ -835,6 +1134,13 @@ export default function ScheduleBuilderPage() {
                     </div>
                   )}
                 </div>
+              </div>
+            )}
+            
+            {/* Show time unavailable summary */}
+            {timeUnavailable.length > 0 && (
+              <div className="mt-1 text-xs text-zinc-500">
+                Time blocked: {timeUnavailable.map(t => `${t.day} ${t.start}-${t.end}`).join(", ")}
               </div>
             )}
           </div>
@@ -863,6 +1169,26 @@ export default function ScheduleBuilderPage() {
             <AlertCircle className="h-5 w-5" /><span>{error}</span>
           </div>
         )}
+        
+        {allSchedulesHaveConflicts && !loading && (
+          <div className="mb-6 rounded-lg border-2 border-red-300 bg-red-50 px-4 py-4">
+            <div className="flex items-start gap-3">
+              <X className="h-6 w-6 text-red-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <h3 className="font-semibold text-red-800">All schedules have time conflicts</h3>
+                <p className="mt-1 text-sm text-red-700">
+                  All generated schedules contain courses that conflict with your "Time Unavailable" settings. 
+                  Please consider:
+                </p>
+                <ul className="mt-2 text-sm text-red-700 list-disc list-inside space-y-1">
+                  <li>Reducing your blocked time slots in <Link to="/preferences" className="underline font-medium">Preferences</Link></li>
+                  <li>Adjusting your required courses or credit hours</li>
+                  <li>Manually removing conflicting courses from the schedules below</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
 
         {loading && (
           <div className="flex flex-col items-center justify-center py-20">
@@ -888,14 +1214,36 @@ export default function ScheduleBuilderPage() {
             <div className="space-y-3">
               <h2 className="text-sm font-semibold text-zinc-700 uppercase tracking-wide">{schedules.length} Schedule Options</h2>
               <div className="space-y-3 max-h-[calc(100vh-280px)] overflow-y-auto pr-2">
-                {schedules.map((schedule, idx) => (
-                  <ScheduleCard key={idx} schedule={schedule} index={idx} isSelected={idx === selectedIdx} onSelect={() => setSelectedIdx(idx)} />
-                ))}
+                {schedules.map((schedule, idx) => {
+                  const hasConflicts = schedule.courses.some(c => c.hard_time_conflict);
+                  return (
+                    <ScheduleCard 
+                      key={idx} 
+                      schedule={schedule} 
+                      index={idx} 
+                      isSelected={idx === selectedIdx} 
+                      onSelect={() => setSelectedIdx(idx)} 
+                      hasHardConflicts={hasConflicts}
+                    />
+                  );
+                })}
               </div>
             </div>
 
             {selectedSchedule && (
               <div className="space-y-6">
+                {selectedHasConflicts && (
+                  <div className="rounded-lg border border-red-300 bg-red-50 px-4 py-3">
+                    <div className="flex items-center gap-2 text-red-700">
+                      <X className="h-5 w-5" />
+                      <span className="font-medium">This schedule has time conflicts with your unavailable blocks</span>
+                    </div>
+                    <p className="mt-1 text-sm text-red-600">
+                      Remove the conflicting courses (marked in red) or adjust your preferences.
+                    </p>
+                  </div>
+                )}
+                
                 <div>
                   <div className="mb-3 flex items-center justify-between">
                     <h2 className="text-lg font-semibold text-emoryBlue">Weekly View</h2>
@@ -909,9 +1257,8 @@ export default function ScheduleBuilderPage() {
                       </button>
                     </div>
                   </div>
-                  <WeeklyCalendar blocks={calendarBlocks} />
+                  <WeeklyCalendar blocks={calendarBlocks} timeUnavailable={timeUnavailable} />
                   
-                  {/* Legend */}
                   <div className="mt-3 flex flex-wrap gap-3 text-xs text-zinc-500">
                     <div className="flex items-center gap-1">
                       <div className="w-3 h-3 rounded border-dashed border border-gray-400 bg-gray-100/60"></div>
@@ -919,7 +1266,11 @@ export default function ScheduleBuilderPage() {
                     </div>
                     <div className="flex items-center gap-1">
                       <AlertTriangle className="h-3 w-3 text-amber-600" />
-                      <span>Outside preferences (based on your preferred times and internal calculations)</span>
+                      <span>Outside preferences (your preferences and internal preferences)</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <div className="w-3 h-3 rounded border border-red-400 bg-red-100"></div>
+                      <span>Time conflict (hard)</span>
                     </div>
                   </div>
                 </div>
@@ -973,6 +1324,16 @@ export default function ScheduleBuilderPage() {
         onClose={() => setShowAddModal(false)}
         onAddCourse={handleAddCourse}
         currentCourses={selectedSchedule?.courses || []}
+        timeUnavailable={timeUnavailable}
+      />
+      
+      {/* Regenerate reminder popup */}
+      <RegenerateReminderPopup
+        isOpen={showRegenerateReminder}
+        onClose={() => setShowRegenerateReminder(false)}
+        onRegenerate={fetchSchedules}
+        addedCount={pendingModifications.added}
+        removedCount={pendingModifications.removed}
       />
     </div>
   );
