@@ -711,44 +711,35 @@ export default function DropTranscript() {
           )}
         </div>
 
-        {uploadedFiles.length > 0 && (
-          <section className="mb-10">
-            <h2 className="mb-3 text-xl font-semibold text-emoryBlue">Recently Uploaded. Only the most recent .pdf is shown, you can't stack multiple for combined results.</h2>
-            <div className="overflow-x-auto rounded-xl border border-zinc-200 bg-white shadow-sm">
-              <table className="min-w-full text-sm">
-                <thead className="bg-zinc-100 text-zinc-700">
-                  <tr>
-                    <th className="px-4 py-2 text-left">File</th>
-                    <th className="px-4 py-2 text-left">Size</th>
-                    <th className="px-4 py-2 text-left">Uploaded</th>
-                    <th className="px-4 py-2 text-left"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {uploadedFiles.map((f, i) => (
-                    <tr key={i} className="border-t border-zinc-100 transition-colors hover:bg-paleGold/10">
-                      <td className="flex items-center gap-2 px-4 py-2">
-                        <FileText className="h-4 w-4 text-emoryBlue" />
-                        {f.name}
-                      </td>
-                      <td className="px-4 py-2">{(f.size / 1024).toFixed(1)} KB</td>
-                      <td className="flex items-center gap-1 px-4 py-2">
-                        <Clock className="h-3.5 w-3.5 opacity-70" />
-                        {f.time}
-                      </td>
-                      <td className="px-4 py-2 text-right">
-                        <button
-                          onClick={() => setSelected(f)}
-                          className="text-sm font-medium text-emoryBlue transition-colors hover:text-Gold"
-                        >
-                          Preview & Parse
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+{uploadedFiles.length > 0 && (
+  <section className="mb-10">
+    <h2 className="mb-3 text-xl font-semibold text-emoryBlue">Recently Uploaded. Only the most recent .pdf is shown, you can't stack multiple for combined results.</h2>
+    <div className="overflow-x-auto rounded-xl border border-zinc-200 bg-white shadow-sm">
+      <table className="min-w-full text-sm">
+        <thead className="bg-zinc-100 text-zinc-700">
+          <tr>
+            <th className="px-4 py-2 text-left">File</th>
+            <th className="px-4 py-2 text-left">Size</th>
+            <th className="px-4 py-2 text-left">Uploaded</th>
+          </tr>
+        </thead>
+        <tbody>
+          {uploadedFiles.map((f, i) => (
+            <tr key={i} className="border-t border-zinc-100 transition-colors hover:bg-paleGold/10">
+              <td className="flex items-center gap-2 px-4 py-2">
+                <FileText className="h-4 w-4 text-emoryBlue" />
+                {f.name}
+              </td>
+              <td className="px-4 py-2">{(f.size / 1024).toFixed(1)} KB</td>
+              <td className="flex items-center gap-1 px-4 py-2">
+                <Clock className="h-3.5 w-3.5 opacity-70" />
+                {f.time}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
           </section>
         )}
 

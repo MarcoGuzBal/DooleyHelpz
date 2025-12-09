@@ -557,6 +557,24 @@ function AddCourseModal({
   const [searching, setSearching] = useState(false);
   const [overlapWarning, setOverlapWarning] = useState<{ course: any; overlaps: Course[]; isHardConflict: boolean } | null>(null);
 
+  // Helper to check if a course section is already in the schedule
+  // Returns true if EXACT SAME section (same code + same time + same professor)
+  function isSameSection(searchCourse: any, existingCourse: Course): boolean {
+    const searchCode = (searchCourse.code || "").toUpperCase().replace(/\s+/g, "");
+    const existingCode = (existingCourse.code || "").toUpperCase().replace(/\s+/g, "");
+    
+    if (searchCode !== existingCode) return false;
+    
+    // Same code - check if same section (time + professor)
+    const searchTime = (searchCourse.time || "").trim().toLowerCase();
+    const existingTime = (existingCourse.time || "").trim().toLowerCase();
+    const searchProf = (searchCourse.professor || "").trim().toLowerCase();
+    const existingProf = (existingCourse.professor || "").trim().toLowerCase();
+    
+    // If both time and professor match, it's the same section
+    return searchTime === existingTime && searchProf === existingProf;
+  }
+
   async function handleSearch() {
     if (!searchQuery.trim()) return;
     setSearching(true);
@@ -565,8 +583,12 @@ function AddCourseModal({
       const res = await fetch(`${API_URL}/api/search-courses?q=${encodeURIComponent(searchQuery)}&limit=20`);
       const data = await res.json();
       if (data.success && data.courses) {
-        const currentCodes = new Set(currentCourses.map(c => (c.code || "").toUpperCase().replace(/\s+/g, "")));
-        setSearchResults(data.courses.filter((c: any) => !currentCodes.has((c.code || "").toUpperCase().replace(/\s+/g, ""))));
+        // Filter out only EXACT SAME sections (same code + same time + same professor)
+        // This allows adding different sections of the same course
+        setSearchResults(data.courses.filter((searchCourse: any) => {
+          // Check if this exact section is already in the schedule
+          return !currentCourses.some(existing => isSameSection(searchCourse, existing));
+        }));
       }
     } catch (err) { console.error("Search failed:", err); }
     finally { setSearching(false); }
@@ -686,7 +708,7 @@ function AddCourseModal({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                placeholder="Search by course code or name (e.g., CS 350 or CS350)..."
+                placeholder="Search by course code (e.g., CS350) or title..."
                 className="flex-1 rounded-lg border border-zinc-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emoryBlue"
               />
               <button onClick={handleSearch} disabled={searching} className="px-4 py-2 bg-emoryBlue text-white rounded-lg text-sm font-medium hover:bg-emoryBlue/90 disabled:opacity-50">
@@ -695,7 +717,7 @@ function AddCourseModal({
             </div>
             <div className="max-h-80 overflow-y-auto space-y-2">
               {searching && <p className="text-sm text-zinc-500 text-center py-4">Searching...</p>}
-              {!searching && searchResults.length === 0 && searchQuery && <p className="text-sm text-zinc-500 text-center py-4">No courses found</p>}
+              {!searching && searchResults.length === 0 && searchQuery && <p className="text-sm text-zinc-500 text-center py-4">No courses found. Try a department code like "CS" or "MATH".</p>}
               {searchResults.map((course, idx) => {
                 const tempCourse: Course = {
                   code: course.code || "",
@@ -711,16 +733,23 @@ function AddCourseModal({
                 };
                 const hasConflict = checkHardTimeConflict(tempCourse, timeUnavailable);
                 
+                // Check if same course code is already in schedule (different section)
+                const sameCodeInSchedule = currentCourses.some(existing => 
+                  (existing.code || "").toUpperCase().replace(/\s+/g, "") === 
+                  (course.code || "").toUpperCase().replace(/\s+/g, "")
+                );
+                
                 return (
                   <button
                     key={idx}
                     onClick={() => checkOverlapAndSelect(course)}
-                    className={`w-full text-left p-3 rounded-lg border transition-colors ${hasConflict ? 'border-red-300 hover:border-red-400 bg-red-50' : 'border-zinc-200 hover:border-emoryBlue hover:bg-emoryBlue/5'}`}
+                    className={`w-full text-left p-3 rounded-lg border transition-colors ${hasConflict ? 'border-red-300 hover:border-red-400 bg-red-50' : sameCodeInSchedule ? 'border-amber-300 hover:border-amber-400 bg-amber-50' : 'border-zinc-200 hover:border-emoryBlue hover:bg-emoryBlue/5'}`}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className="font-medium text-emoryBlue">{course.code}</span>
                         {hasConflict && <span className="text-[10px] text-red-600 font-medium">⚠️ Time conflict</span>}
+                        {sameCodeInSchedule && !hasConflict && <span className="text-[10px] text-amber-600 font-medium">Different section</span>}
                       </div>
                       <div className="text-xs text-zinc-500">{course.credits || 3} cr</div>
                     </div>
@@ -731,7 +760,7 @@ function AddCourseModal({
               })}
             </div>
             <p className="mt-4 text-xs text-zinc-500 text-center">
-              Click a course to add it to your schedule. User-added courses appear translucent.
+              Search by department (e.g., "CS", "MATH") or full course code (e.g., "CS350"). You can add different sections of the same course.
             </p>
           </div>
         )}

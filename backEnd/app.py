@@ -492,7 +492,7 @@ def modify_schedule():
         }), 500
 
 
-# NEW: Search courses (for adding to schedule) - with whitespace handling
+# NEW: Search courses (for adding to schedule) - with smarter filtering
 @app.route("/api/search-courses", methods=["GET"])
 def search_courses():
     try:
@@ -507,21 +507,43 @@ def search_courses():
         
         # Normalize query - remove extra spaces and handle "CS 350" -> "CS350" pattern
         query_normalized = re.sub(r'\s+', '', query).upper()
-        query_with_space = re.sub(r'([A-Z]+)\s*(\d+)', r'\1 \2', query.upper()).strip()
         
-        # Search by code or title with multiple patterns
-        search_filter = {
-            "$or": [
-                # Match normalized code (no spaces)
-                {"code": {"$regex": query_normalized, "$options": "i"}},
-                # Match with optional space between letters and numbers
-                {"code": {"$regex": query_with_space, "$options": "i"}},
-                # Match original query in title
-                {"title": {"$regex": query, "$options": "i"}},
-                # Match normalized in title
-                {"title": {"$regex": query_normalized, "$options": "i"}}
-            ]
-        }
+        # Check if query looks like a course code (letters followed by optional numbers)
+        # e.g., "CS", "CS350", "CS 350", "MATH111"
+        course_code_pattern = re.match(r'^([A-Z]{2,6})\s*(\d{0,4})([A-Z]{0,3})$', query_normalized)
+        
+        if course_code_pattern:
+            # This looks like a course code search
+            dept = course_code_pattern.group(1)
+            num = course_code_pattern.group(2)
+            suffix = course_code_pattern.group(3)
+            
+            if num:
+                # Full or partial course code like "CS350" or "CS3"
+                # Build regex that matches the code with optional space
+                # e.g., "CS350" should match "CS 350", "CS350", "CS 350L"
+                code_regex = f"^{dept}\\s*{num}{suffix}"
+            else:
+                # Just department like "CS" - match codes starting with that dept
+                code_regex = f"^{dept}\\s*\\d"
+            
+            search_filter = {
+                "code": {"$regex": code_regex, "$options": "i"}
+            }
+        else:
+            # Not a course code pattern - search by title
+            # Escape special regex characters in the query
+            escaped_query = re.escape(query)
+            
+            # For title searches, require the query to appear in the title
+            search_filter = {
+                "$or": [
+                    # Match in title (case insensitive)
+                    {"title": {"$regex": escaped_query, "$options": "i"}},
+                    # Also try matching code in case of typos
+                    {"code": {"$regex": escaped_query, "$options": "i"}}
+                ]
+            }
         
         courses = list(enriched_courses_col.find(
             search_filter,
