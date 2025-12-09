@@ -83,6 +83,7 @@ export default function DropTranscript() {
   const [posting, setPosting] = useState(false);
   const [postedOk, setPostedOk] = useState<null | boolean>(null);
   const [postError, setPostError] = useState<string | null>(null);
+  const [acknowledgePrereqRisk, setAcknowledgePrereqRisk] = useState(false);
 
   // Track if initial validation has completed
   const [initialValidationDone, setInitialValidationDone] = useState(false);
@@ -307,6 +308,11 @@ export default function DropTranscript() {
     const allCodes = getAllDisplayedCodes();
     return Array.from(allCodes).filter(code => courseExistence[normalizeCode(code)] === false);
   })();
+
+  useEffect(() => {
+    // Require a fresh acknowledgement whenever the transcript or missing prereq set changes
+    setAcknowledgePrereqRisk(false);
+  }, [selected, allMissingPrereqs.length]);
 
   async function extractPdfText(file: File): Promise<string> {
     try {
@@ -648,6 +654,14 @@ export default function DropTranscript() {
     selIncomingTest.size +
     selEmory.size +
     selSpring2026.size;
+  const requiresPrereqAck = initialValidationDone && allMissingPrereqs.length > 0;
+  const nothingSelected =
+    !selIncomingTransfer.size &&
+    !selIncomingTest.size &&
+    !selEmory.size &&
+    !selSpring2026.size;
+  const disableSubmit =
+    posting || nothingSelected || (requiresPrereqAck && !acknowledgePrereqRisk);
 
   return (
     <div className="min-h-screen bg-white text-zinc-900">
@@ -802,6 +816,18 @@ export default function DropTranscript() {
                 <p className="mt-1 text-xs text-amber-600">
                   Some selected courses require these prerequisites. Add them if you've completed them.
                 </p>
+                <label className="mt-3 flex items-start gap-2 text-xs text-amber-700">
+                  <input
+                    type="checkbox"
+                    checked={acknowledgePrereqRisk}
+                    onChange={(e) => setAcknowledgePrereqRisk(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 rounded border-amber-300 text-emoryBlue focus:ring-emoryBlue"
+                  />
+                  <span className="leading-tight">
+                    I believe my course codes are correct and accept that schedule recommendations may be wrong if these
+                    prerequisites are missing.
+                  </span>
+                </label>
               </div>
             )}
           </div>
@@ -1043,25 +1069,20 @@ export default function DropTranscript() {
                   <AlertCircle className="h-3.5 w-3.5" /> Failed
                 </span>
               )}
+              {requiresPrereqAck && !acknowledgePrereqRisk && (
+                <span className="ml-2 inline-flex items-center gap-1 rounded-md bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-700">
+                  <AlertCircle className="h-3.5 w-3.5" /> Acknowledge missing prerequisites to continue
+                </span>
+              )}
             </div>
 
             <button
               type="button"
               onClick={handleSubmit}
-              disabled={
-                posting ||
-                (!selIncomingTransfer.size &&
-                  !selIncomingTest.size &&
-                  !selEmory.size &&
-                  !selSpring2026.size)
-              }
+              disabled={disableSubmit}
               className={
                 "inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold shadow-sm " +
-                (posting ||
-                (!selIncomingTransfer.size &&
-                  !selIncomingTest.size &&
-                  !selEmory.size &&
-                  !selSpring2026.size)
+                (disableSubmit
                   ? "cursor-not-allowed bg-zinc-200 text-zinc-500"
                   : "bg-emoryBlue text-white hover:bg-emoryBlue/90")
               }
