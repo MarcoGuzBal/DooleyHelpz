@@ -32,8 +32,7 @@ type UploadedItem = {
 };
 
 // Normalize course code: "CS 350" -> "CS350", "cs350" -> "CS350"
-const normalizeCode = (code: string) => code.toUpperCase().replace(/\s+/g, "");
-
+const normalizeCode = (code: string) => code.toUpperCase().replace(/[^A-Z0-9]/g, "")
 // Types for prerequisite validation
 type PrereqGroup = string[][]; // Each inner array is an OR group, outer is AND
 type PrereqMap = Record<string, PrereqGroup>;
