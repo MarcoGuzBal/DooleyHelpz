@@ -17,10 +17,9 @@ const getApiUrl = (): string => {
     console.log("API URL from env:", cleanUrl);
     return cleanUrl;
   }
-
-  // 3. Default: Localhost
-  console.log("API URL (localhost default):", 'http://localhost:8080');
-  return 'http://localhost:8080';
+  const fallbackProdUrl = 'https://dooley-devs.fly.dev';
+  console.log("API URL (fallback prod):", fallbackProdUrl);
+  return fallbackProdUrl;
 };
 
 export const API_URL = getApiUrl();
