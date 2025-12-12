@@ -41,23 +41,29 @@ basic_courses_col = basic_courses_db["BasicCourses"]
 rmp_db = client["RMP"]
 rmp_col = rmp_db["RMP"]
 
-# Import the integrated recommendation engine
+# Import the integrated recommendation engine (FibHeap)
 sys.path.insert(0, str(Path(__file__).parent / "FibHeap"))
 sys.path.insert(0, str(Path(__file__).parent))
 
+FIBHEAP_ENGINE_AVAILABLE = False
+ML_ENGINE_AVAILABLE = False
+
 try:
-    from integrated_recommendation_engine import generate_schedule_for_user
-    RECO_ENGINE_AVAILABLE = True
-    print("Loaded integrated recommendation engine with Fibonacci heap")
+    from integrated_recommendation_engine import generate_schedule_for_user as fibheap_generate
+    FIBHEAP_ENGINE_AVAILABLE = True
+    print("Loaded FibHeap recommendation engine")
 except ImportError as e:
-    print(f"Could not load recommendation engine from FibHeap: {e}")
-    try:
-        from integrated_recommendation_engine import generate_schedule_for_user
-        RECO_ENGINE_AVAILABLE = True
-        print("Loaded integrated recommendation engine (fallback)")
-    except ImportError as e2:
-        print(f"Could not load recommendation engine: {e2}")
-        RECO_ENGINE_AVAILABLE = False
+    print(f"Could not load FibHeap recommendation engine: {e}")
+    fibheap_generate = None
+
+# Import the ML recommendation engine
+try:
+    from ml_recommendation_engine import generate_schedule_for_user as ml_generate
+    ML_ENGINE_AVAILABLE = True
+    print("Loaded ML recommendation engine")
+except ImportError as e:
+    print(f"Could not load ML recommendation engine: {e}")
+    ml_generate = None
 
 # Cache for last submitted data
 last_userCourses = None
@@ -107,16 +113,20 @@ def after_request(response):
 def home():
     return jsonify({
         "message": "DooleyHelpz Backend API",
-        "version": "3.1 - Fibonacci Heap Edition",
-        "recommendation_engine": "available" if RECO_ENGINE_AVAILABLE else "unavailable",
+        "version": "3.2 - Multi-Engine Edition",
+        "engines": {
+            "fibheap": "available" if FIBHEAP_ENGINE_AVAILABLE else "unavailable",
+            "ml": "available" if ML_ENGINE_AVAILABLE else "unavailable"
+        },
         "endpoints": {
             "user_courses": "/api/userCourses (POST, GET)",
             "preferences": "/api/preferences (POST, GET)",
-            "generate_schedule": "/api/generate-schedule (POST)",
+            "generate_schedule": "/api/generate-schedule (POST) - supports engine_type: 'fibheap' | 'ml'",
             "get_user_data": "/api/user-data/<shared_id> (GET)",
             "save_schedule": "/api/save-schedule (POST)",
             "get_saved_schedule": "/api/saved-schedule/<shared_id> (GET)",
             "modify_schedule": "/api/modify-schedule (POST)",
+            "engine_status": "/api/engine-status (GET)",
             "health": "/api/health (GET)"
         }
     })
@@ -131,7 +141,10 @@ def health_check():
         return jsonify({
             "status": "healthy",
             "mongodb": "connected",
-            "recommendation_engine": "available" if RECO_ENGINE_AVAILABLE else "unavailable",
+            "engines": {
+                "fibheap": "available" if FIBHEAP_ENGINE_AVAILABLE else "unavailable",
+                "ml": "available" if ML_ENGINE_AVAILABLE else "unavailable"
+            },
             "collections": {
                 "user_courses": course_col.count_documents({}),
                 "user_preferences": pref_col.count_documents({}),
@@ -145,6 +158,26 @@ def health_check():
             "status": "unhealthy",
             "error": str(e)
         }), 500
+
+
+# NEW: Engine status endpoint
+@app.route("/api/engine-status", methods=["GET"])
+def engine_status():
+    """Return status of available recommendation engines."""
+    return jsonify({
+        "success": True,
+        "engines": {
+            "fibheap": {
+                "available": FIBHEAP_ENGINE_AVAILABLE,
+                "description": "Fibonacci Heap based optimization - fast and efficient"
+            },
+            "ml": {
+                "available": ML_ENGINE_AVAILABLE,
+                "description": "Machine Learning based recommendations - learns from RMP data"
+            }
+        },
+        "default": "fibheap" if FIBHEAP_ENGINE_AVAILABLE else ("ml" if ML_ENGINE_AVAILABLE else None)
+    }), 200
 
 
 @app.route("/api/userCourses", methods=["POST"])
@@ -399,10 +432,11 @@ def get_saved_schedule(uid):
 # Modify schedule (add/remove courses and regenerate)
 @app.route("/api/modify-schedule", methods=["POST"])
 def modify_schedule():
-    if not RECO_ENGINE_AVAILABLE:
+    # Check if any engine is available
+    if not FIBHEAP_ENGINE_AVAILABLE and not ML_ENGINE_AVAILABLE:
         return jsonify({
             "success": False,
-            "error": "Recommendation engine not available."
+            "error": "No recommendation engine available."
         }), 500
     
     try:
@@ -412,6 +446,7 @@ def modify_schedule():
         course_code = data.get("course_code")
         priority_rank = data.get("priority_rank")  # For add action
         current_schedule = data.get("current_schedule", [])
+        engine_type = data.get("engine_type", "fibheap")  # NEW: Engine selection
         
         if not uid or not action or not course_code:
             return jsonify({
@@ -470,8 +505,23 @@ def modify_schedule():
             }}
         )
         
+        # Select engine
+        generate_func = None
+        if engine_type == "ml" and ML_ENGINE_AVAILABLE:
+            generate_func = ml_generate
+        elif FIBHEAP_ENGINE_AVAILABLE:
+            generate_func = fibheap_generate
+        elif ML_ENGINE_AVAILABLE:
+            generate_func = ml_generate
+        
+        if generate_func is None:
+            return jsonify({
+                "success": False,
+                "error": "No recommendation engine available"
+            }), 500
+        
         # Regenerate schedule with modifications
-        result = generate_schedule_for_user(
+        result = generate_func(
             uid=uid,
             course_col=course_col,
             pref_col=pref_col,
@@ -636,16 +686,18 @@ def course_prereqs():
 
 @app.route("/api/generate-schedule", methods=["POST"])
 def generate_schedule():
-    if not RECO_ENGINE_AVAILABLE:
+    # Check if any engine is available
+    if not FIBHEAP_ENGINE_AVAILABLE and not ML_ENGINE_AVAILABLE:
         return jsonify({
             "success": False,
-            "error": "Recommendation engine not available."
+            "error": "No recommendation engine available."
         }), 500
     
     try:
         data = request.get_json()
         uid = data.get("uid")
         num_recommendations = data.get("num_recommendations", 10)
+        engine_type = data.get("engine_type", "fibheap")  # NEW: Engine selection
         
         if not uid:
             return jsonify({
@@ -656,7 +708,34 @@ def generate_schedule():
         # Normalize uid
         uid = normalize_uid(uid)
         
-        result = generate_schedule_for_user(
+        # Select the appropriate engine
+        generate_func = None
+        actual_engine = engine_type
+        
+        if engine_type == "ml":
+            if ML_ENGINE_AVAILABLE:
+                generate_func = ml_generate
+            elif FIBHEAP_ENGINE_AVAILABLE:
+                generate_func = fibheap_generate
+                actual_engine = "fibheap"
+                print(f"[WARN] ML engine requested but not available, falling back to FibHeap")
+        else:  # fibheap or default
+            if FIBHEAP_ENGINE_AVAILABLE:
+                generate_func = fibheap_generate
+            elif ML_ENGINE_AVAILABLE:
+                generate_func = ml_generate
+                actual_engine = "ml"
+                print(f"[WARN] FibHeap engine requested but not available, falling back to ML")
+        
+        if generate_func is None:
+            return jsonify({
+                "success": False,
+                "error": "No recommendation engine available"
+            }), 500
+        
+        print(f"[INFO] Generating schedule using {actual_engine} engine for user {uid}")
+        
+        result = generate_func(
             uid=uid,
             course_col=course_col,
             pref_col=pref_col,
@@ -665,6 +744,10 @@ def generate_schedule():
             basic_courses_col=basic_courses_col,
             num_recommendations=num_recommendations
         )
+        
+        # Add engine info to result
+        if result.get("success"):
+            result["engine_used"] = actual_engine
         
         if result.get("success"):
             return jsonify(result), 200
@@ -758,20 +841,23 @@ if __name__ == "__main__":
     
     print(f"\n{'='*60}")
     print(f"DooleyHelpz Backend Server Starting...")
-    print(f"   (Fibonacci Heap Edition)")
+    print(f"   (Multi-Engine Edition - FibHeap + ML)")
     print(f"{'='*60}")
     print(f"Server: http://localhost:{port}")
     print(f"Debug mode: {debug}")
     print(f"MongoDB: Connected")
-    print(f"Recommendation Engine: {'Available' if RECO_ENGINE_AVAILABLE else 'Not Available'}")
+    print(f"Engines:")
+    print(f"  - FibHeap: {'Available' if FIBHEAP_ENGINE_AVAILABLE else 'Not Available'}")
+    print(f"  - ML:      {'Available' if ML_ENGINE_AVAILABLE else 'Not Available'}")
     print(f"\nEndpoints:")
     print(f"  POST /api/userCourses        - Upload transcript data")
     print(f"  POST /api/preferences        - Set preferences")
-    print(f"  POST /api/generate-schedule  - Generate recommendations")
+    print(f"  POST /api/generate-schedule  - Generate recommendations (engine_type: 'fibheap'|'ml')")
     print(f"  GET  /api/user-data/<id>     - Get all user data")
     print(f"  POST /api/save-schedule      - Save selected schedule")
     print(f"  POST /api/modify-schedule    - Add/remove courses")
     print(f"  GET  /api/search-courses     - Search available courses")
+    print(f"  GET  /api/engine-status      - Get engine availability")
     print(f"  GET  /api/health             - Health check")
     print(f"{'='*60}\n")
     

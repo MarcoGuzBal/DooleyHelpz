@@ -24,6 +24,9 @@ const getApiUrl = (): string => {
 
 export const API_URL = getApiUrl();
 
+// Engine types
+export type EngineType = 'fibheap' | 'ml';
+
 // Log the URL at startup for debugging
 console.log("=== API Configuration ===");
 console.log("Final API_URL:", API_URL);
@@ -118,20 +121,34 @@ export const api = {
     });
   },
 
-  // Generate schedule
-  generateSchedule: async (uid: string, numRecommendations = 10) => {
+  // Generate schedule - NOW SUPPORTS ENGINE TYPE
+  generateSchedule: async (uid: string, numRecommendations = 10, engineType: EngineType = 'fibheap') => {
     return apiCall<{
       success: boolean;
       schedules: any[];
       count: number;
       metadata: any;
+      engine_used?: string;
     }>(`/api/generate-schedule`, {
       method: "POST",
       body: JSON.stringify({
         uid: uid,
         num_recommendations: numRecommendations,
+        engine_type: engineType,
       }),
     });
+  },
+
+  // Get engine status
+  getEngineStatus: async () => {
+    return apiCall<{
+      success: boolean;
+      engines: {
+        fibheap: { available: boolean; description: string };
+        ml: { available: boolean; description: string };
+      };
+      default: string | null;
+    }>(`/api/engine-status`);
   },
 
   // Save ALL schedule recommendations + selected index (multi-schedule)
@@ -169,13 +186,14 @@ export const api = {
     }>(`/api/saved-schedule/${uid}`);
   },
 
-  // Modify schedule (add/remove course)
+  // Modify schedule (add/remove course) - NOW SUPPORTS ENGINE TYPE
   modifySchedule: async (
     uid: string,
     action: "add" | "remove",
     courseCode: string,
     priorityRank?: number,
-    currentSchedule?: any[]
+    currentSchedule?: any[],
+    engineType: EngineType = 'fibheap'
   ) => {
     return apiCall(`/api/modify-schedule`, {
       method: "POST",
@@ -185,6 +203,7 @@ export const api = {
         course_code: courseCode,
         priority_rank: priorityRank,
         current_schedule: currentSchedule,
+        engine_type: engineType,
       }),
     });
   },
@@ -203,7 +222,11 @@ export const api = {
     return apiCall<{
       status: string;
       mongodb: string;
-      recommendation_engine: string;
+      engines?: {
+        fibheap: string;
+        ml: string;
+      };
+      recommendation_engine?: string;
     }>(`/api/health`);
   },
 
@@ -218,5 +241,26 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ uid, email }),
     });
+  },
+};
+
+// Local storage helpers for engine preference
+const ENGINE_STORAGE_KEY = 'dooleyHelpz_engineType';
+
+export const enginePreference = {
+  get: (): EngineType => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem(ENGINE_STORAGE_KEY);
+      if (stored === 'ml' || stored === 'fibheap') {
+        return stored;
+      }
+    }
+    return 'fibheap'; // Default
+  },
+  
+  set: (engine: EngineType) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(ENGINE_STORAGE_KEY, engine);
+    }
   },
 };

@@ -4,10 +4,10 @@ import {
   CalendarDays, Download, RefreshCw, CheckCircle2, AlertCircle,
   ChevronLeft, ChevronRight, Star, Clock, BookOpen, GraduationCap,
   Plus, X, Search, List, ChevronDown, ChevronUp, Trash2, AlertTriangle,
-  Info,
+  Info, Cpu, Sparkles,
 } from "lucide-react";
 import { auth } from "../firebase";
-import { API_URL, api } from "../utils/api";
+import { API_URL, api, enginePreference, type EngineType } from "../utils/api";
 import applogo from "../assets/dooleyHelpzAppLogo.png";
 
 type Course = {
@@ -817,6 +817,70 @@ function RegenerateReminderPopup({ isOpen, onClose, onRegenerate, addedCount, re
   );
 }
 
+// NEW: Engine Toggle Component for Schedule Builder
+function EngineToggle({
+  selectedEngine,
+  onToggle,
+  engineStatus,
+  disabled,
+}: {
+  selectedEngine: EngineType;
+  onToggle: (engine: EngineType) => void;
+  engineStatus: { fibheap: boolean; ml: boolean };
+  disabled?: boolean;
+}) {
+  return (
+    <div className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wide text-emoryBlue">Recommendation Engine</p>
+          <p className="text-[11px] text-zinc-600">
+            FibHeap = use for grades. ML = Experimental, not for grade.
+          </p>
+        </div>
+        <div className="flex rounded-xl border border-zinc-200 overflow-hidden shadow-sm">
+        <button
+          onClick={() => onToggle("fibheap")}
+          disabled={disabled || !engineStatus.fibheap}
+          className={`px-4 py-2 text-xs font-semibold transition-all flex flex-col items-start gap-0.5 min-w-[150px] ${
+            selectedEngine === "fibheap"
+              ? "bg-emoryBlue text-white"
+              : engineStatus.fibheap
+              ? "bg-white text-zinc-700 hover:bg-zinc-50"
+              : "bg-zinc-50 text-zinc-400 cursor-not-allowed"
+          }`}
+          title="Fibonacci Heap - stable option for grade-worthy plans"
+        >
+          <span className="flex items-center gap-2">
+            <Cpu className="h-3.5 w-3.5" />
+            FibHeap
+          </span>
+          <span className="text-[10px] opacity-80">For grade / most stable</span>
+        </button>
+        <button
+          onClick={() => onToggle("ml")}
+          disabled={disabled || !engineStatus.ml}
+          className={`px-4 py-2 text-xs font-semibold transition-all flex flex-col items-start gap-0.5 min-w-[150px] border-l border-zinc-200 ${
+            selectedEngine === "ml"
+              ? "bg-purple-600 text-white"
+              : engineStatus.ml
+              ? "bg-white text-zinc-700 hover:bg-zinc-50"
+              : "bg-zinc-50 text-zinc-400 cursor-not-allowed"
+          }`}
+          title="Machine Learning Model - Experimental"
+        >
+          <span className="flex items-center gap-2">
+            <Sparkles className="h-3.5 w-3.5" />
+            ML (Experimental)
+          </span>
+          <span className="text-[10px] opacity-80">Experimental - not for grade</span>
+        </button>
+      </div>
+      </div>
+    </div>
+  );
+}
+
 function ScheduleCard({ schedule, index, isSelected, onSelect, hasHardConflicts }: { schedule: Schedule; index: number; isSelected: boolean; onSelect: () => void; hasHardConflicts: boolean }) {
   const gersInSchedule = new Set<string>();
   schedule.courses.forEach((c) => {
@@ -870,12 +934,32 @@ export default function ScheduleBuilderPage() {
   const [showRegenerateReminder, setShowRegenerateReminder] = useState(false);
   const [pendingModifications, setPendingModifications] = useState({ added: 0, removed: 0 });
 
+  // NEW: Engine state
+  const [selectedEngine, setSelectedEngine] = useState<EngineType>(enginePreference.get());
+  const [engineStatus, setEngineStatus] = useState({ fibheap: true, ml: false });
+  const [engineUsed, setEngineUsed] = useState<string | null>(null);
+
   const selectedSchedule = schedules[selectedIdx] || null;
   const calendarBlocks = selectedSchedule ? coursesToCalendarBlocks(selectedSchedule.courses) : [];
   const addedCourseCodes = Array.from(addedCourses.values())
     .map((c) => (c.code || c.normalized_code || "").toString().toUpperCase())
     .filter(Boolean);
   const removedCourseCodes = Array.from(removedCourses).map((c) => c.toUpperCase());
+
+  // Fetch engine status
+  const fetchEngineStatus = useCallback(async () => {
+    try {
+      const result = await api.getEngineStatus();
+      if (result.success && result.data?.engines) {
+        setEngineStatus({
+          fibheap: result.data.engines.fibheap?.available ?? false,
+          ml: result.data.engines.ml?.available ?? false,
+        });
+      }
+    } catch (err) {
+      console.error("Failed to fetch engine status:", err);
+    }
+  }, []);
 
   const fetchUserPreferences = useCallback(async () => {
     try {
@@ -894,7 +978,14 @@ export default function ScheduleBuilderPage() {
 
   useEffect(() => {
     fetchUserPreferences();
-  }, [fetchUserPreferences]);
+    fetchEngineStatus();
+  }, [fetchUserPreferences, fetchEngineStatus]);
+
+  // Handle engine toggle
+  const handleEngineToggle = (engine: EngineType) => {
+    setSelectedEngine(engine);
+    enginePreference.set(engine);
+  };
 
   const fetchSchedules = useCallback(async () => {
     setLoading(true); 
@@ -926,13 +1017,23 @@ export default function ScheduleBuilderPage() {
         });
       }
       
+      // Use the selected engine
+      console.log(`[INFO] Requesting schedules using ${selectedEngine} engine`);
+      
       const res = await fetch(`${API_URL}/api/generate-schedule`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ uid: uid, num_recommendations: 10 })
+        body: JSON.stringify({ 
+          uid: uid, 
+          num_recommendations: selectedEngine === 'ml' ? 1 : 10,
+          engine_type: selectedEngine  // NEW: Pass engine type
+        })
       });
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error || "Failed to generate schedules");
+      
+      // Track which engine was actually used
+      setEngineUsed(data.engine_used || selectedEngine);
       
       const userDataRes = await api.getUserData(uid);
       const currentTimeUnavailable = userDataRes.success && userDataRes.data?.preferences?.timeUnavailable 
@@ -989,7 +1090,7 @@ export default function ScheduleBuilderPage() {
       setSchedules([]);
     }
     finally { setLoading(false); }
-  }, [removedCourses, addedCourses, fetchUserPreferences, timeUnavailable]);
+  }, [removedCourses, addedCourses, fetchUserPreferences, timeUnavailable, selectedEngine]);
 
   function handleRemoveCourse(courseCode: string) {
     if (!selectedSchedule) return;
@@ -1132,12 +1233,31 @@ export default function ScheduleBuilderPage() {
       </header>
 
       <main className="mx-auto max-w-7xl px-4 py-6">
+        <div className="mb-4">
+          <EngineToggle
+            selectedEngine={selectedEngine}
+            onToggle={handleEngineToggle}
+            engineStatus={engineStatus}
+            disabled={loading}
+          />
+        </div>
+
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-bold text-emoryBlue flex items-center gap-2">
               <CalendarDays className="h-7 w-7" />Schedule Builder
             </h1>
-            <p className="text-sm text-zinc-600 mt-1">Optimized schedules based on your transcript and preferences</p>
+            <p className="text-sm text-zinc-600 mt-1">
+              Optimized schedules based on your transcript and preferences
+              {engineUsed && (
+                <span className={`ml-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium ${
+                  engineUsed === 'ml' ? 'bg-purple-100 text-purple-700' : 'bg-emoryBlue/10 text-emoryBlue'
+                }`}>
+                  {engineUsed === 'ml' ? <Sparkles className="h-3 w-3" /> : <Cpu className="h-3 w-3" />}
+                  {engineUsed === 'ml' ? 'ML Model' : 'FibHeap'}
+                </span>
+              )}
+            </p>
             {(removedCourses.size > 0 || addedCourses.size > 0) && (
               <div className="relative inline-block group mt-1 text-xs text-amber-600">
                 <span>
@@ -1222,7 +1342,9 @@ export default function ScheduleBuilderPage() {
         {loading && (
           <div className="flex flex-col items-center justify-center py-20">
             <RefreshCw className="h-10 w-10 animate-spin text-emoryBlue" />
-            <p className="mt-4 text-zinc-600">Generating your schedules...</p>
+            <p className="mt-4 text-zinc-600">
+              Generating your schedules using {selectedEngine === 'ml' ? 'ML Model' : 'FibHeap'}...
+            </p>
           </div>
         )}
 

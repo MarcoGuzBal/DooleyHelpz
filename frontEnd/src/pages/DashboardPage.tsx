@@ -546,6 +546,9 @@ export default function DashboardPage() {
                   <p className="mt-1 text-xs text-zinc-600">
                     Generate AI-powered schedules.
                   </p>
+                  <p className="mt-2 text-[11px] text-zinc-500">
+                    Choose your recommendation engine (FibHeap or ML) inside Schedule Builder before generating.
+                  </p>
                   {(!hasTranscript || !hasPreferences) && (
                     <p className="mt-2 text-xs text-amber-600">
                       ⚠{" "}
