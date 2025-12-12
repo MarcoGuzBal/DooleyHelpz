@@ -143,7 +143,7 @@ def build_training_matrix_from_synthetic(min_rating=0.0,
     X_rows = []
     y_rows = []
 
-    shared_ids = sorted(list(SYN_PREF_BY_ID.keys()))[:3]
+    shared_ids = sorted(list(SYN_PREF_BY_ID.keys()))
 
     for shared_id in shared_ids:
         print(f"[TRAIN] Building examples for synthetic user {shared_id}...")
@@ -257,8 +257,54 @@ def recommend_for_student_ml(shared_id: str,
         doc_with_score["score_ml"] = score_ml
         scored.append(doc_with_score)
 
-    scored.sort(key=lambda d: d["score_ml"], reverse=True)
-    top = scored[:top_n]
+        # ---------- GER-first, then major, then CS, then others ----------
+
+    def is_cs_course(d):
+        code = d.get("code")
+        return isinstance(code, str) and code.upper().startswith("CS")
+
+    # Buckets:
+    #  1) GERs due now
+    #  2) Major must courses
+    #  3) CS electives (remaining CS / major_elec)
+    #  4) Everything else
+    bucket_ger_due = []
+    bucket_major_must = []
+    bucket_cs_electives = []
+    bucket_other = []
+
+    for d in scored:
+        # Bucket 1: courses with GERs due (reason_ger_due non-empty)
+        if d.get("reason_ger_due"):
+            bucket_ger_due.append(d)
+
+        # Bucket 2: major must courses
+        elif d.get("reason_major_must"):
+            bucket_major_must.append(d)
+
+        # Bucket 3: CS electives remaining
+        # (either flagged as major_elec or simply any CS course)
+        elif d.get("reason_major_elec") or is_cs_course(d):
+            bucket_cs_electives.append(d)
+
+        # Bucket 4: pure electives
+        else:
+            bucket_other.append(d)
+
+    # Keep ML ordering within each bucket (highest score_ml first)
+    for bucket in (bucket_ger_due, bucket_major_must, bucket_cs_electives, bucket_other):
+        bucket.sort(key=lambda d: d["score_ml"], reverse=True)
+
+    # Final prioritized list: 1 → 2 → 3 → 4
+    prioritized = (
+        bucket_ger_due +
+        bucket_major_must +
+        bucket_cs_electives +
+        bucket_other
+    )
+
+    top = prioritized[:top_n]
+
 
     # 4) Save to MongoDB (per-student)
     try:

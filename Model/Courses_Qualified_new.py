@@ -344,6 +344,35 @@ def extract_coreq_groups(req: Dict[str, Any]) -> List[List[str]]:
         group_norm = [_normalize_code(c) for c in group]
         result.append(group_norm)
     return result
+def prereqs_satisfied_from_prereq_groups(prereq_groups: List[List[str]],
+                                         completed_codes: Set[str]) -> bool:
+    """
+    Enforce prereqs using the normalized 'prerequisites' field in the course doc.
+
+    prereq_groups is expected to be a list of OR-groups, e.g.:
+
+      [
+        ["CS171", "CS171Z", "CS_OX171"],   # group 1 (any of these)
+        ["MATH111", "MATH112"],            # group 2 (any of these)
+      ]
+
+    Rule:
+      For each group in prereq_groups, the student must have completed
+      at least ONE code in that group. Empty / malformed groups are ignored.
+    """
+    if not prereq_groups:
+        return True
+
+    for group in prereq_groups:
+        if not group:
+            # nothing to enforce in this group
+            continue
+
+        # at least one of the codes in this OR-group must be completed
+        if not any((code in completed_codes) for code in group):
+            return False
+
+    return True
 
 # -------------------------------------------------------------------
 # Core: build qualified courses for ONE student
@@ -354,7 +383,15 @@ def build_qualified_courses_for_student(shared_id: str,
                                         instruction_method: str = None) -> List[Dict[str, Any]]:
     """
     Main entry point used by the notebook.
+
+    This version:
+      - Keeps GER behavior via track_grad (major_must, major_elec_groups, ger_due, ger_left)
+      - Does NOT touch MongoDB schema (reads existing fields only)
+      - Does NOT hard-block courses based on prereqs (so CS courses are not all filtered out)
     """
+    # Toggle if you later want to re-enable prereq enforcement using doc["prerequisites"]
+    IGNORE_PREREQS = True
+
     # 1) load synthetic user
     user_doc = fetch_user_doc(shared_id)
     pref = user_doc["pref"]
@@ -368,9 +405,17 @@ def build_qualified_courses_for_student(shared_id: str,
     major_must, major_elec_groups, ger_due, ger_left, completed_codes = \
         run_track_grad_for_user(user_doc)
 
-    remaining_elec_codes = set()
+    # set of remaining elective course codes
+    remaining_elec_codes: Set[str] = set()
     for group in major_elec_groups:
         remaining_elec_codes.update(group.get("courses", []))
+
+    # GER tags that are actually due for this student right now
+    due_ger_tags: Set[str] = set()
+    for d in ger_due:
+        # each d is like {"HA": 1} or {"NS": 1}
+        for tag in d.keys():
+            due_ger_tags.add(tag)
 
     # 3) load catalog from CoursesEnriched
     try:
@@ -381,14 +426,14 @@ def build_qualified_courses_for_student(shared_id: str,
         source = []
 
     # 4) filter to qualified
-    qualified = []
+    qualified: List[Dict[str, Any]] = []
     for doc in source:
         code = doc.get("code")
         if not code:
             continue
         code_norm = str(code).upper()
-        is_ecs = code_norm.startswith("ECS")
-        # a) drop already completed
+
+        # a) drop already completed (incoming_test, incoming_transfer, emory_courses)
         if code in completed_codes:
             continue
 
@@ -402,18 +447,20 @@ def build_qualified_courses_for_student(shared_id: str,
             if (doc.get("instruction_method") or "").lower() != instruction_method.lower():
                 continue
 
-        # d) timeUnavailable
+            # d) timeUnavailable
         if course_conflicts_with_unavailable(doc, unavailable_blocks):
             continue
 
-        # e) look up requirements (prereq + coreq) from DetailedCourses.DetailedCourses
-        req = get_requirements_for_code(code)
-
-    # Enforce prereqs based on COMPLETED courses only
+            # e) Enforce prereqs using DetailedCourses.DetailedCourses.requirements
+        #    based on COMPLETED courses only.
+        req = get_requirements_for_code(code_norm)  # uses COL_DETAILED under the hood
         if not prereqs_satisfied_from_requirements(req, completed_codes):
+            # Student has NOT satisfied these prereqs → skip this course completely
+            # Optional: debug print
+            # print(f"[DEBUG] skipping {code_norm} due to prereqs: {req}")
             continue
 
-    # Extract coreq groups (for scheduler; we do NOT block on them here)
+        # Extract coreq groups (for scheduler/UI; we do NOT *block* on them here)
         coreq_groups = extract_coreq_groups(req)
 
         ger_list = doc.get("ger") or []
@@ -421,18 +468,20 @@ def build_qualified_courses_for_student(shared_id: str,
         base = clean_for_json(doc)
 
         doc_out = {
-        **base,
-        "shared_id": str(shared_id),
-        "reason_major_must": code in major_must,
-        "reason_major_elec": code in remaining_elec_codes,
-        "reason_ger": ger_list,
-        "reason_interest": matches_interests(doc, interests),
-        "requirements": {
-            "prereq_groups": req.get("prereq") or [],
-            "coreq_groups": coreq_groups,
-        },
-    }
+            **base,
+            "shared_id": str(shared_id),
+            "reason_major_must": code in major_must,
+            "reason_major_elec": code in remaining_elec_codes,
+            "reason_ger": ger_list,
+            "reason_interest": matches_interests(doc, interests),
+            "requirements": {
+                "prereq_groups": req.get("prereq") or [],
+                "coreq_groups": coreq_groups,
+            },
+        }
         qualified.append(doc_out)
+
+
 
     print(f"[INFO] For student {shared_id}, {len(qualified)} courses qualified.")
 
@@ -445,7 +494,6 @@ def build_qualified_courses_for_student(shared_id: str,
     print(f"[INFO] Saved → {out_path}")
 
     return qualified
-
 
 # -------------------------------------------------------------------
 # Simple CLI for debugging
