@@ -2,14 +2,18 @@ from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
 from pprint import pprint
-uri = "mongodb+srv://apere52:Melody339044@data.apz41ku.mongodb.net/"
+import os
+from dotenv import load_dotenv
+# load_dotenv(os.path.join(os.path.dirname(__file__), '../backEnd/.env'))
+# uri = os.getenv("MONGODB_URI")
+load_dotenv()
+uri = os.getenv("DB_URI")
 client1 = MongoClient(uri) #cluster
 client2 = MongoClient(uri)
 db = client1["BasicCourses"] # database
 col = db["BasicCourses"] #collection
 db2 = client2["DetailedCourses"] # database
 col2 = db2["DetailedCourses"] #collection
-print("Succesfully connected to detailed courses.")
 CSBA_major_dictionary = {
     "must": ["MATH111", "MATH112", "MATH221", "CS170", "CS171", 'CS224', 'CS253',
              'CS255', 'CS326', 'CS350'],
@@ -28,7 +32,7 @@ CSBA_major_dictionary = {
         }
     ]
 }
-CSBS_major_requirements = {
+CSBS_major_dictionary = {
     "must": ["MATH111", "MATH112", "MATH221", "CS170", "CS171", "CS224", "CS253", "CS255", "CS326", "CS350"],
     "elective_groups": [
         {
@@ -78,67 +82,58 @@ ger_due = {
     "end of third year": ['IC', 'ETHN'],
     "end of fourth year": ['CW', 'XA']
 }
-incoming_courses = [
-    "MATH111",
-    "MATH112Z",
-    "CHN102",
-    "CS170",
-    "ECON112",
-    "ECON101",
-    "PHYS141",
-    "QTM999XFR"
-]
-emory_courses = [
-    "CS171",
-    "ECON215",
-    "ECS101",
-    "ENGRD101",
-    "HLTH100",
-    "MATH190",
-    "MATH221",
-    "CS224",
-    "CS253",
-    "MATH211",
-    "PHYS152",
-    "PE414R",
-    "CS211",
-    "CS255",
-    "CS326",
-    "CS370",
-    "CS497R",
-    "CS371W",
-    "MATH212"
-]
-courses = incoming_courses + emory_courses
 def getridofZ(course_code):
     if course_code.endswith('Z'):
         return course_code[:-1]
+    if course_code.endswith("ZL"):
+        return course_code[:-2] + "L"
     return course_code
 def get_regex(pattern):
     query = {"code": {"$regex": pattern}}
     results = col.find(query, {"_id": 0, "code": 1})
     return [r["code"] for r in results]
-def track_major(courses):
+def track_major(major, courses):
+    major_dictionary = None
+    if major == "CSBS":
+        major_dictionary = CSBS_major_dictionary
+    else:
+        major_dictionary = CSBA_major_dictionary
+    # print("major_dictionary:", major_dictionary)
+    if not major_dictionary:
+        raise ValueError("invalid major:", major)
     for course in courses:
-        for req in list(CSBA_major_dictionary["must"]):
+        matched = False
+        for req in list(major_dictionary["must"]):
             if course == req:
-                CSBA_major_dictionary["must"].remove(req)
+                major_dictionary["must"].remove(req)
+                print(course, "updated must:")
+                print("must:", major_dictionary["must"])
+                print()
+                matched = True
                 break
-        else:
-            for group in CSBA_major_dictionary["elective_groups"]:
-                if group["choose"] == 0:
-                    continue
-                for req in list(group["courses"]):
-                    if course == req:
-                        group["courses"].remove(req)
-                        group["choose"] -= 1
-                        break
-def ger_fulfilled(incoming_courses, emory_courses, countic):
+        if matched:
+            continue
+        for group in major_dictionary["elective_groups"]:
+            if group["choose"] == 0:
+                continue
+            for req in list(group["courses"]):
+                if course == req:
+                    group["courses"].remove(req)
+                    group["choose"] -= 1
+                    print(course, "updated group:")
+                    print("choose:", group["choose"])
+                    print("courses:", group["courses"])
+                    print()
+                    matched = True
+                    break
+            if matched:
+                break
+    return major_dictionary
+def ger_fulfilled(incoming_test, legit_course, countic):
     fw_fulfilled = False
     ic_fulfilled = False
-    for course in incoming_courses:
-        c = getridofZ(course)
-        query = {"code": c}
+    for course in incoming_test:
+        query = {"code": course}
         result = col.find_one(query, {"_id": 0, "ger": 1})
         result2 = col2.find_one(query, {"_id": 0, "ger": 1})
         ger_tags = None
@@ -154,8 +149,7 @@ def ger_fulfilled(incoming_courses, emory_courses, countic):
         if countic and not ic_fulfilled and "IC" in ger_tags and Blue_GER["IC"] > 0:
             Blue_GER["IC"] -= 1
             ic_fulfilled = True
-        
-    for course in emory_courses:
+    for course in legit_course:
         query = {"code": course}
         result = col.find_one(query, {"_id": 0, "ger": 1})
         result2 = col2.find_one(query, {"_id": 0, "ger": 1})
@@ -168,7 +162,6 @@ def ger_fulfilled(incoming_courses, emory_courses, countic):
                 for ger in result2["ger"]:
                     if ger in Blue_GER and Blue_GER[ger] > 0:
                         Blue_GER[ger] -= 1
-
 def ger_needed_soon(year, term): ## year = Freshman, Sophomore, Junior, Senior & term = Fall, Spring
     due_ger = []
     if year == "Freshman" and term == "Fall":
@@ -184,28 +177,59 @@ def ger_needed_soon(year, term): ## year = Freshman, Sophomore, Junior, Senior &
     due_ger = [g for g in due_ger if Blue_GER[g] > 0]
     return due_ger
 # main function to get major_left, ger_due, ger_left
-def track_grad(incoming_courses, emory_courses, year, term, countic):
-    incoming_courses = [getridofZ(course) for course in incoming_courses]
-    courses = incoming_courses + emory_courses
-    ger_due = []
-    ger_left = []
-    track_major(courses)
-    major_must = [req for req in CSBA_major_dictionary["must"]]
-    major_elec = []
+def track_grad(major, incoming_test, incoming_transfer, emory_courses, year, term, countic):
+    """
+    Compute:
+      - major_must: list of remaining 'must' courses for the major
+      - major_elec: list of elective groups still needing courses (choose > 0)
+      - ger_due:    list of GERs that *must* be done by the given (year, term)
+      - ger_left:   list of all GERs still left overall
+
+    Uses:
+      - track_major
+      - ger_fulfilled
+      - ger_needed_soon
+      - Blue_GER global counts
+    """
+    # Normalize course codes
+    incoming_test = [getridofZ(course) for course in incoming_test]
+    incoming_transfer = [getridofZ(course) for course in incoming_transfer]
+    courses = incoming_test + incoming_transfer + emory_courses
+
+    ger_due: list = []
+    ger_left: list = []
+
+    # 1) Major requirements
+    major_dictionary = track_major(major, courses)
+    if major_dictionary is None:
+        raise ValueError(f"track_major returned None for major={major}")
+
+    # remaining 'must' courses
+    major_must = [req for req in major_dictionary.get("must", [])]
+
+    # remaining elective groups with choose > 0
     major_elec = [
-        group for group in CSBA_major_dictionary["elective_groups"]
-        if group["choose"] > 0
+        group for group in major_dictionary.get("elective_groups", [])
+        if group.get("choose", 0) > 0
     ]
-    # major_left = major_must + major_elec
-    ger_fulfilled(incoming_courses, emory_courses, countic)
+
+    # 2) GER fulfillment
+    legit_course = incoming_transfer + emory_courses
+    ger_fulfilled(incoming_test, legit_course, countic)
+
+    # 3) Which GERs are due soon for this year/term?
     ger_due_tags = ger_needed_soon(year, term)
+
+    # 4) Build ger_due and ger_left from Blue_GER
     for ger, count in Blue_GER.items():
         if ger in ger_due_tags:
             ger_due.append({ger: count})
             ger_left.append({ger: count})
         elif count > 0:
             ger_left.append({ger: count})
+
     return major_must, major_elec, ger_due, ger_left
+
 # print(get_regex('^CS3'))
 # print(get_regex('^CS4'))
 ## ---------- Checks for GERs ----------##
@@ -223,16 +247,50 @@ def track_grad(incoming_courses, emory_courses, year, term, countic):
  #   print(f"  - Choose {req['choose']} from: {', '.join(req['courses'])}")
 # print("Check GERs needed soon:")
 # print(ger_needed_soon(courses, "Sophomore", "Spring"))
-major_must, major_elec, ger_due, ger_left = track_grad(incoming_courses, emory_courses, "Sophomore", "Spring", True)
-print("major_must:")
-pprint(major_must)
-print("\nmajor_elec:")
-pprint(major_elec)
-print("\nger_due:")
-pprint(ger_due)
-print("\nger_left:")
-pprint(ger_left)
-# print("\nblue_ger:")
-# pprint(Blue_GER)
-# print("\nmajor:")
-# pprint(CSBA_major_dictionary)
+if __name__ == "__main__":
+    incoming_test = [
+        "MATH111",
+        "MATH112Z",
+        "CHN102",
+        "CS170",
+        "ECON112",
+        "ECON101",
+        "PHYS141",
+        "QTM999XFR"
+    ]
+    incoming_transfer = []
+    emory_courses = [
+        "CS171",
+        "ECON215",
+        "ECS101",
+        "ENGRD101",
+        "HLTH100",
+        "MATH190",
+        "MATH221",
+        "CS224",
+        "CS253",
+        "MATH211",
+        "PHYS152",
+        "PE414R",
+        "CS211",
+        "CS255",
+        "CS326",
+        "CS370",
+        "CS497R",
+        "CS371W",
+        "MATH212"
+    ]
+    print("Succesfully connected to detailed courses.")
+    major_must, major_elec, ger_due, ger_left = track_grad("CSBS", incoming_test, incoming_transfer, emory_courses, "Sophomore", "Spring", True)
+    print("major_must:")
+    pprint(major_must)
+    print("\nmajor_elec:")
+    pprint(major_elec)
+    print("\nger_due:")
+    pprint(ger_due)
+    print("\nger_left:")
+    pprint(ger_left)
+    # print("\nblue_ger:")
+    # pprint(Blue_GER)
+    # print("\nmajor:")
+    # pprint(CSBA_major_dictionary)
