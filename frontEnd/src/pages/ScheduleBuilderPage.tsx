@@ -829,6 +829,9 @@ function EngineToggle({
   engineStatus: { fibheap: boolean; ml: boolean };
   disabled?: boolean;
 }) {
+  const fibOffline = engineStatus.fibheap === false;
+  const mlOffline = engineStatus.ml === false;
+
   return (
     <div className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -841,13 +844,11 @@ function EngineToggle({
         <div className="flex rounded-xl border border-zinc-200 overflow-hidden shadow-sm">
         <button
           onClick={() => onToggle("fibheap")}
-          disabled={disabled || !engineStatus.fibheap}
+          disabled={disabled}
           className={`px-4 py-2 text-xs font-semibold transition-all flex flex-col items-start gap-0.5 min-w-[150px] ${
             selectedEngine === "fibheap"
               ? "bg-emoryBlue text-white"
-              : engineStatus.fibheap
-              ? "bg-white text-zinc-700 hover:bg-zinc-50"
-              : "bg-zinc-50 text-zinc-400 cursor-not-allowed"
+              : "bg-white text-zinc-700 hover:bg-zinc-50"
           }`}
           title="Fibonacci Heap - stable option for grade-worthy plans"
         >
@@ -855,17 +856,17 @@ function EngineToggle({
             <Cpu className="h-3.5 w-3.5" />
             FibHeap
           </span>
-          <span className="text-[10px] opacity-80">For grade / most stable</span>
+          <span className="text-[10px] opacity-80">
+            For grade / most stable {fibOffline ? "(reports offline)" : ""}
+          </span>
         </button>
         <button
           onClick={() => onToggle("ml")}
-          disabled={disabled || !engineStatus.ml}
+          disabled={disabled}
           className={`px-4 py-2 text-xs font-semibold transition-all flex flex-col items-start gap-0.5 min-w-[150px] border-l border-zinc-200 ${
             selectedEngine === "ml"
               ? "bg-purple-600 text-white"
-              : engineStatus.ml
-              ? "bg-white text-zinc-700 hover:bg-zinc-50"
-              : "bg-zinc-50 text-zinc-400 cursor-not-allowed"
+              : "bg-white text-zinc-700 hover:bg-zinc-50"
           }`}
           title="Machine Learning Model - Experimental"
         >
@@ -873,10 +874,17 @@ function EngineToggle({
             <Sparkles className="h-3.5 w-3.5" />
             ML (Experimental)
           </span>
-          <span className="text-[10px] opacity-80">Experimental - not for grade</span>
+          <span className="text-[10px] opacity-80">
+            Experimental - not for grade {mlOffline ? "(reports offline)" : ""}
+          </span>
         </button>
       </div>
       </div>
+      {(fibOffline || mlOffline) && (
+        <p className="mt-2 text-[11px] text-amber-600">
+          Engine status reports unavailable on server; selecting ML may fall back to FibHeap.
+        </p>
+      )}
     </div>
   );
 }
@@ -936,7 +944,7 @@ export default function ScheduleBuilderPage() {
 
   // NEW: Engine state
   const [selectedEngine, setSelectedEngine] = useState<EngineType>(enginePreference.get());
-  const [engineStatus, setEngineStatus] = useState({ fibheap: true, ml: false });
+  const [engineStatus, setEngineStatus] = useState({ fibheap: true, ml: true });
   const [engineUsed, setEngineUsed] = useState<string | null>(null);
 
   const selectedSchedule = schedules[selectedIdx] || null;
