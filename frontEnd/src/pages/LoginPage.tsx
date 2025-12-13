@@ -6,6 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { api } from "../utils/api";
 
 import applogo from "../assets/dooleyHelpzAppLogo.png";
 import mascot from "../assets/EHMascot.png";
@@ -31,6 +32,8 @@ function mapFirebase(code?: string) {
       return "You are not yet registered.";
     case "auth/wrong-password":
       return "Email or password is incorrect.";
+    case "auth/invalid-credential":
+      return "Email or password is incorrect.";
     case "auth/too-many-requests":
       return "Too many attempts. Please wait and try again.";
     default:
@@ -55,10 +58,28 @@ export default function LoginPage() {
   async function onSubmit(values: FormData) {
     setServerError(null);
     try {
-      await signInWithEmailAndPassword(auth, values.email, values.password);
+      const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
+      const uid = userCredential.user.uid;
+      
+      // Register/ensure UID is in database (silently fail if it errors)
+      try {
+        await api.registerUser(uid, values.email);
+      } catch (apiErr) {
+        console.error("Failed to register UID in database:", apiErr);
+        // Continue to dashboard anyway since auth succeeded
+      }
+      
       navigate("/dashboard", { replace: true });
     } catch (err: any) {
-      setServerError(mapFirebase(err?.code));
+      console.error("Login error:", err);
+      const errorCode = err?.code;
+      
+      // Map Firebase error codes to user-friendly messages
+      if (errorCode === "auth/user-not-found") {
+        setServerError("You are not yet registered.");
+      } else {
+        setServerError(mapFirebase(errorCode));
+      }
     }
   }
 

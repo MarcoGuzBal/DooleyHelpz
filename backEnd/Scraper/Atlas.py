@@ -1,4 +1,3 @@
-
 from playwright.sync_api import sync_playwright
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path

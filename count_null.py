@@ -1,6 +1,15 @@
+import os
+from dotenv import load_dotenv
 from pymongo import MongoClient
 
-client = MongoClient("mongodb+srv://apere52:Melody339044@data.apz41ku.mongodb.net/")
+load_dotenv()
+
+# Prefer MONGO_URI or MONGODB_URI from environment (no hard-coded credentials)
+MONGO_URI = os.environ.get("MONGO_URI") or os.environ.get("MONGODB_URI")
+if not MONGO_URI:
+    raise EnvironmentError("MONGO_URI or MONGODB_URI not found. Add it to your .env file or environment.")
+
+client = MongoClient(MONGO_URI)
 col = client["DetailedCourses"]["CoursesEnriched"]
 
 total = col.count_documents({})

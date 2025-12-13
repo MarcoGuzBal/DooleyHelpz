@@ -1,7 +1,19 @@
 from playwright.sync_api import sync_playwright
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
-import json, re, threading, math, argparse, platform, subprocess
+import json, re, threading, math, argparse, os, tempfile, time, shutil
+
+CANVAS_W = 2560
+CANVAS_H = 1600
+ORIGIN_X = 0
+ORIGIN_Y = 0
+
+SHRINK_W = 4
+SHRINK_H = 4
+
+def dept_key(code):
+    m = re.match(r"\s*([A-Za-z]+)", str(code) if code is not None else "")
+    return (m.group(1).upper() if m else "")
 
 def detect_campus(location, code):
     campuses = []
@@ -32,17 +44,21 @@ def detect_restrictions(code, has_permission_text):
 
 def check_permission_for_course_fast(page, course_code):
     try:
+        q = dept_key(course_code)
+        if not q:
+            return False
+
         page.goto("https://atlas.emory.edu/", timeout=20000)
-        page.get_by_label("Keyword").fill(course_code)
+        page.get_by_label("Keyword").fill(q) 
         page.select_option("select#crit-srcdb", "Spring 2026")
         page.select_option("select#crit-camp", "Atlanta Campus")
         page.get_by_role("button", name="SEARCH").click()
         page.wait_for_selector("div.panel__info-bar", timeout=15000)
 
-        link = page.locator("div.result.result--group-start a.result__link").first
-        if not link or (hasattr(link, "count") and link.count() == 0):
+        links = page.locator("div.result.result--group-start a.result__link")
+        if links.count() == 0:
             return False
-        link.click(force=True)
+        links.first.click(force=True)
 
         def looks_like_sections(resp):
             try:
@@ -99,57 +115,82 @@ def check_permission_for_course_fast(page, course_code):
     except Exception:
         return False
 
-
-def get_screen_size():
-    try:
-        if platform.system() == "Windows":
-            import ctypes
-            return ctypes.windll.user32.GetSystemMetrics(0), ctypes.windll.user32.GetSystemMetrics(1)
-        elif platform.system() == "Darwin":
-            try:
-                from AppKit import NSScreen  # type: ignore
-                f = NSScreen.mainScreen().frame()
-                return int(f.size.width), int(f.size.height)
-            except Exception:
-                return 2560, 1600
-        else:
-            try:
-                out = subprocess.check_output(["xrandr"]).decode()
-                m = re.search(r"current\s+(\d+)\s+x\s+(\d+)", out)
-                if m:
-                    return int(m.group(1)), int(m.group(2))
-            except Exception:
-                pass
-            return 2560, 1600
-    except Exception:
-        return 2560, 1600
-
-def compute_tiles(screen_w, screen_h, k):
-    cols = math.ceil(math.sqrt(k * (screen_w / screen_h)))
+def exact_grid_for_k(k):
+    if k == 12:
+        return 4, 3
+    cols = int(math.floor(math.sqrt(k * (CANVAS_W / CANVAS_H))))
+    cols = max(1, cols)
     rows = math.ceil(k / cols)
-    tile_w = screen_w // cols
-    tile_h = screen_h // rows
+    if cols * rows < k:
+        cols += 1
+    return cols, rows
+
+def compute_tiles_exact(k, cols=None, rows=None):
+    if cols is None or rows is None:
+        cols, rows = exact_grid_for_k(k)
+
+    base_w = CANVAS_W // cols
+    rem_w = CANVAS_W - base_w * cols
+    col_w = [base_w + (1 if i < rem_w else 0) for i in range(cols)]
+
+    base_h = CANVAS_H // rows
+    rem_h = CANVAS_H - base_h * rows
+    row_h = [base_h + (1 if i < rem_h else 0) for i in range(rows)]
+
+    x_off = [ORIGIN_X]
+    for i in range(1, cols):
+        x_off.append(x_off[-1] + col_w[i-1])
+    y_off = [ORIGIN_Y]
+    for i in range(1, rows):
+        y_off.append(y_off[-1] + row_h[i-1])
+
     tiles = []
     for i in range(k):
         r = i // cols
         c = i % cols
-        x = c * tile_w
-        y = r * tile_h
-        tiles.append(((x, y), (tile_w, tile_h)))
+        x = x_off[c]
+        y = y_off[r]
+        w = max(200, col_w[c] - SHRINK_W)
+        h = max(200, row_h[r] - SHRINK_H)
+        tiles.append(((int(x), int(y)), (int(w), int(h))))
     return tiles
+
+def set_window_bounds_outer(context, page, x, y, w, h):
+    session = context.new_cdp_session(page)
+    info = session.send("Browser.getWindowForTarget")
+    wid = info.get("windowId")
+    if wid is None:
+        return
+    session.send("Browser.setWindowBounds", {
+        "windowId": wid,
+        "bounds": {"left": int(x), "top": int(y), "width": int(w), "height": int(h), "windowState": "normal"}
+    })
 
 def process_batch_visual(courses_batch, tile, slow_mo_ms, total, stats, stats_lock, record_dir=None):
     permission_items = []
     with sync_playwright() as p:
-        args = []
-        (x, y), (w, h) = tile
-        args += [f"--window-position={x},{y}", f"--window-size={w},{h}"]
-        browser = p.chromium.launch(headless=False, slow_mo=slow_mo_ms, args=args)
-        context = browser.new_context(
-            viewport={"width": w, "height": h},
-            record_video_dir=record_dir if record_dir else None
+        browser = p.chromium.launch(
+            headless=False,
+            slow_mo=slow_mo_ms,
+            args=[
+                "--force-device-scale-factor=1",
+                "--high-dpi-support=1",
+                "--disable-renderer-backgrounding",
+                "--disable-background-timer-throttling",
+                "--disable-backgrounding-occluded-windows",
+                "--disable-features=CalculateNativeWinOcclusion",
+            ],
         )
+        ctx_kwargs = {}
+        if record_dir:
+            os.makedirs(record_dir, exist_ok=True)
+            ctx_kwargs["record_video_dir"] = record_dir
+        context = browser.new_context(**ctx_kwargs)
         page = context.new_page()
+
+        (x, y), (w, h) = tile
+        set_window_bounds_outer(context, page, x, y, w, h)
+
         for course in courses_batch:
             code = course.get("code") or ""
             try:
@@ -165,13 +206,14 @@ def process_batch_visual(courses_batch, tile, slow_mo_ms, total, stats, stats_lo
                 stats["completed"] += 1
                 if stats["completed"] % 50 == 0:
                     print(f"Progress: {stats['completed']}/{total}")
+
         context.close()
         browser.close()
     return permission_items
 
 def run(input_file, output_file, workers, slow_mo, record_video):
     print("=" * 60)
-    print("FAST VISUAL ENRICH (TILED)")
+    print("FAST VISUAL ENRICH (exact tiling, dept-only query, atomic write)")
     print("=" * 60)
 
     courses = []
@@ -191,33 +233,28 @@ def run(input_file, output_file, workers, slow_mo, record_video):
     u = len(unique_list)
     print(f"Unique courses: {u}")
 
-    backup = Path(input_file).with_suffix(".jsonl.backup")
-    if not backup.exists():
-        import shutil
-        shutil.copy2(input_file, backup)
-        print(f"Backup: {backup}")
+    tmpdir = Path(tempfile.gettempdir())
+    backup = tmpdir / f"{Path(input_file).stem}.spring.backup.{int(time.time())}.jsonl"
+    shutil.copy2(input_file, backup)
+    print(f"Backup (temp): {backup}")
 
-    if workers < 1:
-        workers = 1
+    workers = max(1, int(workers))
     batch_size = math.ceil(u / workers)
     batches = [unique_list[i:i + batch_size] for i in range(0, u, batch_size)]
 
-    sw, sh = get_screen_size()
-    tiles = compute_tiles(sw, sh, workers)
-
-    print(f"Workers: {workers}  |  Screen: {sw}x{sh}  |  Tile: ~{tiles[0][1][0]}x{tiles[0][1][1]}  |  slow_mo={slow_mo}ms")
+    tiles = compute_tiles_exact(workers, cols=4, rows=3) if workers == 12 else compute_tiles_exact(workers)
+    tiles = tiles[:workers]
+    print(f"Workers: {workers} | First tile: {tiles[0][1][0]}x{tiles[0][1][1]} | slow_mo={slow_mo}ms")
 
     stats_lock = threading.Lock()
     stats = {"completed": 0}
     permission_map = {}
-
     rec_dir = "videos" if record_video else None
 
     with ThreadPoolExecutor(max_workers=workers) as ex:
         futures = []
         for i, batch in enumerate(batches):
-            tile = tiles[i]
-            futures.append(ex.submit(process_batch_visual, batch, tile, slow_mo, u, stats, stats_lock, rec_dir))
+            futures.append(ex.submit(process_batch_visual, batch, tiles[i], slow_mo, u, stats, stats_lock, rec_dir))
         for fut in as_completed(futures):
             for code, campuses, restr in fut.result():
                 permission_map[code] = {"campuses": campuses, "restrictions": restr}
@@ -231,15 +268,30 @@ def run(input_file, output_file, workers, slow_mo, record_video):
             c["campuses"] = detect_campus(c.get("location"), code)
             c["restrictions"] = detect_restrictions(code, False)
 
-    with open(output_file, "w", encoding="utf-8") as f:
-        for c in courses:
-            f.write(json.dumps(c, ensure_ascii=False) + "\n")
+    out_path = Path(output_file)
+    out_dir = out_path.parent if out_path.parent.as_posix() != "" else Path.cwd()
+    os.makedirs(out_dir, exist_ok=True)
+    tmp_out = tempfile.NamedTemporaryFile(
+        mode="w", encoding="utf-8", delete=False,
+        dir=str(out_dir), prefix=f"{out_path.stem}.", suffix=".tmp.jsonl"
+    )
+    try:
+        with tmp_out as f:
+            for c in courses:
+                f.write(json.dumps(c, ensure_ascii=False) + "\n")
+        os.replace(tmp_out.name, out_path)
+    finally:
+        try:
+            if os.path.exists(tmp_out.name):
+                os.remove(tmp_out.name)
+        except Exception:
+            pass
 
     perm_count = sum(1 for c in courses if c["restrictions"]["permission_required"])
     grad_count = sum(1 for c in courses if c["restrictions"]["level"] == "graduate")
     oxford_count = sum(1 for c in courses if "Oxford" in c["campuses"])
 
-    print(f"Saved: {output_file}")
+    print(f"Saved: {out_path}")
     print(f"Stats: permission={perm_count}  graduate={grad_count}  oxford={oxford_count}")
 
 if __name__ == "__main__":

@@ -1,7 +1,10 @@
+// src/utils/parseTranscript.ts
+
 export type ParseResult = {
   incoming_transfer_courses: string[]; // from "Transfer Credits" → "... as DEPT NUM[SUF] ... T"
   incoming_test_courses: string[];     // from "Test Credits" → "... as DEPT NUM[SUF] ... T"
   emory_courses: string[];             // from "Beginning of Academic Record", filtered by grade
+  spring_2026_courses: string[];       // planned / Spring 2026 courses (optional)
 };
 
 export function parseTranscript(rawText: string): ParseResult {
@@ -10,6 +13,7 @@ export function parseTranscript(rawText: string): ParseResult {
       incoming_transfer_courses: [],
       incoming_test_courses: [],
       emory_courses: [],
+      spring_2026_courses: [],
     };
   }
 
@@ -21,10 +25,11 @@ export function parseTranscript(rawText: string): ParseResult {
     .trim();
   const lower = text.toLowerCase();
 
-  // --- Anchor positions (case-insensitive) ---
-  const transferIdx  = lower.indexOf("transfer credits");
-  const testIdx      = lower.indexOf("test credits");
-  const academicIdx  = lower.indexOf("beginning of academic record");
+  // --- Anchor positions (case-insensitive) in full text ---
+  const transferIdx   = lower.indexOf("transfer credits");
+  const testIdx       = lower.indexOf("test credits");
+  const academicIdx   = lower.indexOf("beginning of academic record");
+  const spring2026Idx = lower.indexOf("spring 2026");
 
   // Helper: slice a section that starts at `start` and ends at the nearest subsequent anchor
   function sliceSection(start: number): string {
@@ -37,23 +42,43 @@ export function parseTranscript(rawText: string): ParseResult {
     return text.slice(start, end);
   }
 
-  const transferSection = sliceSection(transferIdx); // only Transfer block
-  const testSection     = sliceSection(testIdx);     // only Test block
+  const transferSection = sliceSection(transferIdx);
+  const testSection     = sliceSection(testIdx);
+
+  // Academic record section (everything from the "Beginning of Academic Record" anchor)
   const academicSection = academicIdx >= 0 ? text.slice(academicIdx) : "";
+
+  // Now split academicSection into:
+  //   - academicPreSpring: everything before "Spring 2026"
+  //   - spring2026Section: starting at "Spring 2026"
+  let academicPreSpring = academicSection;
+  let spring2026Section = "";
+
+  if (
+    academicIdx >= 0 &&
+    spring2026Idx >= 0 &&
+    spring2026Idx > academicIdx
+  ) {
+    const offset = spring2026Idx - academicIdx; // position of "Spring 2026" inside academicSection
+    academicPreSpring = academicSection.slice(0, offset);
+    spring2026Section = academicSection.slice(offset);
+  } else if (spring2026Idx >= 0) {
+    // Found spring 2026 but no "Beginning of Academic Record" anchor — take from global
+   spring2026Section = text.slice(spring2026Idx);
+  }
 
   // --- Patterns ---
   // Course code: DEPT + number + optional suffix (e.g., QTM 999XFR, CHEM 150L, SPAN 302W, MATH 112Z)
   const codeRe = /\b([A-Z&]{2,6})\s+(\d{3,4})([A-Z]{0,3})\b/g;
 
-  // Accept only likely course numbers (filters out MAC 2022 / MIC 2022, etc.)
+  // Accept only likely course numbers (filters out years)
   function isLikelyCourse(_dept: string, numStr: string, suf: string): boolean {
     const n = parseInt(numStr, 10);
-    // 3-digit standard undergrad, allow 100–699
     if (numStr.length === 3) {
-      if (n === 999) return suf === "XFR"; // special case: 999XFR only
+      if (n === 999) return suf === "XFR"; // allow 999XFR
       return n >= 100 && n <= 699;
     }
-    // reject 4-digit numbers (years) by default
+    // reject 4-digit numbers (years etc.) by default
     return false;
   }
 
@@ -61,7 +86,6 @@ export function parseTranscript(rawText: string): ParseResult {
   function hasAsBefore(hay: string, codeStartIdx: number): boolean {
     const windowStart = Math.max(0, codeStartIdx - 40);
     const snippet = hay.slice(windowStart, codeStartIdx).toLowerCase();
-    // tolerate extra spaces
     return /\bas\s*$/.test(snippet.trimEnd()) || snippet.includes(" as ");
   }
 
@@ -70,7 +94,7 @@ export function parseTranscript(rawText: string): ParseResult {
   function isFailOrWithdraw(grade: string): boolean {
     const g = grade.toUpperCase();
     if (g === "W" || g === "U" || g === "F") return true;
-    if (g === "D" || g === "D+" || g === "D-") return true; // below C-
+    if (g === "D" || g === "D+" || g === "D-") return true;
     return false;
   }
 
@@ -88,9 +112,6 @@ export function parseTranscript(rawText: string): ParseResult {
       const code = `${dept}${num}${suf}`;
       const codeStart = m.index;
 
-      // Destination codes usually satisfy:
-      //  (a) immediately follows "as", or
-      //  (b) followed soon by a standalone 'T' (transfer notation)
       const afterAs = hasAsBefore(section, codeStart);
 
       const lookaheadStart = codeRe.lastIndex;
@@ -103,7 +124,7 @@ export function parseTranscript(rawText: string): ParseResult {
     return Array.from(out);
   }
 
-  // Extract Emory courses from the academic section with grade filtering
+  // Extract Emory courses from the *pre-Spring-2026* academic section with grade filtering
   function extractEmory(section: string): string[] {
     if (!section) return [];
     const out = new Set<string>();
@@ -131,6 +152,24 @@ export function parseTranscript(rawText: string): ParseResult {
     return Array.from(out);
   }
 
+  // Extract all likely course codes starting at/after "Spring 2026"
+  function extractSpring2026(section: string): string[] {
+    if (!section) return [];
+    const out = new Set<string>();
+    // use a fresh RegExp to avoid shared lastIndex state from other extractors
+    const re = new RegExp(codeRe.source, codeRe.flags);
+    let m: RegExpExecArray | null;
+    while ((m = re.exec(section)) !== null) {
+      const dept = m[1];
+      const num  = m[2];
+      const suf  = m[3] || "";
+      if (!isLikelyCourse(dept, num, suf)) continue;
+      const code = `${dept}${num}${suf}`;
+      out.add(code);
+    }
+    return Array.from(out);
+  }
+
   const incoming_transfer_courses = extractIncoming(transferSection);
   const incoming_test_courses     = extractIncoming(testSection);
 
@@ -139,14 +178,21 @@ export function parseTranscript(rawText: string): ParseResult {
     ...incoming_test_courses,
   ]);
 
-  let emory_courses = extractEmory(academicSection)
+  // Emory courses = academic record BEFORE Spring 2026
+  let emory_courses = extractEmory(academicPreSpring)
     .filter((c) => !incomingAllSet.has(c)); // defensive de-dupe vs incoming
+
+  // No specific extraction implemented yet for Spring 2026 planned courses;
+  // provide an empty array so callers can safely reference the property.
+  const spring_2026_courses: string[] = extractSpring2026(spring2026Section);
 
   return {
     incoming_transfer_courses,
     incoming_test_courses,
     emory_courses,
+    spring_2026_courses,
   };
 }
+
 
 

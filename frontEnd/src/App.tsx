@@ -3,21 +3,20 @@
 // import { onAuthStateChanged } from "firebase/auth";
 // import type { User } from "firebase/auth";
 // import { auth } from "./firebase";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 
 import AuthProvider from "./utils/AuthProvider";
-//import RequireAuth from "./utils/RequireAuth";
+import RequireAuth from "./utils/RequireAuth";
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
-//import ProtectedRoute from "./components/ProtectedRoute";
 import DropTranscript from "./components/DropTranscript";
 import PreferencesPage from "./pages/PreferencesPage";
-
-// function Protected() { return <Outlet /> }
-
+import ScheduleBuilderPage from "./pages/ScheduleBuilderPage";
+import SustainabilityPage from "./pages/SustainabilityPage";
 export default function App() {
+// import ScheduleBattle from "./pages/ScheduleBattle";
 
   // Will work on logout later
   // async function handleLogout() {
@@ -32,14 +31,15 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/dashboard" element={<DashboardPage />}/>
-          <Route path="/droptranscript" element={<DropTranscript />} />
-          <Route path="/preferences" element={<PreferencesPage />} />
-          {/* <Route element={<RequireAuth><Protected /></RequireAuth>}>
+          <Route path="/sustainability" element={<SustainabilityPage />} />         
+          {/* Protected routes - require authentication */}
+          <Route element={<RequireAuth><Outlet /></RequireAuth>}>
             <Route path="/dashboard" element={<DashboardPage />}/>
             <Route path="/droptranscript" element={<DropTranscript />} />
             <Route path="/preferences" element={<PreferencesPage />} />
-          </Route> */}
+            <Route path="/schedule-builder" element={<ScheduleBuilderPage />} />
+          </Route>
+          
           {/* wildcard for 404s */}
           <Route path="*" element={<h1>Not found</h1>} />
         </Routes>
