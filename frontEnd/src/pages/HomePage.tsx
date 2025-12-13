@@ -362,17 +362,7 @@ export default function HomePage() {
             </div>
             <span>DooleyHelpz</span>
           </div>
-          <div className="flex gap-4">
-            <a href="#features" className="hover:text-Gold">
-              Features
-            </a>
-            <a href="#preview" className="hover:text-Gold">
-              Preview
-            </a>
-            <a href="#cta" className="hover:text-Gold">
-              Start
-            </a>
-          </div>
+          
           <div className="text-xs text-zinc-500">
             © {new Date().getFullYear()} DooleyHelpz
           </div>

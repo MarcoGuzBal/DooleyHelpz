@@ -799,7 +799,7 @@ export default function DropTranscript() {
                   {nonExistentCourses.join(", ")}
                 </p>
                 <p className="mt-1 text-xs text-orange-600">
-                  These courses may be misspelled or not offered: these courses didn't exist on Altas (Atlanta campus only no Oxford noobs) from 2019-2025. 
+                  These courses may be misspelled or not offered: these courses didn't exist on Altas (Atlanta campus only) from 2019-2025. 
                 </p>
               </div>
             )}
