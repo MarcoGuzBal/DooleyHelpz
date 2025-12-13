@@ -67,7 +67,6 @@ def process_transcript_json(path):
         data = json.load(fh)
 
     seq = extract_course_sequence(data)
-    seq = [normalize_code(c) for c in seq if c and str(c).strip()]
 
     if not seq:
         print("No course sequence found in JSON:", path)

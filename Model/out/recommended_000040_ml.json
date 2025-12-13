@@ -1,0 +1,377 @@
+[
+  {
+    "code": "HIST325W",
+    "professor": "Barbara Lawatsch-Melton",
+    "section": "1",
+    "credits": 4.0,
+    "instruction_method": "in-person",
+    "location": "Registrar Room Pool",
+    "meeting": {
+      "days": [
+        "T",
+        "Th"
+      ],
+      "start_min": 870,
+      "end_min": 945,
+      "raw": "TTh 2:30pm-3:45pm"
+    },
+    "rmp": {
+      "rating": 5.0,
+      "num_ratings": "2 ratings",
+      "difficulty": 2.0,
+      "would_take_again_%": 100,
+      "url": "https://www.ratemyprofessors.com/professor/2607188"
+    },
+    "title": "The Classical Tradition & American Founding",
+    "credits_max": 4.0,
+    "credits_min": 4.0,
+    "shared_id": "000040",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [],
+    "reason_ger_due": [],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [],
+      "coreq_groups": []
+    },
+    "score_ml": 0.8125000000000544
+  },
+  {
+    "professor": "Jane O'Connor",
+    "section": "1",
+    "code": "ENGRD224R",
+    "credits": 3.0,
+    "instruction_method": "in-person",
+    "location": "Registrar Room Pool",
+    "meeting": {
+      "days": [
+        "W",
+        "F"
+      ],
+      "start_min": 780,
+      "end_min": 855,
+      "raw": "WF 1pm-2:15pm"
+    },
+    "rmp": {
+      "rating": 5.0,
+      "num_ratings": "1 ratings",
+      "difficulty": 2.0,
+      "would_take_again_%": 100,
+      "url": "https://www.ratemyprofessors.com/professor/2745455"
+    },
+    "title": "English for ETSI Students",
+    "credits_max": 3.0,
+    "credits_min": 3.0,
+    "shared_id": "000040",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [],
+    "reason_ger_due": [],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [],
+      "coreq_groups": []
+    },
+    "score_ml": 0.8125000000000544
+  },
+  {
+    "code": "LING385",
+    "section": "1",
+    "professor": "Jane O'Connor",
+    "credits": 1.0,
+    "instruction_method": "in-person",
+    "location": "Modern Language TBA",
+    "meeting": {
+      "days": [
+        "F"
+      ],
+      "start_min": 690,
+      "end_min": 765,
+      "raw": "F 11:30am-12:45pm"
+    },
+    "rmp": {
+      "rating": 5.0,
+      "num_ratings": "1 ratings",
+      "difficulty": 2.0,
+      "would_take_again_%": 100,
+      "url": "https://www.ratemyprofessors.com/professor/2745455"
+    },
+    "title": "Special Topics in Linguistics",
+    "credits_max": 1.0,
+    "credits_min": 1.0,
+    "shared_id": "000040",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [],
+    "reason_ger_due": [],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [],
+      "coreq_groups": []
+    },
+    "score_ml": 0.8125000000000544
+  },
+  {
+    "professor": "Barbara Lawatsch-Melton",
+    "section": "1",
+    "code": "CL325W",
+    "credits": 4.0,
+    "instruction_method": "in-person",
+    "location": "Registrar Room Pool",
+    "meeting": {
+      "days": [
+        "T",
+        "Th"
+      ],
+      "start_min": 870,
+      "end_min": 945,
+      "raw": "TTh 2:30pm-3:45pm"
+    },
+    "rmp": {
+      "rating": 5.0,
+      "num_ratings": "2 ratings",
+      "difficulty": 2.0,
+      "would_take_again_%": 100,
+      "url": "https://www.ratemyprofessors.com/professor/2607188"
+    },
+    "title": "The Classical Tradition & American Founding",
+    "credits_max": 4.0,
+    "credits_min": 4.0,
+    "shared_id": "000040",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [],
+    "reason_ger_due": [],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [],
+      "coreq_groups": []
+    },
+    "score_ml": 0.8125000000000544
+  },
+  {
+    "professor": "Emily Master",
+    "code": "ANCMED495BW",
+    "section": "1",
+    "credits": 4.0,
+    "instruction_method": "in-person",
+    "location": null,
+    "meeting": {
+      "days": [],
+      "start_min": null,
+      "end_min": null,
+      "raw": null
+    },
+    "rmp": {
+      "rating": 5.0,
+      "num_ratings": "3 ratings",
+      "difficulty": 2.3,
+      "would_take_again_%": 100,
+      "url": "https://www.ratemyprofessors.com/professor/2348460"
+    },
+    "title": "Honors Independent Writing",
+    "credits_max": 4.0,
+    "credits_min": 4.0,
+    "shared_id": "000040",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [],
+    "reason_ger_due": [],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [],
+      "coreq_groups": []
+    },
+    "score_ml": 0.8012500000000532
+  },
+  {
+    "code": "DANC123R",
+    "professor": "Kristin O'Neal",
+    "section": "1",
+    "credits": 1.0,
+    "instruction_method": "in-person",
+    "location": "Woodruff PE - Dance",
+    "meeting": {
+      "days": [
+        "T",
+        "Th"
+      ],
+      "start_min": 780,
+      "end_min": 855,
+      "raw": "TTh 1pm-2:15pm"
+    },
+    "rmp": {
+      "rating": 5.0,
+      "num_ratings": "2 ratings",
+      "difficulty": 2.5,
+      "would_take_again_%": 100,
+      "url": "https://www.ratemyprofessors.com/professor/2352414"
+    },
+    "title": "Contemporary Modern Dance I (Introduction)",
+    "credits_max": 1.0,
+    "credits_min": 1.0,
+    "shared_id": "000040",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [],
+    "reason_ger_due": [],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [],
+      "coreq_groups": []
+    },
+    "score_ml": 0.7937500000000525
+  },
+  {
+    "code": "DANC223R",
+    "professor": "Kristin O'Neal",
+    "section": "1",
+    "credits": 1.0,
+    "instruction_method": "in-person",
+    "location": "Woodruff PE - Dance",
+    "meeting": {
+      "days": [
+        "M",
+        "W"
+      ],
+      "start_min": 600,
+      "end_min": 675,
+      "raw": "MW 10am-11:15am"
+    },
+    "rmp": {
+      "rating": 5.0,
+      "num_ratings": "2 ratings",
+      "difficulty": 2.5,
+      "would_take_again_%": 100,
+      "url": "https://www.ratemyprofessors.com/professor/2352414"
+    },
+    "title": "Contemporary Modern Dance II (Advanced Beginning)",
+    "credits_max": 1.0,
+    "credits_min": 1.0,
+    "shared_id": "000040",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [],
+    "reason_ger_due": [],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [],
+      "coreq_groups": []
+    },
+    "score_ml": 0.7937500000000525
+  },
+  {
+    "code": "GER375",
+    "section": "3",
+    "professor": "Didem Uca",
+    "credits": 3.0,
+    "instruction_method": "in-person",
+    "location": "Modern Language 219",
+    "meeting": {
+      "days": [
+        "M"
+      ],
+      "start_min": 780,
+      "end_min": 945,
+      "raw": "M 1pm-3:45pm"
+    },
+    "rmp": {
+      "rating": 5.0,
+      "num_ratings": "2 ratings",
+      "difficulty": 2.5,
+      "would_take_again_%": 100,
+      "url": "https://www.ratemyprofessors.com/professor/2730036"
+    },
+    "title": "Spec. Topics in German Studies: Literary Translation Workshop",
+    "credits_max": 3.0,
+    "credits_min": 3.0,
+    "shared_id": "000040",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [],
+    "reason_ger_due": [],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [],
+      "coreq_groups": []
+    },
+    "score_ml": 0.7937500000000525
+  },
+  {
+    "code": "HEBR102",
+    "section": "1",
+    "professor": "Idit Ben-Simon",
+    "credits": 4.0,
+    "instruction_method": "in-person",
+    "location": "Callaway Center TBA",
+    "meeting": {
+      "days": [
+        "M",
+        "W"
+      ],
+      "start_min": 600,
+      "end_min": 675,
+      "raw": "MW 10am-11:15am"
+    },
+    "rmp": {
+      "rating": 4.7,
+      "num_ratings": "6 ratings",
+      "difficulty": 2.2,
+      "would_take_again_%": 100,
+      "url": "https://www.ratemyprofessors.com/professor/2590259"
+    },
+    "title": "Elementary Modern Hebrew II",
+    "credits_max": 4.0,
+    "credits_min": 4.0,
+    "shared_id": "000040",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [],
+    "reason_ger_due": [],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [],
+      "coreq_groups": []
+    },
+    "score_ml": 0.7720000000000482
+  },
+  {
+    "code": "HEBR102",
+    "section": "2",
+    "professor": "Idit Ben-Simon",
+    "credits": 4.0,
+    "instruction_method": "in-person",
+    "location": "Callaway Center TBA",
+    "meeting": {
+      "days": [
+        "M",
+        "W"
+      ],
+      "start_min": 780,
+      "end_min": 855,
+      "raw": "MW 1pm-2:15pm"
+    },
+    "rmp": {
+      "rating": 4.7,
+      "num_ratings": "6 ratings",
+      "difficulty": 2.2,
+      "would_take_again_%": 100,
+      "url": "https://www.ratemyprofessors.com/professor/2590259"
+    },
+    "title": "Elementary Modern Hebrew II",
+    "credits_max": 4.0,
+    "credits_min": 4.0,
+    "shared_id": "000040",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [],
+    "reason_ger_due": [],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [],
+      "coreq_groups": []
+    },
+    "score_ml": 0.7720000000000482
+  }
+]

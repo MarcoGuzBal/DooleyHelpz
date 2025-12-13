@@ -10,6 +10,18 @@ from pymongo.errors import PyMongoError
 from pathlib import Path
 import re
 
+from dotenv import load_dotenv
+import os
+
+# Load .env file
+load_dotenv()
+
+# Read DB_URI from environment
+MONGO_URI = os.getenv("DB_URI")
+
+if not MONGO_URI:
+    raise RuntimeError("❌ DB_URI is not set in your .env file")
+
 
 def parse_hhmm_to_min(hhmm):
     if not hhmm:
@@ -188,31 +200,19 @@ def qualifies(doc, min_rating, method, allowed_days, start_min, end_min, unavail
 
 
 
-def run(uri, min_rating, method, days_csv, start, end):
+def run(min_rating=0.0, method="avg", days_csv="", start=None, end=None):
+    uri = MONGO_URI   # loaded from .env
     allowed_days = [d.strip() for d in (days_csv.split(",") if days_csv else [])]
     start_min = parse_hhmm_to_min(start)
     end_min = parse_hhmm_to_min(end)
 
-    # Load questionnaire-based unavailable times, if present
+    # 🔹 No per-user unavailable blocks here
     unavailable_blocks = []
-    profile_path = Path("staging/user_profile.json")
-    if profile_path.exists():
-        try:
-            with profile_path.open("r", encoding="utf-8") as f:
-                user_profile = json.load(f)
-            time_unavailable = user_profile.get("time_unavailable", [])
-            unavailable_blocks = parse_unavailable_blocks(time_unavailable)
-        except json.JSONDecodeError:
-            print("[WARN] Could not decode staging/user_profile.json; ignoring unavailable times")
-    else:
-        # it's fine if the file doesn't exist yet
-        unavailable_blocks = []
 
     client = MongoClient(uri)
     db = client["DetailedCourses"]
     col_in = db["CoursesEnriched"]
     col_out = db["CoursesQualified"]
-
 
     try:
         source = list(col_in.find({}))
@@ -221,11 +221,10 @@ def run(uri, min_rating, method, days_csv, start, end):
         with open("out/courses_enriched.json") as f:
             source = json.load(f)
 
-        qualified = [
+    qualified = [
         d for d in source
         if qualifies(d, min_rating, method, allowed_days, start_min, end_min, unavailable_blocks)
     ]
-
 
     try:
         col_out.delete_many({})
@@ -239,6 +238,7 @@ def run(uri, min_rating, method, days_csv, start, end):
     with open("out/courses_qualified.json", "w", encoding="utf-8") as f:
         json.dump(qualified, f, indent=2)
     print("Saved backup JSON → out/courses_qualified.json")
+
 
 
 def main():
@@ -255,4 +255,31 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Generate courses_qualified.json using MongoDB and local constraints."
+    )
+
+    parser.add_argument("--min_rating", type=float, default=0.0,
+                        help="Minimum professor rating required")
+    parser.add_argument("--method", type=str, default="avg",
+                        help="Rating method (avg, median, etc.)")
+    parser.add_argument("--days", type=str, default="",
+                        help="Comma-separated list of allowed days (optional)")
+    parser.add_argument("--start", type=str, default=None,
+                        help="Start time (optional)")
+    parser.add_argument("--end", type=str, default=None,
+                        help="End time (optional)")
+
+    args = parser.parse_args()
+
+    # -------- CALL UPDATED run() --------
+    run(
+        min_rating=args.min_rating,
+        method=args.method,
+        days_csv=args.days,
+        start=args.start,
+        end=args.end,
+    )
+

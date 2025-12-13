@@ -1,0 +1,531 @@
+[
+  {
+    "professor": "Nosayba El-Sayed",
+    "section": "1",
+    "code": "CS377",
+    "credits": 3.0,
+    "instruction_method": "in-person",
+    "location": "White Hall TBA",
+    "meeting": {
+      "days": [
+        "M",
+        "W"
+      ],
+      "start_min": 600,
+      "end_min": 675,
+      "raw": "MW 10am-11:15am"
+    },
+    "rmp": {
+      "rating": 4.4,
+      "num_ratings": "13 ratings",
+      "difficulty": 3.3,
+      "would_take_again_%": 88,
+      "url": "https://www.ratemyprofessors.com/professor/2430651"
+    },
+    "title": "Database Systems",
+    "credits_max": 3.0,
+    "credits_min": 3.0,
+    "shared_id": "000025",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [
+        [
+          "CS253"
+        ]
+      ],
+      "coreq_groups": []
+    },
+    "score_ml": 0.6797500000000185
+  },
+  {
+    "code": "CS463",
+    "section": "1",
+    "professor": "Jed Brody",
+    "credits": 3.0,
+    "instruction_method": "in-person",
+    "location": "White Hall 110",
+    "meeting": {
+      "days": [
+        "M",
+        "W"
+      ],
+      "start_min": 780,
+      "end_min": 855,
+      "raw": "MW 1pm-2:15pm"
+    },
+    "rmp": {
+      "name": "Jed Brody",
+      "rating": 4.2,
+      "num_ratings": "10 ratings",
+      "difficulty": 2.1,
+      "would_take_again_pct": 100.0,
+      "department": "Physics",
+      "url": "https://www.ratemyprofessors.com/professor/1369481"
+    },
+    "title": "Quantum Computing and Information",
+    "credits_max": 3.0,
+    "credits_min": 3.0,
+    "credits_raw": 3.0,
+    "ger": [
+      "SNT"
+    ],
+    "prerequisites": [
+      []
+    ],
+    "time": "MW 1pm-2:15pm",
+    "typically_offered": [
+      "spring"
+    ],
+    "shared_id": "000025",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [
+      "SNT"
+    ],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [
+        [
+          "PHYS220",
+          "MATH221",
+          "MATH_OX221"
+        ]
+      ],
+      "coreq_groups": []
+    },
+    "score_ml": 0.5707500000000261
+  },
+  {
+    "professor": "Kristin Williams",
+    "section": "2",
+    "code": "CS110",
+    "credits": 3.0,
+    "instruction_method": "in-person",
+    "location": "Math & Science Center TBA",
+    "meeting": {
+      "days": [
+        "M",
+        "W"
+      ],
+      "start_min": 870,
+      "end_min": 945,
+      "raw": "MW 2:30pm-3:45pm"
+    },
+    "rmp": {
+      "rating": 0.0,
+      "num_ratings": "0 ratings",
+      "difficulty": 0.0,
+      "would_take_again_%": null,
+      "url": "https://www.ratemyprofessors.com/professor/2861291"
+    },
+    "title": "Computer Science Fundamentals",
+    "credits_max": 3.0,
+    "credits_min": 3.0,
+    "shared_id": "000025",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [],
+      "coreq_groups": []
+    },
+    "score_ml": 0.1500000000000113
+  },
+  {
+    "professor": "Kristin Williams",
+    "section": "1",
+    "code": "CS385",
+    "credits": 3.0,
+    "instruction_method": "in-person",
+    "location": "Math & Science Center - N304",
+    "meeting": {
+      "days": [
+        "M",
+        "W"
+      ],
+      "start_min": 1050,
+      "end_min": 1125,
+      "raw": "MW 5:30pm-6:45pm"
+    },
+    "rmp": {
+      "name": "Kristin Williams",
+      "rating": 0.0,
+      "num_ratings": "0 ratings",
+      "difficulty": 0.0,
+      "would_take_again_pct": null,
+      "department": "Computer Science",
+      "url": "https://www.ratemyprofessors.com/professor/2861291"
+    },
+    "title": "Topics in Computer Science: Enabling User Interaction",
+    "credits_max": 3.0,
+    "credits_min": 3.0,
+    "credits_raw": 3.0,
+    "ger": [],
+    "prerequisites": [
+      []
+    ],
+    "time": "MW 5:30pm-6:45pm",
+    "typically_offered": [],
+    "shared_id": "000025",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [
+        [
+          "CS253"
+        ]
+      ],
+      "coreq_groups": []
+    },
+    "score_ml": 0.1500000000000113
+  },
+  {
+    "professor": "Subhasish Das",
+    "section": "1",
+    "code": "CS110",
+    "credits": 3.0,
+    "instruction_method": "in-person",
+    "location": "White Hall 103",
+    "meeting": {
+      "days": [
+        "M",
+        "W"
+      ],
+      "start_min": 780,
+      "end_min": 855,
+      "raw": "MW 1pm-2:15pm"
+    },
+    "rmp": {
+      "name": null,
+      "rating": null,
+      "num_ratings": null,
+      "difficulty": null,
+      "would_take_again_pct": null,
+      "department": null,
+      "url": null
+    },
+    "title": "Computer Science Fundamentals",
+    "credits_max": 3.0,
+    "credits_min": 3.0,
+    "credits_raw": 3.0,
+    "ger": [
+      "QR"
+    ],
+    "prerequisites": [
+      []
+    ],
+    "time": "MW 1pm-2:15pm",
+    "typically_offered": [],
+    "shared_id": "000025",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [
+      "QR"
+    ],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [],
+      "coreq_groups": []
+    },
+    "score_ml": -5.578870698741412e-15
+  },
+  {
+    "code": "CS211",
+    "section": "1",
+    "professor": "Subhasish Das",
+    "credits": 3.0,
+    "instruction_method": "in-person",
+    "location": "Math & Science Center - W303",
+    "meeting": {
+      "days": [
+        "M",
+        "W"
+      ],
+      "start_min": 960,
+      "end_min": 1035,
+      "raw": "MW 4pm-5:15pm"
+    },
+    "rmp": {
+      "name": null,
+      "rating": null,
+      "num_ratings": null,
+      "difficulty": null,
+      "would_take_again_pct": null,
+      "department": null,
+      "url": null
+    },
+    "title": "Introduction to Artificial Intelligence",
+    "credits_max": 3.0,
+    "credits_min": 3.0,
+    "credits_raw": 3.0,
+    "ger": [],
+    "prerequisites": [
+      []
+    ],
+    "time": "MW 4pm-5:15pm",
+    "typically_offered": [],
+    "shared_id": "000025",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [
+        [
+          "MATH111",
+          "MATH_OX111",
+          "QTM100",
+          "QTM_OX100"
+        ],
+        [
+          "CS110",
+          "CS170",
+          "CS_OX170"
+        ]
+      ],
+      "coreq_groups": []
+    },
+    "score_ml": -5.578870698741412e-15
+  },
+  {
+    "professor": "Amin Pouriyeh",
+    "section": "1",
+    "code": "CS323",
+    "credits": 3.0,
+    "instruction_method": "in-person",
+    "location": "Math & Science Center - W301",
+    "meeting": {
+      "days": [
+        "M",
+        "W"
+      ],
+      "start_min": 1050,
+      "end_min": 1125,
+      "raw": "MW 5:30pm-6:45pm"
+    },
+    "rmp": {
+      "name": null,
+      "rating": null,
+      "num_ratings": null,
+      "difficulty": null,
+      "would_take_again_pct": null,
+      "department": null,
+      "url": null
+    },
+    "title": "Machine Learning Applications",
+    "credits_max": 3.0,
+    "credits_min": 3.0,
+    "credits_raw": 3.0,
+    "ger": [],
+    "prerequisites": [
+      []
+    ],
+    "time": "MW 5:30pm-6:45pm",
+    "typically_offered": [
+      "spring"
+    ],
+    "shared_id": "000025",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [],
+      "coreq_groups": []
+    },
+    "score_ml": -5.578870698741412e-15
+  },
+  {
+    "professor": "Shengpu Tang",
+    "section": "1",
+    "code": "CS334",
+    "credits": 3.0,
+    "instruction_method": "in-person",
+    "location": "White Hall 103",
+    "meeting": {
+      "days": [
+        "T",
+        "Th"
+      ],
+      "start_min": 870,
+      "end_min": 945,
+      "raw": "TTh 2:30pm-3:45pm"
+    },
+    "rmp": {
+      "name": null,
+      "rating": null,
+      "num_ratings": null,
+      "difficulty": null,
+      "would_take_again_pct": null,
+      "department": null,
+      "url": null
+    },
+    "title": "Machine Learning",
+    "credits_max": 3.0,
+    "credits_min": 3.0,
+    "credits_raw": 3.0,
+    "ger": [
+      "MQR"
+    ],
+    "prerequisites": [
+      []
+    ],
+    "time": "TTh 2:30pm-3:45pm",
+    "typically_offered": [],
+    "shared_id": "000025",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [
+      "MQR"
+    ],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [
+        [
+          "CS224",
+          "CS_OX224"
+        ],
+        [
+          "CS253",
+          "CS_OX253"
+        ],
+        [
+          "MATH221",
+          "MATH_OX221",
+          "MATH275",
+          "MATH321"
+        ]
+      ],
+      "coreq_groups": []
+    },
+    "score_ml": -5.578870698741412e-15
+  },
+  {
+    "professor": "Wei Jin",
+    "section": "2",
+    "code": "CS334",
+    "credits": 3.0,
+    "instruction_method": "in-person",
+    "location": "Math & Science Center - W201",
+    "meeting": {
+      "days": [
+        "T",
+        "Th"
+      ],
+      "start_min": 960,
+      "end_min": 1035,
+      "raw": "TTh 4pm-5:15pm"
+    },
+    "rmp": {
+      "name": null,
+      "rating": null,
+      "num_ratings": null,
+      "difficulty": null,
+      "would_take_again_pct": null,
+      "department": null,
+      "url": null
+    },
+    "title": "Machine Learning",
+    "credits_max": 3.0,
+    "credits_min": 3.0,
+    "credits_raw": 3.0,
+    "ger": [
+      "MQR"
+    ],
+    "prerequisites": [
+      []
+    ],
+    "time": "TTh 4pm-5:15pm",
+    "typically_offered": [],
+    "shared_id": "000025",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [
+      "MQR"
+    ],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [
+        [
+          "CS224",
+          "CS_OX224"
+        ],
+        [
+          "CS253",
+          "CS_OX253"
+        ],
+        [
+          "MATH221",
+          "MATH_OX221",
+          "MATH275",
+          "MATH321"
+        ]
+      ],
+      "coreq_groups": []
+    },
+    "score_ml": -5.578870698741412e-15
+  },
+  {
+    "professor": "Andreas Zufle",
+    "section": "2",
+    "code": "CS377",
+    "credits": 3.0,
+    "instruction_method": "in-person",
+    "location": "Math & Science Center - W201",
+    "meeting": {
+      "days": [
+        "M",
+        "W"
+      ],
+      "start_min": 1050,
+      "end_min": 1125,
+      "raw": "MW 5:30pm-6:45pm"
+    },
+    "rmp": {
+      "name": null,
+      "rating": null,
+      "num_ratings": null,
+      "difficulty": null,
+      "would_take_again_pct": null,
+      "department": null,
+      "url": null
+    },
+    "title": "Database Systems",
+    "credits_max": 3.0,
+    "credits_min": 3.0,
+    "credits_raw": 3.0,
+    "ger": [
+      "MQR"
+    ],
+    "prerequisites": [
+      []
+    ],
+    "time": "MW 5:30pm-6:45pm",
+    "typically_offered": [
+      "fall",
+      "spring"
+    ],
+    "shared_id": "000025",
+    "reason_major_must": false,
+    "reason_major_elec": false,
+    "reason_ger": [
+      "MQR"
+    ],
+    "reason_interest": false,
+    "requirements": {
+      "prereq_groups": [
+        [
+          "CS253"
+        ]
+      ],
+      "coreq_groups": []
+    },
+    "score_ml": -5.578870698741412e-15
+  }
+]
