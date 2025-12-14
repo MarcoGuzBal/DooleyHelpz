@@ -1340,7 +1340,6 @@ export default function ScheduleBuilderPage() {
                 <ul className="mt-2 text-sm text-red-700 list-disc list-inside space-y-1">
                   <li>Reducing your blocked time slots in <Link to="/preferences" className="underline font-medium">Preferences</Link></li>
                   <li>Adjusting your required courses or credit hours</li>
-                  <li>Manually removing conflicting courses from the schedules below</li>
                 </ul>
               </div>
             </div>
@@ -1351,7 +1350,7 @@ export default function ScheduleBuilderPage() {
           <div className="flex flex-col items-center justify-center py-20">
             <RefreshCw className="h-10 w-10 animate-spin text-emoryBlue" />
             <p className="mt-4 text-zinc-600">
-              Generating your schedules using {selectedEngine === 'ml' ? 'ML Model' : 'FibHeap'}...
+              Generating your schedules using {selectedEngine === 'ml' ? 'ML Model (this will take longer than FibHeap, ~1 minute)' : 'FibHeap'}...
             </p>
           </div>
         )}

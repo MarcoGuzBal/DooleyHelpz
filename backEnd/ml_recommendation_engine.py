@@ -15,6 +15,9 @@ except ImportError:
 
 from dotenv import load_dotenv
 
+# Import the new ML recommendation engine
+from ml_recommendation import recommend_courses_for_user
+
 load_dotenv()
 
 # Path to the trained model
@@ -356,88 +359,86 @@ def generate_schedule_for_user(
     basic_courses_col,
     num_recommendations: int = 10
 ) -> Dict[str, Any]:
+    """
+    Generate ML-based schedule recommendations using your colleague's Model logic.
+
+    This now uses:
+      - build_qualified_courses_for_user() - smart filtering by prereqs/GER/major
+      - ML model scoring with priority bucketing (GER due -> major must -> CS -> other)
+      - Conflict-free schedule building
+    """
     try:
-        # Load ML model
-        model = load_ml_model()
-        
-        # Get user courses
-        user_courses = course_col.find_one({"uid": uid}, sort=[("_id", -1)])
-        if not user_courses:
-            return {"success": False, "error": "No course data found for user"}
-        
-        # Get user preferences
+        print(f"[ML Engine] Starting schedule generation for user {uid}")
+
+        # Get user preferences for credit cap
         user_prefs = pref_col.find_one({"uid": uid}, sort=[("_id", -1)])
         if not user_prefs:
             return {"success": False, "error": "No preferences found for user"}
-        
-        # Build completed courses set
-        completed_codes = set()
-        for key in ["incoming_transfer_courses", "incoming_test_courses", "emory_courses", "spring_2026_courses"]:
-            courses = user_courses.get(key, [])
-            if courses:
-                completed_codes.update(courses)
-        
-        # Get time unavailable blocks
-        time_unavailable = user_prefs.get("timeUnavailable", [])
-        
-        # Get all enriched courses
-        all_courses = list(enriched_courses_col.find({}))
-        
-        # Filter out completed courses
-        available_courses = filter_completed_courses(all_courses, completed_codes)
-        
-        # Filter out courses that conflict with unavailable times
-        filtered_courses = []
-        for course in available_courses:
-            if not check_time_conflict(course, time_unavailable):
-                filtered_courses.append(course)
-        
-        if not filtered_courses:
-            return {"success": False, "error": "No available courses after filtering"}
-        
-        # Score courses using ML model
-        for course in filtered_courses:
-            course["score"] = score_course_ml(course, model)
-            course["normalized_code"] = normalize_code(course.get("code", ""))
-        
-        # Sort by score
-        filtered_courses.sort(key=lambda x: x.get("score", 0), reverse=True)
-        
-        # Get preferred credits
+
         pref_credits = user_prefs.get("preferredCredits", 16)
         try:
             max_credits = int(pref_credits)
         except (ValueError, TypeError):
             max_credits = 16
-        
-        # Build schedules
+
+        # Use the new ML recommendation engine (with smart filtering and prioritization)
+        print(f"[ML Engine] Calling recommend_courses_for_user with Model logic")
+        recommended_courses = recommend_courses_for_user(
+            uid=uid,
+            course_col=course_col,
+            pref_col=pref_col,
+            enriched_courses_col=enriched_courses_col,
+            basic_courses_col=basic_courses_col,
+            rmp_col=rmp_col,
+            top_n=200,  # Get top 200 prioritized courses
+            min_rating=0.0,
+            instruction_method=None,
+            use_trained_model=True
+        )
+
+        if not recommended_courses:
+            return {"success": False, "error": "No qualified courses found"}
+
+        print(f"[ML Engine] Got {len(recommended_courses)} recommended courses, building schedules")
+
+        # Map score_ml to score for compatibility with build_conflict_free_schedules
+        for course in recommended_courses:
+            course["score"] = course.get("score_ml", 0)
+            course["normalized_code"] = normalize_code(course.get("code", ""))
+
+        # Build conflict-free schedules from the prioritized courses
         schedules = build_conflict_free_schedules(
-            filtered_courses,
+            recommended_courses,
             num_schedules=num_recommendations,
             max_credits=max_credits
         )
-        
+
         if not schedules:
             return {"success": False, "error": "Could not build any valid schedules"}
-        
+
         # Clean up courses for JSON serialization
         for schedule in schedules:
             for course in schedule["courses"]:
                 course.pop("_id", None)
-        
+
+        print(f"[ML Engine] Successfully generated {len(schedules)} schedules")
+
+        # Add metadata about the recommendations
         return {
             "success": True,
             "schedules": schedules,
             "count": len(schedules),
             "engine": "ml",
             "metadata": {
-                "model_loaded": model is not None,
-                "total_available_courses": len(filtered_courses),
-                "completed_courses": len(completed_codes),
+                "model_loaded": True,
+                "total_qualified_courses": len(recommended_courses),
+                "ger_due_courses": sum(1 for c in recommended_courses if c.get("reason_ger_due")),
+                "major_must_courses": sum(1 for c in recommended_courses if c.get("reason_major_must")),
+                "major_elec_courses": sum(1 for c in recommended_courses if c.get("reason_major_elec")),
                 "generated_at": datetime.utcnow().isoformat()
             }
         }
-        
+
     except Exception as e:
         import traceback
         traceback.print_exc()

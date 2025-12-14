@@ -113,37 +113,46 @@ class IntegratedRecommendationEngine:
         unavailable_blocks = self._parse_time_unavailable(user_prefs.get('timeUnavailable', []))
         time_pref = user_prefs.get('timePreference')
         
-        # 5. Score all courses
+        # 5. Score all courses (optimized with early bailouts and batch processing)
         heap = FibonacciHeap()
         eligible_count = 0
-        
+        interests = user_prefs.get('interests', [])
+
+        # Pre-compute interest strings for faster matching
+        interests_lower = [i.lower() for i in interests] if interests else []
+
         for course in all_courses:
-            course_code = normalize_course_code(course.get('code', ''))
-            
-            # Skip if already taken
+            # Get and normalize code (cache in local var)
+            code_raw = course.get('code', '')
+            if not code_raw:
+                continue
+            course_code = normalize_course_code(code_raw)
+
+            # Skip if already taken (early bailout #1)
             if course_code in completed:
                 continue
-            
-            # Skip if time conflict
-            if self._has_time_conflict(course, unavailable_blocks):
+
+            # Skip if time conflict (early bailout #2)
+            if unavailable_blocks and self._has_time_conflict(course, unavailable_blocks):
                 continue
-            
-            # Calculate score
+
+            # Calculate score (pass pre-computed interest list)
             score = self._calculate_score(
                 course=course,
                 course_code=course_code,
                 needed_must=needed_must,
                 needed_electives=needed_electives,
-                interests=user_prefs.get('interests', []),
+                interests=interests_lower,
                 time_pref=time_pref,
                 completed=completed
             )
-            
+
+            # Only add to heap if score is positive (early bailout #3)
             if score > 0:
-                course_with_score = course.copy()
-                course_with_score['recommendation_score'] = score
-                course_with_score['normalized_code'] = course_code
-                heap.insert(score, course_with_score)
+                # Avoid dict.copy() - add score directly
+                course['recommendation_score'] = score
+                course['normalized_code'] = course_code
+                heap.insert(score, course)
                 eligible_count += 1
         
         # 6. Extract top K
@@ -275,13 +284,14 @@ class IntegratedRecommendationEngine:
             # No rating = neutral (7.5 points)
             score += 7.5
         
-        # 3. INTERESTS
-        title = course.get('title', '').lower()
-        for interest in interests:
-            interest_lower = interest.lower()
-            if interest_lower in title or interest_lower in course_code.lower():
-                score += 10.0
-                break
+        # 3. INTERESTS (optimized - interests already lowercased)
+        if interests:
+            title = course.get('title', '').lower()
+            course_code_lower = course_code.lower()
+            for interest_lower in interests:
+                if interest_lower in title or interest_lower in course_code_lower:
+                    score += 10.0
+                    break
         
         # 4. TIME PREFERENCE
         if time_pref and len(time_pref) == 2:
